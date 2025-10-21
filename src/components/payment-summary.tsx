@@ -1,211 +1,117 @@
 "use client";
 
-import { useMemo } from "react";
-
-interface CheckedOutGuest {
-  id: string;
-  guestName: string;
-  roomType: string;
-  checkInDate: string;
-  checkOutDate: string;
-  paymentMethod: string;
-  baseCharge: number;
-  additionalCharges: number;
-  totalRevenue: number;
-  isPaid: boolean;
-}
-
 interface PaymentSummaryProps {
-  checkedOutGuests: CheckedOutGuest[];
+  breakdown: Record<string, number>;
 }
 
-export function PaymentSummary({ checkedOutGuests }: PaymentSummaryProps) {
-  const summary = useMemo(() => {
-    const totalCheckouts = checkedOutGuests.length;
-    const totalRevenue = checkedOutGuests.reduce((sum, guest) => sum + guest.totalRevenue, 0);
-    const paidRevenue = checkedOutGuests
-      .filter(guest => guest.isPaid)
-      .reduce((sum, guest) => sum + guest.totalRevenue, 0);
-    const pendingPayments = totalRevenue - paidRevenue;
-    const additionalChargesTotal = checkedOutGuests.reduce(
-      (sum, guest) => sum + guest.additionalCharges,
-      0
-    );
-    const paymentMethodBreakdown = {
-      cash: checkedOutGuests.filter(g => g.paymentMethod === "Cash").length,
-      card: checkedOutGuests.filter(g => g.paymentMethod === "Card").length,
-      online: checkedOutGuests.filter(g => g.paymentMethod === "Online").length,
-    };
+export function PaymentSummary({ breakdown }: PaymentSummaryProps) {
+  const total = Object.values(breakdown).reduce((sum, val) => sum + val, 0);
+  const circumference = 2 * Math.PI * 45;
 
-    return {
-      totalCheckouts,
-      totalRevenue,
-      paidRevenue,
-      pendingPayments,
-      additionalChargesTotal,
-      paymentMethodBreakdown,
-    };
-  }, [checkedOutGuests]);
-
-  const stats = [
-    {
-      label: "Total Checkouts",
-      value: summary.totalCheckouts,
-      color: "#0066cc",
-      icon: "🏨",
-    },
-    {
-      label: "Total Revenue",
-      value: `$${summary.totalRevenue.toFixed(2)}`,
-      color: "#28a745",
-      icon: "💰",
-    },
-    {
-      label: "Paid Payments",
-      value: `$${summary.paidRevenue.toFixed(2)}`,
-      color: "#17a2b8",
-      icon: "✓",
-    },
-    {
-      label: "Pending Payments",
-      value: `$${summary.pendingPayments.toFixed(2)}`,
-      color: "#ffc107",
-      icon: "⏳",
-    },
-    {
-      label: "Additional Charges",
-      value: `$${summary.additionalChargesTotal.toFixed(2)}`,
-      color: "#dc3545",
-      icon: "📌",
-    },
+  const data = [
+    { label: "Cash", value: breakdown["Cash"] || 0, color: "#28a745" },
+    { label: "Card", value: breakdown["Card"] || 0, color: "#0066cc" },
+    { label: "Bank Transfer", value: breakdown["Bank Transfer"] || 0, color: "#20c997" },
+    { label: "Pending", value: breakdown["Pending"] || 0, color: "#ffc107" },
   ];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-      <div className="stat-grid">
-        {stats.map((stat, index) => (
-          <div key={index} className="stat-card">
-            <div style={{ fontSize: "24px", marginBottom: "12px" }}>{stat.icon}</div>
-            <div className="stat-label">{stat.label}</div>
-            <div className="stat-value" style={{ color: stat.color }}>
-              {stat.value}
-            </div>
-          </div>
-        ))}
-      </div>
+    <div
+      style={{
+        background: "var(--card-bg)",
+        border: "1px solid var(--border)",
+        borderRadius: "8px",
+        padding: "24px",
+      }}
+    >
+      <h3 style={{ margin: "0 0 24px 0", fontSize: "16px", fontWeight: "600", color: "var(--foreground)" }}>
+        Payment Distribution
+      </h3>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "16px" }}>
-        <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "8px", padding: "20px" }}>
-          <h3 style={{ margin: "0 0 16px 0", fontSize: "16px", fontWeight: "600" }}>
-            Payment Method Breakdown
-          </h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px" }}>
-              <span style={{ color: "var(--secondary)", fontSize: "14px" }}>💳 Card</span>
-              <span style={{ fontWeight: "600", color: "var(--foreground)" }}>
-                {summary.paymentMethodBreakdown.card}
-              </span>
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px" }}>
-              <span style={{ color: "var(--secondary)", fontSize: "14px" }}>💵 Cash</span>
-              <span style={{ fontWeight: "600", color: "var(--foreground)" }}>
-                {summary.paymentMethodBreakdown.cash}
-              </span>
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px" }}>
-              <span style={{ color: "var(--secondary)", fontSize: "14px" }}>🌐 Online</span>
-              <span style={{ fontWeight: "600", color: "var(--foreground)" }}>
-                {summary.paymentMethodBreakdown.online}
-              </span>
-            </div>
-          </div>
-        </div>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "48px" }}>
+        <div style={{ position: "relative", width: "120px", height: "120px" }}>
+          <svg
+            width="120"
+            height="120"
+            style={{
+              transform: "rotate(-90deg)",
+            }}
+          >
+            <circle
+              cx="60"
+              cy="60"
+              r="45"
+              fill="none"
+              stroke="#e0e0e0"
+              strokeWidth="8"
+            />
+            {data.map((item, idx) => {
+              const percentage = total > 0 ? item.value / total : 0;
+              const offset = data.slice(0, idx).reduce((sum, d) => {
+                const dPct = total > 0 ? d.value / total : 0;
+                return sum + (dPct * circumference);
+              }, 0);
+              const value = percentage * circumference;
 
-        <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "8px", padding: "20px" }}>
-          <h3 style={{ margin: "0 0 16px 0", fontSize: "16px", fontWeight: "600" }}>
-            Daily Summary
-          </h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "8px",
-                backgroundColor: "var(--background)",
-                borderRadius: "4px",
-              }}
-            >
-              <span style={{ color: "var(--secondary)", fontSize: "14px" }}>
-                Completion Rate
-              </span>
-              <span style={{ fontWeight: "600", color: "var(--success)" }}>
-                {summary.totalCheckouts > 0
-                  ? `${Math.round((summary.paidRevenue / summary.totalRevenue) * 100)}%`
-                  : "0%"}
-              </span>
+              return (
+                <circle
+                  key={item.label}
+                  cx="60"
+                  cy="60"
+                  r="45"
+                  fill="none"
+                  stroke={item.color}
+                  strokeWidth="8"
+                  strokeDasharray={`${value} ${circumference}`}
+                  strokeDashoffset={-offset}
+                  strokeLinecap="round"
+                />
+              );
+            })}
+          </svg>
+
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              textAlign: "center",
+            }}
+          >
+            <div style={{ fontSize: "20px", fontWeight: "700", color: "var(--foreground)" }}>
+              ${total.toFixed(0)}
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "8px",
-                backgroundColor: "var(--background)",
-                borderRadius: "4px",
-              }}
-            >
-              <span style={{ color: "var(--secondary)", fontSize: "14px" }}>
-                Avg. Revenue/Guest
-              </span>
-              <span style={{ fontWeight: "600", color: "var(--primary)" }}>
-                {summary.totalCheckouts > 0
-                  ? `$${(summary.totalRevenue / summary.totalCheckouts).toFixed(2)}`
-                  : "$0.00"}
-              </span>
-            </div>
+            <div style={{ fontSize: "11px", color: "var(--secondary)" }}>Total</div>
           </div>
         </div>
-      </div>
 
-      {checkedOutGuests.length > 0 && (
-        <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "8px", padding: "20px" }}>
-          <h3 style={{ margin: "0 0 16px 0", fontSize: "16px", fontWeight: "600" }}>
-            Recent Check-outs
-          </h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            {checkedOutGuests.slice(0, 5).map(guest => (
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {data.map(item => (
+            <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <div
-                key={guest.id}
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "12px",
-                  backgroundColor: "var(--background)",
-                  borderRadius: "4px",
-                  fontSize: "14px",
+                  width: "12px",
+                  height: "12px",
+                  borderRadius: "50%",
+                  background: item.color,
                 }}
-              >
-                <span style={{ color: "var(--foreground)", fontWeight: "500" }}>
-                  {guest.guestName}
+              />
+              <span style={{ fontSize: "13px", color: "var(--foreground)", minWidth: "110px" }}>
+                {item.label}
+              </span>
+              <span style={{ fontSize: "13px", fontWeight: "600", color: item.color, minWidth: "100px", textAlign: "right" }}>
+                ${item.value.toFixed(2)}
+              </span>
+              {total > 0 && (
+                <span style={{ fontSize: "12px", color: "var(--secondary)" }}>
+                  ({((item.value / total) * 100).toFixed(1)}%)
                 </span>
-                <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-                  <span style={{ color: "var(--secondary)" }}>{guest.paymentMethod}</span>
-                  <span
-                    style={{
-                      fontWeight: "600",
-                      color: guest.isPaid ? "var(--success)" : "var(--warning)",
-                    }}
-                  >
-                    ${guest.totalRevenue.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+              )}
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
