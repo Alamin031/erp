@@ -106,6 +106,28 @@ export const useAccounting = create<AccountingStore>()(
       setFilters: (filters) => set({ filters }),
       setSelectedTab: (tab) => set({ selectedTab: tab }),
 
+      initializeDemoData: async () => {
+        try {
+          const [arRes, apRes, banksRes, ledgerRes, coaRes] = await Promise.all([
+            fetch("/data/ar.json"),
+            fetch("/data/ap.json"),
+            fetch("/data/banks.json"),
+            fetch("/data/ledger.json"),
+            fetch("/data/chart-of-accounts.json"),
+          ]);
+
+          const ar = await arRes.json();
+          const ap = await apRes.json();
+          const banks = await banksRes.json();
+          const ledger = await ledgerRes.json();
+          const chartOfAccounts = await coaRes.json();
+
+          set({ ar, ap, banks, ledger, chartOfAccounts });
+        } catch (error) {
+          console.error("Failed to load demo data:", error);
+        }
+      },
+
       recordPayment: (invoiceId, amount, method, reference) => {
         set(state => ({
           ar: state.ar.map(inv =>
