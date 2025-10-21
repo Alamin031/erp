@@ -37,6 +37,7 @@ interface AccountingStore {
   deleteJournalEntry: (entryId: string) => void;
   reconcileBankTransaction: (txnId: string, paymentId: string) => void;
   unreconcileBankTransaction: (txnId: string) => void;
+  initializeDemoData: () => Promise<void>;
 
   getARStats: () => {
     totalAR: number;
