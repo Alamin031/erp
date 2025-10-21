@@ -70,7 +70,7 @@ export const middleware = withAuth(
     }
 
     const matchedRoute = getMatchingRoute(pathname);
-    
+
     if (!matchedRoute) {
       // If no protection rule, allow access
       return;
@@ -80,7 +80,7 @@ export const middleware = withAuth(
     const userRole = req.nextauth?.token?.role;
 
     if (!userRole || !allowedRoles.includes(userRole)) {
-      // Redirect to unauthorized page or dashboard
+      // Redirect to unauthorized page if user doesn't have required role
       return new Response(null, {
         status: 307,
         headers: {
@@ -91,7 +91,15 @@ export const middleware = withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => {
+      authorized: ({ token, req }) => {
+        const pathname = req.nextUrl.pathname;
+
+        // Allow auth routes and public routes without token
+        if (pathname.startsWith("/login") || pathname.startsWith("/api/auth") || pathname === "/" || pathname.startsWith("/public")) {
+          return true;
+        }
+
+        // Require token for protected routes
         return !!token;
       },
     },
