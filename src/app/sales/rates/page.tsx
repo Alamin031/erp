@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
-import { Rate, RateFilters } from "@/types/rates";
+import { Rate, RateFilters, Channel } from "@/types/rates";
 import { useRates } from "@/store/useRates";
 import { RatesSummaryCards } from "@/components/rates-summary-cards";
 import { RatesFilterBar } from "@/components/rates-filter-bar";
@@ -76,7 +76,7 @@ export default function RatesPage() {
             name: "Standard Room Base Rate",
             roomType: "Standard",
             rateType: "Base" as const,
-            channels: ["All"] as const[],
+            channels: ["All"] as Channel[],
             effectiveFrom: "2025-01-01",
             effectiveTo: "2025-12-31",
             basePrice: 99.0,
@@ -97,7 +97,7 @@ export default function RatesPage() {
             name: "Deluxe Room Base Rate",
             roomType: "Deluxe",
             rateType: "Base" as const,
-            channels: ["All"] as const[],
+            channels: ["All"] as Channel[],
             effectiveFrom: "2025-01-01",
             effectiveTo: "2025-12-31",
             basePrice: 149.0,
@@ -118,7 +118,7 @@ export default function RatesPage() {
             name: "Suite Base Rate",
             roomType: "Suite",
             rateType: "Base" as const,
-            channels: ["All"] as const[],
+            channels: ["All"] as Channel[],
             effectiveFrom: "2025-01-01",
             effectiveTo: "2025-12-31",
             basePrice: 249.0,
