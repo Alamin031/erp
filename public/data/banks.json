@@ -1,0 +1,35 @@
+[
+  {
+    "id": "bank-001",
+    "accountNumber": "9876543210",
+    "accountName": "Operating Account",
+    "bankName": "First National Bank",
+    "balance": 45000.00,
+    "currency": "USD",
+    "lastReconciled": "2024-02-20T16:00:00Z",
+    "status": "Active",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "bank-002",
+    "accountNumber": "9876543211",
+    "accountName": "Savings Account",
+    "bankName": "First National Bank",
+    "balance": 25000.00,
+    "currency": "USD",
+    "lastReconciled": "2024-02-15T16:00:00Z",
+    "status": "Active",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "bank-003",
+    "accountNumber": "9876543212",
+    "accountName": "Petty Cash Account",
+    "bankName": "City Bank",
+    "balance": 5000.00,
+    "currency": "USD",
+    "lastReconciled": "2024-02-18T16:00:00Z",
+    "status": "Active",
+    "createdAt": "2024-01-01T00:00:00Z"
+  }
+]

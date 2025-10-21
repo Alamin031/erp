@@ -1,0 +1,122 @@
+[
+  {
+    "id": "je-001",
+    "referenceNumber": "JE-2024-001",
+    "date": "2024-02-01",
+    "lines": [
+      {
+        "accountId": "1000",
+        "accountCode": "1000",
+        "accountName": "Cash",
+        "type": "Debit",
+        "amount": 5000.00,
+        "description": "Initial cash deposit"
+      },
+      {
+        "accountId": "3000",
+        "accountCode": "3000",
+        "accountName": "Capital Stock",
+        "type": "Credit",
+        "amount": 5000.00,
+        "description": "Initial capital investment"
+      }
+    ],
+    "description": "Initial capital contribution",
+    "isPosted": true,
+    "createdAt": "2024-02-01T09:00:00Z",
+    "createdBy": "admin",
+    "postedAt": "2024-02-01T09:30:00Z",
+    "postedBy": "admin",
+    "updatedAt": "2024-02-01T09:30:00Z"
+  },
+  {
+    "id": "je-002",
+    "referenceNumber": "JE-2024-002",
+    "date": "2024-02-05",
+    "lines": [
+      {
+        "accountId": "1200",
+        "accountCode": "1200",
+        "accountName": "Accounts Receivable",
+        "type": "Debit",
+        "amount": 8500.00,
+        "description": "Invoice issued"
+      },
+      {
+        "accountId": "4000",
+        "accountCode": "4000",
+        "accountName": "Service Revenue",
+        "type": "Credit",
+        "amount": 8500.00,
+        "description": "Room rental revenue"
+      }
+    ],
+    "description": "Record room rental revenue",
+    "isPosted": true,
+    "createdAt": "2024-02-05T10:00:00Z",
+    "createdBy": "accountant",
+    "postedAt": "2024-02-05T10:15:00Z",
+    "postedBy": "admin",
+    "updatedAt": "2024-02-05T10:15:00Z"
+  },
+  {
+    "id": "je-003",
+    "referenceNumber": "JE-2024-003",
+    "date": "2024-02-10",
+    "lines": [
+      {
+        "accountId": "1000",
+        "accountCode": "1000",
+        "accountName": "Cash",
+        "type": "Debit",
+        "amount": 3200.00,
+        "description": "Payment received"
+      },
+      {
+        "accountId": "1200",
+        "accountCode": "1200",
+        "accountName": "Accounts Receivable",
+        "type": "Credit",
+        "amount": 3200.00,
+        "description": "Payment on invoice"
+      }
+    ],
+    "description": "Record payment received",
+    "isPosted": true,
+    "createdAt": "2024-02-10T14:00:00Z",
+    "createdBy": "accountant",
+    "postedAt": "2024-02-10T14:30:00Z",
+    "postedBy": "admin",
+    "updatedAt": "2024-02-10T14:30:00Z"
+  },
+  {
+    "id": "je-004",
+    "referenceNumber": "JE-2024-004",
+    "date": "2024-02-15",
+    "lines": [
+      {
+        "accountId": "5000",
+        "accountCode": "5000",
+        "accountName": "Supplies Expense",
+        "type": "Debit",
+        "amount": 2500.00,
+        "description": "Office supplies purchase"
+      },
+      {
+        "accountId": "2000",
+        "accountCode": "2000",
+        "accountName": "Accounts Payable",
+        "type": "Credit",
+        "amount": 2500.00,
+        "description": "Bill received from supplier"
+      }
+    ],
+    "description": "Record supplies purchase",
+    "isPosted": true,
+    "createdAt": "2024-02-15T11:00:00Z",
+    "createdBy": "accountant",
+    "postedAt": "2024-02-15T11:30:00Z",
+    "postedBy": "admin",
+    "updatedAt": "2024-02-15T11:30:00Z"
+  }
+]
