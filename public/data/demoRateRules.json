@@ -1,0 +1,112 @@
+[
+  {
+    "id": "RULE-001",
+    "name": "Weekend Rate Increase",
+    "description": "Increase rate by 20% on weekends",
+    "operator": "percentage_increase",
+    "value": 20,
+    "conditions": [
+      {
+        "type": "weekday",
+        "operator": "equals",
+        "value": 6
+      }
+    ],
+    "weekdayDifferentials": {
+      "monday": 0,
+      "tuesday": 0,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 10,
+      "saturday": 20,
+      "sunday": 15
+    },
+    "priority": 1,
+    "createdAt": "2025-01-01T08:00:00Z",
+    "updatedAt": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "RULE-002",
+    "name": "High Occupancy Surge",
+    "description": "Add 15% to rate when occupancy exceeds 80%",
+    "operator": "percentage_increase",
+    "value": 15,
+    "conditions": [
+      {
+        "type": "occupancy",
+        "operator": "greater_than",
+        "value": 80
+      }
+    ],
+    "priority": 2,
+    "createdAt": "2025-02-15T10:00:00Z",
+    "updatedAt": "2025-02-15T10:00:00Z"
+  },
+  {
+    "id": "RULE-003",
+    "name": "Extended Stay Discount",
+    "description": "Reduce rate by 10% for stays longer than 7 nights",
+    "operator": "percentage_decrease",
+    "value": 10,
+    "conditions": [
+      {
+        "type": "length_of_stay",
+        "operator": "greater_than",
+        "value": 7
+      }
+    ],
+    "priority": 3,
+    "createdAt": "2025-03-01T09:00:00Z",
+    "updatedAt": "2025-03-01T09:00:00Z"
+  },
+  {
+    "id": "RULE-004",
+    "name": "Early Booking Discount",
+    "description": "5% discount for bookings made 30+ days in advance",
+    "operator": "percentage_decrease",
+    "value": 5,
+    "conditions": [
+      {
+        "type": "lead_time",
+        "operator": "greater_than",
+        "value": 30
+      }
+    ],
+    "priority": 2,
+    "createdAt": "2025-04-10T11:00:00Z",
+    "updatedAt": "2025-04-10T11:00:00Z"
+  },
+  {
+    "id": "RULE-005",
+    "name": "Corporate Channel Discount",
+    "description": "OTA channels: -5%, Direct: 0%, Corporate: -10%",
+    "operator": "multiplier",
+    "value": 1,
+    "channelMultipliers": {
+      "OTA": 0.95,
+      "Direct": 1.0,
+      "Corporate": 0.9,
+      "All": 1.0
+    },
+    "priority": 4,
+    "createdAt": "2025-05-01T08:00:00Z",
+    "updatedAt": "2025-05-01T08:00:00Z"
+  },
+  {
+    "id": "RULE-006",
+    "name": "Last Minute Promo Surcharge",
+    "description": "Add $10 fixed surcharge for last-minute bookings",
+    "operator": "fixed_surcharge",
+    "value": 10,
+    "conditions": [
+      {
+        "type": "lead_time",
+        "operator": "less_than",
+        "value": 3
+      }
+    ],
+    "priority": 5,
+    "createdAt": "2025-06-01T10:00:00Z",
+    "updatedAt": "2025-09-05T14:00:00Z"
+  }
+]
