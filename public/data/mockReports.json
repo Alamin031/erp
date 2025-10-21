@@ -1,0 +1,129 @@
+[
+  {
+    "id": "RPT-001",
+    "date": "2025-09-15",
+    "type": "Revenue",
+    "category": "Room Bookings",
+    "amount": 52000,
+    "createdBy": "Admin",
+    "branch": "Dhaka",
+    "paymentMethod": "Credit Card",
+    "description": "Revenue from room bookings for September",
+    "details": [
+      { "name": "Single Room", "amount": 15000 },
+      { "name": "Double Room", "amount": 20000 },
+      { "name": "Suite", "amount": 17000 }
+    ]
+  },
+  {
+    "id": "RPT-002",
+    "date": "2025-09-16",
+    "type": "Expense",
+    "category": "Maintenance",
+    "amount": 8500,
+    "createdBy": "Finance Dept",
+    "branch": "Chittagong",
+    "paymentMethod": "Bank Transfer",
+    "description": "Monthly maintenance expenses",
+    "details": [
+      { "name": "HVAC Repair", "amount": 3500 },
+      { "name": "Plumbing Fix", "amount": 2500 },
+      { "name": "Electrical Work", "amount": 2500 }
+    ]
+  },
+  {
+    "id": "RPT-003",
+    "date": "2025-09-17",
+    "type": "Revenue",
+    "category": "Food & Beverage",
+    "amount": 18500,
+    "createdBy": "Admin",
+    "branch": "Dhaka",
+    "paymentMethod": "Cash",
+    "description": "Food and beverage sales",
+    "details": [
+      { "name": "Restaurant Sales", "amount": 10000 },
+      { "name": "Bar Sales", "amount": 5000 },
+      { "name": "Room Service", "amount": 3500 }
+    ]
+  },
+  {
+    "id": "RPT-004",
+    "date": "2025-09-18",
+    "type": "Expense",
+    "category": "Utilities",
+    "amount": 5200,
+    "createdBy": "Operations",
+    "branch": "Sylhet",
+    "paymentMethod": "Bank Transfer",
+    "description": "Electricity and water charges",
+    "details": [
+      { "name": "Electricity", "amount": 3200 },
+      { "name": "Water", "amount": 2000 }
+    ]
+  },
+  {
+    "id": "RPT-005",
+    "date": "2025-09-19",
+    "type": "Revenue",
+    "category": "Event Hosting",
+    "amount": 35000,
+    "createdBy": "Sales Manager",
+    "branch": "Dhaka",
+    "paymentMethod": "Bank Transfer",
+    "description": "Event and conference hosting revenue",
+    "details": [
+      { "name": "Wedding Venue", "amount": 20000 },
+      { "name": "Conference Room", "amount": 10000 },
+      { "name": "Catering Service", "amount": 5000 }
+    ]
+  },
+  {
+    "id": "RPT-006",
+    "date": "2025-09-20",
+    "type": "Expense",
+    "category": "Staffing",
+    "amount": 22000,
+    "createdBy": "HR Department",
+    "branch": "Dhaka",
+    "paymentMethod": "Bank Transfer",
+    "description": "Staff salaries and allowances",
+    "details": [
+      { "name": "Front Desk", "amount": 8000 },
+      { "name": "Housekeeping", "amount": 9000 },
+      { "name": "Management", "amount": 5000 }
+    ]
+  },
+  {
+    "id": "RPT-007",
+    "date": "2025-09-21",
+    "type": "Revenue",
+    "category": "Miscellaneous",
+    "amount": 12500,
+    "createdBy": "Admin",
+    "branch": "Chittagong",
+    "paymentMethod": "Credit Card",
+    "description": "Other revenue sources",
+    "details": [
+      { "name": "Parking Fees", "amount": 5000 },
+      { "name": "Guest Services", "amount": 4500 },
+      { "name": "Late Checkout", "amount": 3000 }
+    ]
+  },
+  {
+    "id": "RPT-008",
+    "date": "2025-09-22",
+    "type": "Expense",
+    "category": "Marketing",
+    "amount": 3500,
+    "createdBy": "Marketing Team",
+    "branch": "Dhaka",
+    "paymentMethod": "Credit Card",
+    "description": "Digital marketing and advertising",
+    "details": [
+      { "name": "Social Media Ads", "amount": 1500 },
+      { "name": "Google Ads", "amount": 1500 },
+      { "name": "Promotional Materials", "amount": 500 }
+    ]
+  }
+]
