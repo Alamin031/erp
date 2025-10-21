@@ -1,16 +1,15 @@
 "use client";
 
 import { ReactNode } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, SessionProvider } from "next-auth/react";
 import { Sidebar } from "@/components/sidebar";
 import { LogoutButton } from "@/components/logout-button";
-import { redirect } from "next/navigation";
 
 interface DashboardLayoutProps {
   children: ReactNode;
 }
 
-export function DashboardLayout({ children }: DashboardLayoutProps) {
+function DashboardLayoutContent({ children }: DashboardLayoutProps) {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
@@ -22,7 +21,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   }
 
   if (status === "unauthenticated") {
-    redirect("/login");
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner">Redirecting to login...</div>
+      </div>
+    );
   }
 
   const user = session?.user as any;
@@ -45,5 +48,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         </main>
       </div>
     </div>
+  );
+}
+
+export function DashboardLayout({ children }: DashboardLayoutProps) {
+  return (
+    <SessionProvider>
+      <DashboardLayoutContent>{children}</DashboardLayoutContent>
+    </SessionProvider>
   );
 }

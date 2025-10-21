@@ -1,7 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
-import { ROLE_LABELS } from "@/lib/role-permissions";
+import { ROLE_LABELS } from "@/types/auth";
 import type { UserRole } from "@/types/auth";
 
 // Dashboard components for each role
