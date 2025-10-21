@@ -7,29 +7,31 @@ import { z } from "zod";
 import { ReservationFormInput } from "@/types/reservation";
 import { useToast } from "./toast";
 
-const reservationSchema = z.object({
-  guestName: z.string().min(2, "Guest name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(10, "Phone number must be at least 10 characters"),
-  roomType: z.enum(["Single", "Double", "Suite", "Deluxe"], {
-    errorMap: () => ({ message: "Please select a room type" }),
-  }),
-  checkInDate: z.string().refine(date => {
-    const selectedDate = new Date(date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return selectedDate >= today;
-  }, "Check-in date must be today or later"),
-  checkOutDate: z.string(),
-  numberOfGuests: z.number().min(1, "At least 1 guest required").max(6, "Maximum 6 guests"),
-  notes: z.string().optional(),
-}).refine(
-  (data) => new Date(data.checkOutDate) > new Date(data.checkInDate),
-  {
+const reservationSchema = z
+  .object({
+    guestName: z.string().min(2, "Guest name must be at least 2 characters"),
+    email: z.string().email("Invalid email address"),
+    phone: z.string().min(10, "Phone number must be at least 10 characters"),
+    roomType: z.enum(["Single", "Double", "Suite", "Deluxe"] as const, {
+      message: "Please select a room type",
+    }),
+    checkInDate: z.string().refine((date) => {
+      const selectedDate = new Date(date);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return selectedDate >= today;
+    }, "Check-in date must be today or later"),
+    checkOutDate: z.string(),
+    numberOfGuests: z
+      .number()
+      .min(1, "At least 1 guest required")
+      .max(6, "Maximum 6 guests"),
+    notes: z.string().optional(),
+  })
+  .refine((data) => new Date(data.checkOutDate) > new Date(data.checkInDate), {
     message: "Check-out date must be after check-in date",
     path: ["checkOutDate"],
-  }
-);
+  });
 
 interface ReservationFormProps {
   isOpen: boolean;
@@ -37,7 +39,11 @@ interface ReservationFormProps {
   onSubmit?: (data: ReservationFormInput) => void;
 }
 
-export function ReservationForm({ isOpen, onClose, onSubmit }: ReservationFormProps) {
+export function ReservationForm({
+  isOpen,
+  onClose,
+  onSubmit,
+}: ReservationFormProps) {
   const { showToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -57,12 +63,12 @@ export function ReservationForm({ isOpen, onClose, onSubmit }: ReservationFormPr
   const onSubmitForm = async (data: ReservationFormInput) => {
     setIsSubmitting(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API call
-      
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
       if (onSubmit) {
         onSubmit(data);
       }
-      
+
       showToast("Reservation Added Successfully", "success");
       reset();
       onClose();
@@ -81,7 +87,9 @@ export function ReservationForm({ isOpen, onClose, onSubmit }: ReservationFormPr
       <div className="modal">
         <div className="modal-header">
           <h2>Add New Reservation</h2>
-          <button className="modal-close" onClick={onClose}>✕</button>
+          <button className="modal-close" onClick={onClose}>
+            ✕
+          </button>
         </div>
 
         <form onSubmit={handleSubmit(onSubmitForm)} className="modal-form">
@@ -94,7 +102,9 @@ export function ReservationForm({ isOpen, onClose, onSubmit }: ReservationFormPr
               placeholder="Enter guest name"
               disabled={isSubmitting}
             />
-            {errors.guestName && <span className="form-error">{errors.guestName.message}</span>}
+            {errors.guestName && (
+              <span className="form-error">{errors.guestName.message}</span>
+            )}
           </div>
 
           <div className="form-row">
@@ -107,7 +117,9 @@ export function ReservationForm({ isOpen, onClose, onSubmit }: ReservationFormPr
                 placeholder="guest@example.com"
                 disabled={isSubmitting}
               />
-              {errors.email && <span className="form-error">{errors.email.message}</span>}
+              {errors.email && (
+                <span className="form-error">{errors.email.message}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -119,7 +131,9 @@ export function ReservationForm({ isOpen, onClose, onSubmit }: ReservationFormPr
                 placeholder="+1-555-0000"
                 disabled={isSubmitting}
               />
-              {errors.phone && <span className="form-error">{errors.phone.message}</span>}
+              {errors.phone && (
+                <span className="form-error">{errors.phone.message}</span>
+              )}
             </div>
           </div>
 
@@ -135,7 +149,9 @@ export function ReservationForm({ isOpen, onClose, onSubmit }: ReservationFormPr
               <option value="Suite">Suite</option>
               <option value="Deluxe">Deluxe</option>
             </select>
-            {errors.roomType && <span className="form-error">{errors.roomType.message}</span>}
+            {errors.roomType && (
+              <span className="form-error">{errors.roomType.message}</span>
+            )}
           </div>
 
           <div className="form-row">
@@ -147,7 +163,9 @@ export function ReservationForm({ isOpen, onClose, onSubmit }: ReservationFormPr
                 className="form-input"
                 disabled={isSubmitting}
               />
-              {errors.checkInDate && <span className="form-error">{errors.checkInDate.message}</span>}
+              {errors.checkInDate && (
+                <span className="form-error">{errors.checkInDate.message}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -158,7 +176,11 @@ export function ReservationForm({ isOpen, onClose, onSubmit }: ReservationFormPr
                 className="form-input"
                 disabled={isSubmitting}
               />
-              {errors.checkOutDate && <span className="form-error">{errors.checkOutDate.message}</span>}
+              {errors.checkOutDate && (
+                <span className="form-error">
+                  {errors.checkOutDate.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -172,7 +194,11 @@ export function ReservationForm({ isOpen, onClose, onSubmit }: ReservationFormPr
               max="6"
               disabled={isSubmitting}
             />
-            {errors.numberOfGuests && <span className="form-error">{errors.numberOfGuests.message}</span>}
+            {errors.numberOfGuests && (
+              <span className="form-error">
+                {errors.numberOfGuests.message}
+              </span>
+            )}
           </div>
 
           <div className="form-group">
