@@ -268,7 +268,8 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const user = session.user as any;
+  // ensure TypeScript knows the shape of user.role so it can index dashboardComponents
+  const user = session.user as { role: UserRole; name?: string };
   const DashboardContent = dashboardComponents[user.role];
 
   return (
