@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { UserRole } from "@/types/auth";
-import { getNavItemsForRole, ROLE_LABELS } from "@/lib/role-permissions";
+import { ROLE_LABELS } from "@/types/auth";
+import { getNavItemsForRole } from "@/lib/role-permissions";
 import type { NavItem } from "@/lib/role-permissions";
 
 interface SidebarProps {

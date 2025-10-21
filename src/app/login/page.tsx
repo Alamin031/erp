@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { ROLE_LABELS } from "@/lib/role-permissions";
+import { ROLE_LABELS } from "@/types/auth";
 import type { UserRole } from "@/types/auth";
 
 const DEMO_ACCOUNTS = [
