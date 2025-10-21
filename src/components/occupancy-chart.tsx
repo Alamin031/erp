@@ -57,28 +57,7 @@ export function OccupancyChart({ rooms }: OccupancyChartProps) {
               stroke="#e0e0e0"
               strokeWidth="8"
             />
-            {data.reduce((offset, item, idx) => {
-              const value = (item.value / 100) * circumference;
-              return (
-                <>
-                  {idx > 0 && (
-                    <circle
-                      key={`${item.label}-segment`}
-                      cx="60"
-                      cy="60"
-                      r="45"
-                      fill="none"
-                      stroke={item.color}
-                      strokeWidth="8"
-                      strokeDasharray={`${value} ${circumference}`}
-                      strokeDashoffset={-offset}
-                      strokeLinecap="round"
-                    />
-                  )}
-                  {offset + value}
-                </>
-              );
-            }, 0)}
+            {/* cumulative segments are rendered below with data.map */}
             {data.map((item, idx) => {
               const offset = data.slice(0, idx).reduce((sum, d) => sum + (d.value / 100) * circumference, 0);
               const value = (item.value / 100) * circumference;
