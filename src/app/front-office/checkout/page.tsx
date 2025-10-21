@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
+import { CheckoutPageClient } from "./page-client";
 
 export default async function CheckoutPage() {
   const session = await getSession();
@@ -18,21 +19,7 @@ export default async function CheckoutPage() {
 
   return (
     <DashboardLayout>
-      <div className="dashboard-container">
-        <div className="dashboard-header-content">
-          <h1 className="dashboard-page-title">Check-out</h1>
-          <p className="dashboard-subtitle">Process guest check-outs</p>
-        </div>
-
-        <div className="dashboard-grid">
-          <div className="dashboard-section">
-            <h2 className="section-title">Today's Departures</h2>
-            <div style={{ padding: "20px", textAlign: "center", color: "var(--secondary)" }}>
-              <p>Check-out interface coming soon...</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <CheckoutPageClient />
     </DashboardLayout>
   );
 }
