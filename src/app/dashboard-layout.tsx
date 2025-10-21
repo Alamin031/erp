@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { useSession, SessionProvider } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Sidebar } from "@/components/sidebar";
 import { LogoutButton } from "@/components/logout-button";
 
@@ -52,9 +52,5 @@ function DashboardLayoutContent({ children }: DashboardLayoutProps) {
 }
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
-  return (
-    <SessionProvider>
-      <DashboardLayoutContent>{children}</DashboardLayoutContent>
-    </SessionProvider>
-  );
+  return <DashboardLayoutContent>{children}</DashboardLayoutContent>;
 }
