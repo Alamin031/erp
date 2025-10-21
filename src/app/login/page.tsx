@@ -35,13 +35,17 @@ export default function LoginPage() {
       const result = await signIn("credentials", {
         email,
         password,
-        redirect: true,
-        callbackUrl: "/dashboard",
+        redirect: false,
       });
 
       if (result?.error) {
         setError("Invalid email or password");
         setIsLoading(false);
+      } else if (result?.ok) {
+        // Wait a moment for the session to be established, then redirect
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 500);
       }
     } catch (err) {
       setError("An error occurred during login");
