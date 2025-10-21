@@ -157,12 +157,12 @@ export function CheckinTable({
                         👁️
                       </button>
                     )}
-                    {onCheckIn && reservation.status !== "Cancelled" && (
+                    {onCheckIn && reservation.status === "Confirmed" && (
                       <button
                         className="action-btn"
                         onClick={() => onCheckIn(reservation)}
                         title="Check In"
-                        disabled={reservation.status === "Cancelled"}
+                        disabled={reservation.status !== "Confirmed"}
                       >
                         ✓
                       </button>

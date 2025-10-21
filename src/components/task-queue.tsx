@@ -60,7 +60,6 @@ export function TaskQueue({
           style={{
             fontSize: "12px",
             fontWeight: "700",
-            color: "var(--primary)",
             background: "var(--primary)",
             color: "white",
             padding: "2px 8px",

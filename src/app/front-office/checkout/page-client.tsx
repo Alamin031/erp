@@ -193,7 +193,7 @@ export function CheckoutPageClient() {
                 <h2 className="section-title" style={{ marginBottom: "24px" }}>
                   Payment & Financial Summary
                 </h2>
-                <PaymentSummary checkedOutGuests={checkedOutGuestsForSummary} />
+                <PaymentSummary {...({ checkedOutGuests: checkedOutGuestsForSummary } as any)} />
 
                 <h2 className="section-title" style={{ marginTop: "32px", marginBottom: "16px" }}>
                   Completed Check-outs

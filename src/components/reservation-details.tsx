@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Reservation } from "@/types/reservation";
 
 interface ReservationDetailsProps {
@@ -12,13 +12,13 @@ interface ReservationDetailsProps {
   onCancel?: (id: string) => void;
 }
 
-const slideOverVariants = {
+const slideOverVariants: Variants = {
   hidden: { x: "100%", opacity: 0 },
   visible: {
     x: 0,
     opacity: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 300,
       damping: 30,
     },
@@ -27,7 +27,7 @@ const slideOverVariants = {
     x: "100%",
     opacity: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 300,
       damping: 30,
     },

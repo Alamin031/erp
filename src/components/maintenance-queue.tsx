@@ -97,7 +97,6 @@ export function MaintenanceQueue({ rooms, onRefresh }: MaintenanceQueueProps) {
                 key={room.id}
                 style={{
                   borderBottom: "1px solid var(--border)",
-                  "&:hover": { background: "var(--background)" },
                 }}
                 onMouseEnter={e => {
                   (e.currentTarget as HTMLElement).style.background = "var(--background)";

@@ -315,7 +315,10 @@ export const useRates = create<RatesStore>()(
                 finalPrice -= rule.value;
                 break;
               case "multiplier":
-                const multiplier = rule.channelMultipliers?.[channel as any] || 1;
+                const multiplier =
+                  rule.channelMultipliers?.[
+                    channel as keyof typeof rule.channelMultipliers
+                  ] ?? 1;
                 finalPrice *= multiplier;
                 break;
             }

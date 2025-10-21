@@ -19,13 +19,44 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
     let aVal = a[sortBy];
     let bVal = b[sortBy];
 
-    if (typeof aVal === "string") {
-      aVal = aVal.toLowerCase();
-      bVal = (bVal as string).toLowerCase();
+    // Handle null/undefined consistently: put undefined values after defined ones in ascending order.
+    const aNull = aVal === null || aVal === undefined;
+    const bNull = bVal === null || bVal === undefined;
+    if (aNull || bNull) {
+      if (aNull && bNull) return 0;
+      return aNull ? (sortOrder === "asc" ? 1 : -1) : (sortOrder === "asc" ? -1 : 1);
     }
 
-    if (aVal < bVal) return sortOrder === "asc" ? -1 : 1;
-    if (aVal > bVal) return sortOrder === "asc" ? 1 : -1;
+    // If both are strings, compare case-insensitively.
+    if (typeof aVal === "string" && typeof bVal === "string") {
+      const aStr = aVal.toLowerCase();
+      const bStr = bVal.toLowerCase();
+      if (aStr < bStr) return sortOrder === "asc" ? -1 : 1;
+      if (aStr > bStr) return sortOrder === "asc" ? 1 : -1;
+      return 0;
+    }
+
+    // Try numeric/date comparison when possible.
+    const toNumberSafe = (v: unknown) => {
+      if (typeof v === "number") return v;
+      if (v instanceof Date) return v.getTime();
+      const n = Number(v);
+      return Number.isNaN(n) ? NaN : n;
+    };
+
+    const aNum = toNumberSafe(aVal);
+    const bNum = toNumberSafe(bVal);
+    if (!Number.isNaN(aNum) && !Number.isNaN(bNum)) {
+      if (aNum < bNum) return sortOrder === "asc" ? -1 : 1;
+      if (aNum > bNum) return sortOrder === "asc" ? 1 : -1;
+      return 0;
+    }
+
+    // Fallback to string comparison for mixed or unknown types.
+    const aStr = String(aVal);
+    const bStr = String(bVal);
+    if (aStr < bStr) return sortOrder === "asc" ? -1 : 1;
+    if (aStr > bStr) return sortOrder === "asc" ? 1 : -1;
     return 0;
   });
 

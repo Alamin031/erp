@@ -55,7 +55,7 @@ export function RateFormModal({
         effectiveTo: rate.effectiveTo.split("T")[0],
         basePrice: rate.basePrice,
         currency: rate.currency,
-        minStay: rate.minStay,
+        minStay: rate.minStay ?? 1,
         maxStay: rate.maxStay,
         priority: rate.priority,
         status: rate.status,
