@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
+import { InvoicingPageClient } from "./page-client";
 
 export default async function InvoicingPage() {
   const session = await getSession();
@@ -18,21 +19,7 @@ export default async function InvoicingPage() {
 
   return (
     <DashboardLayout>
-      <div className="dashboard-container">
-        <div className="dashboard-header-content">
-          <h1 className="dashboard-page-title">Invoicing</h1>
-          <p className="dashboard-subtitle">Create and manage invoices</p>
-        </div>
-
-        <div className="dashboard-grid">
-          <div className="dashboard-section">
-            <h2 className="section-title">Invoices</h2>
-            <div style={{ padding: "20px", textAlign: "center", color: "var(--secondary)" }}>
-              <p>Invoicing interface coming soon...</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <InvoicingPageClient />
     </DashboardLayout>
   );
 }
