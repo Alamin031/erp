@@ -421,6 +421,194 @@ const SuperAdminDashboard = () => (
       </div>
     </div>
 
+    {/* --- ADD: three graphs row (Orders / Daily Sales / Avg Order Value) --- */}
+    <div
+      className="dashboard-three-graphs"
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr 1fr",
+        gap: 16,
+        marginTop: 8,
+      }}
+    >
+      {/* Orders by channels (list) */}
+      <div
+        className="card"
+        style={{
+          padding: 16,
+          borderRadius: 10,
+          background: "#fff",
+          border: "1px solid #eef2f6",
+        }}
+      >
+        <h4 style={{ margin: "0 0 8px 0", fontSize: 14 }}>
+          Orders by channels
+        </h4>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: 8,
+          }}
+        >
+          <div style={{ color: "#6b7280" }}>Total</div>
+          <div style={{ fontWeight: 700 }}>
+            2641{" "}
+            <span style={{ color: "#10b981", fontSize: 12, marginLeft: 8 }}>
+              ▲ 21%
+            </span>
+          </div>
+        </div>
+        <div style={{ display: "grid", gap: 8, marginTop: 6 }}>
+          {/*
+            { name: "Uber EATS", percent: 39.4, total: 1080, color: "#111827" },
+            { name: "Deliveroo", percent: 28.9, total: 756, color: "#7c3aed" },
+            { name: "Website", percent: 25.3, total: 616, color: "#10b981" },
+            { name: "Just EAT", percent: 6.4, total: 189, color: "#ffb86b" },
+          */}
+          {/*
+            <div key={s.name} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <span style={{ width: 10, height: 10, borderRadius: 4, background: s.color, display: "inline-block" }} />
+                <span style={{ color: "#374151", fontSize: 13 }}>{s.name}</span>
+              </div>
+              <div style={{ color: "#6b7280", fontSize: 13 }}>{s.percent}% <span style={{ marginLeft: 8, color: "#111827" }}>{s.total}</span></div>
+            </div>
+          */}
+        </div>
+      </div>
+
+      {/* Daily Sales (donut) */}
+      <div
+        className="card"
+        style={{
+          padding: 16,
+          borderRadius: 10,
+          background: "#fff",
+          border: "1px solid #eef2f6",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <h4 style={{ margin: "0 0 12px 0", fontSize: 14 }}>Daily Sales</h4>
+        <svg width="160" height="120" viewBox="0 0 120 90">
+          <g transform="translate(60,45)">
+            <circle r="30" fill="#f3f4f6" />
+            <path
+              d="M0 -30 A30 30 0 0 1 24 6 L8 10 A18 18 0 0 0 0 -18 Z"
+              fill="#10b981"
+            />
+            <path
+              d="M24 6 A30 30 0 0 1 -6 28 L-4 18 A18 18 0 0 0 8 10 Z"
+              fill="#7c3aed"
+            />
+            <path
+              d="-6 28 A30 30 0 0 1 -30 -2 L-20 2 A18 18 0 0 0 -4 18 Z"
+              fill="#ffb86b"
+            />
+            <text
+              x="0"
+              y="6"
+              textAnchor="middle"
+              fontSize="10"
+              fontWeight={700}
+              fill="#111827"
+            >
+              £1,749.69
+            </text>
+          </g>
+        </svg>
+        <div style={{ display: "flex", gap: 12, marginTop: 10, fontSize: 12 }}>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <span
+              style={{
+                width: 10,
+                height: 10,
+                background: "#10b981",
+                borderRadius: 3,
+              }}
+            />
+            Uber eats
+          </div>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <span
+              style={{
+                width: 10,
+                height: 10,
+                background: "#7c3aed",
+                borderRadius: 3,
+              }}
+            />
+            Deliveroo
+          </div>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <span
+              style={{
+                width: 10,
+                height: 10,
+                background: "#ffb86b",
+                borderRadius: 3,
+              }}
+            />
+            Website
+          </div>
+        </div>
+      </div>
+
+      {/* Average Order Value (area) */}
+      <div
+        className="card"
+        style={{
+          padding: 16,
+          borderRadius: 10,
+          background: "#fff",
+          border: "1px solid #eef2f6",
+        }}
+      >
+        <h4 style={{ margin: "0 0 8px 0", fontSize: 14 }}>
+          Average Order Value
+        </h4>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 8,
+          }}
+        >
+          <div style={{ fontWeight: 700, fontSize: 18 }}>£22</div>
+          <div style={{ color: "#10b981", fontSize: 12 }}>▲ 12%</div>
+        </div>
+        <svg
+          width="100%"
+          height="60"
+          viewBox="0 0 200 60"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="aovGrad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.16" />
+              <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <g transform="translate(0,0)">
+            <path
+              d="M0,40 C30,20 60,30 90,18 C120,6 150,24 180,12 L200,12 L200,60 L0,60 Z"
+              fill="url(#aovGrad)"
+            />
+            <path
+              d="M0,40 C30,20 60,30 90,18 C120,6 150,24 180,12"
+              fill="none"
+              stroke="#60a5fa"
+              strokeWidth="2"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+    {/* --- end added row --- */}
+
     {/* extended charts - 10 additional graphs for Super Admin */}
     <div
       className="dashboard-extended-charts"
