@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
+import { HousekeepingPageClient } from "./page-client";
 
 export default async function HousekeepingTasksPage() {
   const session = await getSession();
@@ -10,7 +11,7 @@ export default async function HousekeepingTasksPage() {
   }
 
   const userRole = (session.user as any).role;
-  const allowedRoles = ["super_admin", "general_manager", "housekeeping_manager", "housekeeping_staff"];
+  const allowedRoles = ["super_admin", "housekeeping_manager", "housekeeping_staff"];
 
   if (!allowedRoles.includes(userRole)) {
     redirect("/unauthorized");
@@ -18,21 +19,7 @@ export default async function HousekeepingTasksPage() {
 
   return (
     <DashboardLayout>
-      <div className="dashboard-container">
-        <div className="dashboard-header-content">
-          <h1 className="dashboard-page-title">Housekeeping Tasks</h1>
-          <p className="dashboard-subtitle">Manage cleaning and maintenance tasks</p>
-        </div>
-
-        <div className="dashboard-grid">
-          <div className="dashboard-section">
-            <h2 className="section-title">Task Queue</h2>
-            <div style={{ padding: "20px", textAlign: "center", color: "var(--secondary)" }}>
-              <p>Task management interface coming soon...</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <HousekeepingPageClient />
     </DashboardLayout>
   );
 }
