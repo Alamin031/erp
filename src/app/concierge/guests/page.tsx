@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
 import { GuestsPageClient } from "./page-client";
