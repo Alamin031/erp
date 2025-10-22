@@ -260,6 +260,7 @@ export function EquipmentPageClient() {
         onAssign={handleAssign}
         onAdjust={handleAdjustFromDrawer}
         onCreateWO={handleCreateWO}
+        onMarkRetired={handleMarkRetired}
       />
 
       <StockAdjustmentModal
