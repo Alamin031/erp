@@ -1,0 +1,282 @@
+[
+  {
+    "id": "PERM-1001",
+    "name": "Create Users",
+    "module": "users",
+    "action": "create",
+    "description": "Create new user accounts"
+  },
+  {
+    "id": "PERM-1002",
+    "name": "Read Users",
+    "module": "users",
+    "action": "read",
+    "description": "View user accounts and profiles"
+  },
+  {
+    "id": "PERM-1003",
+    "name": "Update Users",
+    "module": "users",
+    "action": "update",
+    "description": "Edit user accounts and permissions"
+  },
+  {
+    "id": "PERM-1004",
+    "name": "Delete Users",
+    "module": "users",
+    "action": "delete",
+    "description": "Delete user accounts"
+  },
+  {
+    "id": "PERM-2001",
+    "name": "Read Dashboard",
+    "module": "dashboard",
+    "action": "read",
+    "description": "View dashboard and KPIs"
+  },
+  {
+    "id": "PERM-2002",
+    "name": "Read Reports",
+    "module": "dashboard",
+    "action": "read",
+    "description": "View detailed reports"
+  },
+  {
+    "id": "PERM-2003",
+    "name": "Export Reports",
+    "module": "dashboard",
+    "action": "create",
+    "description": "Export reports to CSV/PDF"
+  },
+  {
+    "id": "PERM-2004",
+    "name": "Configure Dashboards",
+    "module": "dashboard",
+    "action": "update",
+    "description": "Customize dashboard widgets"
+  },
+  {
+    "id": "PERM-3001",
+    "name": "Manage Reservations",
+    "module": "reservations",
+    "action": "update",
+    "description": "Create and manage guest reservations"
+  },
+  {
+    "id": "PERM-3002",
+    "name": "View Reservations",
+    "module": "reservations",
+    "action": "read",
+    "description": "View all reservations"
+  },
+  {
+    "id": "PERM-3003",
+    "name": "Check In/Out",
+    "module": "reservations",
+    "action": "update",
+    "description": "Process guest check-in and check-out"
+  },
+  {
+    "id": "PERM-3004",
+    "name": "Cancel Reservations",
+    "module": "reservations",
+    "action": "delete",
+    "description": "Cancel guest reservations"
+  },
+  {
+    "id": "PERM-4001",
+    "name": "View Rooms",
+    "module": "rooms",
+    "action": "read",
+    "description": "View room status and inventory"
+  },
+  {
+    "id": "PERM-4002",
+    "name": "Manage Rooms",
+    "module": "rooms",
+    "action": "update",
+    "description": "Update room status and assignments"
+  },
+  {
+    "id": "PERM-4003",
+    "name": "Block Rooms",
+    "module": "rooms",
+    "action": "update",
+    "description": "Block/unblock rooms for maintenance"
+  },
+  {
+    "id": "PERM-4004",
+    "name": "Configure Rooms",
+    "module": "rooms",
+    "action": "create",
+    "description": "Create and configure room types"
+  },
+  {
+    "id": "PERM-5001",
+    "name": "View Housekeeping Tasks",
+    "module": "housekeeping",
+    "action": "read",
+    "description": "View housekeeping tasks"
+  },
+  {
+    "id": "PERM-5002",
+    "name": "Assign Tasks",
+    "module": "housekeeping",
+    "action": "update",
+    "description": "Assign housekeeping tasks to staff"
+  },
+  {
+    "id": "PERM-5003",
+    "name": "Update Task Status",
+    "module": "housekeeping",
+    "action": "update",
+    "description": "Mark tasks as complete"
+  },
+  {
+    "id": "PERM-5004",
+    "name": "Manage Housekeeping",
+    "module": "housekeeping",
+    "action": "create",
+    "description": "Create and manage housekeeping tasks"
+  },
+  {
+    "id": "PERM-6001",
+    "name": "View Guests",
+    "module": "guests",
+    "action": "read",
+    "description": "View guest information"
+  },
+  {
+    "id": "PERM-6002",
+    "name": "Manage Guests",
+    "module": "guests",
+    "action": "update",
+    "description": "Edit guest profiles and preferences"
+  },
+  {
+    "id": "PERM-6003",
+    "name": "Manage Services",
+    "module": "guests",
+    "action": "update",
+    "description": "Provide guest services"
+  },
+  {
+    "id": "PERM-6004",
+    "name": "Access Guest History",
+    "module": "guests",
+    "action": "read",
+    "description": "View guest history and preferences"
+  },
+  {
+    "id": "PERM-7001",
+    "name": "View Invoices",
+    "module": "finance",
+    "action": "read",
+    "description": "View invoices and billing"
+  },
+  {
+    "id": "PERM-7002",
+    "name": "Create Invoices",
+    "module": "finance",
+    "action": "create",
+    "description": "Create and send invoices"
+  },
+  {
+    "id": "PERM-7003",
+    "name": "Manage Accounting",
+    "module": "finance",
+    "action": "update",
+    "description": "Manage accounting records"
+  },
+  {
+    "id": "PERM-7004",
+    "name": "View Reports",
+    "module": "finance",
+    "action": "read",
+    "description": "View financial reports"
+  },
+  {
+    "id": "PERM-8001",
+    "name": "View Rates",
+    "module": "sales",
+    "action": "read",
+    "description": "View room rates"
+  },
+  {
+    "id": "PERM-8002",
+    "name": "Manage Rates",
+    "module": "sales",
+    "action": "update",
+    "description": "Update room rates"
+  },
+  {
+    "id": "PERM-8003",
+    "name": "Manage Campaigns",
+    "module": "sales",
+    "action": "update",
+    "description": "Create and manage marketing campaigns"
+  },
+  {
+    "id": "PERM-8004",
+    "name": "View Analytics",
+    "module": "sales",
+    "action": "read",
+    "description": "View sales analytics"
+  },
+  {
+    "id": "PERM-9001",
+    "name": "View Services",
+    "module": "concierge",
+    "action": "read",
+    "description": "View available guest services"
+  },
+  {
+    "id": "PERM-9002",
+    "name": "Manage Services",
+    "module": "concierge",
+    "action": "update",
+    "description": "Provide concierge services"
+  },
+  {
+    "id": "PERM-9003",
+    "name": "Request Items",
+    "module": "concierge",
+    "action": "create",
+    "description": "Request items for guests"
+  },
+  {
+    "id": "PERM-9004",
+    "name": "Manage Itineraries",
+    "module": "concierge",
+    "action": "update",
+    "description": "Manage guest itineraries"
+  },
+  {
+    "id": "PERM-10001",
+    "name": "View Equipment",
+    "module": "maintenance",
+    "action": "read",
+    "description": "View equipment inventory"
+  },
+  {
+    "id": "PERM-10002",
+    "name": "Manage Equipment",
+    "module": "maintenance",
+    "action": "update",
+    "description": "Update equipment records"
+  },
+  {
+    "id": "PERM-10003",
+    "name": "View Work Orders",
+    "module": "maintenance",
+    "action": "read",
+    "description": "View maintenance work orders"
+  },
+  {
+    "id": "PERM-10004",
+    "name": "Manage Work Orders",
+    "module": "maintenance",
+    "action": "update",
+    "description": "Create and manage work orders"
+  }
+]
