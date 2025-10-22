@@ -1,0 +1,32 @@
+[
+  {
+    "id": "INV-1001",
+    "email": "newstaff@orionhotel.com",
+    "role": "housekeeping_staff",
+    "status": "pending",
+    "token": "invite_token_abc123xyz",
+    "expiresAt": "2024-02-05T10:00:00Z",
+    "createdAt": "2024-01-26T10:00:00Z",
+    "createdBy": "USR-1001"
+  },
+  {
+    "id": "INV-1002",
+    "email": "newmanager@orionhotel.com",
+    "role": "front_desk_manager",
+    "status": "pending",
+    "token": "invite_token_def456uvw",
+    "expiresAt": "2024-02-08T10:00:00Z",
+    "createdAt": "2024-01-25T14:00:00Z",
+    "createdBy": "USR-1001"
+  },
+  {
+    "id": "INV-1003",
+    "email": "contractor@external.com",
+    "role": "concierge",
+    "status": "accepted",
+    "token": "invite_token_ghi789rst",
+    "expiresAt": "2024-02-10T10:00:00Z",
+    "createdAt": "2024-01-20T10:00:00Z",
+    "createdBy": "USR-1001"
+  }
+]

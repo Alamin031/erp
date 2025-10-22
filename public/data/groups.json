@@ -1,0 +1,65 @@
+[
+  {
+    "id": "GROUP-1001",
+    "name": "Admin",
+    "description": "System administrators with full access",
+    "userIds": ["USR-1001"],
+    "roleOverride": null,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "GROUP-1002",
+    "name": "Management",
+    "description": "Hotel management and department heads",
+    "userIds": ["USR-1002", "USR-1005", "USR-1007", "USR-1010"],
+    "roleOverride": null,
+    "createdAt": "2023-06-15T10:00:00Z",
+    "updatedAt": "2023-06-15T10:00:00Z"
+  },
+  {
+    "id": "GROUP-1003",
+    "name": "Front Desk",
+    "description": "Front desk staff for check-in and reservations",
+    "userIds": ["USR-1003", "USR-1004"],
+    "roleOverride": null,
+    "createdAt": "2023-07-01T10:00:00Z",
+    "updatedAt": "2023-07-01T10:00:00Z"
+  },
+  {
+    "id": "GROUP-1004",
+    "name": "Housekeeping",
+    "description": "Housekeeping team for room cleaning and maintenance",
+    "userIds": ["USR-1005", "USR-1006", "USR-1012"],
+    "roleOverride": null,
+    "createdAt": "2023-07-10T10:00:00Z",
+    "updatedAt": "2023-07-10T10:00:00Z"
+  },
+  {
+    "id": "GROUP-1005",
+    "name": "Finance",
+    "description": "Finance and accounting team",
+    "userIds": ["USR-1007"],
+    "roleOverride": null,
+    "createdAt": "2023-08-01T10:00:00Z",
+    "updatedAt": "2023-08-01T10:00:00Z"
+  },
+  {
+    "id": "GROUP-1006",
+    "name": "Marketing",
+    "description": "Sales and marketing team",
+    "userIds": ["USR-1008"],
+    "roleOverride": null,
+    "createdAt": "2023-08-15T10:00:00Z",
+    "updatedAt": "2023-08-15T10:00:00Z"
+  },
+  {
+    "id": "GROUP-1007",
+    "name": "Maintenance",
+    "description": "Maintenance and engineering team",
+    "userIds": ["USR-1010"],
+    "roleOverride": null,
+    "createdAt": "2023-09-01T10:00:00Z",
+    "updatedAt": "2023-09-01T10:00:00Z"
+  }
+]

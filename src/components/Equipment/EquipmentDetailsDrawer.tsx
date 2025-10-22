@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useEquipment } from "@/store/useEquipment";
 import { DepreciationChart } from "./DepreciationChart";
 
-export function EquipmentDetailsDrawer({ id, isOpen, onClose, onAssign, onAdjust, onCreateWO }: { id: string | null; isOpen: boolean; onClose: ()=>void; onAssign: ()=>void; onAdjust: ()=>void; onCreateWO: ()=>void }) {
+export function EquipmentDetailsDrawer({ id, isOpen, onClose, onAssign, onAdjust, onCreateWO, onMarkRetired }: { id: string | null; isOpen: boolean; onClose: ()=>void; onAssign: ()=>void; onAdjust: ()=>void; onCreateWO: ()=>void; onMarkRetired?: ()=>void }) {
   const { equipment, history } = useEquipment();
   const item = useMemo(()=> equipment.find(e=>e.id===id) || null, [equipment, id]);
   const logs = useMemo(()=> history.filter(h=>h.equipmentId===id).sort((a,b)=> new Date(b.timestamp).getTime()-new Date(a.timestamp).getTime()), [history, id]);
@@ -63,7 +63,7 @@ export function EquipmentDetailsDrawer({ id, isOpen, onClose, onAssign, onAdjust
                   <button className="btn btn-secondary" onClick={onAssign}>Assign</button>
                   <button className="btn btn-secondary" onClick={onAdjust}>Adjust Stock</button>
                   <button className="btn btn-secondary" onClick={onCreateWO}>Create Work Order</button>
-                  <button className="btn btn-primary">Mark Retired</button>
+                  <button className="btn btn-primary" onClick={onMarkRetired} disabled={item?.status === "Retired"}>Mark Retired</button>
                 </div>
               </div>
             </div>
