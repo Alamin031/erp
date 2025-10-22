@@ -1,0 +1,5 @@
+[
+  { "id": "T-001", "name": "Alex Turner", "email": "alex.turner@example.com", "phone": "+1-555-2001", "skills": ["Electrical", "HVAC"] },
+  { "id": "T-002", "name": "Brenda Lee", "email": "brenda.lee@example.com", "phone": "+1-555-2002", "skills": ["Plumbing", "Room"] },
+  { "id": "T-003", "name": "Carlos Diaz", "email": "carlos.diaz@example.com", "phone": "+1-555-2003", "skills": ["Elevator", "Electrical"] }
+]

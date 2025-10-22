@@ -1,0 +1,7 @@
+[
+  { "id": "A-ROOM-301", "type": "Room", "name": "Room 301", "roomNumber": "301" },
+  { "id": "A-HVAC-1", "type": "HVAC", "name": "HVAC Unit - West Wing" },
+  { "id": "A-EL-Panel", "type": "Electrical", "name": "Electrical Panel - Floor 2" },
+  { "id": "A-PL-201", "type": "Plumbing", "name": "Plumbing - Restroom L2" },
+  { "id": "A-ELV-1", "type": "Elevator", "name": "Elevator #1" }
+]
