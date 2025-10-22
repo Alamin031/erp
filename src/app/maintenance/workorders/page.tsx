@@ -1,6 +1,8 @@
 import { getSession } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
+import { WorkOrdersPageClient } from "./page-client";
 
 export default async function WorkOrdersPage() {
   const session = await getSession();
