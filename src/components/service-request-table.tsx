@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { useGuestServices } from "@/store/useGuestServices";
 import { useToast } from "./toast";
+import { ServiceRequest } from "@/types/guest-services";
 
 interface ServiceRequestTableProps {
   onViewClick: (requestId: string) => void;
   onAssignClick: (requestId: string) => void;
+  requests?: ServiceRequest[];
 }
 
 const priorityIcons: Record<string, string> = {
