@@ -1,0 +1,391 @@
+{
+  "documents": [
+    {
+      "id": "doc-001",
+      "title": "Service Agreement - Catering",
+      "fileName": "service_agreement_catering.pdf",
+      "fileSize": 245000,
+      "fileUrl": "/documents/service_agreement.pdf",
+      "owner": {
+        "id": "user-gm-1",
+        "name": "Sarah Johnson",
+        "email": "sarah@orionhotel.com",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=sarah"
+      },
+      "status": "completed",
+      "signers": [
+        {
+          "id": "signer-001",
+          "email": "vendor@catering.com",
+          "name": "John Catering Owner",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=john",
+          "status": "signed",
+          "signedAt": "2024-11-10T14:30:00Z",
+          "signedBy": "John Catering Owner",
+          "fields": [
+            {
+              "id": "field-001",
+              "page": 1,
+              "x": 100,
+              "y": 250,
+              "width": 200,
+              "height": 60,
+              "assignedTo": "signer-001",
+              "status": "signed",
+              "signedAt": "2024-11-10T14:30:00Z",
+              "signatureData": "data:image/png;base64,..."
+            }
+          ]
+        }
+      ],
+      "signingOrder": "parallel",
+      "createdAt": "2024-11-05T10:00:00Z",
+      "sentAt": "2024-11-05T10:15:00Z",
+      "completedAt": "2024-11-10T14:30:00Z",
+      "expiresAt": "2024-12-05T10:00:00Z",
+      "message": "Please review and sign the service agreement at your earliest convenience.",
+      "auditTrail": [
+        {
+          "id": "audit-001",
+          "timestamp": "2024-11-05T10:00:00Z",
+          "action": "created",
+          "userId": "user-gm-1",
+          "userName": "Sarah Johnson",
+          "details": "Document created"
+        },
+        {
+          "id": "audit-002",
+          "timestamp": "2024-11-05T10:15:00Z",
+          "action": "sent",
+          "userId": "user-gm-1",
+          "userName": "Sarah Johnson",
+          "details": "Sent to 1 signer"
+        },
+        {
+          "id": "audit-003",
+          "timestamp": "2024-11-10T14:15:00Z",
+          "action": "viewed",
+          "userId": "signer-001",
+          "userName": "John Catering Owner",
+          "details": "Document viewed"
+        },
+        {
+          "id": "audit-004",
+          "timestamp": "2024-11-10T14:30:00Z",
+          "action": "signed",
+          "userId": "signer-001",
+          "userName": "John Catering Owner",
+          "fieldId": "field-001",
+          "details": "Signature field 1 signed"
+        }
+      ]
+    },
+    {
+      "id": "doc-002",
+      "title": "Guest Privacy Consent Form",
+      "fileName": "guest_privacy_consent.pdf",
+      "fileSize": 156000,
+      "owner": {
+        "id": "user-admin-1",
+        "name": "Mike Admin",
+        "email": "admin@orionhotel.com",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=mike"
+      },
+      "status": "sent",
+      "signers": [
+        {
+          "id": "signer-002",
+          "email": "guest@email.com",
+          "name": "Robert Guest",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=robert",
+          "status": "pending",
+          "fields": [
+            {
+              "id": "field-002",
+              "page": 1,
+              "x": 100,
+              "y": 300,
+              "width": 200,
+              "height": 60,
+              "assignedTo": "signer-002",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "signingOrder": "parallel",
+      "createdAt": "2024-11-15T08:00:00Z",
+      "sentAt": "2024-11-15T08:30:00Z",
+      "expiresAt": "2024-11-29T08:00:00Z",
+      "message": "Please sign the privacy consent form to complete your check-in.",
+      "auditTrail": [
+        {
+          "id": "audit-005",
+          "timestamp": "2024-11-15T08:00:00Z",
+          "action": "created",
+          "userId": "user-admin-1",
+          "userName": "Mike Admin",
+          "details": "Document created"
+        },
+        {
+          "id": "audit-006",
+          "timestamp": "2024-11-15T08:30:00Z",
+          "action": "sent",
+          "userId": "user-admin-1",
+          "userName": "Mike Admin",
+          "details": "Sent to 1 signer"
+        }
+      ]
+    },
+    {
+      "id": "doc-003",
+      "title": "Equipment Maintenance Contract",
+      "fileName": "equipment_contract.pdf",
+      "fileSize": 342000,
+      "owner": {
+        "id": "user-ops-1",
+        "name": "Lisa Operations",
+        "email": "ops@orionhotel.com",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=lisa"
+      },
+      "status": "partially_signed",
+      "signers": [
+        {
+          "id": "signer-003",
+          "email": "tech1@maintenance.com",
+          "name": "Alex Tech",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=alex",
+          "status": "signed",
+          "signedAt": "2024-11-12T09:45:00Z",
+          "signedBy": "Alex Tech",
+          "fields": [
+            {
+              "id": "field-003",
+              "page": 2,
+              "x": 100,
+              "y": 200,
+              "width": 200,
+              "height": 60,
+              "assignedTo": "signer-003",
+              "status": "signed",
+              "signedAt": "2024-11-12T09:45:00Z",
+              "signatureData": "data:image/png;base64,..."
+            }
+          ]
+        },
+        {
+          "id": "signer-004",
+          "email": "manager@maintenance.com",
+          "name": "David Manager",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=david",
+          "status": "pending",
+          "fields": [
+            {
+              "id": "field-004",
+              "page": 3,
+              "x": 100,
+              "y": 200,
+              "width": 200,
+              "height": 60,
+              "assignedTo": "signer-004",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "signingOrder": "sequential",
+      "createdAt": "2024-11-08T14:00:00Z",
+      "sentAt": "2024-11-08T14:30:00Z",
+      "expiresAt": "2024-11-22T14:00:00Z",
+      "message": "Contract requires signatures in the specified order. Please sign once you receive it.",
+      "auditTrail": [
+        {
+          "id": "audit-007",
+          "timestamp": "2024-11-08T14:00:00Z",
+          "action": "created",
+          "userId": "user-ops-1",
+          "userName": "Lisa Operations",
+          "details": "Document created with sequential signing"
+        },
+        {
+          "id": "audit-008",
+          "timestamp": "2024-11-08T14:30:00Z",
+          "action": "sent",
+          "userId": "user-ops-1",
+          "userName": "Lisa Operations",
+          "details": "Sent to 2 signers"
+        },
+        {
+          "id": "audit-009",
+          "timestamp": "2024-11-12T09:45:00Z",
+          "action": "signed",
+          "userId": "signer-003",
+          "userName": "Alex Tech",
+          "fieldId": "field-003",
+          "details": "Signature field 1 signed"
+        }
+      ]
+    },
+    {
+      "id": "doc-004",
+      "title": "Employee Offer Letter - Chef Position",
+      "fileName": "offer_letter_chef.pdf",
+      "fileSize": 198000,
+      "owner": {
+        "id": "user-hr-1",
+        "name": "Emma HR",
+        "email": "hr@orionhotel.com",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=emma"
+      },
+      "status": "draft",
+      "signers": [
+        {
+          "id": "signer-005",
+          "email": "newchef@email.com",
+          "name": "Marcus Chef",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=marcus",
+          "status": "pending",
+          "fields": [
+            {
+              "id": "field-005",
+              "page": 1,
+              "x": 100,
+              "y": 400,
+              "width": 200,
+              "height": 60,
+              "assignedTo": "signer-005",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "signingOrder": "parallel",
+      "createdAt": "2024-11-18T11:00:00Z",
+      "message": "Welcome to OrionStay! Please review and sign the offer letter.",
+      "auditTrail": [
+        {
+          "id": "audit-010",
+          "timestamp": "2024-11-18T11:00:00Z",
+          "action": "created",
+          "userId": "user-hr-1",
+          "userName": "Emma HR",
+          "details": "Offer letter draft created"
+        }
+      ]
+    },
+    {
+      "id": "doc-005",
+      "title": "Supplier NDA Agreement",
+      "fileName": "supplier_nda.pdf",
+      "fileSize": 267000,
+      "owner": {
+        "id": "user-gm-1",
+        "name": "Sarah Johnson",
+        "email": "sarah@orionhotel.com",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=sarah"
+      },
+      "status": "rejected",
+      "signers": [
+        {
+          "id": "signer-006",
+          "email": "contact@supplier.com",
+          "name": "Tom Supplier",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=tom",
+          "status": "rejected",
+          "fields": [
+            {
+              "id": "field-006",
+              "page": 1,
+              "x": 100,
+              "y": 350,
+              "width": 200,
+              "height": 60,
+              "assignedTo": "signer-006",
+              "status": "rejected"
+            }
+          ]
+        }
+      ],
+      "signingOrder": "parallel",
+      "createdAt": "2024-11-01T09:00:00Z",
+      "sentAt": "2024-11-01T09:15:00Z",
+      "expiresAt": "2024-11-15T09:00:00Z",
+      "rejectionReason": "Supplier requested amendments to confidentiality clauses",
+      "auditTrail": [
+        {
+          "id": "audit-011",
+          "timestamp": "2024-11-01T09:00:00Z",
+          "action": "created",
+          "userId": "user-gm-1",
+          "userName": "Sarah Johnson",
+          "details": "Document created"
+        },
+        {
+          "id": "audit-012",
+          "timestamp": "2024-11-01T09:15:00Z",
+          "action": "sent",
+          "userId": "user-gm-1",
+          "userName": "Sarah Johnson",
+          "details": "Sent to 1 signer"
+        },
+        {
+          "id": "audit-013",
+          "timestamp": "2024-11-05T16:20:00Z",
+          "action": "rejected",
+          "userId": "signer-006",
+          "userName": "Tom Supplier",
+          "details": "Document rejected with reason: Requested amendments"
+        }
+      ]
+    },
+    {
+      "id": "doc-006",
+      "title": "Annual Insurance Policy Renewal",
+      "fileName": "insurance_renewal.pdf",
+      "fileSize": 512000,
+      "owner": {
+        "id": "user-admin-1",
+        "name": "Mike Admin",
+        "email": "admin@orionhotel.com",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=mike"
+      },
+      "status": "expired",
+      "signers": [
+        {
+          "id": "signer-007",
+          "email": "underwriter@insurance.com",
+          "name": "Patricia Underwriter",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=patricia",
+          "status": "expired",
+          "fields": [
+            {
+              "id": "field-007",
+              "page": 1,
+              "x": 100,
+              "y": 300,
+              "width": 200,
+              "height": 60,
+              "assignedTo": "signer-007",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "signingOrder": "parallel",
+      "createdAt": "2024-10-15T10:00:00Z",
+      "sentAt": "2024-10-15T10:30:00Z",
+      "expiresAt": "2024-10-29T10:00:00Z",
+      "message": "Please sign the insurance renewal policy.",
+      "auditTrail": [
+        {
+          "id": "audit-014",
+          "timestamp": "2024-10-15T10:00:00Z",
+          "action": "created",
+          "userId": "user-admin-1",
+          "userName": "Mike Admin",
+          "details": "Insurance renewal document created"
+        }
+      ]
+    }
+  ]
+}

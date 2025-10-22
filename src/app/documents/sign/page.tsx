@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
+import { SignPageClient } from "./page-client";
 
 export default async function SignPage() {
   const session = await getSession();
@@ -9,22 +10,9 @@ export default async function SignPage() {
     redirect("/login");
   }
 
-  const userRole = (session.user as any).role;
-  const allowedRoles = ["super_admin", "general_manager"];
-
-  if (!allowedRoles.includes(userRole)) {
-    redirect("/unauthorized");
-  }
-
   return (
     <DashboardLayout>
-      <div style={{ padding: "24px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: "700", marginBottom: "16px" }}>Sign</h1>
-        <div style={{ background: "#fff", borderRadius: "8px", padding: "24px", border: "1px solid #eef2f6" }}>
-          <p style={{ color: "#6b7280", fontSize: "16px" }}>Document signing system is under development.</p>
-          <p style={{ color: "#6b7280", fontSize: "14px", marginTop: "12px" }}>Send, sign, and approve documents online for streamlined workflows.</p>
-        </div>
-      </div>
+      <SignPageClient />
     </DashboardLayout>
   );
 }
