@@ -1,0 +1,110 @@
+[
+  {
+    "id": "A-001",
+    "guestId": "G-001",
+    "guestName": "John Anderson",
+    "timestamp": "2024-01-22T09:15:00Z",
+    "type": "service-request",
+    "description": "Room service requested - Coffee and breakfast",
+    "performedBy": "Room Service"
+  },
+  {
+    "id": "A-002",
+    "guestId": "G-001",
+    "guestName": "John Anderson",
+    "timestamp": "2024-01-22T08:00:00Z",
+    "type": "note",
+    "description": "Guest called - Confirmed late checkout",
+    "performedBy": "Front Desk"
+  },
+  {
+    "id": "A-003",
+    "guestId": "G-002",
+    "guestName": "Maria Garcia",
+    "timestamp": "2024-01-22T14:30:00Z",
+    "type": "service-request",
+    "description": "Laundry service requested",
+    "performedBy": "Housekeeping"
+  },
+  {
+    "id": "A-004",
+    "guestId": "G-003",
+    "guestName": "Robert Wilson",
+    "timestamp": "2024-01-22T10:00:00Z",
+    "type": "note",
+    "description": "Meeting room reserved for tomorrow 2 PM",
+    "performedBy": "Concierge"
+  },
+  {
+    "id": "A-005",
+    "guestId": "G-006",
+    "guestName": "Sophie Laurent",
+    "timestamp": "2024-01-22T15:00:00Z",
+    "type": "service-request",
+    "description": "Spa appointment booked - 4 PM massage",
+    "performedBy": "Concierge"
+  },
+  {
+    "id": "A-006",
+    "guestId": "G-008",
+    "guestName": "Isabella Rossi",
+    "timestamp": "2024-01-22T16:45:00Z",
+    "type": "check-in",
+    "description": "Guest checked in, VIP welcome arranged",
+    "performedBy": "Front Desk"
+  },
+  {
+    "id": "A-007",
+    "guestId": "G-010",
+    "guestName": "Yuki Tanaka",
+    "timestamp": "2024-01-22T13:30:00Z",
+    "type": "note",
+    "description": "Special dietary preferences noted for breakfast",
+    "performedBy": "Housekeeping"
+  },
+  {
+    "id": "A-008",
+    "guestId": "G-004",
+    "guestName": "Emily Chen",
+    "timestamp": "2024-01-22T11:00:00Z",
+    "type": "edit",
+    "description": "Reservation confirmed - Cultural welcome arranged",
+    "performedBy": "Reservations"
+  },
+  {
+    "id": "A-009",
+    "guestId": "G-002",
+    "guestName": "Maria Garcia",
+    "timestamp": "2024-01-21T18:00:00Z",
+    "type": "service-request",
+    "description": "Airport transfer arranged",
+    "performedBy": "Concierge"
+  },
+  {
+    "id": "A-010",
+    "guestId": "G-001",
+    "guestName": "John Anderson",
+    "timestamp": "2024-01-21T14:00:00Z",
+    "type": "service-request",
+    "description": "Restaurant reservation confirmed at Michelin-starred venue",
+    "performedBy": "Concierge"
+  },
+  {
+    "id": "A-011",
+    "guestId": "G-009",
+    "guestName": "Michael Johnson",
+    "timestamp": "2024-01-21T10:00:00Z",
+    "type": "check-out",
+    "description": "Guest checked out",
+    "performedBy": "Front Desk"
+  },
+  {
+    "id": "A-012",
+    "guestId": "G-005",
+    "guestName": "Thomas Mueller",
+    "timestamp": "2024-01-22T10:00:00Z",
+    "type": "check-out",
+    "description": "Guest checked out, payment processed",
+    "performedBy": "Front Desk"
+  }
+]

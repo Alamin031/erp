@@ -1,0 +1,269 @@
+[
+  {
+    "id": "REQ-001",
+    "guestName": "John Anderson",
+    "roomNumber": "205",
+    "serviceType": "Room Service",
+    "priority": "Normal",
+    "status": "Open",
+    "requestedAt": "2024-01-22T08:30:00Z",
+    "eta": "2024-01-22T09:00:00Z",
+    "assignedStaffIds": [],
+    "notes": "Guest requested extra pillows and blankets",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-22T08:30:00Z",
+        "action": "created",
+        "performedBy": "System"
+      }
+    ]
+  },
+  {
+    "id": "REQ-002",
+    "guestName": "Sarah Wilson",
+    "roomNumber": "312",
+    "serviceType": "Housekeeping Request",
+    "priority": "Urgent",
+    "status": "In Progress",
+    "requestedAt": "2024-01-22T07:45:00Z",
+    "eta": "2024-01-22T08:15:00Z",
+    "assignedStaffIds": ["S001"],
+    "notes": "Room needs immediate cleaning and fresh towels",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-22T07:45:00Z",
+        "action": "created",
+        "performedBy": "System"
+      },
+      {
+        "id": "2",
+        "timestamp": "2024-01-22T07:50:00Z",
+        "action": "assigned",
+        "performedBy": "Staff",
+        "details": "Maria Garcia"
+      },
+      {
+        "id": "3",
+        "timestamp": "2024-01-22T08:00:00Z",
+        "action": "started",
+        "performedBy": "Maria Garcia"
+      }
+    ]
+  },
+  {
+    "id": "REQ-003",
+    "guestName": "Michael Chen",
+    "roomNumber": "401",
+    "serviceType": "Maintenance",
+    "priority": "High",
+    "status": "Open",
+    "requestedAt": "2024-01-22T08:15:00Z",
+    "eta": "2024-01-22T09:30:00Z",
+    "assignedStaffIds": [],
+    "notes": "Air conditioning not working properly in bedroom",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-22T08:15:00Z",
+        "action": "created",
+        "performedBy": "System"
+      }
+    ]
+  },
+  {
+    "id": "REQ-004",
+    "guestName": "Emma Davis",
+    "roomNumber": "508",
+    "serviceType": "Laundry",
+    "priority": "Low",
+    "status": "Resolved",
+    "requestedAt": "2024-01-21T19:30:00Z",
+    "completedAt": "2024-01-21T21:00:00Z",
+    "assignedStaffIds": ["S002"],
+    "notes": "Dry cleaning and urgent laundry service",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-21T19:30:00Z",
+        "action": "created",
+        "performedBy": "System"
+      },
+      {
+        "id": "2",
+        "timestamp": "2024-01-21T19:35:00Z",
+        "action": "assigned",
+        "performedBy": "Staff",
+        "details": "James Wilson"
+      },
+      {
+        "id": "3",
+        "timestamp": "2024-01-21T21:00:00Z",
+        "action": "resolved",
+        "performedBy": "Staff",
+        "details": "Laundry completed and delivered"
+      }
+    ]
+  },
+  {
+    "id": "REQ-005",
+    "guestName": "Lisa Brown",
+    "roomNumber": "215",
+    "serviceType": "Wake-up Call",
+    "priority": "Normal",
+    "status": "Open",
+    "requestedAt": "2024-01-22T22:00:00Z",
+    "eta": "2024-01-23T06:30:00Z",
+    "assignedStaffIds": [],
+    "notes": "Wake-up call for 6:30 AM tomorrow",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-22T22:00:00Z",
+        "action": "created",
+        "performedBy": "System"
+      }
+    ]
+  },
+  {
+    "id": "REQ-006",
+    "guestName": "Robert Martinez",
+    "roomNumber": "604",
+    "serviceType": "Room Service",
+    "priority": "High",
+    "status": "In Progress",
+    "requestedAt": "2024-01-22T08:45:00Z",
+    "eta": "2024-01-22T09:15:00Z",
+    "assignedStaffIds": ["S003"],
+    "notes": "Room service order: breakfast with coffee, juice, and toast",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-22T08:45:00Z",
+        "action": "created",
+        "performedBy": "System"
+      },
+      {
+        "id": "2",
+        "timestamp": "2024-01-22T08:50:00Z",
+        "action": "assigned",
+        "performedBy": "Staff",
+        "details": "Ahmed Hassan"
+      },
+      {
+        "id": "3",
+        "timestamp": "2024-01-22T08:55:00Z",
+        "action": "started",
+        "performedBy": "Ahmed Hassan"
+      }
+    ]
+  },
+  {
+    "id": "REQ-007",
+    "guestName": "Jessica Taylor",
+    "roomNumber": "310",
+    "serviceType": "Other",
+    "priority": "Urgent",
+    "status": "Open",
+    "requestedAt": "2024-01-22T08:20:00Z",
+    "eta": "2024-01-22T08:45:00Z",
+    "assignedStaffIds": [],
+    "notes": "Guest needs restaurant recommendations and dinner reservations",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-22T08:20:00Z",
+        "action": "created",
+        "performedBy": "System"
+      }
+    ]
+  },
+  {
+    "id": "REQ-008",
+    "guestName": "David Thompson",
+    "roomNumber": "105",
+    "serviceType": "Housekeeping Request",
+    "priority": "Normal",
+    "status": "Open",
+    "requestedAt": "2024-01-22T08:00:00Z",
+    "eta": "2024-01-22T08:45:00Z",
+    "assignedStaffIds": [],
+    "notes": "Mini bar refill needed, replace used glasses and cups",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-22T08:00:00Z",
+        "action": "created",
+        "performedBy": "System"
+      }
+    ]
+  },
+  {
+    "id": "REQ-009",
+    "guestName": "Ava Johnson",
+    "roomNumber": "707",
+    "serviceType": "Maintenance",
+    "priority": "Urgent",
+    "status": "In Progress",
+    "requestedAt": "2024-01-22T07:30:00Z",
+    "eta": "2024-01-22T08:30:00Z",
+    "assignedStaffIds": ["S004"],
+    "notes": "Shower drain clogged, water not draining properly",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-22T07:30:00Z",
+        "action": "created",
+        "performedBy": "System"
+      },
+      {
+        "id": "2",
+        "timestamp": "2024-01-22T07:35:00Z",
+        "action": "assigned",
+        "performedBy": "Staff",
+        "details": "Carlos Rodriguez"
+      },
+      {
+        "id": "3",
+        "timestamp": "2024-01-22T07:45:00Z",
+        "action": "started",
+        "performedBy": "Carlos Rodriguez"
+      }
+    ]
+  },
+  {
+    "id": "REQ-010",
+    "guestName": "Patricia Lee",
+    "roomNumber": "412",
+    "serviceType": "Room Service",
+    "priority": "Normal",
+    "status": "Resolved",
+    "requestedAt": "2024-01-22T06:00:00Z",
+    "completedAt": "2024-01-22T06:35:00Z",
+    "assignedStaffIds": ["S003"],
+    "notes": "Evening dinner service - steak, vegetables, wine",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-22T06:00:00Z",
+        "action": "created",
+        "performedBy": "System"
+      },
+      {
+        "id": "2",
+        "timestamp": "2024-01-22T06:05:00Z",
+        "action": "assigned",
+        "performedBy": "Staff",
+        "details": "Ahmed Hassan"
+      },
+      {
+        "id": "3",
+        "timestamp": "2024-01-22T06:35:00Z",
+        "action": "resolved",
+        "performedBy": "Staff",
+        "details": "Dinner delivered and served"
+      }
+    ]
+  }
+]

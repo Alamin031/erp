@@ -1,19 +1,66 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
-import { redirect } from "next/navigation";
+import { GuestServices } from "@/components/guest-services";
+import { useRouter } from "next/navigation";
 
-export default async function ServicesPage() {
-  const session = await getSession();
+export default function ServicesPage() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  const [session, setSession] = useState<any>(null);
+  const [demoData, setDemoData] = useState({ requests: [], staff: [] });
 
-  if (!session) {
-    redirect("/login");
-  }
+  useEffect(() => {
+    async function init() {
+      const sessionData = await getSession();
 
-  const userRole = (session.user as any).role;
-  const allowedRoles = ["super_admin", "general_manager", "concierge"];
+      if (!sessionData) {
+        router.push("/login");
+        return;
+      }
 
-  if (!allowedRoles.includes(userRole)) {
-    redirect("/unauthorized");
+      const userRole = (sessionData.user as any).role;
+      const allowedRoles = ["super_admin", "general_manager", "concierge"];
+
+      if (!allowedRoles.includes(userRole)) {
+        router.push("/unauthorized");
+        return;
+      }
+
+      setSession(sessionData);
+
+      try {
+        const [requestsRes, staffRes] = await Promise.all([
+          fetch("/demo/demoRequests.json"),
+          fetch("/demo/staff.json"),
+        ]);
+
+        const requests = requestsRes.ok ? await requestsRes.json() : [];
+        const staff = staffRes.ok ? await staffRes.json() : [];
+
+        setDemoData({ requests, staff });
+      } catch (error) {
+        console.error("Failed to load demo data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    init();
+  }, [router]);
+
+  if (isLoading) {
+    return (
+      <DashboardLayout>
+        <div className="dashboard-container">
+          <div className="text-center py-12">
+            <p className="text-secondary">Loading Guest Services...</p>
+          </div>
+        </div>
+      </DashboardLayout>
+    );
   }
 
   return (
@@ -24,14 +71,7 @@ export default async function ServicesPage() {
           <p className="dashboard-subtitle">Manage guest requests and services</p>
         </div>
 
-        <div className="dashboard-grid">
-          <div className="dashboard-section">
-            <h2 className="section-title">Service Requests</h2>
-            <div style={{ padding: "20px", textAlign: "center", color: "var(--secondary)" }}>
-              <p>Services interface coming soon...</p>
-            </div>
-          </div>
-        </div>
+        <GuestServices initialRequests={demoData.requests} initialStaff={demoData.staff} />
       </div>
     </DashboardLayout>
   );
