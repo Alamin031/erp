@@ -1,0 +1,443 @@
+[
+  {
+    "id": "G-001",
+    "firstName": "John",
+    "lastName": "Anderson",
+    "email": "john.anderson@example.com",
+    "phone": "+1-555-0101",
+    "nationality": "United States",
+    "passportNumber": "123456789",
+    "dateOfBirth": "1985-03-15",
+    "preferredLanguage": "English",
+    "status": "Checked-in",
+    "currentRoomNumber": "305",
+    "currentFloor": 3,
+    "tags": ["VIP", "Corporate"],
+    "preferences": {
+      "preferredFloor": 3,
+      "bedPreference": "King",
+      "specialRequests": "Early checkout on 3rd day"
+    },
+    "emergencyContact": {
+      "name": "Sarah Anderson",
+      "relationship": "Spouse",
+      "phone": "+1-555-0102"
+    },
+    "checkInDate": "2024-01-20T14:30:00Z",
+    "checkOutDate": "2024-01-25T11:00:00Z",
+    "totalNights": 5,
+    "notes": "Frequent guest, prefers room service breakfast. Requires late checkout.",
+    "paymentStatus": "Paid",
+    "createdAt": "2024-01-20T14:30:00Z",
+    "updatedAt": "2024-01-22T09:00:00Z",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-20T14:30:00Z",
+        "type": "check-in",
+        "description": "Guest checked in",
+        "performedBy": "Front Desk"
+      },
+      {
+        "id": "2",
+        "timestamp": "2024-01-20T15:00:00Z",
+        "type": "service-request",
+        "description": "Room service - Welcome champagne",
+        "performedBy": "Room Service"
+      },
+      {
+        "id": "3",
+        "timestamp": "2024-01-21T07:30:00Z",
+        "type": "service-request",
+        "description": "Breakfast delivered to room",
+        "performedBy": "Housekeeping"
+      }
+    ]
+  },
+  {
+    "id": "G-002",
+    "firstName": "Maria",
+    "lastName": "Garcia",
+    "email": "maria.garcia@example.com",
+    "phone": "+34-91-555-0201",
+    "nationality": "Spain",
+    "passportNumber": "ES987654321",
+    "dateOfBirth": "1990-07-22",
+    "preferredLanguage": "Spanish",
+    "status": "Checked-in",
+    "currentRoomNumber": "512",
+    "currentFloor": 5,
+    "tags": ["VIP", "No-smoking"],
+    "preferences": {
+      "preferredFloor": 5,
+      "bedPreference": "Double",
+      "allergies": "Peanuts",
+      "specialRequests": "Extra pillows"
+    },
+    "emergencyContact": {
+      "name": "Carlos Garcia",
+      "relationship": "Brother",
+      "phone": "+34-91-555-0202"
+    },
+    "checkInDate": "2024-01-21T16:00:00Z",
+    "checkOutDate": "2024-01-24T12:00:00Z",
+    "totalNights": 3,
+    "notes": "Business traveler. Needs daily housekeeping. Allergic to peanuts.",
+    "paymentStatus": "Paid",
+    "createdAt": "2024-01-21T16:00:00Z",
+    "updatedAt": "2024-01-22T10:00:00Z",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-21T16:00:00Z",
+        "type": "check-in",
+        "description": "Guest checked in",
+        "performedBy": "Front Desk"
+      },
+      {
+        "id": "2",
+        "timestamp": "2024-01-21T16:30:00Z",
+        "type": "note",
+        "description": "VIP amenities arranged",
+        "performedBy": "Concierge"
+      }
+    ]
+  },
+  {
+    "id": "G-003",
+    "firstName": "Robert",
+    "lastName": "Wilson",
+    "email": "rwilson@techcorp.com",
+    "phone": "+1-555-0301",
+    "nationality": "United States",
+    "passportNumber": "US456123789",
+    "dateOfBirth": "1978-11-30",
+    "preferredLanguage": "English",
+    "status": "Checked-in",
+    "currentRoomNumber": "410",
+    "currentFloor": 4,
+    "tags": ["Corporate", "Extended-stay"],
+    "preferences": {
+      "preferredFloor": 4,
+      "bedPreference": "King",
+      "specialRequests": "Work desk setup, high-speed internet"
+    },
+    "emergencyContact": {
+      "name": "Jennifer Wilson",
+      "relationship": "Sister",
+      "phone": "+1-555-0302"
+    },
+    "checkInDate": "2024-01-10T13:00:00Z",
+    "checkOutDate": "2024-01-31T11:00:00Z",
+    "totalNights": 21,
+    "notes": "Long-term stay. CEO visiting for project. Needs conference room access.",
+    "paymentStatus": "Paid",
+    "createdAt": "2024-01-10T13:00:00Z",
+    "updatedAt": "2024-01-22T08:00:00Z",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-10T13:00:00Z",
+        "type": "check-in",
+        "description": "Extended stay check-in",
+        "performedBy": "Front Desk"
+      }
+    ]
+  },
+  {
+    "id": "G-004",
+    "firstName": "Emily",
+    "lastName": "Chen",
+    "email": "emily.chen@example.com",
+    "phone": "+86-10-555-0401",
+    "nationality": "China",
+    "passportNumber": "CN789123456",
+    "dateOfBirth": "1995-05-10",
+    "preferredLanguage": "Mandarin",
+    "status": "Reserved",
+    "tags": ["VIP"],
+    "preferences": {
+      "preferredFloor": 6,
+      "bedPreference": "Twin",
+      "specialRequests": "Vegetarian meals"
+    },
+    "emergencyContact": {
+      "name": "David Chen",
+      "relationship": "Father",
+      "phone": "+86-10-555-0402"
+    },
+    "checkInDate": "2024-01-25T15:00:00Z",
+    "totalNights": 4,
+    "notes": "Upcoming VIP arrival. Arrange cultural welcome.",
+    "paymentStatus": "Pending",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-01-22T11:00:00Z",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-15T10:00:00Z",
+        "type": "edit",
+        "description": "Reservation created",
+        "performedBy": "Reservations"
+      }
+    ]
+  },
+  {
+    "id": "G-005",
+    "firstName": "Thomas",
+    "lastName": "Mueller",
+    "email": "t.mueller@example.com",
+    "phone": "+49-30-555-0501",
+    "nationality": "Germany",
+    "passportNumber": "DE321654987",
+    "dateOfBirth": "1988-09-12",
+    "preferredLanguage": "German",
+    "status": "Checked-out",
+    "tags": ["Do-not-disturb"],
+    "preferences": {
+      "preferredFloor": 2,
+      "bedPreference": "Single",
+      "specialRequests": "Quiet floor"
+    },
+    "emergencyContact": {
+      "name": "Klaus Mueller",
+      "relationship": "Father",
+      "phone": "+49-30-555-0502"
+    },
+    "checkInDate": "2024-01-18T12:00:00Z",
+    "checkOutDate": "2024-01-22T10:00:00Z",
+    "totalNights": 4,
+    "notes": "Previous guest. Preferred quiet room on lower floor.",
+    "paymentStatus": "Paid",
+    "createdAt": "2024-01-18T12:00:00Z",
+    "updatedAt": "2024-01-22T10:00:00Z",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-18T12:00:00Z",
+        "type": "check-in",
+        "description": "Guest checked in",
+        "performedBy": "Front Desk"
+      },
+      {
+        "id": "2",
+        "timestamp": "2024-01-22T10:00:00Z",
+        "type": "check-out",
+        "description": "Guest checked out",
+        "performedBy": "Front Desk"
+      }
+    ]
+  },
+  {
+    "id": "G-006",
+    "firstName": "Sophie",
+    "lastName": "Laurent",
+    "email": "sophie.laurent@example.com",
+    "phone": "+33-1-555-0601",
+    "nationality": "France",
+    "passportNumber": "FR654987321",
+    "dateOfBirth": "1992-02-28",
+    "preferredLanguage": "French",
+    "status": "Checked-in",
+    "currentRoomNumber": "205",
+    "currentFloor": 2,
+    "tags": ["VIP", "No-smoking"],
+    "preferences": {
+      "preferredFloor": 2,
+      "bedPreference": "Double",
+      "specialRequests": "Spa appointment arranged"
+    },
+    "emergencyContact": {
+      "name": "Marc Laurent",
+      "relationship": "Husband",
+      "phone": "+33-1-555-0602"
+    },
+    "checkInDate": "2024-01-19T17:00:00Z",
+    "checkOutDate": "2024-01-23T11:00:00Z",
+    "totalNights": 4,
+    "notes": "Honeymoon guest. Requested romantic setup and spa services.",
+    "paymentStatus": "Paid",
+    "createdAt": "2024-01-19T17:00:00Z",
+    "updatedAt": "2024-01-22T14:00:00Z",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-19T17:00:00Z",
+        "type": "check-in",
+        "description": "Honeymoon guest checked in",
+        "performedBy": "Front Desk"
+      },
+      {
+        "id": "2",
+        "timestamp": "2024-01-19T17:30:00Z",
+        "type": "note",
+        "description": "Honeymoon champagne and rose petals arranged",
+        "performedBy": "Housekeeping"
+      }
+    ]
+  },
+  {
+    "id": "G-007",
+    "firstName": "James",
+    "lastName": "Smith",
+    "email": "j.smith@example.com",
+    "phone": "+44-20-555-0701",
+    "nationality": "United Kingdom",
+    "passportNumber": "GB987321654",
+    "dateOfBirth": "1980-06-05",
+    "preferredLanguage": "English",
+    "status": "Reserved",
+    "tags": [],
+    "preferences": {
+      "preferredFloor": 3,
+      "bedPreference": "Double"
+    },
+    "emergencyContact": {
+      "name": "Patricia Smith",
+      "relationship": "Mother",
+      "phone": "+44-20-555-0702"
+    },
+    "checkInDate": "2024-01-26T14:00:00Z",
+    "totalNights": 3,
+    "notes": "Business traveler from London.",
+    "paymentStatus": "Pending",
+    "createdAt": "2024-01-20T09:00:00Z",
+    "updatedAt": "2024-01-22T09:30:00Z",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-20T09:00:00Z",
+        "type": "edit",
+        "description": "Reservation created",
+        "performedBy": "Reservations"
+      }
+    ]
+  },
+  {
+    "id": "G-008",
+    "firstName": "Isabella",
+    "lastName": "Rossi",
+    "email": "isabella.rossi@example.com",
+    "phone": "+39-06-555-0801",
+    "nationality": "Italy",
+    "passportNumber": "IT123789456",
+    "dateOfBirth": "1987-12-18",
+    "preferredLanguage": "Italian",
+    "status": "Checked-in",
+    "currentRoomNumber": "608",
+    "currentFloor": 6,
+    "tags": ["VIP"],
+    "preferences": {
+      "preferredFloor": 6,
+      "bedPreference": "King",
+      "specialRequests": "Restaurant reservations, wine tasting"
+    },
+    "emergencyContact": {
+      "name": "Antonio Rossi",
+      "relationship": "Brother",
+      "phone": "+39-06-555-0802"
+    },
+    "checkInDate": "2024-01-22T16:00:00Z",
+    "checkOutDate": "2024-01-25T12:00:00Z",
+    "totalNights": 3,
+    "notes": "Fashion industry VIP. Needs concierge for special events.",
+    "paymentStatus": "Paid",
+    "createdAt": "2024-01-22T16:00:00Z",
+    "updatedAt": "2024-01-22T16:00:00Z",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-22T16:00:00Z",
+        "type": "check-in",
+        "description": "VIP guest checked in",
+        "performedBy": "Front Desk"
+      }
+    ]
+  },
+  {
+    "id": "G-009",
+    "firstName": "Michael",
+    "lastName": "Johnson",
+    "email": "m.johnson@example.com",
+    "phone": "+1-555-0901",
+    "nationality": "United States",
+    "passportNumber": "US789456123",
+    "dateOfBirth": "1975-08-20",
+    "preferredLanguage": "English",
+    "status": "Checked-out",
+    "tags": ["Corporate"],
+    "preferences": {
+      "preferredFloor": 5,
+      "bedPreference": "King"
+    },
+    "emergencyContact": {
+      "name": "Linda Johnson",
+      "relationship": "Wife",
+      "phone": "+1-555-0902"
+    },
+    "checkInDate": "2024-01-20T11:00:00Z",
+    "checkOutDate": "2024-01-21T10:00:00Z",
+    "totalNights": 1,
+    "notes": "Short business stay. Conference attendee.",
+    "paymentStatus": "Paid",
+    "createdAt": "2024-01-20T11:00:00Z",
+    "updatedAt": "2024-01-21T10:00:00Z",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-20T11:00:00Z",
+        "type": "check-in",
+        "description": "Guest checked in",
+        "performedBy": "Front Desk"
+      },
+      {
+        "id": "2",
+        "timestamp": "2024-01-21T10:00:00Z",
+        "type": "check-out",
+        "description": "Guest checked out",
+        "performedBy": "Front Desk"
+      }
+    ]
+  },
+  {
+    "id": "G-010",
+    "firstName": "Yuki",
+    "lastName": "Tanaka",
+    "email": "yuki.tanaka@example.com",
+    "phone": "+81-3-555-1001",
+    "nationality": "Japan",
+    "passportNumber": "JP456789123",
+    "dateOfBirth": "1993-04-14",
+    "preferredLanguage": "Japanese",
+    "status": "Checked-in",
+    "currentRoomNumber": "703",
+    "currentFloor": 7,
+    "tags": ["VIP", "Wheelchair-accessible"],
+    "preferences": {
+      "preferredFloor": 7,
+      "bedPreference": "Twin",
+      "specialRequests": "Traditional Japanese breakfast"
+    },
+    "emergencyContact": {
+      "name": "Hiroshi Tanaka",
+      "relationship": "Father",
+      "phone": "+81-3-555-1002"
+    },
+    "checkInDate": "2024-01-21T13:00:00Z",
+    "checkOutDate": "2024-01-26T11:00:00Z",
+    "totalNights": 5,
+    "notes": "Cultural exchange participant. Requires accessible room.",
+    "paymentStatus": "Paid",
+    "createdAt": "2024-01-21T13:00:00Z",
+    "updatedAt": "2024-01-22T13:00:00Z",
+    "activityLog": [
+      {
+        "id": "1",
+        "timestamp": "2024-01-21T13:00:00Z",
+        "type": "check-in",
+        "description": "Guest checked in",
+        "performedBy": "Front Desk"
+      }
+    ]
+  }
+]
