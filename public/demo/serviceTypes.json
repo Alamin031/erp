@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "name": "Room Service",
+    "icon": "🍽️",
+    "description": "Food and beverage delivery to guest rooms"
+  },
+  {
+    "id": "2",
+    "name": "Housekeeping Request",
+    "icon": "🧹",
+    "description": "Cleaning and tidying of guest rooms"
+  },
+  {
+    "id": "3",
+    "name": "Maintenance",
+    "icon": "🔧",
+    "description": "Equipment repair and facility maintenance"
+  },
+  {
+    "id": "4",
+    "name": "Wake-up Call",
+    "icon": "⏰",
+    "description": "Scheduled wake-up call service"
+  },
+  {
+    "id": "5",
+    "name": "Laundry",
+    "icon": "🧺",
+    "description": "Laundry, dry cleaning, and pressing services"
+  },
+  {
+    "id": "6",
+    "name": "Other",
+    "icon": "❓",
+    "description": "Other guest service requests"
+  }
+]
