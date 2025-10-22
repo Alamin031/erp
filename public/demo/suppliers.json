@@ -1,4 +1,11 @@
 [
   { "id": "SUP-1", "name": "HVAC Supply Co.", "contactEmail": "sales@hvacsupply.com", "phone": "+1-555-6001" },
-  { "id": "SUP-2", "name": "CleanEquip Inc.", "contactEmail": "support@cleanequip.com", "phone": "+1-555-6002" }
+  { "id": "SUP-2", "name": "CleanEquip Inc.", "contactEmail": "support@cleanequip.com", "phone": "+1-555-6002" },
+  { "id": "SUP-3", "name": "Industrial Tools & Equipment", "contactEmail": "sales@industrialtools.com", "phone": "+1-555-6003" },
+  { "id": "SUP-4", "name": "Safety & Hardware Direct", "contactEmail": "support@safetyhardware.com", "phone": "+1-555-6004" },
+  { "id": "SUP-5", "name": "Power Solutions Ltd.", "contactEmail": "sales@powersolutions.com", "phone": "+1-555-6005" },
+  { "id": "SUP-6", "name": "Premium Textiles Co.", "contactEmail": "support@premiumtextiles.com", "phone": "+1-555-6006" },
+  { "id": "SUP-7", "name": "Paint & Coatings Supplier", "contactEmail": "sales@paintcoatings.com", "phone": "+1-555-6007" },
+  { "id": "SUP-8", "name": "Plumbing & PVC Specialists", "contactEmail": "support@plumbingspec.com", "phone": "+1-555-6008" },
+  { "id": "SUP-9", "name": "Building Materials Wholesale", "contactEmail": "sales@buildingmaterials.com", "phone": "+1-555-6009" }
 ]
