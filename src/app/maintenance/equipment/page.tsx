@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
+import { EquipmentPageClient } from "./page-client";
 
 export default async function EquipmentPage() {
   const session = await getSession();
@@ -21,16 +22,11 @@ export default async function EquipmentPage() {
       <div className="dashboard-container">
         <div className="dashboard-header-content">
           <h1 className="dashboard-page-title">Equipment Management</h1>
-          <p className="dashboard-subtitle">Track and maintain equipment</p>
+          <p className="dashboard-subtitle">Track, maintain, and manage equipment inventory</p>
         </div>
 
         <div className="dashboard-grid">
-          <div className="dashboard-section">
-            <h2 className="section-title">Equipment Inventory</h2>
-            <div style={{ padding: "20px", textAlign: "center", color: "var(--secondary)" }}>
-              <p>Equipment interface coming soon...</p>
-            </div>
-          </div>
+          <EquipmentPageClient />
         </div>
       </div>
     </DashboardLayout>
