@@ -52,7 +52,7 @@ export function GuestsPageClient() {
   }, [guests]);
 
   const filteredGuests = useMemo(() => {
-    return guests.filter((g) => {
+    let list = guests.filter((g) => {
       if (filters.status !== "All" && g.status !== filters.status) return false;
       if (filters.tag !== "All" && !g.tags.includes(filters.tag)) return false;
       if (filters.dateFromArrival && new Date(g.checkInDate) < new Date(filters.dateFromArrival)) return false;
@@ -60,7 +60,17 @@ export function GuestsPageClient() {
       if (filters.floor !== "All" && filters.floor !== undefined && g.currentFloor !== filters.floor) return false;
       return true;
     });
-  }, [guests, filters]);
+    const q = (searchQuery || "").toLowerCase().trim();
+    if (q) {
+      list = list.filter((g) =>
+        `${g.firstName} ${g.lastName}`.toLowerCase().includes(q) ||
+        g.email.toLowerCase().includes(q) ||
+        g.phone.toLowerCase().includes(q) ||
+        (g.currentRoomNumber || "").toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }, [guests, filters, searchQuery]);
 
   const handleView = (guestId: string) => {
     const g = guests.find((x) => x.id === guestId) || null;
