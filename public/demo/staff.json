@@ -1,0 +1,82 @@
+[
+  {
+    "id": "S001",
+    "name": "Maria Garcia",
+    "role": "Housekeeping Staff",
+    "department": "Housekeeping",
+    "isAvailable": true,
+    "currentAssignments": 2
+  },
+  {
+    "id": "S002",
+    "name": "James Wilson",
+    "role": "Laundry & Valet",
+    "department": "Housekeeping",
+    "isAvailable": true,
+    "currentAssignments": 1
+  },
+  {
+    "id": "S003",
+    "name": "Ahmed Hassan",
+    "role": "Room Service Staff",
+    "department": "Food & Beverage",
+    "isAvailable": true,
+    "currentAssignments": 3
+  },
+  {
+    "id": "S004",
+    "name": "Carlos Rodriguez",
+    "role": "Maintenance Technician",
+    "department": "Maintenance",
+    "isAvailable": false,
+    "currentAssignments": 1
+  },
+  {
+    "id": "S005",
+    "name": "Sophie Dubois",
+    "role": "Concierge",
+    "department": "Front Office",
+    "isAvailable": true,
+    "currentAssignments": 0
+  },
+  {
+    "id": "S006",
+    "name": "Yuki Tanaka",
+    "role": "Housekeeping Staff",
+    "department": "Housekeeping",
+    "isAvailable": true,
+    "currentAssignments": 2
+  },
+  {
+    "id": "S007",
+    "name": "Miguel Santos",
+    "role": "Maintenance Technician",
+    "department": "Maintenance",
+    "isAvailable": true,
+    "currentAssignments": 1
+  },
+  {
+    "id": "S008",
+    "name": "Anna Novak",
+    "role": "Room Service Manager",
+    "department": "Food & Beverage",
+    "isAvailable": true,
+    "currentAssignments": 4
+  },
+  {
+    "id": "S009",
+    "name": "Ravi Patel",
+    "role": "Concierge Assistant",
+    "department": "Front Office",
+    "isAvailable": true,
+    "currentAssignments": 1
+  },
+  {
+    "id": "S010",
+    "name": "Elena Kovacs",
+    "role": "Housekeeping Supervisor",
+    "department": "Housekeeping",
+    "isAvailable": true,
+    "currentAssignments": 0
+  }
+]
