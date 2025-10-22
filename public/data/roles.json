@@ -1,0 +1,136 @@
+[
+  {
+    "id": "ROLE-1001",
+    "name": "Super Admin",
+    "description": "System-wide analytics and user management",
+    "color": "#ef4444",
+    "permissions": [
+      "PERM-1001", "PERM-1002", "PERM-1003", "PERM-1004",
+      "PERM-2001", "PERM-2002", "PERM-2003", "PERM-2004",
+      "PERM-3001", "PERM-3002", "PERM-3003", "PERM-3004",
+      "PERM-4001", "PERM-4002", "PERM-4003", "PERM-4004",
+      "PERM-5001", "PERM-5002", "PERM-5003", "PERM-5004",
+      "PERM-6001", "PERM-6002", "PERM-6003", "PERM-6004",
+      "PERM-7001", "PERM-7002", "PERM-7003", "PERM-7004",
+      "PERM-8001", "PERM-8002", "PERM-8003", "PERM-8004",
+      "PERM-9001", "PERM-9002", "PERM-9003", "PERM-9004",
+      "PERM-10001", "PERM-10002", "PERM-10003", "PERM-10004"
+    ],
+    "isSystem": true,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "ROLE-1002",
+    "name": "General Manager",
+    "description": "Hotel performance and financial KPIs",
+    "color": "#f97316",
+    "permissions": [
+      "PERM-2001", "PERM-2002", "PERM-3001", "PERM-3002",
+      "PERM-4001", "PERM-4002", "PERM-5001", "PERM-5002",
+      "PERM-6001", "PERM-6002", "PERM-7001", "PERM-7002"
+    ],
+    "isSystem": true,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "ROLE-1003",
+    "name": "Front Desk Manager",
+    "description": "Room availability and check-in/check-out",
+    "color": "#06b6d4",
+    "permissions": [
+      "PERM-3001", "PERM-3002", "PERM-3003",
+      "PERM-4001", "PERM-4002", "PERM-4003"
+    ],
+    "isSystem": true,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "ROLE-1004",
+    "name": "Front Desk Agent",
+    "description": "Daily arrivals and departures",
+    "color": "#0ea5e9",
+    "permissions": [
+      "PERM-3001", "PERM-3003", "PERM-4001"
+    ],
+    "isSystem": true,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "ROLE-1005",
+    "name": "Housekeeping Manager",
+    "description": "Room status and task assignments",
+    "color": "#8b5cf6",
+    "permissions": [
+      "PERM-5001", "PERM-5002", "PERM-5003",
+      "PERM-6001", "PERM-6002"
+    ],
+    "isSystem": true,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "ROLE-1006",
+    "name": "Housekeeping Staff",
+    "description": "Assigned housekeeping tasks",
+    "color": "#d946ef",
+    "permissions": [
+      "PERM-5001", "PERM-5003"
+    ],
+    "isSystem": true,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "ROLE-1007",
+    "name": "Finance Manager",
+    "description": "Invoicing, budgets, and accounting",
+    "color": "#10b981",
+    "permissions": [
+      "PERM-7001", "PERM-7002", "PERM-7003", "PERM-7004",
+      "PERM-8001", "PERM-8002"
+    ],
+    "isSystem": true,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "ROLE-1008",
+    "name": "Sales & Marketing",
+    "description": "Campaigns and rate management",
+    "color": "#ec4899",
+    "permissions": [
+      "PERM-2001", "PERM-8001", "PERM-8003"
+    ],
+    "isSystem": true,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "ROLE-1009",
+    "name": "Concierge",
+    "description": "Guest itineraries and services",
+    "color": "#f59e0b",
+    "permissions": [
+      "PERM-9001", "PERM-9002"
+    ],
+    "isSystem": true,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "ROLE-1010",
+    "name": "Maintenance Manager",
+    "description": "Equipment and work orders",
+    "color": "#6366f1",
+    "permissions": [
+      "PERM-10001", "PERM-10002", "PERM-10003", "PERM-10004"
+    ],
+    "isSystem": true,
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  }
+]
