@@ -139,6 +139,7 @@ export function Sidebar({ role, userName }: SidebarProps) {
               {isOpen && <h3 className="nav-section-title">{category}</h3>}
               <ul className="nav-list">
                 {items.map((item) => {
+                  const Icon = item.icon;
                   const hasChildren = item.children && item.children.length > 0;
                   const open = !!openMap[item.href];
 
@@ -159,7 +160,7 @@ export function Sidebar({ role, userName }: SidebarProps) {
                             toggleParent(item.href);
                           }}
                         >
-                          <span className="nav-icon">{item.icon}</span>
+                          <span className="nav-icon">{Icon ? <Icon /> : null}</span>
                           {isOpen && (
                             <span className="nav-label">{item.label}</span>
                           )}
@@ -172,26 +173,29 @@ export function Sidebar({ role, userName }: SidebarProps) {
 
                         {open && (
                           <ul className="nav-sublist">
-                            {item.children!.map((child) => (
-                              <li key={child.href} className="nav-subitem">
-                                <Link
-                                  href={child.href}
-                                  className={`nav-link ${
-                                    isActive(child.href)
-                                      ? "nav-link-active"
-                                      : ""
-                                  }`}
-                                  title={child.label}
-                                >
-                                  <span className="nav-icon">{child.icon}</span>
-                                  {isOpen && (
-                                    <span className="nav-label">
-                                      {child.label}
-                                    </span>
-                                  )}
-                                </Link>
-                              </li>
-                            ))}
+                            {item.children!.map((child) => {
+                              const ChildIcon = child.icon;
+                              return (
+                                <li key={child.href} className="nav-subitem">
+                                  <Link
+                                    href={child.href}
+                                    className={`nav-link ${
+                                      isActive(child.href)
+                                        ? "nav-link-active"
+                                        : ""
+                                    }`}
+                                    title={child.label}
+                                  >
+                                    <span className="nav-icon">{ChildIcon ? <ChildIcon /> : null}</span>
+                                    {isOpen && (
+                                      <span className="nav-label">
+                                        {child.label}
+                                      </span>
+                                    )}
+                                  </Link>
+                                </li>
+                              );
+                            })}
                           </ul>
                         )}
                       </li>
@@ -208,7 +212,7 @@ export function Sidebar({ role, userName }: SidebarProps) {
                         }`}
                         title={item.label}
                       >
-                        <span className="nav-icon">{item.icon}</span>
+                        <span className="nav-icon">{Icon ? <Icon /> : null}</span>
                         {isOpen && (
                           <span className="nav-label">{item.label}</span>
                         )}

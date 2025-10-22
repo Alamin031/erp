@@ -1,9 +1,58 @@
 import type { UserRole } from "@/types/auth";
+import type { ComponentType, SVGProps } from "react";
+import {
+  BarChart2,
+  Users,
+  Settings,
+  Clipboard,
+  CheckSquare,
+  Box,
+  ShoppingCart,
+  Truck,
+  DollarSign,
+  FileText,
+  Folder,
+  List,
+  Calendar,
+  ClipboardList,
+  Briefcase,
+  Gift,
+  Wrench,
+  Layers,
+  FileArchive,
+  Database,
+  BookOpen,
+  Tag,
+  GitPullRequest,
+  MapPin,
+} from "lucide-react";
+
+export type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
+export function BullseyeIconFallback(): IconComponent {
+  return MapPin;
+}
+
+export function BellFallback(): IconComponent {
+  return MapPin;
+}
+
+export function SearchFallback(): IconComponent {
+  return MapPin;
+}
+
+export function MailFallback(): IconComponent {
+  return MapPin;
+}
+
+export function PhoneFallback(): IconComponent {
+  return MapPin;
+}
 
 export interface NavItem {
   label: string;
   href: string;
-  icon: string;
+  icon: IconComponent;
   roles: UserRole[];
   description?: string;
   children?: NavItem[]; // added to support dropdown / nested items
@@ -13,77 +62,77 @@ export const navigationItems: NavItem[] = [
   {
     label: "Dashboard",
     href: "/dashboard",
-    icon: "📊",
+    icon: BarChart2,
     roles: ["super_admin", "general_manager", "front_desk_manager", "front_desk_agent", "housekeeping_manager", "housekeeping_staff", "finance_manager", "sales_marketing", "concierge", "maintenance_manager"],
   },
   // Admin section
   {
     label: "User Management",
     href: "/admin/users",
-    icon: "👥",
+    icon: Users,
     roles: ["super_admin"],
   },
   {
     label: "System Settings",
     href: "/admin/system",
-    icon: "⚙️",
+    icon: Settings,
     roles: ["super_admin"],
   },
   // Front Office
   {
     label: "Reservations",
     href: "/front-office/reservations",
-    icon: "📋",
+    icon: Clipboard,
     roles: ["super_admin", "general_manager", "front_desk_manager", "front_desk_agent"],
   },
   {
     label: "Check-in",
     href: "/front-office/checkin",
-    icon: "📥",
+    icon: CheckSquare,
     roles: ["super_admin", "general_manager", "front_desk_manager", "front_desk_agent"],
   },
   {
     label: "Check-out",
     href: "/front-office/checkout",
-    icon: "📤",
+    icon: ClipboardList,
     roles: ["super_admin", "general_manager", "front_desk_manager", "front_desk_agent"],
   },
   // Housekeeping
   {
     label: "Tasks",
     href: "/housekeeping/tasks",
-    icon: "🧹",
+    icon: CheckSquare,
     roles: ["super_admin", "general_manager", "housekeeping_manager", "housekeeping_staff"],
   },
   {
     label: "Room Status",
     href: "/housekeeping/rooms",
-    icon: "🛏️",
+    icon: Box,
     roles: ["super_admin", "general_manager", "housekeeping_manager"],
   },
   // Finance
   {
     label: "Invoicing",
     href: "/finance/invoicing",
-    icon: "💳",
+    icon: FileText,
     roles: ["super_admin", "general_manager", "finance_manager"],
   },
   {
     label: "Accounting",
     href: "/finance/accounting",
-    icon: "📈",
+    icon: BarChart2,
     roles: ["super_admin", "general_manager", "finance_manager"],
   },
   {
     label: "Payroll",
     href: "/finance/payroll",
-    icon: "🧾",
+    icon: DollarSign,
     roles: ["super_admin", "general_manager"],
   },
   {
     label: "Reports",
     href: "/finance/reports",
-    icon: "📑",
+    icon: BarChart2,
     roles: ["super_admin", "general_manager", "finance_manager"],
   },
 
@@ -91,26 +140,26 @@ export const navigationItems: NavItem[] = [
   {
     label: "Equity",
     href: "/finance/equity",
-    icon: "📈",
+    icon: BarChart2,
     description: "Manage securities, transactions, and cap tables",
     roles: ["super_admin", "general_manager", "finance_manager"],
     children: [
       {
         label: "Securities",
         href: "/finance/equity/securities",
-        icon: "💹",
+        icon: DollarSign,
         roles: ["super_admin", "general_manager", "finance_manager"],
       },
       {
         label: "Transactions",
         href: "/finance/equity/transactions",
-        icon: "🔁",
+        icon: Truck,
         roles: ["super_admin", "general_manager", "finance_manager"],
       },
       {
         label: "Cap Table",
         href: "/finance/equity/cap-table",
-        icon: "🧾",
+        icon: FileArchive,
         roles: ["super_admin", "general_manager", "finance_manager"],
       },
     ],
@@ -119,13 +168,13 @@ export const navigationItems: NavItem[] = [
   {
     label: "Campaigns",
     href: "/sales/campaigns",
-    icon: "📢",
+    icon: BullseyeIconFallback(),
     roles: ["super_admin", "general_manager", "sales_marketing"],
   },
   {
     label: "Rate Management",
     href: "/sales/rates",
-    icon: "💰",
+    icon: Tag,
     roles: ["super_admin", "general_manager", "sales_marketing"],
   },
 
@@ -133,26 +182,26 @@ export const navigationItems: NavItem[] = [
   {
     label: "Shopee Connector",
     href: "/integrations/shopee",
-    icon: "🛒",
+    icon: ShoppingCart,
     description: "Import Shopee orders and sync deliveries",
     roles: ["super_admin", "general_manager", "sales_marketing", "finance_manager"],
     children: [
       {
         label: "Import Orders",
         href: "/integrations/shopee/import-orders",
-        icon: "📥",
+        icon: ShoppingCart,
         roles: ["super_admin", "general_manager", "sales_marketing", "finance_manager"],
       },
       {
         label: "Sync Deliveries",
         href: "/integrations/shopee/deliveries",
-        icon: "🚚",
+        icon: Truck,
         roles: ["super_admin", "general_manager", "sales_marketing", "finance_manager"],
       },
       {
         label: "Shopee Settings",
         href: "/integrations/shopee/settings",
-        icon: "⚙️",
+        icon: Settings,
         roles: ["super_admin", "general_manager"],
       },
     ],
@@ -162,80 +211,80 @@ export const navigationItems: NavItem[] = [
   {
     label: "Inventory",
     href: "/inventory",
-    icon: "📦",
+    icon: Box,
     description: "Manage stock, items, suppliers and inventory reports",
     roles: ["super_admin", "general_manager"],
     children: [
       {
         label: "Inventory Dashboard",
         href: "/inventory/dashboard",
-        icon: "📊",
+        icon: BarChart2,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Items / Products",
         href: "/inventory/items",
-        icon: "📦",
+        icon: Box,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Categories",
         href: "/inventory/categories",
-        icon: "🗂️",
+        icon: Folder,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Stock In",
         href: "/inventory/stock-in",
-        icon: "📥",
+        icon: Truck,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Stock Out",
         href: "/inventory/stock-out",
-        icon: "📤",
+        icon: Truck,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Transfers",
         href: "/inventory/transfers",
-        icon: "🔁",
+        icon: GitPullRequest,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Adjustments",
         href: "/inventory/adjustments",
-        icon: "⚖️",
+        icon: Wrench,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Suppliers",
         href: "/inventory/suppliers",
-        icon: "🏢",
+        icon: Briefcase,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Purchase Orders",
         href: "/inventory/purchase-orders",
-        icon: "🧾",
+        icon: FileText,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Reorder Alerts",
         href: "/inventory/reorder-alerts",
-        icon: "🔔",
+        icon: BellFallback(),
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Inventory Reports",
         href: "/inventory/reports",
-        icon: "📊",
+        icon: BarChart2,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Inventory Settings",
         href: "/inventory/settings",
-        icon: "⚙️",
+        icon: Settings,
         roles: ["super_admin", "general_manager"],
       },
     ],
@@ -245,73 +294,73 @@ export const navigationItems: NavItem[] = [
   {
     label: "CRM",
     href: "/crm",
-    icon: "📂",
+    icon: Folder,
     roles: ["super_admin"],
   },
   {
     label: "Leads",
     href: "/crm/leads",
-    icon: "🔎",
+    icon: SearchFallback(),
     roles: ["super_admin"],
   },
   {
     label: "Contacts",
     href: "/crm/contacts",
-    icon: "👥",
+    icon: Users,
     roles: ["super_admin"],
   },
   {
     label: "Companies",
     href: "/crm/companies",
-    icon: "🏢",
+    icon: Briefcase,
     roles: ["super_admin"],
   },
   {
     label: "Opportunities",
     href: "/crm/opportunities",
-    icon: "💼",
+    icon: Briefcase,
     roles: ["super_admin"],
   },
   {
     label: "Pipeline",
     href: "/crm/pipeline",
-    icon: "📈",
+    icon: BarChart2,
     roles: ["super_admin"],
   },
   {
     label: "Activities",
     href: "/crm/activities",
-    icon: "📋",
+    icon: List,
     roles: ["super_admin"],
   },
   {
     label: "Notes",
     href: "/crm/notes",
-    icon: "🗒️",
+    icon: FileText,
     roles: ["super_admin"],
   },
   {
     label: "Tasks",
     href: "/crm/tasks",
-    icon: "✅",
+    icon: CheckSquare,
     roles: ["super_admin"],
   },
   {
     label: "Communication Log",
     href: "/crm/communications",
-    icon: "📞",
+    icon: PhoneFallback(),
     roles: ["super_admin"],
   },
   {
     label: "Reports",
     href: "/crm/reports",
-    icon: "📊",
+    icon: BarChart2,
     roles: ["super_admin"],
   },
   {
     label: "Settings",
     href: "/crm/settings",
-    icon: "⚙️",
+    icon: Settings,
     roles: ["super_admin"],
   },
 
@@ -319,14 +368,14 @@ export const navigationItems: NavItem[] = [
   {
     label: "Sign",
     href: "/documents/sign",
-    icon: "🖊️",
+    icon: FileText,
     description: "Our documents signed pen\nin just one click\nallows you to send, sign, and approve documents online. Simplify your processes across all aspects of your business.",
     roles: ["super_admin", "general_manager"],
   },
   {
     label: "Data Recycle",
     href: "/admin/data-recycle",
-    icon: "🗑️",
+    icon: FileArchive,
     description: "Find old records and archive/delete them",
     roles: ["super_admin", "general_manager"],
   },
@@ -335,26 +384,26 @@ export const navigationItems: NavItem[] = [
   {
     label: "Documents",
     href: "/documents",
-    icon: "📂",
+    icon: Folder,
     description: "Manage bills, expenses and VAT documents",
     roles: ["super_admin", "general_manager", "finance_manager"],
     children: [
       {
         label: "Bills",
         href: "/documents/bills",
-        icon: "🧾",
+        icon: FileText,
         roles: ["super_admin", "general_manager", "finance_manager"],
       },
       {
         label: "Expenses",
         href: "/documents/expenses",
-        icon: "💸",
+        icon: DollarSign,
         roles: ["super_admin", "general_manager", "finance_manager"],
       },
       {
         label: "VAT",
         href: "/documents/vat",
-        icon: "💰",
+        icon: DollarSign,
         roles: ["super_admin", "general_manager", "finance_manager"],
       },
     ],
@@ -364,39 +413,39 @@ export const navigationItems: NavItem[] = [
   {
     label: "Guest Services",
     href: "/concierge/services",
-    icon: "🎩",
+    icon: Gift,
     roles: ["super_admin", "general_manager", "concierge"],
   },
   {
     label: "Guest Directory",
     href: "/concierge/guests",
-    icon: "🧑‍💼",
+    icon: Users,
     roles: ["super_admin", "general_manager", "concierge", "front_desk_manager"],
   },
   // Maintenance
   {
     label: "Work Orders",
     href: "/maintenance/workorders",
-    icon: "🔧",
+    icon: Wrench,
     roles: ["super_admin", "general_manager", "maintenance_manager"],
   },
   {
     label: "Equipment",
     href: "/maintenance/equipment",
-    icon: "⚙️",
+    icon: Wrench,
     roles: ["super_admin", "general_manager", "maintenance_manager"],
   },
   // HR
   {
     label: "Skills Management",
     href: "/hr/skills",
-    icon: "🧠",
+    icon: BookOpen,
     roles: ["super_admin", "general_manager"],
   },
   {
     label: "Planning",
     href: "/hr/planning",
-    icon: "📅",
+    icon: Calendar,
     description: "Manage your employees' schedule",
     roles: ["super_admin", "general_manager"],
   },
@@ -404,38 +453,38 @@ export const navigationItems: NavItem[] = [
   {
     label: "Recruitment",
     href: "/hr/recruitment",
-    icon: "🧑‍💼",
+    icon: Users,
     description: "Manage job postings, applicants and hiring workflow",
     roles: ["super_admin", "general_manager"],
     children: [
       {
         label: "Job Openings",
         href: "/hr/recruitment/jobs",
-        icon: "📢",
+        icon: Clipboard,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Applicants",
         href: "/hr/recruitment/applicants",
-        icon: "👥",
+        icon: Users,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Interviews",
         href: "/hr/recruitment/interviews",
-        icon: "📅",
+        icon: Calendar,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Offers",
         href: "/hr/recruitment/offers",
-        icon: "✉️",
+        icon: MailFallback(),
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Onboarding",
         href: "/hr/recruitment/onboarding",
-        icon: "📝",
+        icon: FileText,
         roles: ["super_admin", "general_manager"],
       },
     ],
@@ -445,44 +494,44 @@ export const navigationItems: NavItem[] = [
   {
     label: "Product Lifecycle Management (PLM)",
     href: "/plm",
-    icon: "🏭",
+    icon: Layers,
     description: "Manage product data, BOMs, change requests and lifecycle stages",
     roles: ["super_admin", "general_manager"],
     children: [
       {
         label: "PLM Dashboard",
         href: "/plm/dashboard",
-        icon: "📊",
+        icon: BarChart2,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Products",
         href: "/plm/products",
-        icon: "📦",
+        icon: Box,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "BOMs",
         href: "/plm/boms",
-        icon: "🧾",
+        icon: FileText,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Change Requests",
         href: "/plm/change-requests",
-        icon: "⚙️",
+        icon: GitPullRequest,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "Releases",
         href: "/plm/releases",
-        icon: "🚀",
+        icon: BarChart2,
         roles: ["super_admin", "general_manager"],
       },
       {
         label: "PLM Projects",
         href: "/plm/projects",
-        icon: "📁",
+        icon: Folder,
         roles: ["super_admin", "general_manager"],
       },
     ],
