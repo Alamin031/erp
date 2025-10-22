@@ -25,12 +25,12 @@ const statusColors: Record<string, string> = {
   Cancelled: "bg-gray-100 text-gray-800",
 };
 
-export function ServiceRequestTable({ onViewClick, onAssignClick }: ServiceRequestTableProps) {
-  const { getFilteredRequests, deleteRequest, startRequest, staff, pagination, setPagination } = useGuestServices();
+export function ServiceRequestTable({ onViewClick, onAssignClick, requests: passedRequests }: ServiceRequestTableProps) {
+  const { deleteRequest, startRequest, staff, pagination, setPagination, requests: storeRequests } = useGuestServices();
   const { showToast } = useToast();
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
 
-  const allRequests = getFilteredRequests();
+  const allRequests = passedRequests || storeRequests;
   const totalPages = Math.ceil(allRequests.length / pagination.pageSize);
 
   const handleSelectRow = (id: string) => {
