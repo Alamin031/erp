@@ -28,7 +28,7 @@ export function EquipmentDetailsDrawer({ id, isOpen, onClose, onAssign, onAdjust
                   <div><div className="text-secondary">Category</div><div className="font-medium">{item.category}</div></div>
                   <div><div className="text-secondary">Serial</div><div className="font-medium">{item.serialNumber || '—'}</div></div>
                   <div><div className="text-secondary">Purchase Date</div><div className="font-medium">{item.purchaseDate || '—'}</div></div>
-                  <div><div className="text-secondary">Supplier</div><div className="font-medium">{item.supplierId || '��'}</div></div>
+                  <div><div className="text-secondary">Supplier</div><div className="font-medium">{item.supplierId || '—'}</div></div>
                   <div><div className="text-secondary">Warranty</div><div className="font-medium">{item.warrantyExpiry || '—'}</div></div>
                   <div><div className="text-secondary">Location</div><div className="font-medium">{item.location || '—'}</div></div>
                 </div>
@@ -63,7 +63,7 @@ export function EquipmentDetailsDrawer({ id, isOpen, onClose, onAssign, onAdjust
                   <button className="btn btn-secondary" onClick={onAssign}>Assign</button>
                   <button className="btn btn-secondary" onClick={onAdjust}>Adjust Stock</button>
                   <button className="btn btn-secondary" onClick={onCreateWO}>Create Work Order</button>
-                  <button className="btn btn-primary">Mark Retired</button>
+                  <button className="btn btn-primary" onClick={onMarkRetired} disabled={item?.status === "Retired"}>Mark Retired</button>
                 </div>
               </div>
             </div>
