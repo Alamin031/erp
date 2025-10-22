@@ -23,6 +23,7 @@ export function GuestsPageClient() {
     setSearchQuery,
     viewMode,
     setViewMode,
+    searchQuery,
   } = useGuests();
 
   const [selectedGuest, setSelectedGuest] = useState<Guest | null>(null);
