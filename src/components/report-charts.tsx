@@ -1,36 +1,63 @@
 "use client";
 
+import React from "react";
 import { Report } from "@/store/useReports";
 
 interface RevenueChartProps {
   reports: Report[];
 }
 
-export function RevenueChart({ reports }: RevenueChartProps) {
-  const revenueReports = reports.filter((r) => r.type === "Revenue").sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+const cardStyle: React.CSSProperties = {
+  background: "var(--card-bg)",
+  border: "1px solid var(--border)",
+  borderRadius: "8px",
+  padding: "24px",
+  marginBottom: "24px",
+};
 
-  const maxRevenue = Math.max(...revenueReports.map((r) => r.amount), 1);
+const chartAreaHeight = 180; // px available for bars (keeps behavior consistent)
+
+export function RevenueChart({ reports }: RevenueChartProps) {
+  const revenueReports = reports
+    .filter((r) => r.type === "Revenue")
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  const values = revenueReports.map((r) => Number(r.amount) || 0);
+  const maxRevenue = Math.max(1, ...values); // ensure >=1 to avoid division by zero
+
+  const total = values.reduce((s, v) => s + v, 0);
 
   return (
-    <div
-      style={{
-        background: "var(--card-bg)",
-        border: "1px solid var(--border)",
-        borderRadius: "8px",
-        padding: "24px",
-        marginBottom: "24px",
-      }}
-    >
-      <h3 style={{ margin: "0 0 20px 0", fontSize: "16px", fontWeight: "700", color: "var(--foreground)" }}>
+    <div style={cardStyle}>
+      <h3
+        style={{
+          margin: "0 0 20px 0",
+          fontSize: "16px",
+          fontWeight: 700,
+          color: "var(--foreground)",
+        }}
+      >
         Revenue Trend
       </h3>
 
-      <div style={{ display: "flex", alignItems: "flex-end", gap: "12px", height: "240px", marginBottom: "16px" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 12,
+          height: chartAreaHeight + 40,
+          alignItems: "flex-end",
+          marginBottom: 16,
+        }}
+      >
         {revenueReports.length === 0 ? (
           <p style={{ color: "var(--secondary)" }}>No revenue data</p>
         ) : (
           revenueReports.map((report) => {
-            const height = (report.amount / maxRevenue) * 100;
+            const amount = Number(report.amount) || 0;
+            const heightPx = Math.round(
+              (amount / maxRevenue) * chartAreaHeight
+            );
+
             return (
               <div
                 key={report.id}
@@ -40,28 +67,35 @@ export function RevenueChart({ reports }: RevenueChartProps) {
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "flex-end",
-                  gap: "8px",
+                  gap: 8,
+                  minWidth: 32,
                 }}
               >
                 <div
+                  role="img"
+                  aria-label={`Revenue ${amount}`}
                   style={{
-                    width: "100%",
-                    height: `${height}%`,
-                    background: "linear-gradient(180deg, #28a745 0%, #20c997 100%)",
-                    borderRadius: "4px 4px 0 0",
-                    transition: "all 0.3s",
-                    cursor: "pointer",
+                    width: "80%",
+                    height: heightPx + "px",
+                    background:
+                      "linear-gradient(180deg, #28a745 0%, #20c997 100%)",
+                    borderRadius: 6,
+                    transition: "transform 0.18s, opacity 0.18s",
+                    boxShadow: "rgba(0,0,0,0.06) 0 2px 6px",
                   }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.opacity = "0.8";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.opacity = "1";
-                  }}
-                  title={`$${report.amount.toLocaleString()}`}
+                  title={`$${amount.toLocaleString()}`}
                 />
-                <small style={{ fontSize: "11px", color: "var(--secondary)", textAlign: "center" }}>
-                  {new Date(report.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                <small
+                  style={{
+                    fontSize: 11,
+                    color: "var(--secondary)",
+                    textAlign: "center",
+                  }}
+                >
+                  {new Date(report.date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}
                 </small>
               </div>
             );
@@ -69,38 +103,65 @@ export function RevenueChart({ reports }: RevenueChartProps) {
         )}
       </div>
 
-      <div style={{ padding: "12px", background: "var(--background)", borderRadius: "4px", fontSize: "12px", color: "var(--secondary)" }}>
-        Total Revenue: <strong style={{ color: "var(--foreground)" }}>${revenueReports.reduce((sum, r) => sum + r.amount, 0).toLocaleString()}</strong>
+      <div
+        style={{
+          padding: "12px",
+          background: "var(--background)",
+          borderRadius: 4,
+          fontSize: 12,
+          color: "var(--secondary)",
+        }}
+      >
+        Total Revenue:{" "}
+        <strong style={{ color: "var(--foreground)" }}>
+          ${total.toLocaleString()}
+        </strong>
       </div>
     </div>
   );
 }
 
 export function ExpenseChart({ reports }: RevenueChartProps) {
-  const expenseReports = reports.filter((r) => r.type === "Expense").sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const expenseReports = reports
+    .filter((r) => r.type === "Expense")
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  const maxExpense = Math.max(...expenseReports.map((r) => r.amount), 1);
+  const values = expenseReports.map((r) => Number(r.amount) || 0);
+  const maxExpense = Math.max(1, ...values);
+
+  const total = values.reduce((s, v) => s + v, 0);
 
   return (
-    <div
-      style={{
-        background: "var(--card-bg)",
-        border: "1px solid var(--border)",
-        borderRadius: "8px",
-        padding: "24px",
-        marginBottom: "24px",
-      }}
-    >
-      <h3 style={{ margin: "0 0 20px 0", fontSize: "16px", fontWeight: "700", color: "var(--foreground)" }}>
+    <div style={cardStyle}>
+      <h3
+        style={{
+          margin: "0 0 20px 0",
+          fontSize: "16px",
+          fontWeight: 700,
+          color: "var(--foreground)",
+        }}
+      >
         Expense Trend
       </h3>
 
-      <div style={{ display: "flex", alignItems: "flex-end", gap: "12px", height: "240px", marginBottom: "16px" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 12,
+          height: chartAreaHeight + 40,
+          alignItems: "flex-end",
+          marginBottom: 16,
+        }}
+      >
         {expenseReports.length === 0 ? (
           <p style={{ color: "var(--secondary)" }}>No expense data</p>
         ) : (
           expenseReports.map((report) => {
-            const height = (report.amount / maxExpense) * 100;
+            const amount = Number(report.amount) || 0;
+            const heightPx = Math.round(
+              (amount / maxExpense) * chartAreaHeight
+            );
+
             return (
               <div
                 key={report.id}
@@ -110,28 +171,35 @@ export function ExpenseChart({ reports }: RevenueChartProps) {
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "flex-end",
-                  gap: "8px",
+                  gap: 8,
+                  minWidth: 32,
                 }}
               >
                 <div
+                  role="img"
+                  aria-label={`Expense ${amount}`}
                   style={{
-                    width: "100%",
-                    height: `${height}%`,
-                    background: "linear-gradient(180deg, #dc3545 0%, #fd7e14 100%)",
-                    borderRadius: "4px 4px 0 0",
-                    transition: "all 0.3s",
-                    cursor: "pointer",
+                    width: "80%",
+                    height: heightPx + "px",
+                    background:
+                      "linear-gradient(180deg, #dc3545 0%, #fd7e14 100%)",
+                    borderRadius: 6,
+                    transition: "transform 0.18s, opacity 0.18s",
+                    boxShadow: "rgba(0,0,0,0.06) 0 2px 6px",
                   }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.opacity = "0.8";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.opacity = "1";
-                  }}
-                  title={`$${report.amount.toLocaleString()}`}
+                  title={`$${amount.toLocaleString()}`}
                 />
-                <small style={{ fontSize: "11px", color: "var(--secondary)", textAlign: "center" }}>
-                  {new Date(report.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                <small
+                  style={{
+                    fontSize: 11,
+                    color: "var(--secondary)",
+                    textAlign: "center",
+                  }}
+                >
+                  {new Date(report.date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}
                 </small>
               </div>
             );
@@ -139,8 +207,19 @@ export function ExpenseChart({ reports }: RevenueChartProps) {
         )}
       </div>
 
-      <div style={{ padding: "12px", background: "var(--background)", borderRadius: "4px", fontSize: "12px", color: "var(--secondary)" }}>
-        Total Expenses: <strong style={{ color: "var(--foreground)" }}>${expenseReports.reduce((sum, r) => sum + r.amount, 0).toLocaleString()}</strong>
+      <div
+        style={{
+          padding: 12,
+          background: "var(--background)",
+          borderRadius: 4,
+          fontSize: 12,
+          color: "var(--secondary)",
+        }}
+      >
+        Total Expenses:{" "}
+        <strong style={{ color: "var(--foreground)" }}>
+          ${total.toLocaleString()}
+        </strong>
       </div>
     </div>
   );
@@ -151,50 +230,53 @@ export function ProfitLossChart({ reports }: RevenueChartProps) {
 
   reports.forEach((report) => {
     const date = report.date;
-    if (!dailyData[date]) {
-      dailyData[date] = { revenue: 0, expense: 0 };
-    }
-
-    if (report.type === "Revenue") {
-      dailyData[date].revenue += report.amount;
-    } else {
-      dailyData[date].expense += report.amount;
-    }
+    if (!dailyData[date]) dailyData[date] = { revenue: 0, expense: 0 };
+    if (report.type === "Revenue")
+      dailyData[date].revenue += Number(report.amount) || 0;
+    else dailyData[date].expense += Number(report.amount) || 0;
   });
 
-  const sortedDates = Object.keys(dailyData).sort();
-  const maxProfit = Math.max(
-    ...sortedDates.map((date) => dailyData[date].revenue - dailyData[date].expense),
-    1
+  const sortedDates = Object.keys(dailyData).sort(
+    (a, b) => new Date(a).getTime() - new Date(b).getTime()
   );
-  const minProfit = Math.min(
-    ...sortedDates.map((date) => dailyData[date].revenue - dailyData[date].expense),
-    0
+  const profits = sortedDates.map(
+    (d) => dailyData[d].revenue - dailyData[d].expense
   );
-  const range = maxProfit - minProfit;
+  const maxProfit = Math.max(...profits, 0);
+  const minProfit = Math.min(...profits, 0);
+  const maxAbs = Math.max(Math.abs(maxProfit), Math.abs(minProfit), 1);
 
   return (
-    <div
-      style={{
-        background: "var(--card-bg)",
-        border: "1px solid var(--border)",
-        borderRadius: "8px",
-        padding: "24px",
-        marginBottom: "24px",
-      }}
-    >
-      <h3 style={{ margin: "0 0 20px 0", fontSize: "16px", fontWeight: "700", color: "var(--foreground)" }}>
+    <div style={cardStyle}>
+      <h3
+        style={{
+          margin: "0 0 20px 0",
+          fontSize: "16px",
+          fontWeight: 700,
+          color: "var(--foreground)",
+        }}
+      >
         Profit & Loss
       </h3>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "12px", height: "240px", marginBottom: "16px" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 12,
+          height: chartAreaHeight + 40,
+          alignItems: "center",
+          marginBottom: 16,
+        }}
+      >
         {sortedDates.length === 0 ? (
           <p style={{ color: "var(--secondary)" }}>No data available</p>
         ) : (
           sortedDates.map((date) => {
             const profit = dailyData[date].revenue - dailyData[date].expense;
+            const heightPx = Math.round(
+              (Math.abs(profit) / maxAbs) * chartAreaHeight
+            );
             const isPositive = profit >= 0;
-            const height = Math.abs(profit) > 0 ? (Math.abs(profit) / Math.max(Math.abs(maxProfit), Math.abs(minProfit))) * 100 : 0;
 
             return (
               <div
@@ -204,23 +286,39 @@ export function ProfitLossChart({ reports }: RevenueChartProps) {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  justifyContent: "center",
-                  height: "100%",
-                  gap: "8px",
+                  justifyContent: isPositive ? "flex-end" : "flex-start",
+                  gap: 8,
+                  minWidth: 32,
+                  height: chartAreaHeight,
                 }}
               >
                 <div
-                  style={{
-                    width: "100%",
-                    height: `${height}%`,
-                    background: isPositive ? "linear-gradient(180deg, #28a745 0%, #20c997 100%)" : "linear-gradient(180deg, #dc3545 0%, #fd7e14 100%)",
-                    borderRadius: isPositive ? "4px 4px 0 0" : "0 0 4px 4px",
-                    transition: "all 0.3s",
-                  }}
+                  role="img"
+                  aria-label={`Profit ${profit}`}
                   title={`$${profit.toLocaleString()}`}
+                  style={{
+                    width: "80%",
+                    height: heightPx + "px",
+                    background: isPositive
+                      ? "linear-gradient(180deg, #28a745 0%, #20c997 100%)"
+                      : "linear-gradient(180deg, #dc3545 0%, #fd7e14 100%)",
+                    borderRadius: isPositive ? 6 : 6,
+                    transformOrigin: isPositive ? "bottom" : "top",
+                    transition: "transform 0.18s, opacity 0.18s",
+                    boxShadow: "rgba(0,0,0,0.04) 0 1px 4px",
+                  }}
                 />
-                <small style={{ fontSize: "11px", color: "var(--secondary)", textAlign: "center" }}>
-                  {new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                <small
+                  style={{
+                    fontSize: 11,
+                    color: "var(--secondary)",
+                    textAlign: "center",
+                  }}
+                >
+                  {new Date(date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}
                 </small>
               </div>
             );
@@ -228,17 +326,31 @@ export function ProfitLossChart({ reports }: RevenueChartProps) {
         )}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-        <div style={{ padding: "12px", background: "var(--background)", borderRadius: "4px", fontSize: "12px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        <div
+          style={{
+            padding: 12,
+            background: "var(--background)",
+            borderRadius: 4,
+            fontSize: 12,
+          }}
+        >
           <span style={{ color: "var(--secondary)" }}>Highest Profit: </span>
           <strong style={{ color: "#28a745" }}>
-            ${Math.max(...sortedDates.map((date) => dailyData[date].revenue - dailyData[date].expense), 0).toLocaleString()}
+            ${Math.max(...profits, 0).toLocaleString()}
           </strong>
         </div>
-        <div style={{ padding: "12px", background: "var(--background)", borderRadius: "4px", fontSize: "12px" }}>
+        <div
+          style={{
+            padding: 12,
+            background: "var(--background)",
+            borderRadius: 4,
+            fontSize: 12,
+          }}
+        >
           <span style={{ color: "var(--secondary)" }}>Lowest Profit: </span>
           <strong style={{ color: "#dc3545" }}>
-            ${Math.min(...sortedDates.map((date) => dailyData[date].revenue - dailyData[date].expense), 0).toLocaleString()}
+            ${Math.min(...profits, 0).toLocaleString()}
           </strong>
         </div>
       </div>
