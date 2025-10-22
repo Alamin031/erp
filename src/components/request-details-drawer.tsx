@@ -37,9 +37,11 @@ export function RequestDetailsDrawer({
   const [isResolvingPrompt, setIsResolvingPrompt] = useState(false);
   const [resolutionNote, setResolutionNote] = useState("");
 
-  const request = requests.find((r) => r.id === requestId);
+  const request = requestId ? requests.find((r) => r.id === requestId) : null;
 
-  if (!requestId || !request) return null;
+  if (!requestId || !request) {
+    return null;
+  }
 
   const assignedStaffNames = staff
     .filter((s) => request.assignedStaffIds.includes(s.id))
