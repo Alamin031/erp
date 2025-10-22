@@ -1,0 +1,4 @@
+[
+  { "id": "SUP-1", "name": "HVAC Supply Co.", "contactEmail": "sales@hvacsupply.com", "phone": "+1-555-6001" },
+  { "id": "SUP-2", "name": "CleanEquip Inc.", "contactEmail": "support@cleanequip.com", "phone": "+1-555-6002" }
+]
