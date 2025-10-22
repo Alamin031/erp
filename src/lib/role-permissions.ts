@@ -86,6 +86,35 @@ export const navigationItems: NavItem[] = [
     icon: "📑",
     roles: ["super_admin", "general_manager", "finance_manager"],
   },
+
+  // Equity (Finance)
+  {
+    label: "Equity",
+    href: "/finance/equity",
+    icon: "📈",
+    description: "Manage securities, transactions, and cap tables",
+    roles: ["super_admin", "general_manager", "finance_manager"],
+    children: [
+      {
+        label: "Securities",
+        href: "/finance/equity/securities",
+        icon: "💹",
+        roles: ["super_admin", "general_manager", "finance_manager"],
+      },
+      {
+        label: "Transactions",
+        href: "/finance/equity/transactions",
+        icon: "🔁",
+        roles: ["super_admin", "general_manager", "finance_manager"],
+      },
+      {
+        label: "Cap Table",
+        href: "/finance/equity/cap-table",
+        icon: "🧾",
+        roles: ["super_admin", "general_manager", "finance_manager"],
+      },
+    ],
+  },
   // Sales & Marketing
   {
     label: "Campaigns",
@@ -98,6 +127,35 @@ export const navigationItems: NavItem[] = [
     href: "/sales/rates",
     icon: "💰",
     roles: ["super_admin", "general_manager", "sales_marketing"],
+  },
+
+  // Shopee Connector (integration)
+  {
+    label: "Shopee Connector",
+    href: "/integrations/shopee",
+    icon: "🛒",
+    description: "Import Shopee orders and sync deliveries",
+    roles: ["super_admin", "general_manager", "sales_marketing", "finance_manager"],
+    children: [
+      {
+        label: "Import Orders",
+        href: "/integrations/shopee/import-orders",
+        icon: "📥",
+        roles: ["super_admin", "general_manager", "sales_marketing", "finance_manager"],
+      },
+      {
+        label: "Sync Deliveries",
+        href: "/integrations/shopee/deliveries",
+        icon: "🚚",
+        roles: ["super_admin", "general_manager", "sales_marketing", "finance_manager"],
+      },
+      {
+        label: "Shopee Settings",
+        href: "/integrations/shopee/settings",
+        icon: "⚙️",
+        roles: ["super_admin", "general_manager"],
+      },
+    ],
   },
 
   // Inventory (parent with dropdown)
