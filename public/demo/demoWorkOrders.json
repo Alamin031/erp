@@ -1,0 +1,50 @@
+[
+  {
+    "id": "WO-1001",
+    "title": "AC not cooling",
+    "description": "Guest reported AC not cooling in Room 301.",
+    "assetId": "A-ROOM-301",
+    "assetName": "Room 301",
+    "assetType": "Room",
+    "requestedBy": "Front Desk",
+    "priority": "High",
+    "createdAt": "2024-01-22T08:30:00Z",
+    "dueAt": "2024-01-22T12:30:00Z",
+    "status": "Open",
+    "comments": [],
+    "logs": [ { "id": "l1", "timestamp": "2024-01-22T08:30:00Z", "message": "Work order created", "actor": "Front Desk" } ]
+  },
+  {
+    "id": "WO-1002",
+    "title": "Flickering lights",
+    "description": "Lights flicker near elevator bank.",
+    "assetId": "A-EL-Panel",
+    "assetName": "Electrical Panel - Floor 2",
+    "assetType": "Electrical",
+    "requestedBy": "Security",
+    "priority": "Medium",
+    "createdAt": "2024-01-21T14:00:00Z",
+    "dueAt": "2024-01-23T10:00:00Z",
+    "assignedTechId": "T-001",
+    "assignedTechName": "Alex Turner",
+    "status": "In Progress",
+    "startedAt": "2024-01-22T07:00:00Z",
+    "comments": [ { "id": "c1", "timestamp": "2024-01-22T07:30:00Z", "author": "Alex Turner", "message": "Investigating ballast." } ],
+    "logs": [ { "id": "l1", "timestamp": "2024-01-21T14:00:00Z", "message": "Work order created", "actor": "Security" }, { "id": "l2", "timestamp": "2024-01-22T07:00:00Z", "message": "Started", "actor": "Alex Turner" } ]
+  },
+  {
+    "id": "WO-1003",
+    "title": "Elevator noise",
+    "description": "Strange noise in elevator shaft.",
+    "assetId": "A-ELV-1",
+    "assetName": "Elevator #1",
+    "assetType": "Elevator",
+    "requestedBy": "Guest",
+    "priority": "Critical",
+    "createdAt": "2024-01-22T09:00:00Z",
+    "dueAt": "2024-01-22T10:00:00Z",
+    "status": "Open",
+    "comments": [],
+    "logs": [ { "id": "l1", "timestamp": "2024-01-22T09:00:00Z", "message": "Work order created", "actor": "Front Desk" } ]
+  }
+]

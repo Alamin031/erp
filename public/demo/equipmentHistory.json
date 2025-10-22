@@ -1,0 +1,4 @@
+[
+  { "id": "H-1", "equipmentId": "EQ-1001", "timestamp": "2024-01-10T10:05:00Z", "type": "maintenance", "user": "Alex Turner", "details": "Replaced in West Wing", "beforeQty": 9, "afterQty": 8 },
+  { "id": "H-2", "equipmentId": "EQ-1002", "timestamp": "2024-01-12T12:00:00Z", "type": "update", "user": "System", "details": "Routine update" }
+]
