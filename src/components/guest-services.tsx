@@ -164,7 +164,11 @@ export function GuestServices({ initialRequests = [], initialStaff = [] }: Guest
 
         {/* Center: Service Request Table */}
         <div className="lg:col-span-2">
-          <ServiceRequestTable onViewClick={handleViewRequest} onAssignClick={handleAssignClick} />
+          <ServiceRequestTable
+            requests={visibleRequests}
+            onViewClick={handleViewRequest}
+            onAssignClick={handleAssignClick}
+          />
         </div>
       </div>
 
