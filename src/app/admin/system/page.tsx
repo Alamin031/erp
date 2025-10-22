@@ -1,6 +1,6 @@
 import { getSession } from "@/lib/auth";
-import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
+import { SystemSettingsPageClient } from "./page-client";
 
 export default async function SystemPage() {
   const session = await getSession();
@@ -10,22 +10,19 @@ export default async function SystemPage() {
   }
 
   return (
-    <DashboardLayout>
-      <div className="dashboard-container">
-        <div className="dashboard-header-content">
-          <h1 className="dashboard-page-title">System Settings</h1>
-          <p className="dashboard-subtitle">Configure system-wide settings</p>
-        </div>
-
-        <div className="dashboard-grid">
-          <div className="dashboard-section">
-            <h2 className="section-title">System Configuration</h2>
-            <div style={{ padding: "20px", textAlign: "center", color: "var(--secondary)" }}>
-              <p>System settings interface coming soon...</p>
-            </div>
-          </div>
-        </div>
+    <div className="h-screen flex flex-col bg-[var(--background)]">
+      <div className="bg-[var(--card-bg)] border-b border-[var(--border)] px-8 py-6">
+        <h1 className="text-3xl font-bold text-[var(--foreground)]">
+          System Settings
+        </h1>
+        <p className="text-[var(--secondary)] mt-1">
+          Configure system-wide preferences and options
+        </p>
       </div>
-    </DashboardLayout>
+
+      <div className="flex-1 overflow-hidden">
+        <SystemSettingsPageClient />
+      </div>
+    </div>
   );
 }
