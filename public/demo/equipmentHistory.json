@@ -1,4 +1,174 @@
 [
-  { "id": "H-1", "equipmentId": "EQ-1001", "timestamp": "2024-01-10T10:05:00Z", "type": "maintenance", "user": "Alex Turner", "details": "Replaced in West Wing", "beforeQty": 9, "afterQty": 8 },
-  { "id": "H-2", "equipmentId": "EQ-1002", "timestamp": "2024-01-12T12:00:00Z", "type": "update", "user": "System", "details": "Routine update" }
+  {
+    "id": "H-1",
+    "equipmentId": "EQ-1001",
+    "timestamp": "2024-01-10T10:05:00Z",
+    "type": "maintenance",
+    "user": "Alex Turner",
+    "details": "Replaced in West Wing",
+    "beforeQty": 9,
+    "afterQty": 8
+  },
+  {
+    "id": "H-2",
+    "equipmentId": "EQ-1002",
+    "timestamp": "2024-01-12T12:00:00Z",
+    "type": "update",
+    "user": "System",
+    "details": "Routine update"
+  },
+  {
+    "id": "H-3",
+    "equipmentId": "EQ-1001",
+    "timestamp": "2024-01-20T14:30:00Z",
+    "type": "adjust",
+    "user": "John Smith",
+    "details": "Stock received from supplier",
+    "beforeQty": 8,
+    "afterQty": 15
+  },
+  {
+    "id": "H-4",
+    "equipmentId": "EQ-1003",
+    "timestamp": "2024-01-20T08:30:00Z",
+    "type": "maintenance",
+    "user": "Mike Davis",
+    "details": "Annual inspection and flush completed",
+    "beforeQty": 1,
+    "afterQty": 1
+  },
+  {
+    "id": "H-5",
+    "equipmentId": "EQ-1002",
+    "timestamp": "2024-01-25T09:00:00Z",
+    "type": "assign",
+    "user": "Admin",
+    "details": "Assigned to Housekeeping department"
+  },
+  {
+    "id": "H-6",
+    "equipmentId": "EQ-1005",
+    "timestamp": "2024-01-15T10:00:00Z",
+    "type": "maintenance",
+    "user": "Safety Officer",
+    "details": "Quarterly inspection passed"
+  },
+  {
+    "id": "H-7",
+    "equipmentId": "EQ-1006",
+    "timestamp": "2024-01-25T16:00:00Z",
+    "type": "link-wo",
+    "user": "Maintenance Manager",
+    "details": "Linked WO-1008"
+  },
+  {
+    "id": "H-8",
+    "equipmentId": "EQ-1004",
+    "timestamp": "2024-01-08T14:00:00Z",
+    "type": "maintenance",
+    "user": "Alex Turner",
+    "details": "Safety inspection completed"
+  },
+  {
+    "id": "H-9",
+    "equipmentId": "EQ-1007",
+    "timestamp": "2024-01-18T11:00:00Z",
+    "type": "maintenance",
+    "user": "Housekeeping Supervisor",
+    "details": "Routine cleaning and filter replacement"
+  },
+  {
+    "id": "H-10",
+    "equipmentId": "EQ-1008",
+    "timestamp": "2024-01-22T09:30:00Z",
+    "type": "maintenance",
+    "user": "Maintenance",
+    "details": "Oil change and pressure test performed"
+  },
+  {
+    "id": "H-11",
+    "equipmentId": "EQ-1001",
+    "timestamp": "2024-01-05T16:45:00Z",
+    "type": "adjust",
+    "user": "Inventory Officer",
+    "details": "Inventory correction - count discrepancy resolved",
+    "beforeQty": 10,
+    "afterQty": 9
+  },
+  {
+    "id": "H-12",
+    "equipmentId": "EQ-1011",
+    "timestamp": "2024-01-10T14:00:00Z",
+    "type": "adjust",
+    "user": "Housekeeping",
+    "details": "Linens consumed from inventory",
+    "beforeQty": 135,
+    "afterQty": 120
+  },
+  {
+    "id": "H-13",
+    "equipmentId": "EQ-1012",
+    "timestamp": "2024-01-10T10:00:00Z",
+    "type": "create",
+    "user": "Procurement",
+    "details": "Paint supplies ordered and received"
+  },
+  {
+    "id": "H-14",
+    "equipmentId": "EQ-1013",
+    "timestamp": "2024-01-15T10:00:00Z",
+    "type": "maintenance",
+    "user": "Fire Safety Inspector",
+    "details": "Annual testing and battery replacement completed"
+  },
+  {
+    "id": "H-15",
+    "equipmentId": "EQ-1009",
+    "timestamp": "2024-01-01T08:00:00Z",
+    "type": "maintenance",
+    "user": "Vendor Technician",
+    "details": "Annual service and load test completed successfully"
+  },
+  {
+    "id": "H-16",
+    "equipmentId": "EQ-1003",
+    "timestamp": "2024-01-10T14:30:00Z",
+    "type": "update",
+    "user": "Admin",
+    "details": "Updated warranty information"
+  },
+  {
+    "id": "H-17",
+    "equipmentId": "EQ-1016",
+    "timestamp": "2024-01-12T09:00:00Z",
+    "type": "adjust",
+    "user": "Maintenance",
+    "details": "Material consumed from storage",
+    "beforeQty": 350,
+    "afterQty": 300
+  },
+  {
+    "id": "H-18",
+    "equipmentId": "EQ-1002",
+    "timestamp": "2024-01-05T09:00:00Z",
+    "type": "maintenance",
+    "user": "Housekeeper",
+    "details": "Scheduled maintenance completed"
+  },
+  {
+    "id": "H-19",
+    "equipmentId": "EQ-1004",
+    "timestamp": "2024-01-10T11:00:00Z",
+    "type": "update",
+    "user": "Maintenance",
+    "details": "Maintenance record updated"
+  },
+  {
+    "id": "H-20",
+    "equipmentId": "EQ-1014",
+    "timestamp": "2024-01-05T10:00:00Z",
+    "type": "create",
+    "user": "Electrical",
+    "details": "New outlet stock received"
+  }
 ]
