@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useEquipment } from "@/store/useEquipment";
 import { DepreciationChart } from "./DepreciationChart";
 
-export function EquipmentDetailsDrawer({ id, isOpen, onClose, onAssign, onAdjust, onCreateWO }: { id: string | null; isOpen: boolean; onClose: ()=>void; onAssign: ()=>void; onAdjust: ()=>void; onCreateWO: ()=>void }) {
+export function EquipmentDetailsDrawer({ id, isOpen, onClose, onAssign, onAdjust, onCreateWO, onMarkRetired }: { id: string | null; isOpen: boolean; onClose: ()=>void; onAssign: ()=>void; onAdjust: ()=>void; onCreateWO: ()=>void; onMarkRetired?: ()=>void }) {
   const { equipment, history } = useEquipment();
   const item = useMemo(()=> equipment.find(e=>e.id===id) || null, [equipment, id]);
   const logs = useMemo(()=> history.filter(h=>h.equipmentId===id).sort((a,b)=> new Date(b.timestamp).getTime()-new Date(a.timestamp).getTime()), [history, id]);
@@ -28,7 +28,7 @@ export function EquipmentDetailsDrawer({ id, isOpen, onClose, onAssign, onAdjust
                   <div><div className="text-secondary">Category</div><div className="font-medium">{item.category}</div></div>
                   <div><div className="text-secondary">Serial</div><div className="font-medium">{item.serialNumber || '—'}</div></div>
                   <div><div className="text-secondary">Purchase Date</div><div className="font-medium">{item.purchaseDate || '—'}</div></div>
-                  <div><div className="text-secondary">Supplier</div><div className="font-medium">{item.supplierId || '—'}</div></div>
+                  <div><div className="text-secondary">Supplier</div><div className="font-medium">{item.supplierId || '��'}</div></div>
                   <div><div className="text-secondary">Warranty</div><div className="font-medium">{item.warrantyExpiry || '—'}</div></div>
                   <div><div className="text-secondary">Location</div><div className="font-medium">{item.location || '—'}</div></div>
                 </div>
