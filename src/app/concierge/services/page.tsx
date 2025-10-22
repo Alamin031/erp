@@ -1,6 +1,23 @@
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
+import { GuestServices } from "@/components/guest-services";
 import { redirect } from "next/navigation";
+
+async function loadDemoData() {
+  try {
+    const [requestsRes, staffRes] = await Promise.all([
+      fetch(new URL("public/demo/demoRequests.json", process.cwd()), { cache: "no-store" }),
+      fetch(new URL("public/demo/staff.json", process.cwd()), { cache: "no-store" }),
+    ]);
+
+    const requests = requestsRes.ok ? await requestsRes.json() : [];
+    const staff = staffRes.ok ? await staffRes.json() : [];
+
+    return { requests, staff };
+  } catch {
+    return { requests: [], staff: [] };
+  }
+}
 
 export default async function ServicesPage() {
   const session = await getSession();
@@ -16,6 +33,8 @@ export default async function ServicesPage() {
     redirect("/unauthorized");
   }
 
+  const { requests, staff } = await loadDemoData();
+
   return (
     <DashboardLayout>
       <div className="dashboard-container">
@@ -24,14 +43,7 @@ export default async function ServicesPage() {
           <p className="dashboard-subtitle">Manage guest requests and services</p>
         </div>
 
-        <div className="dashboard-grid">
-          <div className="dashboard-section">
-            <h2 className="section-title">Service Requests</h2>
-            <div style={{ padding: "20px", textAlign: "center", color: "var(--secondary)" }}>
-              <p>Services interface coming soon...</p>
-            </div>
-          </div>
-        </div>
+        <GuestServices initialRequests={requests} initialStaff={staff} />
       </div>
     </DashboardLayout>
   );
