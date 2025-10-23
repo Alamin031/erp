@@ -75,7 +75,7 @@ const addAuditEntry = (
   return {
     ...doc,
     auditTrail: [
-      ...doc.auditTrail,
+      ...(doc.auditTrail || []),
       {
         id: `audit-${Date.now()}`,
         timestamp: new Date().toISOString(),
@@ -109,7 +109,7 @@ export const useSign = create<SignStore>((set, get) => ({
     try {
       const response = await fetch("/demo/demoDocuments.json");
       const data = await response.json();
-      set({ documents: data.documents || [], isLoading: false });
+      set({ documents: data?.documents || [], isLoading: false });
     } catch (error) {
       console.error("Failed to load demo data:", error);
       set({ isLoading: false });
@@ -117,8 +117,9 @@ export const useSign = create<SignStore>((set, get) => ({
   },
 
   createDocument: async (request, ownerId, ownerEmail, ownerName) => {
+    const now = Date.now();
     const newDoc: Document = {
-      id: `doc-${Date.now()}`,
+      id: `doc-${now}`,
       title: request.title,
       fileName: request.fileName,
       fileSize: Math.floor(Math.random() * 1000000) + 100000,
@@ -130,16 +131,17 @@ export const useSign = create<SignStore>((set, get) => ({
         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${ownerName.replace(/\s+/g, '')}`,
       },
       status: "draft",
-      signers: request.signers.map((signer, idx) => ({
-        id: `signer-${Date.now()}-${idx}`,
+      signers: (request.signers || []).map((signer, idx) => ({
+        id: `signer-${now}-${idx}`,
         email: signer.email,
         name: signer.name,
         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${signer.name.replace(/\s+/g, '')}`,
         status: "pending",
-        fields: request.fields
+        fields: (request.fields || [])
           .filter((f) => f.assignedTo === signer.email)
-          .map((f) => ({
-            id: `field-${Date.now()}-${f.id}`,
+          .map((f, fi) => ({
+            // use signer index + field index to create a unique id without accessing f.id (which is omitted in the incoming type)
+            id: `field-${now}-${idx}-${fi}`,
             page: f.page,
             x: f.x,
             y: f.y,
@@ -153,10 +155,12 @@ export const useSign = create<SignStore>((set, get) => ({
       createdAt: new Date().toISOString(),
       message: request.message,
       reminders: request.reminders,
-      expiresAt: new Date(Date.now() + request.expiresIn * 24 * 60 * 60 * 1000).toISOString(),
+      expiresAt: request.expiresIn
+        ? new Date(Date.now() + request.expiresIn * 24 * 60 * 60 * 1000).toISOString()
+        : undefined,
       auditTrail: [
         {
-          id: `audit-${Date.now()}`,
+          id: `audit-${now}`,
           timestamp: new Date().toISOString(),
           action: "created",
           userId: ownerId,
@@ -188,9 +192,9 @@ export const useSign = create<SignStore>((set, get) => ({
     updated = addAuditEntry(
       updated,
       "sent",
-      doc.owner.id,
-      doc.owner.name,
-      `Sent to ${doc.signers.length} signer${doc.signers.length !== 1 ? "s" : ""}`
+      doc.owner?.id ?? "unknown",
+      doc.owner?.name ?? "Unknown",
+      `Sent to ${doc.signers?.length ?? 0} signer${(doc.signers?.length ?? 0) !== 1 ? "s" : ""}`
     );
 
     set((state) => ({
@@ -207,8 +211,8 @@ export const useSign = create<SignStore>((set, get) => ({
     updated = addAuditEntry(
       updated,
       "expired",
-      doc.owner.id,
-      doc.owner.name,
+      doc.owner?.id ?? "unknown",
+      doc.owner?.name ?? "Unknown",
       `Document cancelled: ${reason}`
     );
 
@@ -225,8 +229,8 @@ export const useSign = create<SignStore>((set, get) => ({
     updated = addAuditEntry(
       updated,
       "resent",
-      doc.owner.id,
-      doc.owner.name,
+      doc.owner?.id ?? "unknown",
+      doc.owner?.name ?? "Unknown",
       `Reminder resent to signer ${signerId}`
     );
 
@@ -241,7 +245,7 @@ export const useSign = create<SignStore>((set, get) => ({
 
     let updated = { ...doc };
     const signerIdx = updated.signers.findIndex(
-      (s) => s.id === request.signatureData.signerId
+      (s) => s.id === (request.signatureData as any).signerId
     );
     if (signerIdx === -1) return;
 
@@ -250,16 +254,22 @@ export const useSign = create<SignStore>((set, get) => ({
     );
     if (fieldIdx === -1) return;
 
-    updated.signers[signerIdx].fields[fieldIdx] = {
-      ...updated.signers[signerIdx].fields[fieldIdx],
-      status: "signed",
-      signedAt: request.signatureData.timestamp,
-      signatureData: request.signatureData.signatureImage,
-    };
+    // ensure objects exist before mutation
+    const signer = { ...updated.signers[signerIdx] };
+    const field = { ...signer.fields[fieldIdx] };
 
-    updated.signers[signerIdx].status = "signed";
-    updated.signers[signerIdx].signedAt = request.signatureData.timestamp;
-    updated.signers[signerIdx].signedBy = request.signatureData.signerEmail;
+    field.status = "signed";
+    field.signedAt = request.signatureData.timestamp;
+    field.signatureData = request.signatureData.signatureImage;
+
+    signer.fields = [...signer.fields];
+    signer.fields[fieldIdx] = field;
+    signer.status = "signed";
+    signer.signedAt = request.signatureData.timestamp;
+    signer.signedBy = request.signatureData.signerEmail;
+
+    updated.signers = [...updated.signers];
+    updated.signers[signerIdx] = signer;
 
     const allSigned = updated.signers.every((s) => s.status === "signed");
     if (allSigned) {
@@ -312,13 +322,16 @@ export const useSign = create<SignStore>((set, get) => ({
       updated.approvals = [];
     }
 
-    updated.approvals.push({
-      id: `approval-${Date.now()}`,
-      approverId: request.approverId,
-      approverName: request.approverName,
-      approvedAt: new Date().toISOString(),
-      note: request.note,
-    });
+    updated.approvals = [
+      ...updated.approvals,
+      {
+        id: `approval-${Date.now()}`,
+        approverId: request.approverId,
+        approverName: request.approverName,
+        approvedAt: new Date().toISOString(),
+        note: request.note,
+      },
+    ];
 
     updated.status = "approved" as DocumentStatus;
     updated = addAuditEntry(
@@ -338,9 +351,10 @@ export const useSign = create<SignStore>((set, get) => ({
     const doc = get().documents.find((d) => d.id === id);
     if (!doc) return;
 
+    if (typeof document === "undefined") return;
     const element = document.createElement("a");
     element.setAttribute("href", doc.fileUrl || "/documents/sample.pdf");
-    element.setAttribute("download", doc.fileName);
+    element.setAttribute("download", doc.fileName || "document.pdf");
     element.style.display = "none";
     document.body.appendChild(element);
     element.click();
@@ -383,17 +397,22 @@ export const useSign = create<SignStore>((set, get) => ({
 
     if (filters.keyword) {
       const kw = filters.keyword.toLowerCase();
+
+      const hasId = (x: unknown): x is { id: string } =>
+        typeof x === "object" && x !== null && "id" in x && typeof (x as any).id === "string";
+
       filtered = filtered.filter(
         (d) =>
-          d.title.toLowerCase().includes(kw) ||
-          d.id.toLowerCase().includes(kw) ||
-          d.owner.name.toLowerCase().includes(kw)
+          (d.title || "").toLowerCase().includes(kw) ||
+          (hasId(d) && (d.id || "").toLowerCase().includes(kw)) ||
+          (d.owner?.name || "").toLowerCase().includes(kw)
       );
     }
 
     if (filters.showExpired === false) {
+      // hide expired -> keep only not expired. If expiresAt is not set, treat as not expired.
       filtered = filtered.filter(
-        (d) => new Date(d.expiresAt) > new Date()
+        (d) => (d.expiresAt ? new Date(d.expiresAt) > new Date() : true)
       );
     }
 
