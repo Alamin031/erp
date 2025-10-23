@@ -1,0 +1,252 @@
+[
+  {
+    "id": "LEAD-001",
+    "name": "Sarah Johnson",
+    "company": "TechCorp Industries",
+    "email": "sarah.johnson@techcorp.com",
+    "phone": "+1-555-0101",
+    "leadSource": "Website",
+    "assignedTo": "SA-001",
+    "assignedToName": "Mike Thompson",
+    "stage": "Qualified",
+    "potentialValue": 50000,
+    "status": "Active",
+    "nextFollowUp": "2024-01-25T10:00:00Z",
+    "notes": "Interested in enterprise solution. Budget approved Q1 2024.",
+    "interactionHistory": [
+      {
+        "id": "INT-001",
+        "type": "call",
+        "date": "2024-01-15T14:30:00Z",
+        "notes": "Initial discovery call",
+        "duration": 45,
+        "attendees": ["Sarah Johnson", "Mike Thompson"]
+      },
+      {
+        "id": "INT-002",
+        "type": "email",
+        "date": "2024-01-18T09:00:00Z",
+        "notes": "Sent proposal for review"
+      }
+    ],
+    "createdAt": "2024-01-10T08:00:00Z",
+    "updatedAt": "2024-01-18T09:00:00Z"
+  },
+  {
+    "id": "LEAD-002",
+    "name": "Michael Chen",
+    "company": "Global Ventures LLC",
+    "email": "m.chen@globalventures.com",
+    "phone": "+1-555-0102",
+    "leadSource": "LinkedIn",
+    "assignedTo": "SA-002",
+    "assignedToName": "Emily Davis",
+    "stage": "Contacted",
+    "potentialValue": 75000,
+    "status": "Active",
+    "nextFollowUp": "2024-01-23T11:00:00Z",
+    "notes": "VP of Operations. Needs scalable platform.",
+    "interactionHistory": [
+      {
+        "id": "INT-003",
+        "type": "email",
+        "date": "2024-01-16T10:00:00Z",
+        "notes": "LinkedIn outreach - positive response"
+      }
+    ],
+    "createdAt": "2024-01-14T11:30:00Z",
+    "updatedAt": "2024-01-16T10:00:00Z"
+  },
+  {
+    "id": "LEAD-003",
+    "name": "Jennifer Martinez",
+    "company": "Apex Solutions",
+    "email": "j.martinez@apex.com",
+    "phone": "+1-555-0103",
+    "leadSource": "Referral",
+    "assignedTo": "SA-001",
+    "assignedToName": "Mike Thompson",
+    "stage": "Proposal",
+    "potentialValue": 120000,
+    "status": "Active",
+    "nextFollowUp": "2024-01-22T14:00:00Z",
+    "notes": "High priority. Referred by existing customer. 30% discount negotiated.",
+    "interactionHistory": [
+      {
+        "id": "INT-004",
+        "type": "meeting",
+        "date": "2024-01-12T15:00:00Z",
+        "notes": "In-person meeting at their office",
+        "duration": 90,
+        "attendees": ["Jennifer Martinez", "Mike Thompson", "John Lee"]
+      },
+      {
+        "id": "INT-005",
+        "type": "email",
+        "date": "2024-01-18T16:00:00Z",
+        "notes": "Sent updated proposal with adjusted pricing"
+      }
+    ],
+    "createdAt": "2024-01-08T09:00:00Z",
+    "updatedAt": "2024-01-18T16:00:00Z"
+  },
+  {
+    "id": "LEAD-004",
+    "name": "David Wilson",
+    "company": "Innovation Labs",
+    "email": "d.wilson@innovationlabs.com",
+    "phone": "+1-555-0104",
+    "leadSource": "Trade Show",
+    "assignedTo": "SA-003",
+    "assignedToName": "Robert Jackson",
+    "stage": "New",
+    "potentialValue": 35000,
+    "status": "Active",
+    "notes": "Met at Tech Summit 2024. Expressed interest in demo.",
+    "interactionHistory": [
+      {
+        "id": "INT-006",
+        "type": "note",
+        "date": "2024-01-19T10:00:00Z",
+        "notes": "Collected business card at trade show. Follow up needed."
+      }
+    ],
+    "createdAt": "2024-01-19T10:00:00Z",
+    "updatedAt": "2024-01-19T10:00:00Z"
+  },
+  {
+    "id": "LEAD-005",
+    "name": "Lisa Anderson",
+    "company": "Digital Marketing Pro",
+    "email": "l.anderson@digitalpro.com",
+    "phone": "+1-555-0105",
+    "leadSource": "Website",
+    "assignedTo": "SA-002",
+    "assignedToName": "Emily Davis",
+    "stage": "Closed Won",
+    "potentialValue": 85000,
+    "status": "Converted",
+    "nextFollowUp": "2024-02-15T09:00:00Z",
+    "notes": "Successfully converted. Onboarding scheduled for Feb 1st.",
+    "interactionHistory": [
+      {
+        "id": "INT-007",
+        "type": "email",
+        "date": "2024-01-10T08:00:00Z",
+        "notes": "Initial inquiry"
+      },
+      {
+        "id": "INT-008",
+        "type": "call",
+        "date": "2024-01-13T13:00:00Z",
+        "notes": "Demo call",
+        "duration": 60
+      },
+      {
+        "id": "INT-009",
+        "type": "email",
+        "date": "2024-01-17T11:00:00Z",
+        "notes": "Contract signed and returned"
+      }
+    ],
+    "createdAt": "2024-01-09T08:00:00Z",
+    "updatedAt": "2024-01-17T11:00:00Z",
+    "convertedAt": "2024-01-17T11:00:00Z"
+  },
+  {
+    "id": "LEAD-006",
+    "name": "James Patterson",
+    "company": "Enterprise Solutions Inc",
+    "email": "j.patterson@esolutions.com",
+    "phone": "+1-555-0106",
+    "leadSource": "Cold Call",
+    "assignedTo": "SA-001",
+    "assignedToName": "Mike Thompson",
+    "stage": "Closed Lost",
+    "potentialValue": 60000,
+    "status": "Lost",
+    "notes": "Budget frozen due to economic conditions.",
+    "interactionHistory": [
+      {
+        "id": "INT-010",
+        "type": "call",
+        "date": "2024-01-11T10:00:00Z",
+        "notes": "Cold call - initially interested",
+        "duration": 30
+      },
+      {
+        "id": "INT-011",
+        "type": "email",
+        "date": "2024-01-16T09:00:00Z",
+        "notes": "Follow-up email"
+      },
+      {
+        "id": "INT-012",
+        "type": "email",
+        "date": "2024-01-19T14:00:00Z",
+        "notes": "They declined - budget frozen"
+      }
+    ],
+    "createdAt": "2024-01-11T10:00:00Z",
+    "updatedAt": "2024-01-19T14:00:00Z",
+    "lostAt": "2024-01-19T14:00:00Z",
+    "lostReason": "Budget Constraints"
+  },
+  {
+    "id": "LEAD-007",
+    "name": "Amanda Brown",
+    "company": "Creative Agency Co",
+    "email": "a.brown@creativeagency.com",
+    "phone": "+1-555-0107",
+    "leadSource": "Email Campaign",
+    "assignedTo": "SA-003",
+    "assignedToName": "Robert Jackson",
+    "stage": "Qualified",
+    "potentialValue": 45000,
+    "status": "Active",
+    "nextFollowUp": "2024-01-24T16:00:00Z",
+    "notes": "Responded positively to email campaign. Ready for demo.",
+    "interactionHistory": [
+      {
+        "id": "INT-013",
+        "type": "email",
+        "date": "2024-01-17T08:00:00Z",
+        "notes": "Replied to newsletter with interest"
+      },
+      {
+        "id": "INT-014",
+        "type": "call",
+        "date": "2024-01-19T15:00:00Z",
+        "notes": "Qualified call - interested in enterprise features",
+        "duration": 45
+      }
+    ],
+    "createdAt": "2024-01-17T08:00:00Z",
+    "updatedAt": "2024-01-19T15:00:00Z"
+  },
+  {
+    "id": "LEAD-008",
+    "name": "Thomas White",
+    "company": "Financial Group Partners",
+    "email": "t.white@fgpartners.com",
+    "phone": "+1-555-0108",
+    "leadSource": "Partner Referral",
+    "assignedTo": "SA-002",
+    "assignedToName": "Emily Davis",
+    "stage": "Contacted",
+    "potentialValue": 150000,
+    "status": "Active",
+    "nextFollowUp": "2024-01-26T10:00:00Z",
+    "notes": "Referred by partner. Very qualified. Budget approved.",
+    "interactionHistory": [
+      {
+        "id": "INT-015",
+        "type": "email",
+        "date": "2024-01-20T09:00:00Z",
+        "notes": "Partner introduced via email"
+      }
+    ],
+    "createdAt": "2024-01-20T09:00:00Z",
+    "updatedAt": "2024-01-20T09:00:00Z"
+  }
+]

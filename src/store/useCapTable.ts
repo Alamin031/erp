@@ -77,7 +77,26 @@ export const useCapTable = create<CapTableStore>()(
               .then((r) => r.json())
               .catch(() => []),
           ]);
-          set({ shareholders, equityClasses, ownershipHistory });
+
+          // Generate initial activity log entries from loaded data
+          const initialActivityLog: ActivityLogEntry[] = [
+            {
+              id: `ACT-INIT-1`,
+              timestamp: new Date().toISOString(),
+              type: "Added",
+              entity: "Shareholder",
+              entityName: "Demo Data Loaded",
+              details: `Loaded ${shareholders.length} shareholders and ${equityClasses.length} equity classes`,
+              user: "System",
+            },
+          ];
+
+          set({
+            shareholders,
+            equityClasses,
+            ownershipHistory,
+            activityLog: initialActivityLog,
+          });
         } catch (e) {
           console.error("Failed to load demo data:", e);
         }
