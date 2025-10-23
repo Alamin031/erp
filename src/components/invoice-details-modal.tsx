@@ -57,13 +57,16 @@ export function InvoiceDetailsModal({
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <motion.div
-        className="modal"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        style={{ maxHeight: "90vh", overflowY: "auto" }}
-      >
+      {/* wrapper is responsible for fixed centering; animated card is inside so framer-motion
+          doesn't overwrite the translate(-50%, -50%) used to center the wrapper */}
+      <div className="modal" aria-hidden={false}>
+        <motion.div
+          className="modal-card"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          style={{ maxHeight: "90vh", overflowY: "auto" }}
+        >
         <div className="modal-header">
           <h2>Invoice {invoice.invoiceNumber}</h2>
           <button className="modal-close" onClick={onClose}>
@@ -339,7 +342,8 @@ export function InvoiceDetailsModal({
             </div>
           </div>
         </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </>
   );
 }

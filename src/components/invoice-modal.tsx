@@ -167,13 +167,15 @@ export function InvoiceModal({
         onClick={onClose}
         style={{ zIndex: 1000 }}
       />
-      <motion.div
-        className="modal"
-        style={{ zIndex: 1001, maxHeight: "90vh", overflowY: "auto" }}
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-      >
+      {/* wrapper keeps the fixed translate centering; inner .modal-card is animated */}
+      <div className="modal" style={{ zIndex: 1001 }}>
+        <motion.div
+          className="modal-card"
+          style={{ maxHeight: "90vh", overflowY: "auto" }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+        >
         <div className="modal-header">
           <h2>{invoice ? "Edit Invoice" : "Create New Invoice"}</h2>
           <button className="modal-close" onClick={onClose}>
@@ -466,7 +468,8 @@ export function InvoiceModal({
             </button>
           </div>
         </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </>
   );
 }
