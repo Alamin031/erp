@@ -12,13 +12,13 @@ export function WorkOrderDetailsDrawer({ id, isOpen, onClose, onAssign }: { id: 
   if (!isOpen || !item) return null;
 
   const dueInfo = useMemo(() => {
-    if (!item.dueAt) return { text: "No SLA", color: "" };
+    if (!item.dueAt) return { text: "No SLA", color: "var(--secondary)" };
     const now = Date.now();
     const due = new Date(item.dueAt).getTime();
     const diff = due - now;
-    if (diff < 0) return { text: `Overdue by ${Math.ceil(Math.abs(diff)/60000)}m`, color: "text-red-600" };
-    if (diff < 60*60*1000) return { text: `${Math.ceil(diff/60000)}m remaining`, color: "text-yellow-600" };
-    return { text: `${Math.ceil(diff/3600000)}h remaining`, color: "text-green-600" };
+    if (diff < 0) return { text: `Overdue by ${Math.ceil(Math.abs(diff)/60000)}m`, color: "var(--danger)" };
+    if (diff < 60*60*1000) return { text: `${Math.ceil(diff/60000)}m remaining`, color: "var(--warning)" };
+    return { text: `${Math.ceil(diff/3600000)}h remaining`, color: "var(--success)" };
   }, [item.dueAt]);
 
   const submitComment = () => {
@@ -42,7 +42,7 @@ export function WorkOrderDetailsDrawer({ id, isOpen, onClose, onAssign }: { id: 
               <div className="font-medium">{item.assetName || item.assetType || "—"}</div>
               <div className="text-sm"><span className="text-secondary">Priority:</span> {item.priority}</div>
               <div className="text-sm"><span className="text-secondary">Assigned:</span> {item.assignedTechName || "Unassigned"}</div>
-              <div className={`text-sm ${dueInfo.color}`}><span className="text-secondary">SLA:</span> {dueInfo.text}</div>
+              <div className="text-sm" style={{ color: dueInfo.color }}><span className="text-secondary">SLA:</span> {dueInfo.text}</div>
             </div>
 
             <div className="dashboard-section">

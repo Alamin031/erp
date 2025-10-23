@@ -391,13 +391,13 @@ export function SecuritiesTable({ items, onView, onEdit, onDelete, onAddTransact
                       style={{
                         background: "none",
                         border: "none",
-                        color: "#3b82f6",
+                        color: "var(--primary)",
                         fontWeight: "600",
                         cursor: "pointer",
-                        transition: "color 0.2s"
+                        transition: "opacity 0.2s"
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "#1d4ed8")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "#3b82f6")}
+                      onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+                      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
                       title="View Details"
                     >
                       View
@@ -407,13 +407,13 @@ export function SecuritiesTable({ items, onView, onEdit, onDelete, onAddTransact
                       style={{
                         background: "none",
                         border: "none",
-                        color: "#10b981",
+                        color: "var(--success)",
                         fontWeight: "600",
                         cursor: "pointer",
-                        transition: "color 0.2s"
+                        transition: "opacity 0.2s"
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "#059669")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "#10b981")}
+                      onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+                      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
                       title="Edit"
                     >
                       Edit
@@ -423,13 +423,13 @@ export function SecuritiesTable({ items, onView, onEdit, onDelete, onAddTransact
                       style={{
                         background: "none",
                         border: "none",
-                        color: "#a855f7",
+                        color: "var(--primary)",
                         fontWeight: "600",
                         cursor: "pointer",
-                        transition: "color 0.2s"
+                        transition: "opacity 0.2s"
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "#9333ea")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "#a855f7")}
+                      onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+                      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
                       title="Add Transaction"
                     >
                       Transaction
@@ -439,13 +439,13 @@ export function SecuritiesTable({ items, onView, onEdit, onDelete, onAddTransact
                       style={{
                         background: "none",
                         border: "none",
-                        color: "#ef4444",
+                        color: "var(--danger)",
                         fontWeight: "600",
                         cursor: "pointer",
-                        transition: "color 0.2s"
+                        transition: "opacity 0.2s"
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "#dc2626")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "#ef4444")}
+                      onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+                      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
                       title="Delete"
                     >
                       Delete

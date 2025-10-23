@@ -108,18 +108,18 @@ export function ValuationHistoryChart() {
             yAxisId="left"
             type="monotone"
             dataKey="companyValuation"
-            stroke="#3b82f6"
+            stroke="#4a9eff"
             name="Company Valuation"
-            dot={{ fill: "#3b82f6", r: 4 }}
+            dot={{ fill: "#4a9eff", r: 4 }}
             strokeWidth={2}
           />
           <Line
             yAxisId="right"
             type="monotone"
             dataKey="perShareValue"
-            stroke="#10b981"
+            stroke="#28a745"
             name="Per Share Value"
-            dot={{ fill: "#10b981", r: 4 }}
+            dot={{ fill: "#28a745", r: 4 }}
             strokeWidth={2}
           />
         </LineChart>
@@ -132,42 +132,42 @@ export function ValuationHistoryChart() {
           gap: "16px"
         }}>
           <div style={{
-            background: "linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%)",
-            border: "1px solid rgba(59, 130, 246, 0.2)",
+            background: "linear-gradient(135deg, rgba(74, 158, 255, 0.1) 0%, rgba(74, 158, 255, 0.05) 100%)",
+            border: "1px solid rgba(74, 158, 255, 0.2)",
             borderRadius: "6px",
             padding: "16px"
           }}>
             <p style={{
               fontSize: "12px",
-              color: "#3b82f6",
+              color: "#4a9eff",
               fontWeight: "600",
               margin: "0 0 8px 0"
             }}>Latest Company Valuation</p>
             <p style={{
               fontSize: "24px",
               fontWeight: "700",
-              color: "#3b82f6",
+              color: "#4a9eff",
               margin: 0
             }}>
               ${(chartData[chartData.length - 1].companyValuation / 1000000).toFixed(1)}M
             </p>
           </div>
           <div style={{
-            background: "linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%)",
-            border: "1px solid rgba(16, 185, 129, 0.2)",
+            background: "linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%)",
+            border: "1px solid rgba(40, 167, 69, 0.2)",
             borderRadius: "6px",
             padding: "16px"
           }}>
             <p style={{
               fontSize: "12px",
-              color: "#10b981",
+              color: "#28a745",
               fontWeight: "600",
               margin: "0 0 8px 0"
             }}>Per Share Value</p>
             <p style={{
               fontSize: "24px",
               fontWeight: "700",
-              color: "#10b981",
+              color: "#28a745",
               margin: 0
             }}>
               ${chartData[chartData.length - 1].perShareValue.toFixed(2)}
