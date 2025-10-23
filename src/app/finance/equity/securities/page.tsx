@@ -19,7 +19,7 @@ export default async function SecuritiesPage() {
 
   return (
     <DashboardLayout>
-      <div style={{ padding: "24px" }}>
+      <div className="dashboard-container">
         <SecuritiesPageClient />
       </div>
     </DashboardLayout>

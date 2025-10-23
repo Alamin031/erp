@@ -19,7 +19,7 @@ export default async function TransactionsPage() {
 
   return (
     <DashboardLayout>
-      <div style={{ padding: "24px" }}>
+      <div className="dashboard-container">
         <TransactionsPageClient />
       </div>
     </DashboardLayout>

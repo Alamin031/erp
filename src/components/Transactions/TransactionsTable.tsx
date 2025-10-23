@@ -57,6 +57,20 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
     setSelected(newSet);
   };
 
+  const ariaSort = (field: SortField) =>
+    sort.field === field ? (sort.direction === "asc" ? "ascending" : "descending") : "none";
+
+  const escapeCsvField = (value: any) => {
+    const str = value == null ? "" : String(value);
+    // Prevent CSV injection by prefixing cells that start with = + - @ with a single quote
+    const safeStart = /^[=+\-@]/.test(str) ? `'${str}` : str;
+    // If field contains a quote, comma or newline, wrap in double quotes and escape internal quotes
+    if (/[",\n]/.test(safeStart)) {
+      return `"${safeStart.replace(/"/g, '""')}"`;
+    }
+    return safeStart;
+  };
+
   const exportCSV = () => {
     const ids = Array.from(selected);
     const rows = items
@@ -70,17 +84,21 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
         i.totalAmount.toFixed(2),
         i.status,
       ]);
+
+    const header = ["ID", "Date", "Type", "Entity", "Quantity", "Total Amount", "Status"];
     const csv = [
-      "ID,Date,Type,Entity,Quantity,Total Amount,Status",
-      ...rows.map((r) => r.join(",")),
+      header.join(","),
+      ...rows.map((r) => r.map(escapeCsvField).join(",")),
     ].join("\n");
+
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = `transactions-${new Date().toISOString().split("T")[0]}.csv`;
     a.click();
-    URL.revokeObjectURL(url);
+    // revoke after a short delay to ensure the download has started
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   const deleteSelected = () => {
@@ -149,13 +167,13 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
           <div className="flex gap-2">
             <button
               onClick={exportCSV}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition font-medium"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition font-medium focus:outline-none focus:ring-2 focus:ring-blue-300"
             >
               Export CSV
             </button>
             <button
               onClick={deleteSelected}
-              className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-700 transition font-medium"
+              className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-700 transition font-medium focus:outline-none focus:ring-2 focus:ring-red-300"
             >
               Delete Selected
             </button>
@@ -169,72 +187,138 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
               <th style={{ width: 30 }} className="px-4 py-3">
                 <input
                   type="checkbox"
+                  aria-label="Select all transactions"
                   checked={selected.size > 0 && selected.size === sorted.length}
                   onChange={toggleAll}
                   className="cursor-pointer"
                 />
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">ID</th>
+              <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-700">ID</th>
               <th
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100"
+                scope="col"
+                role="button"
+                tabIndex={0}
+                aria-sort={ariaSort("date")}
+                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
                 onClick={() =>
                   setSort({
                     field: "date",
                     direction: sort.field === "date" && sort.direction === "asc" ? "desc" : "asc",
                   })
                 }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSort({
+                      field: "date",
+                      direction: sort.field === "date" && sort.direction === "asc" ? "desc" : "asc",
+                    });
+                  }
+                }}
               >
                 <div className="flex items-center gap-2">
                   Date {sort.field === "date" && <ChevronDown size={16} />}
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100"
+                scope="col"
+                role="button"
+                tabIndex={0}
+                aria-sort={ariaSort("type")}
+                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
                 onClick={() =>
                   setSort({
                     field: "type",
                     direction: sort.field === "type" && sort.direction === "asc" ? "desc" : "asc",
                   })
                 }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSort({
+                      field: "type",
+                      direction: sort.field === "type" && sort.direction === "asc" ? "desc" : "asc",
+                    });
+                  }
+                }}
               >
                 <div className="flex items-center gap-2">
                   Type {sort.field === "type" && <ChevronDown size={16} />}
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100"
+                scope="col"
+                role="button"
+                tabIndex={0}
+                aria-sort={ariaSort("entity")}
+                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
                 onClick={() =>
                   setSort({
                     field: "entity",
                     direction: sort.field === "entity" && sort.direction === "asc" ? "desc" : "asc",
                   })
                 }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSort({
+                      field: "entity",
+                      direction: sort.field === "entity" && sort.direction === "asc" ? "desc" : "asc",
+                    });
+                  }
+                }}
               >
                 <div className="flex items-center gap-2">
                   Entity {sort.field === "entity" && <ChevronDown size={16} />}
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100"
+                scope="col"
+                role="button"
+                tabIndex={0}
+                aria-sort={ariaSort("quantity")}
+                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
                 onClick={() =>
                   setSort({
                     field: "quantity",
                     direction: sort.field === "quantity" && sort.direction === "asc" ? "desc" : "asc",
                   })
                 }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSort({
+                      field: "quantity",
+                      direction: sort.field === "quantity" && sort.direction === "asc" ? "desc" : "asc",
+                    });
+                  }
+                }}
               >
                 <div className="flex items-center gap-2">
                   Quantity {sort.field === "quantity" && <ChevronDown size={16} />}
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100"
+                scope="col"
+                role="button"
+                tabIndex={0}
+                aria-sort={ariaSort("totalAmount")}
+                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
                 onClick={() =>
                   setSort({
                     field: "totalAmount",
                     direction: sort.field === "totalAmount" && sort.direction === "asc" ? "desc" : "asc",
                   })
                 }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSort({
+                      field: "totalAmount",
+                      direction: sort.field === "totalAmount" && sort.direction === "asc" ? "desc" : "asc",
+                    });
+                  }
+                }}
               >
                 <div className="flex items-center gap-2">
                   Total Amount {sort.field === "totalAmount" && <ChevronDown size={16} />}
@@ -257,6 +341,7 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                   <td className="px-4 py-3">
                     <input
                       type="checkbox"
+                      aria-label={`Select transaction ${txn.id}`}
                       checked={selected.has(txn.id)}
                       onChange={() => toggleSelect(txn.id)}
                       className="cursor-pointer"
@@ -282,21 +367,21 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                   <td className="px-4 py-3 text-sm flex gap-2">
                     <button
                       onClick={() => onView(txn.id)}
-                      className="text-blue-600 hover:text-blue-800 font-medium"
+                      className="text-blue-600 hover:text-blue-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-200"
                       title="View Details"
                     >
                       View
                     </button>
                     <button
                       onClick={() => onEdit(txn.id)}
-                      className="text-green-600 hover:text-green-800 font-medium"
+                      className="text-green-600 hover:text-green-800 font-medium focus:outline-none focus:ring-2 focus:ring-green-200"
                       title="Edit"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => confirmDelete(txn.id)}
-                      className="text-red-600 hover:text-red-800 font-medium"
+                      className="text-red-600 hover:text-red-800 font-medium focus:outline-none focus:ring-2 focus:ring-red-200"
                       title="Delete"
                     >
                       Delete
