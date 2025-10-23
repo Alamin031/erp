@@ -108,18 +108,18 @@ export function ValuationHistoryChart() {
             yAxisId="left"
             type="monotone"
             dataKey="companyValuation"
-            stroke="#3b82f6"
+            stroke="#4a9eff"
             name="Company Valuation"
-            dot={{ fill: "#3b82f6", r: 4 }}
+            dot={{ fill: "#4a9eff", r: 4 }}
             strokeWidth={2}
           />
           <Line
             yAxisId="right"
             type="monotone"
             dataKey="perShareValue"
-            stroke="#10b981"
+            stroke="#28a745"
             name="Per Share Value"
-            dot={{ fill: "#10b981", r: 4 }}
+            dot={{ fill: "#28a745", r: 4 }}
             strokeWidth={2}
           />
         </LineChart>
