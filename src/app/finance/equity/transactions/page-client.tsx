@@ -10,6 +10,7 @@ import { NewTransactionModal } from "@/components/Transactions/NewTransactionMod
 import { TransactionChart } from "@/components/Transactions/TransactionChart";
 import { TransactionActivityLog } from "@/components/Transactions/TransactionActivityLog";
 import { AlertCircle, Plus } from "lucide-react";
+import type { Transaction } from "@/types/transactions";
 
 export function TransactionsPageClient() {
   const {
@@ -78,8 +79,8 @@ export function TransactionsPageClient() {
 
   return (
     <div className="dashboard-container">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      {/* Page Header */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
         <div>
           <h1 className="dashboard-page-title">Transactions</h1>
           <p className="dashboard-subtitle">Track equity issuance, exercises, and other equity transactions.</p>
@@ -87,54 +88,110 @@ export function TransactionsPageClient() {
 
         <button
           onClick={() => setIsNewTransactionModalOpen(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition flex items-center gap-2"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "8px 16px",
+            borderRadius: "6px",
+            background: "var(--primary)",
+            color: "white",
+            fontSize: "13px",
+            fontWeight: "600",
+            border: "none",
+            cursor: "pointer",
+            transition: "all 0.2s"
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         >
-          <Plus size={20} />
+          <Plus size={16} />
           New Transaction
         </button>
       </div>
 
       {/* Alert Banner */}
-      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start gap-3 mb-4">
-        <AlertCircle size={20} className="text-amber-600 flex-shrink-0 mt-0.5" />
+      <div style={{
+        background: "#fef3c7",
+        border: "1px solid #fcd34d",
+        borderRadius: "8px",
+        padding: "16px",
+        display: "flex",
+        alignItems: "flex-start",
+        gap: "12px",
+        marginBottom: "24px"
+      }}>
+        <div style={{ color: "#b45309", flexShrink: 0, marginTop: "2px" }}>
+          <AlertCircle size={20} />
+        </div>
         <div>
-          <p className="text-sm font-medium text-amber-900">⚙️ Equity transactions management is under development.</p>
-          <p className="text-xs text-amber-800 mt-1">Some features may not be fully functional. We are continuously improving this module.</p>
+          <p style={{ fontSize: "13px", fontWeight: "600", color: "#92400e", margin: 0 }}>
+            ⚙️ Equity transactions management is under development.
+          </p>
+          <p style={{ fontSize: "12px", color: "#a16207", marginTop: "4px", margin: 0 }}>
+            Some features may not be fully functional. We are continuously improving this module.
+          </p>
         </div>
       </div>
 
       {/* Summary Cards */}
-      <TransactionStatsCards />
+      <div style={{ marginBottom: "24px" }}>
+        <TransactionStatsCards />
+      </div>
 
-      {/* Main Content: table first, filters below on all screen sizes */}
-      <div className="grid grid-cols-1 gap-6">
-        {/* Table: full width */}
-        <div className="w-full">
-          <div className="bg-[var(--background)] rounded-lg border border-[var(--border)] overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Transaction Records ({filteredTransactions.length})</h2>
-              <TransactionsTable
-                items={filteredTransactions}
-                onView={handleViewDetails}
-                onEdit={handleEditTransaction}
-                onDelete={handleDeleteTransaction}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Filters: below the table */}
-        <div className="w-full">
+      {/* Filters & Search */}
+      <div style={{ marginBottom: "24px" }}>
+        <h3 style={{
+          fontSize: "13px",
+          fontWeight: "700",
+          color: "var(--primary)",
+          marginBottom: "12px",
+          textTransform: "uppercase",
+          letterSpacing: "0.5px"
+        }}>Filters & Search</h3>
+        <div style={{
+          background: "var(--background)",
+          borderRadius: "8px",
+          border: "1px solid var(--border)",
+          padding: "16px"
+        }}>
           <TransactionFiltersBar />
         </div>
       </div>
 
+      {/* Transaction Records Table */}
+      <div style={{
+        background: "var(--background)",
+        borderRadius: "8px",
+        border: "1px solid var(--border)",
+        overflow: "hidden",
+        marginBottom: "24px"
+      }}>
+        <div style={{ padding: "24px" }}>
+          <h2 style={{
+            fontSize: "16px",
+            fontWeight: "600",
+            color: "var(--primary)",
+            marginBottom: "16px",
+            margin: 0
+          }}>
+            Transaction Records ({filteredTransactions.length})
+          </h2>
+          <TransactionsTable
+            items={filteredTransactions}
+            onView={handleViewDetails}
+            onEdit={handleEditTransaction}
+            onDelete={handleDeleteTransaction}
+          />
+        </div>
+      </div>
+
       {/* Charts and Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "24px", marginTop: "24px" }}>
+        <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "24px" }}>
           <TransactionChart />
         </div>
-        <div className="lg:col-span-1">
+        <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "24px" }}>
           <TransactionActivityLog />
         </div>
       </div>
@@ -155,18 +212,55 @@ export function TransactionsPageClient() {
 
       {/* Action Buttons in Drawer */}
       {isDetailsDrawerOpen && selectedTransaction && (
-        <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2 bg-white rounded-lg shadow-lg p-4 border border-gray-200">
+        <div style={{
+          position: "fixed",
+          bottom: "24px",
+          right: "24px",
+          zIndex: 50,
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+          background: "white",
+          borderRadius: "8px",
+          boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
+          padding: "16px",
+          border: "1px solid var(--border)"
+        }}>
           {selectedTransaction.status === "Draft" && (
             <>
               <button
                 onClick={handleApprove}
-                className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 transition font-medium"
+                style={{
+                  background: "#10b981",
+                  color: "white",
+                  padding: "8px 16px",
+                  borderRadius: "6px",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.2s"
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#059669")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#10b981")}
               >
                 Approve
               </button>
               <button
                 onClick={handleReject}
-                className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-700 transition font-medium"
+                style={{
+                  background: "#ef4444",
+                  color: "white",
+                  padding: "8px 16px",
+                  borderRadius: "6px",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.2s"
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#dc2626")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#ef4444")}
               >
                 Reject
               </button>
@@ -175,7 +269,19 @@ export function TransactionsPageClient() {
           {selectedTransaction.status === "Approved" && (
             <button
               onClick={handleExecute}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition font-medium"
+              style={{
+                background: "var(--primary)",
+                color: "white",
+                padding: "8px 16px",
+                borderRadius: "6px",
+                fontSize: "13px",
+                fontWeight: "600",
+                border: "none",
+                cursor: "pointer",
+                transition: "all 0.2s"
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
               Execute
             </button>
