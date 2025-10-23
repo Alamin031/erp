@@ -1,0 +1,74 @@
+[
+  {
+    "id": "SH-001",
+    "name": "John Smith (Founder)",
+    "email": "john@company.com",
+    "sharesHeld": 1000000,
+    "ownershipPercentage": 40.0,
+    "equityType": "Common",
+    "joinDate": "2020-01-15",
+    "notes": "Co-founder and CEO",
+    "createdAt": "2020-01-15T10:00:00Z",
+    "updatedAt": "2020-01-15T10:00:00Z"
+  },
+  {
+    "id": "SH-002",
+    "name": "Jane Doe (Founder)",
+    "email": "jane@company.com",
+    "sharesHeld": 800000,
+    "ownershipPercentage": 32.0,
+    "equityType": "Common",
+    "joinDate": "2020-01-15",
+    "notes": "Co-founder and CTO",
+    "createdAt": "2020-01-15T10:00:00Z",
+    "updatedAt": "2020-01-15T10:00:00Z"
+  },
+  {
+    "id": "SH-003",
+    "name": "TechVentures Fund",
+    "email": "contact@techventures.com",
+    "sharesHeld": 500000,
+    "ownershipPercentage": 20.0,
+    "equityType": "Preferred",
+    "joinDate": "2021-06-20",
+    "notes": "Series A investor",
+    "createdAt": "2021-06-20T10:00:00Z",
+    "updatedAt": "2021-06-20T10:00:00Z"
+  },
+  {
+    "id": "SH-004",
+    "name": "Alice Johnson",
+    "email": "alice@company.com",
+    "sharesHeld": 50000,
+    "ownershipPercentage": 2.0,
+    "equityType": "Options",
+    "joinDate": "2021-03-01",
+    "notes": "VP of Product",
+    "createdAt": "2021-03-01T10:00:00Z",
+    "updatedAt": "2021-03-01T10:00:00Z"
+  },
+  {
+    "id": "SH-005",
+    "name": "Bob Williams",
+    "email": "bob@company.com",
+    "sharesHeld": 30000,
+    "ownershipPercentage": 1.2,
+    "equityType": "Options",
+    "joinDate": "2021-06-15",
+    "notes": "Head of Engineering",
+    "createdAt": "2021-06-15T10:00:00Z",
+    "updatedAt": "2021-06-15T10:00:00Z"
+  },
+  {
+    "id": "SH-006",
+    "name": "Growth Investors LLC",
+    "email": "hello@growthinvestors.com",
+    "sharesHeld": 200000,
+    "ownershipPercentage": 4.8,
+    "equityType": "Preferred",
+    "joinDate": "2022-03-10",
+    "notes": "Series B investor",
+    "createdAt": "2022-03-10T10:00:00Z",
+    "updatedAt": "2022-03-10T10:00:00Z"
+  }
+]
