@@ -2,7 +2,7 @@
 
 import { useTransactions } from "@/store/useTransactions";
 import { useMemo } from "react";
-import { ArrowUpRight, TrendingUp, ArrowLeftRight, XCircle } from "lucide-react";
+import { ArrowUpRight, TrendingUp, ArrowLeftRight } from "lucide-react";
 
 export function TransactionStatsCards() {
   const { getTransactionStats } = useTransactions();
