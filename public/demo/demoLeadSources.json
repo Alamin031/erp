@@ -1,0 +1,58 @@
+[
+  {
+    "id": "SOURCE-001",
+    "name": "Website",
+    "displayName": "Website",
+    "description": "Leads from website form submissions",
+    "leadCount": 24
+  },
+  {
+    "id": "SOURCE-002",
+    "name": "LinkedIn",
+    "displayName": "LinkedIn",
+    "description": "Leads from LinkedIn outreach and campaigns",
+    "leadCount": 18
+  },
+  {
+    "id": "SOURCE-003",
+    "name": "Referral",
+    "displayName": "Referral",
+    "description": "Leads from customer and partner referrals",
+    "leadCount": 15
+  },
+  {
+    "id": "SOURCE-004",
+    "name": "Trade Show",
+    "displayName": "Trade Show",
+    "description": "Leads collected at industry events",
+    "leadCount": 8
+  },
+  {
+    "id": "SOURCE-005",
+    "name": "Email Campaign",
+    "displayName": "Email Campaign",
+    "description": "Leads from email marketing campaigns",
+    "leadCount": 22
+  },
+  {
+    "id": "SOURCE-006",
+    "name": "Cold Call",
+    "displayName": "Cold Call",
+    "description": "Leads from cold calling",
+    "leadCount": 12
+  },
+  {
+    "id": "SOURCE-007",
+    "name": "Partner Referral",
+    "displayName": "Partner Referral",
+    "description": "Leads from partner channel",
+    "leadCount": 10
+  },
+  {
+    "id": "SOURCE-008",
+    "name": "SEO/SEM",
+    "displayName": "SEO/SEM",
+    "description": "Leads from search engine marketing",
+    "leadCount": 16
+  }
+]

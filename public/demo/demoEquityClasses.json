@@ -1,0 +1,46 @@
+[
+  {
+    "id": "EC-001",
+    "name": "Common",
+    "authorizedShares": 5000000,
+    "issuedShares": 1800000,
+    "pricePerShare": 0.50,
+    "description": "Common shares issued to founders and employees",
+    "votingRights": 100,
+    "liquidationPreference": 1,
+    "lastUpdated": "2020-01-15T10:00:00Z"
+  },
+  {
+    "id": "EC-002",
+    "name": "Preferred",
+    "authorizedShares": 1000000,
+    "issuedShares": 700000,
+    "pricePerShare": 2.50,
+    "description": "Series A and B preferred shares",
+    "votingRights": 100,
+    "liquidationPreference": 1.5,
+    "conversionRatio": 1,
+    "lastUpdated": "2022-03-10T10:00:00Z"
+  },
+  {
+    "id": "EC-003",
+    "name": "Options",
+    "authorizedShares": 500000,
+    "issuedShares": 80000,
+    "pricePerShare": 1.00,
+    "description": "Employee stock options",
+    "votingRights": 0,
+    "lastUpdated": "2023-01-01T10:00:00Z"
+  },
+  {
+    "id": "EC-004",
+    "name": "Convertible",
+    "authorizedShares": 250000,
+    "issuedShares": 0,
+    "pricePerShare": 0.00,
+    "description": "Convertible notes and SAFEs",
+    "votingRights": 0,
+    "conversionRatio": 0.8,
+    "lastUpdated": "2024-01-01T10:00:00Z"
+  }
+]

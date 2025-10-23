@@ -1,0 +1,5 @@
+[
+  { "id": "T-1", "name": "VIP", "color": "#f59e0b" },
+  { "id": "T-2", "name": "New", "color": "#2563eb" },
+  { "id": "T-3", "name": "Long-term", "color": "#059669" }
+]

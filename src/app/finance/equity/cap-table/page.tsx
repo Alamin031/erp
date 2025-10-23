@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
+import { CapTablePageClient } from "./page-client";
 
 export default async function CapTablePage() {
   const session = await getSession();
@@ -18,13 +19,7 @@ export default async function CapTablePage() {
 
   return (
     <DashboardLayout>
-      <div style={{ padding: "24px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: "700", marginBottom: "16px" }}>Cap Table</h1>
-        <div style={{ background: "#fff", borderRadius: "8px", padding: "24px", border: "1px solid #eef2f6" }}>
-          <p style={{ color: "#6b7280", fontSize: "16px" }}>Cap table management is under development.</p>
-          <p style={{ color: "#6b7280", fontSize: "14px", marginTop: "12px" }}>View and manage capitalization table, shareholder equity, and ownership structure.</p>
-        </div>
-      </div>
+      <CapTablePageClient />
     </DashboardLayout>
   );
 }
