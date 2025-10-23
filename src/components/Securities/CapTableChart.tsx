@@ -4,7 +4,7 @@ import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from "recha
 import { useSecurities } from "@/store/useSecurities";
 import { useMemo } from "react";
 
-const COLORS = ["var(--primary)", "var(--danger)", "var(--success)", "var(--warning)", "#8b5cf6"];
+const COLORS = ["#4a9eff", "#dc3545", "#28a745", "#ffc107", "#8b5cf6"];
 
 export function CapTableChart() {
   const { getCapTableData } = useSecurities();
