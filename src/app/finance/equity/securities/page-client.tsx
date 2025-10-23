@@ -15,7 +15,7 @@ import { NewStockOptionModal } from "@/components/Securities/NewStockOptionModal
 import { NewEquityAwardModal } from "@/components/Securities/NewEquityAwardModal";
 import { UploadDocumentsModal } from "@/components/Securities/UploadDocumentsModal";
 import { Security } from "@/types/securities";
-import { Plus } from "lucide-react";
+import { Plus, Download, Upload } from "lucide-react";
 
 type TabType = "securities" | "options" | "awards";
 
@@ -83,118 +83,143 @@ export function SecuritiesPageClient() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header with Summary Cards */}
-      <div>
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Securities</h1>
-            <p className="text-gray-600 mt-1">Manage equity securities, stock options, and equity awards.</p>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={() => setIsNewSecurityModalOpen(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition flex items-center gap-2"
-            >
-              <Plus size={20} />
-              New Security
-            </button>
-          </div>
-        </div>
+    <div className="dashboard-container">
+      {/* Page Header */}
+      <div className="dashboard-header-content mb-6">
+        <h1 className="dashboard-page-title">Securities Management</h1>
+        <p className="dashboard-subtitle">Manage equity securities, stock options, and equity awards in one place.</p>
+      </div>
 
+      {/* Summary Cards */}
+      <div className="mb-6">
         <SecuritiesSummaryCards />
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        {/* Left: Filters */}
-        <div className="xl:col-span-1">
+      {/* Quick Actions */}
+      <div className="mb-6">
+        <div className="bg-white rounded-lg border border-gray-200 p-6">
+          <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <button
+              onClick={() => setIsNewSecurityModalOpen(true)}
+              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
+            >
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-2">
+                <Plus size={20} className="text-blue-600" />
+              </div>
+              <span className="text-xs font-medium text-gray-700">New Security</span>
+            </button>
+            <button
+              onClick={() => setIsNewOptionModalOpen(true)}
+              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
+            >
+              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-2">
+                <Plus size={20} className="text-purple-600" />
+              </div>
+              <span className="text-xs font-medium text-gray-700">New Option</span>
+            </button>
+            <button
+              onClick={() => setIsNewAwardModalOpen(true)}
+              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
+            >
+              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-2">
+                <Plus size={20} className="text-green-600" />
+              </div>
+              <span className="text-xs font-medium text-gray-700">New Award</span>
+            </button>
+            <button
+              onClick={() => setIsUploadModalOpen(true)}
+              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
+            >
+              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-2">
+                <Upload size={20} className="text-orange-600" />
+              </div>
+              <span className="text-xs font-medium text-gray-700">Upload Docs</span>
+            </button>
+            <button
+              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
+            >
+              <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mb-2">
+                <Download size={20} className="text-indigo-600" />
+              </div>
+              <span className="text-xs font-medium text-gray-700">Export</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Filters & Search */}
+      <div className="mb-6">
+        <div className="bg-white rounded-lg border border-gray-200 p-6">
+          <h3 className="font-semibold text-gray-900 mb-4">Filters & Search</h3>
           <SecuritiesFilterBar />
         </div>
+      </div>
 
-        {/* Center & Right: Tables and Charts */}
-        <div className="xl:col-span-2 space-y-6">
-          {/* Tabs for Securities, Options, Awards */}
-          <div className="bg-white rounded-lg border border-gray-200">
-            <div className="border-b flex">
-              {(["securities", "options", "awards"] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-6 py-3 font-medium text-sm border-b-2 transition ${
-                    activeTab === tab
-                      ? "border-blue-600 text-blue-600"
-                      : "border-transparent text-gray-700 hover:text-gray-900"
-                  }`}
-                >
-                  {tab === "securities" && "Securities"}
-                  {tab === "options" && "Stock Options"}
-                  {tab === "awards" && "Equity Awards"}
-                  {tab === "securities" && ` (${filteredSecurities.length})`}
-                  {tab === "options" && ` (${stockOptions.length})`}
-                  {tab === "awards" && ` (${equityAwards.length})`}
-                </button>
-              ))}
-              {activeTab !== "securities" && (
-                <div className="ml-auto px-6 py-3">
-                  {activeTab === "options" && (
-                    <button
-                      onClick={() => setIsNewOptionModalOpen(true)}
-                      className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-2"
-                    >
-                      <Plus size={18} />
-                      New Option
-                    </button>
-                  )}
-                  {activeTab === "awards" && (
-                    <button
-                      onClick={() => setIsNewAwardModalOpen(true)}
-                      className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-2"
-                    >
-                      <Plus size={18} />
-                      New Award
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
-
-            <div className="p-6">
-              {activeTab === "securities" && (
-                <SecuritiesTable
-                  items={filteredSecurities}
-                  onView={handleViewDetails}
-                  onEdit={handleEditSecurity}
-                  onDelete={handleDeleteSecurity}
-                  onAddTransaction={handleAddTransaction}
-                />
-              )}
-
-              {activeTab === "options" && (
-                <StockOptionsTable
-                  items={stockOptions}
-                  onEdit={handleEditOption}
-                  onDelete={() => {}}
-                />
-              )}
-
-              {activeTab === "awards" && (
-                <EquityAwardsTable
-                  items={equityAwards}
-                  onEdit={handleEditAward}
-                  onDelete={() => {}}
-                  onViewHistory={handleViewAwardHistory}
-                />
-              )}
-            </div>
-          </div>
-
-          {/* Charts */}
-          <div className="space-y-6">
-            <CapTableChart />
-            <ValuationHistoryChart />
-          </div>
+      {/* Tabs and Content */}
+      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+        <div className="border-b border-gray-200 flex">
+          {(["securities", "options", "awards"] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              style={{
+                padding: "12px 20px",
+                fontSize: "13px",
+                fontWeight: activeTab === tab ? "700" : "600",
+                color: activeTab === tab ? "var(--primary)" : "var(--secondary)",
+                background: activeTab === tab ? "transparent" : "transparent",
+                border: "none",
+                borderBottom: `3px solid ${activeTab === tab ? "var(--primary)" : "transparent"}`,
+                cursor: "pointer",
+                transition: "all 0.2s",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {tab === "securities" && "Securities"}
+              {tab === "options" && "Stock Options"}
+              {tab === "awards" && "Equity Awards"}
+              {tab === "securities" && ` (${filteredSecurities.length})`}
+              {tab === "options" && ` (${stockOptions.length})`}
+              {tab === "awards" && ` (${equityAwards.length})`}
+            </button>
+          ))}
         </div>
+
+        <div style={{ padding: "24px" }}>
+          {activeTab === "securities" && (
+            <SecuritiesTable
+              items={filteredSecurities}
+              onView={handleViewDetails}
+              onEdit={handleEditSecurity}
+              onDelete={handleDeleteSecurity}
+              onAddTransaction={handleAddTransaction}
+            />
+          )}
+
+          {activeTab === "options" && (
+            <StockOptionsTable
+              items={stockOptions}
+              onEdit={handleEditOption}
+              onDelete={() => {}}
+            />
+          )}
+
+          {activeTab === "awards" && (
+            <EquityAwardsTable
+              items={equityAwards}
+              onEdit={handleEditAward}
+              onDelete={() => {}}
+              onViewHistory={handleViewAwardHistory}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Charts */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginTop: "24px" }}>
+        <CapTableChart />
+        <ValuationHistoryChart />
       </div>
 
       {/* Modals and Drawers */}
