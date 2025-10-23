@@ -1,0 +1,46 @@
+[
+  {
+    "id": "SA-001",
+    "name": "Mike Thompson",
+    "email": "mike.thompson@company.com",
+    "phone": "+1-555-1001",
+    "role": "Senior Sales Manager",
+    "leadsCount": 12,
+    "conversionRate": 45,
+    "totalValue": 385000,
+    "status": "active"
+  },
+  {
+    "id": "SA-002",
+    "name": "Emily Davis",
+    "email": "emily.davis@company.com",
+    "phone": "+1-555-1002",
+    "role": "Account Executive",
+    "leadsCount": 18,
+    "conversionRate": 38,
+    "totalValue": 420000,
+    "status": "active"
+  },
+  {
+    "id": "SA-003",
+    "name": "Robert Jackson",
+    "email": "robert.jackson@company.com",
+    "phone": "+1-555-1003",
+    "role": "Sales Development Rep",
+    "leadsCount": 8,
+    "conversionRate": 25,
+    "totalValue": 145000,
+    "status": "active"
+  },
+  {
+    "id": "SA-004",
+    "name": "Jessica Lee",
+    "email": "jessica.lee@company.com",
+    "phone": "+1-555-1004",
+    "role": "Enterprise Sales",
+    "leadsCount": 5,
+    "conversionRate": 60,
+    "totalValue": 550000,
+    "status": "active"
+  }
+]
