@@ -1,0 +1,112 @@
+[
+  {
+    "id": "OWN-001",
+    "timestamp": "2020-01-15T10:00:00Z",
+    "type": "Issuance",
+    "shareholderId": "SH-001",
+    "shareholderName": "John Smith (Founder)",
+    "sharesQuantity": 1000000,
+    "equityClass": "Common",
+    "details": "Initial founder shares issuance for John Smith",
+    "user": "System"
+  },
+  {
+    "id": "OWN-002",
+    "timestamp": "2020-01-15T10:30:00Z",
+    "type": "Issuance",
+    "shareholderId": "SH-002",
+    "shareholderName": "Jane Doe (Founder)",
+    "sharesQuantity": 800000,
+    "equityClass": "Common",
+    "details": "Initial founder shares issuance for Jane Doe",
+    "user": "System"
+  },
+  {
+    "id": "OWN-003",
+    "timestamp": "2021-03-01T14:15:00Z",
+    "type": "Issuance",
+    "shareholderId": "SH-004",
+    "shareholderName": "Alice Johnson",
+    "sharesQuantity": 50000,
+    "equityClass": "Options",
+    "details": "Employee stock option grant to VP of Product",
+    "user": "HR_ADMIN"
+  },
+  {
+    "id": "OWN-004",
+    "timestamp": "2021-06-15T09:00:00Z",
+    "type": "Issuance",
+    "shareholderId": "SH-005",
+    "shareholderName": "Bob Williams",
+    "sharesQuantity": 30000,
+    "equityClass": "Options",
+    "details": "Employee stock option grant to Head of Engineering",
+    "user": "HR_ADMIN"
+  },
+  {
+    "id": "OWN-005",
+    "timestamp": "2021-06-20T11:45:00Z",
+    "type": "Issuance",
+    "shareholderId": "SH-003",
+    "shareholderName": "TechVentures Fund",
+    "sharesQuantity": 500000,
+    "equityClass": "Preferred",
+    "details": "Series A funding round - preferred shares issued",
+    "user": "FINANCE_ADMIN"
+  },
+  {
+    "id": "OWN-006",
+    "timestamp": "2022-03-10T13:20:00Z",
+    "type": "Issuance",
+    "shareholderId": "SH-006",
+    "shareholderName": "Growth Investors LLC",
+    "sharesQuantity": 200000,
+    "equityClass": "Preferred",
+    "details": "Series B funding round - preferred shares issued",
+    "user": "FINANCE_ADMIN"
+  },
+  {
+    "id": "OWN-007",
+    "timestamp": "2023-06-01T08:30:00Z",
+    "type": "Transfer",
+    "shareholderId": "SH-002",
+    "shareholderName": "Jane Doe (Founder)",
+    "sharesQuantity": 100000,
+    "equityClass": "Common",
+    "details": "Transferred 100,000 common shares to estate trust",
+    "user": "LEGAL_ADMIN"
+  },
+  {
+    "id": "OWN-008",
+    "timestamp": "2023-09-15T10:00:00Z",
+    "type": "Conversion",
+    "shareholderId": "SH-003",
+    "shareholderName": "TechVentures Fund",
+    "sharesQuantity": 500000,
+    "equityClass": "Preferred",
+    "details": "Series A preferred shares converted to common (1:1 ratio)",
+    "user": "FINANCE_ADMIN"
+  },
+  {
+    "id": "OWN-009",
+    "timestamp": "2024-01-20T15:45:00Z",
+    "type": "Split",
+    "shareholderId": "SH-001",
+    "shareholderName": "John Smith (Founder)",
+    "sharesQuantity": 500000,
+    "equityClass": "Common",
+    "details": "2:1 stock split - founder shares doubled",
+    "user": "FINANCE_ADMIN"
+  },
+  {
+    "id": "OWN-010",
+    "timestamp": "2024-02-15T12:00:00Z",
+    "type": "Issuance",
+    "shareholderId": "SH-004",
+    "shareholderName": "Alice Johnson",
+    "sharesQuantity": 25000,
+    "equityClass": "Options",
+    "details": "Additional option grant vest grant",
+    "user": "HR_ADMIN"
+  }
+]
