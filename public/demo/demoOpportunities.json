@@ -1,0 +1,42 @@
+[
+  {
+    "id": "OPP-001",
+    "name": "Enterprise Hotel Platform",
+    "companyId": "COMP-001",
+    "companyName": "Bright Hotels Ltd",
+    "contactId": "C-001",
+    "contactName": "Alice Walker",
+    "stage": "Proposal",
+    "source": "Referral",
+    "ownerId": "U-1",
+    "ownerName": "Mike Thompson",
+    "expectedCloseDate": "2024-03-15",
+    "value": 120000,
+    "currency": "USD",
+    "probability": 60,
+    "status": "In Progress",
+    "description": "Enterprise platform opportunity",
+    "createdAt": "2024-01-10T08:00:00Z",
+    "updatedAt": "2024-01-20T09:00:00Z"
+  },
+  {
+    "id": "OPP-002",
+    "name": "Conference Booking Integration",
+    "companyId": "COMP-002",
+    "companyName": "Conference Co",
+    "contactId": "C-002",
+    "contactName": "Brian Smith",
+    "stage": "Qualification",
+    "source": "Website",
+    "ownerId": "U-2",
+    "ownerName": "Emily Davis",
+    "expectedCloseDate": "2024-02-28",
+    "value": 45000,
+    "currency": "USD",
+    "probability": 40,
+    "status": "In Progress",
+    "description": "Integration for conference bookings",
+    "createdAt": "2024-01-18T10:00:00Z",
+    "updatedAt": "2024-01-19T11:00:00Z"
+  }
+]
