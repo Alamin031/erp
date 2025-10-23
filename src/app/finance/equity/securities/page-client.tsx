@@ -320,8 +320,18 @@ export function SecuritiesPageClient() {
       </div>
 
       {/* Tabs and Content */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-        <div className="border-b border-gray-200 flex">
+      <div style={{
+        background: "white",
+        borderRadius: "8px",
+        border: "1px solid var(--border)",
+        overflow: "hidden",
+        marginBottom: "24px"
+      }}>
+        <div style={{
+          borderBottom: "1px solid var(--border)",
+          display: "flex",
+          background: "var(--background)"
+        }}>
           {(["securities", "options", "awards"] as const).map((tab) => (
             <button
               key={tab}
@@ -331,7 +341,7 @@ export function SecuritiesPageClient() {
                 fontSize: "13px",
                 fontWeight: activeTab === tab ? "700" : "600",
                 color: activeTab === tab ? "var(--primary)" : "var(--secondary)",
-                background: activeTab === tab ? "transparent" : "transparent",
+                background: activeTab === tab ? "white" : "transparent",
                 border: "none",
                 borderBottom: `3px solid ${activeTab === tab ? "var(--primary)" : "transparent"}`,
                 cursor: "pointer",
@@ -381,8 +391,12 @@ export function SecuritiesPageClient() {
 
       {/* Charts */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginTop: "24px" }}>
-        <CapTableChart />
-        <ValuationHistoryChart />
+        <div style={{ background: "white", borderRadius: "8px", border: "1px solid var(--border)", padding: "24px" }}>
+          <CapTableChart />
+        </div>
+        <div style={{ background: "white", borderRadius: "8px", border: "1px solid var(--border)", padding: "24px" }}>
+          <ValuationHistoryChart />
+        </div>
       </div>
 
       {/* Modals and Drawers */}
