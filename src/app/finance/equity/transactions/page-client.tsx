@@ -77,52 +77,42 @@ export function TransactionsPageClient() {
   }, [selectedTransactionId, executeTransaction, setSelectedTransactionId]);
 
   return (
-    <div className="space-y-6">
+    <div className="dashboard-container">
       {/* Header */}
-      <div>
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Transactions</h1>
-            <p className="text-gray-600 mt-1">Track equity issuance, exercises, and other equity transactions.</p>
-          </div>
-          <button
-            onClick={() => setIsNewTransactionModalOpen(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition flex items-center gap-2"
-          >
-            <Plus size={20} />
-            New Transaction
-          </button>
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="dashboard-page-title">Transactions</h1>
+          <p className="dashboard-subtitle">Track equity issuance, exercises, and other equity transactions.</p>
         </div>
 
-        {/* Alert Banner */}
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start gap-3">
-          <AlertCircle size={20} className="text-amber-600 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm font-medium text-amber-900">
-              ⚙️ Equity transactions management is under development.
-            </p>
-            <p className="text-xs text-amber-800 mt-1">
-              Some features may not be fully functional. We are continuously improving this module.
-            </p>
-          </div>
+        <button
+          onClick={() => setIsNewTransactionModalOpen(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition flex items-center gap-2"
+        >
+          <Plus size={20} />
+          New Transaction
+        </button>
+      </div>
+
+      {/* Alert Banner */}
+      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start gap-3 mb-4">
+        <AlertCircle size={20} className="text-amber-600 flex-shrink-0 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-amber-900">⚙️ Equity transactions management is under development.</p>
+          <p className="text-xs text-amber-800 mt-1">Some features may not be fully functional. We are continuously improving this module.</p>
         </div>
       </div>
 
       {/* Summary Cards */}
       <TransactionStatsCards />
 
-      {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left: Filters */}
-        <div className="lg:col-span-1">
-          <TransactionFiltersBar />
-        </div>
-
-        {/* Center: Table */}
-        <div className="lg:col-span-2">
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+      {/* Main Content: table first, filters below on all screen sizes */}
+      <div className="grid grid-cols-1 gap-6">
+        {/* Table: full width */}
+        <div className="w-full">
+          <div className="bg-[var(--background)] rounded-lg border border-[var(--border)] overflow-hidden">
             <div className="p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Transaction Records ({filteredTransactions.length})</h2>
+              <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Transaction Records ({filteredTransactions.length})</h2>
               <TransactionsTable
                 items={filteredTransactions}
                 onView={handleViewDetails}
@@ -131,6 +121,11 @@ export function TransactionsPageClient() {
               />
             </div>
           </div>
+        </div>
+
+        {/* Filters: below the table */}
+        <div className="w-full">
+          <TransactionFiltersBar />
         </div>
       </div>
 

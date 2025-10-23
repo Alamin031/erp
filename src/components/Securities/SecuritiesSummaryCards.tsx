@@ -22,47 +22,75 @@ export function SecuritiesSummaryCards() {
     {
       title: "Total Shares Issued",
       value: stats.totalShares.toLocaleString(),
-      icon: <DollarSign className="text-white" size={28} />,
-      bgColor: "bg-gradient-to-br from-blue-600 to-blue-700",
-      borderColor: "border-blue-700",
+      icon: <DollarSign size={24} />,
+      iconColor: "#2563eb",
+      bgColor: "#f0f9ff",
+      borderColor: "#bfdbfe",
     },
     {
       title: "Total Stock Options Granted",
       value: stats.totalOptions.toLocaleString(),
-      icon: <Target className="text-white" size={28} />,
-      bgColor: "bg-gradient-to-br from-purple-600 to-purple-700",
-      borderColor: "border-purple-700",
+      icon: <Target size={24} />,
+      iconColor: "#9333ea",
+      bgColor: "#faf5ff",
+      borderColor: "#e9d5ff",
     },
     {
       title: "Active Equity Awards",
       value: stats.activeAwards.toString(),
-      icon: <Award className="text-white" size={28} />,
-      bgColor: "bg-gradient-to-br from-green-600 to-green-700",
-      borderColor: "border-green-700",
+      icon: <Award size={24} />,
+      iconColor: "#16a34a",
+      bgColor: "#f0fdf4",
+      borderColor: "#bbf7d0",
     },
     {
       title: "Current Valuation",
       value: `$${(stats.valuation / 1000000).toFixed(1)}M`,
-      icon: <TrendingUp className="text-white" size={28} />,
-      bgColor: "bg-gradient-to-br from-orange-600 to-orange-700",
-      borderColor: "border-orange-700",
+      icon: <TrendingUp size={24} />,
+      iconColor: "#ea580c",
+      bgColor: "#fff7ed",
+      borderColor: "#fed7aa",
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+      gap: "16px"
+    }}>
       {cards.map((card) => (
         <div
           key={card.title}
-          className={`rounded-lg p-6 border ${card.bgColor} ${card.borderColor} shadow-lg`}
+          style={{
+            borderRadius: "8px",
+            padding: "16px",
+            border: `1px solid ${card.borderColor}`,
+            background: card.bgColor
+          }}
         >
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-white opacity-90">{card.title}</h3>
-            <div className="flex-shrink-0">
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "12px"
+          }}>
+            <h3 style={{
+              fontSize: "12px",
+              fontWeight: "600",
+              color: "var(--secondary)",
+              margin: 0
+            }}>{card.title}</h3>
+            <div style={{ color: card.iconColor }}>
               {card.icon}
             </div>
           </div>
-          <p className="text-3xl font-bold text-white">{card.value}</p>
+          <p style={{
+            fontSize: "24px",
+            fontWeight: "700",
+            color: "var(--primary)",
+            margin: 0
+          }}>{card.value}</p>
         </div>
       ))}
     </div>

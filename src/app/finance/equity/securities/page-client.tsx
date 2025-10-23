@@ -91,74 +91,200 @@ export function SecuritiesPageClient() {
       </div>
 
       {/* Summary Cards */}
-      <div className="mb-6">
+      <div style={{ marginBottom: "24px" }}>
         <SecuritiesSummaryCards />
       </div>
 
       {/* Quick Actions */}
-      <div className="mb-6">
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <button
-              onClick={() => setIsNewSecurityModalOpen(true)}
-              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
-            >
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-2">
-                <Plus size={20} className="text-blue-600" />
-              </div>
-              <span className="text-xs font-medium text-gray-700">New Security</span>
-            </button>
-            <button
-              onClick={() => setIsNewOptionModalOpen(true)}
-              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
-            >
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-2">
-                <Plus size={20} className="text-purple-600" />
-              </div>
-              <span className="text-xs font-medium text-gray-700">New Option</span>
-            </button>
-            <button
-              onClick={() => setIsNewAwardModalOpen(true)}
-              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
-            >
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-2">
-                <Plus size={20} className="text-green-600" />
-              </div>
-              <span className="text-xs font-medium text-gray-700">New Award</span>
-            </button>
-            <button
-              onClick={() => setIsUploadModalOpen(true)}
-              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
-            >
-              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-2">
-                <Upload size={20} className="text-orange-600" />
-              </div>
-              <span className="text-xs font-medium text-gray-700">Upload Docs</span>
-            </button>
-            <button
-              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
-            >
-              <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mb-2">
-                <Download size={20} className="text-indigo-600" />
-              </div>
-              <span className="text-xs font-medium text-gray-700">Export</span>
-            </button>
-          </div>
+      <div style={{ marginBottom: "24px" }}>
+        <h3 style={{
+          fontSize: "13px",
+          fontWeight: "700",
+          color: "var(--primary)",
+          marginBottom: "12px",
+          textTransform: "uppercase",
+          letterSpacing: "0.5px"
+        }}>Quick Actions</h3>
+        <div style={{
+          display: "flex",
+          gap: "8px",
+          flexWrap: "wrap"
+        }}>
+          <button
+            onClick={() => setIsNewSecurityModalOpen(true)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "8px 16px",
+              borderRadius: "6px",
+              border: "1px solid #e5e7eb",
+              background: "white",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              fontSize: "13px",
+              fontWeight: "600",
+              color: "var(--secondary)"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "var(--background)";
+              e.currentTarget.style.borderColor = "#d1d5db";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "white";
+              e.currentTarget.style.borderColor = "#e5e7eb";
+            }}
+          >
+            <Plus size={16} style={{ color: "#2563eb" }} />
+            New Security
+          </button>
+          <button
+            onClick={() => setIsNewOptionModalOpen(true)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "8px 16px",
+              borderRadius: "6px",
+              border: "1px solid #e5e7eb",
+              background: "white",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              fontSize: "13px",
+              fontWeight: "600",
+              color: "var(--secondary)"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "var(--background)";
+              e.currentTarget.style.borderColor = "#d1d5db";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "white";
+              e.currentTarget.style.borderColor = "#e5e7eb";
+            }}
+          >
+            <Plus size={16} style={{ color: "#9333ea" }} />
+            New Option
+          </button>
+          <button
+            onClick={() => setIsNewAwardModalOpen(true)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "8px 16px",
+              borderRadius: "6px",
+              border: "1px solid #e5e7eb",
+              background: "white",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              fontSize: "13px",
+              fontWeight: "600",
+              color: "var(--secondary)"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "var(--background)";
+              e.currentTarget.style.borderColor = "#d1d5db";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "white";
+              e.currentTarget.style.borderColor = "#e5e7eb";
+            }}
+          >
+            <Plus size={16} style={{ color: "#16a34a" }} />
+            New Award
+          </button>
+          <button
+            onClick={() => setIsUploadModalOpen(true)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "8px 16px",
+              borderRadius: "6px",
+              border: "1px solid #e5e7eb",
+              background: "white",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              fontSize: "13px",
+              fontWeight: "600",
+              color: "var(--secondary)"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "var(--background)";
+              e.currentTarget.style.borderColor = "#d1d5db";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "white";
+              e.currentTarget.style.borderColor = "#e5e7eb";
+            }}
+          >
+            <Upload size={16} style={{ color: "#ea580c" }} />
+            Upload Docs
+          </button>
+          <button
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "8px 16px",
+              borderRadius: "6px",
+              border: "1px solid #e5e7eb",
+              background: "white",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              fontSize: "13px",
+              fontWeight: "600",
+              color: "var(--secondary)"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "var(--background)";
+              e.currentTarget.style.borderColor = "#d1d5db";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "white";
+              e.currentTarget.style.borderColor = "#e5e7eb";
+            }}
+          >
+            <Download size={16} style={{ color: "#4f46e5" }} />
+            Export
+          </button>
         </div>
       </div>
 
       {/* Filters & Search */}
-      <div className="mb-6">
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Filters & Search</h3>
+      <div style={{ marginBottom: "24px" }}>
+        <h3 style={{
+          fontSize: "13px",
+          fontWeight: "700",
+          color: "var(--primary)",
+          marginBottom: "12px",
+          textTransform: "uppercase",
+          letterSpacing: "0.5px"
+        }}>Filters & Search</h3>
+        <div style={{
+          background: "var(--background)",
+          borderRadius: "8px",
+          border: "1px solid var(--border)",
+          padding: "16px"
+        }}>
           <SecuritiesFilterBar />
         </div>
       </div>
 
       {/* Tabs and Content */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-        <div className="border-b border-gray-200 flex">
+      <div style={{
+        background: "var(--background)",
+        borderRadius: "8px",
+        border: "1px solid var(--border)",
+        overflow: "hidden",
+        marginBottom: "24px"
+      }}>
+        <div style={{
+          borderBottom: "1px solid var(--border)",
+          display: "flex",
+          background: "var(--background)"
+        }}>
           {(["securities", "options", "awards"] as const).map((tab) => (
             <button
               key={tab}
@@ -168,7 +294,7 @@ export function SecuritiesPageClient() {
                 fontSize: "13px",
                 fontWeight: activeTab === tab ? "700" : "600",
                 color: activeTab === tab ? "var(--primary)" : "var(--secondary)",
-                background: activeTab === tab ? "transparent" : "transparent",
+                background: "transparent",
                 border: "none",
                 borderBottom: `3px solid ${activeTab === tab ? "var(--primary)" : "transparent"}`,
                 cursor: "pointer",
@@ -218,8 +344,12 @@ export function SecuritiesPageClient() {
 
       {/* Charts */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginTop: "24px" }}>
-        <CapTableChart />
-        <ValuationHistoryChart />
+        <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "24px" }}>
+          <CapTableChart />
+        </div>
+        <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "24px" }}>
+          <ValuationHistoryChart />
+        </div>
       </div>
 
       {/* Modals and Drawers */}

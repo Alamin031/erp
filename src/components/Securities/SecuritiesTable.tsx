@@ -86,20 +86,20 @@ export function SecuritiesTable({ items, onView, onEdit, onDelete, onAddTransact
     URL.revokeObjectURL(url);
   };
 
-  const getStatusBadgeColor = (status: string): string => {
+  const getStatusBadgeStyles = (status: string) => {
     switch (status) {
       case "Issued":
-        return "bg-yellow-100 text-yellow-800";
+        return { background: "#fef08a", color: "#854d0e" };
       case "Active":
-        return "bg-green-100 text-green-800";
+        return { background: "#dcfce7", color: "#166534" };
       case "Vested":
-        return "bg-blue-100 text-blue-800";
+        return { background: "#dbeafe", color: "#0c2d6b" };
       case "Transferred":
-        return "bg-purple-100 text-purple-800";
+        return { background: "#e9d5ff", color: "#6b21a8" };
       case "Cancelled":
-        return "bg-red-100 text-red-800";
+        return { background: "#fee2e2", color: "#7c2d12" };
       default:
-        return "bg-gray-100 text-gray-800";
+        return { background: "var(--background)", color: "var(--secondary)" };
     }
   };
 
@@ -117,32 +117,74 @@ export function SecuritiesTable({ items, onView, onEdit, onDelete, onAddTransact
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       {selected.size > 0 && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center justify-between">
-          <span className="text-blue-900">{selected.size} selected</span>
+        <div style={{
+          background: "var(--background)",
+          border: "1px solid var(--border)",
+          borderRadius: "6px",
+          padding: "12px 16px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between"
+        }}>
+          <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--secondary)" }}>
+            {selected.size} selected
+          </span>
           <button
             onClick={exportCSV}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition"
+            style={{
+              background: "var(--primary)",
+              color: "white",
+              padding: "6px 16px",
+              borderRadius: "6px",
+              fontSize: "13px",
+              fontWeight: "600",
+              border: "none",
+              cursor: "pointer",
+              transition: "all 0.2s"
+            }}
           >
             Export CSV
           </button>
         </div>
       )}
-      <div className="table-container border rounded-lg overflow-x-auto">
-        <table className="reservations-table w-full">
+      <div style={{
+        borderRadius: "6px",
+        border: "1px solid var(--border)",
+        overflowX: "auto"
+      }}>
+        <table style={{
+          width: "100%",
+          borderCollapse: "collapse"
+        }}>
           <thead>
-            <tr className="border-b bg-gray-50">
-              <th style={{ width: 30 }} className="px-4 py-3">
+            <tr style={{
+              borderBottom: "1px solid var(--border)",
+              background: "var(--background)"
+            }}>
+              <th style={{
+                width: 30,
+                padding: "12px 16px",
+                textAlign: "left"
+              }}>
                 <input
                   type="checkbox"
                   checked={selected.size > 0 && selected.size === sorted.length}
                   onChange={toggleAll}
-                  className="cursor-pointer"
+                  style={{ cursor: "pointer" }}
                 />
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100"
+                style={{
+                  padding: "12px 16px",
+                  textAlign: "left",
+                  fontSize: "12px",
+                  fontWeight: "700",
+                  color: "var(--secondary)",
+                  cursor: "pointer",
+                  userSelect: "none"
+                }}
                 onClick={() =>
                   setSort({
                     field: "holderName",
@@ -150,13 +192,29 @@ export function SecuritiesTable({ items, onView, onEdit, onDelete, onAddTransact
                   })
                 }
               >
-                <div className="flex items-center gap-2">
-                  Holder Name {sort.field === "holderName" && <ChevronDown size={16} />}
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  HOLDER NAME {sort.field === "holderName" && <ChevronDown size={14} />}
                 </div>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Type</th>
+              <th style={{
+                padding: "12px 16px",
+                textAlign: "left",
+                fontSize: "12px",
+                fontWeight: "700",
+                color: "var(--secondary)"
+              }}>
+                TYPE
+              </th>
               <th
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100"
+                style={{
+                  padding: "12px 16px",
+                  textAlign: "left",
+                  fontSize: "12px",
+                  fontWeight: "700",
+                  color: "var(--secondary)",
+                  cursor: "pointer",
+                  userSelect: "none"
+                }}
                 onClick={() =>
                   setSort({
                     field: "shares",
@@ -164,12 +222,20 @@ export function SecuritiesTable({ items, onView, onEdit, onDelete, onAddTransact
                   })
                 }
               >
-                <div className="flex items-center gap-2">
-                  Shares {sort.field === "shares" && <ChevronDown size={16} />}
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  SHARES {sort.field === "shares" && <ChevronDown size={14} />}
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100"
+                style={{
+                  padding: "12px 16px",
+                  textAlign: "left",
+                  fontSize: "12px",
+                  fontWeight: "700",
+                  color: "var(--secondary)",
+                  cursor: "pointer",
+                  userSelect: "none"
+                }}
                 onClick={() =>
                   setSort({
                     field: "value",
@@ -177,12 +243,20 @@ export function SecuritiesTable({ items, onView, onEdit, onDelete, onAddTransact
                   })
                 }
               >
-                <div className="flex items-center gap-2">
-                  Value {sort.field === "value" && <ChevronDown size={16} />}
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  VALUE {sort.field === "value" && <ChevronDown size={14} />}
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100"
+                style={{
+                  padding: "12px 16px",
+                  textAlign: "left",
+                  fontSize: "12px",
+                  fontWeight: "700",
+                  color: "var(--secondary)",
+                  cursor: "pointer",
+                  userSelect: "none"
+                }}
                 onClick={() =>
                   setSort({
                     field: "issueDate",
@@ -190,73 +264,188 @@ export function SecuritiesTable({ items, onView, onEdit, onDelete, onAddTransact
                   })
                 }
               >
-                <div className="flex items-center gap-2">
-                  Issue Date {sort.field === "issueDate" && <ChevronDown size={16} />}
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  ISSUE DATE {sort.field === "issueDate" && <ChevronDown size={14} />}
                 </div>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Actions</th>
+              <th style={{
+                padding: "12px 16px",
+                textAlign: "left",
+                fontSize: "12px",
+                fontWeight: "700",
+                color: "var(--secondary)"
+              }}>
+                STATUS
+              </th>
+              <th style={{
+                padding: "12px 16px",
+                textAlign: "left",
+                fontSize: "12px",
+                fontWeight: "700",
+                color: "var(--secondary)"
+              }}>
+                ACTIONS
+              </th>
             </tr>
           </thead>
           <tbody>
             {sorted.length === 0 ? (
               <tr>
-                <td colSpan={8} className="px-4 py-8 text-center text-gray-500">
+                <td colSpan={8} style={{
+                  padding: "32px 16px",
+                  textAlign: "center",
+                  color: "var(--secondary)",
+                  fontSize: "13px"
+                }}>
                   No securities found
                 </td>
               </tr>
             ) : (
               sorted.map((security) => (
-                <tr key={security.id} className="border-b hover:bg-gray-50">
-                  <td className="px-4 py-3">
+                <tr
+                  key={security.id}
+                  style={{
+                    borderBottom: "1px solid var(--border)",
+                    transition: "all 0.2s"
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                >
+                  <td style={{
+                    padding: "12px 16px"
+                  }}>
                     <input
                       type="checkbox"
                       checked={selected.has(security.id)}
                       onChange={() => toggleSelect(security.id)}
-                      className="cursor-pointer"
+                      style={{ cursor: "pointer" }}
                     />
                   </td>
-                  <td className="px-4 py-3 text-sm font-medium text-gray-900">{security.holderName}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">
-                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">
+                  <td style={{
+                    padding: "12px 16px",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    color: "var(--primary)"
+                  }}>
+                    {security.holderName}
+                  </td>
+                  <td style={{
+                    padding: "12px 16px",
+                    fontSize: "13px",
+                    color: "var(--secondary)"
+                  }}>
+                    <span style={{
+                      background: "#e0e7ff",
+                      color: "#312e81",
+                      padding: "4px 12px",
+                      borderRadius: "12px",
+                      fontSize: "11px",
+                      fontWeight: "600"
+                    }}>
                       {security.type}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{security.shares.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">
+                  <td style={{
+                    padding: "12px 16px",
+                    fontSize: "13px",
+                    color: "var(--secondary)"
+                  }}>
+                    {security.shares.toLocaleString()}
+                  </td>
+                  <td style={{
+                    padding: "12px 16px",
+                    fontSize: "13px",
+                    color: "var(--secondary)"
+                  }}>
                     ${(security.shares * security.value).toLocaleString("en-US", { minimumFractionDigits: 2 })}
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{security.issueDate}</td>
-                  <td className="px-4 py-3 text-sm">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusBadgeColor(security.status)}`}>
+                  <td style={{
+                    padding: "12px 16px",
+                    fontSize: "13px",
+                    color: "var(--secondary)"
+                  }}>
+                    {security.issueDate}
+                  </td>
+                  <td style={{
+                    padding: "12px 16px",
+                    fontSize: "13px"
+                  }}>
+                    <span style={{
+                      padding: "4px 12px",
+                      borderRadius: "12px",
+                      fontSize: "11px",
+                      fontWeight: "600",
+                      ...getStatusBadgeStyles(security.status)
+                    }}>
                       {security.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm flex gap-2">
+                  <td style={{
+                    padding: "12px 16px",
+                    fontSize: "13px",
+                    display: "flex",
+                    gap: "8px"
+                  }}>
                     <button
                       onClick={() => onView(security.id)}
-                      className="text-blue-600 hover:text-blue-800 font-medium"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: "#3b82f6",
+                        fontWeight: "600",
+                        cursor: "pointer",
+                        transition: "color 0.2s"
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "#1d4ed8")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "#3b82f6")}
                       title="View Details"
                     >
                       View
                     </button>
                     <button
                       onClick={() => onEdit(security.id)}
-                      className="text-green-600 hover:text-green-800 font-medium"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: "#10b981",
+                        fontWeight: "600",
+                        cursor: "pointer",
+                        transition: "color 0.2s"
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "#059669")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "#10b981")}
                       title="Edit"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => onAddTransaction(security.id)}
-                      className="text-purple-600 hover:text-purple-800 font-medium"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: "#a855f7",
+                        fontWeight: "600",
+                        cursor: "pointer",
+                        transition: "color 0.2s"
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "#9333ea")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "#a855f7")}
                       title="Add Transaction"
                     >
                       Transaction
                     </button>
                     <button
                       onClick={() => confirmDelete(security.id)}
-                      className="text-red-600 hover:text-red-800 font-medium"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: "#ef4444",
+                        fontWeight: "600",
+                        cursor: "pointer",
+                        transition: "color 0.2s"
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "#dc2626")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "#ef4444")}
                       title="Delete"
                     >
                       Delete

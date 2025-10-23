@@ -26,33 +26,75 @@ export function SecuritiesFilterBar({ onFilterChange }: Props) {
   );
 
   return (
-  <div className="bg-white rounded-lg border border-gray-200 p-4 relative overflow-visible">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div style={{ display: "contents" }}>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        gap: "12px"
+      }}>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label style={{
+            display: "block",
+            fontSize: "12px",
+            fontWeight: "600",
+            color: "var(--secondary)",
+            marginBottom: "6px"
+          }}>
             Holder Name
           </label>
-          <div className="relative">
-            <Search size={16} className="absolute left-3 top-3 text-gray-400" />
+          <div style={{ position: "relative" }}>
+            <Search size={14} style={{
+              position: "absolute",
+              left: "10px",
+              top: "10px",
+              color: "var(--secondary)"
+            }} />
             <input
               type="text"
               placeholder="Search name..."
               value={filters.holderName || ""}
               onChange={(e) => updateFilter("holderName", e.target.value)}
-              className="form-input pl-10"
-              autoComplete="off"
+              style={{
+                width: "100%",
+                paddingLeft: "32px",
+                paddingRight: "12px",
+                paddingTop: "8px",
+                paddingBottom: "8px",
+                fontSize: "13px",
+                borderRadius: "6px",
+                border: "1px solid var(--border)",
+                background: "var(--background)",
+                color: "var(--primary)",
+                boxSizing: "border-box"
+              }}
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label style={{
+            display: "block",
+            fontSize: "12px",
+            fontWeight: "600",
+            color: "var(--secondary)",
+            marginBottom: "6px"
+          }}>
             Type
           </label>
           <select
             value={filters.type || "All"}
             onChange={(e) => updateFilter("type", e.target.value)}
-            className="form-input"
+            style={{
+              width: "100%",
+              padding: "8px 12px",
+              fontSize: "13px",
+              borderRadius: "6px",
+              border: "1px solid var(--border)",
+              background: "var(--background)",
+              color: "var(--primary)",
+              cursor: "pointer",
+              boxSizing: "border-box"
+            }}
           >
             <option value="All">All Types</option>
             <option value="Common">Common</option>
@@ -62,13 +104,29 @@ export function SecuritiesFilterBar({ onFilterChange }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label style={{
+            display: "block",
+            fontSize: "12px",
+            fontWeight: "600",
+            color: "var(--secondary)",
+            marginBottom: "6px"
+          }}>
             Status
           </label>
           <select
             value={filters.status || "All"}
             onChange={(e) => updateFilter("status", e.target.value)}
-            className="form-input"
+            style={{
+              width: "100%",
+              padding: "8px 12px",
+              fontSize: "13px",
+              borderRadius: "6px",
+              border: "1px solid var(--border)",
+              background: "var(--background)",
+              color: "var(--primary)",
+              cursor: "pointer",
+              boxSizing: "border-box"
+            }}
           >
             <option value="All">All Status</option>
             <option value="Issued">Issued</option>
@@ -80,7 +138,13 @@ export function SecuritiesFilterBar({ onFilterChange }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label style={{
+            display: "block",
+            fontSize: "12px",
+            fontWeight: "600",
+            color: "var(--secondary)",
+            marginBottom: "6px"
+          }}>
             Minimum Shares
           </label>
           <input
@@ -88,36 +152,77 @@ export function SecuritiesFilterBar({ onFilterChange }: Props) {
             placeholder="Min shares"
             value={filters.minShares || ""}
             onChange={(e) => updateFilter("minShares", e.target.value ? Number(e.target.value) : undefined)}
-            className="form-input"
-            autoComplete="off"
+            style={{
+              width: "100%",
+              padding: "8px 12px",
+              fontSize: "13px",
+              borderRadius: "6px",
+              border: "1px solid var(--border)",
+              background: "var(--background)",
+              color: "var(--primary)",
+              boxSizing: "border-box"
+            }}
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        gap: "12px",
+        marginTop: "12px"
+      }}>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label style={{
+            display: "block",
+            fontSize: "12px",
+            fontWeight: "600",
+            color: "var(--secondary)",
+            marginBottom: "6px"
+          }}>
             From Date
           </label>
           <input
             type="date"
             value={filters.dateFrom || ""}
             onChange={(e) => updateFilter("dateFrom", e.target.value)}
-            className="form-input"
-            autoComplete="off"
+            style={{
+              width: "100%",
+              padding: "8px 12px",
+              fontSize: "13px",
+              borderRadius: "6px",
+              border: "1px solid var(--border)",
+              background: "var(--background)",
+              color: "var(--primary)",
+              boxSizing: "border-box"
+            }}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label style={{
+            display: "block",
+            fontSize: "12px",
+            fontWeight: "600",
+            color: "var(--secondary)",
+            marginBottom: "6px"
+          }}>
             To Date
           </label>
           <input
             type="date"
             value={filters.dateTo || ""}
             onChange={(e) => updateFilter("dateTo", e.target.value)}
-            className="form-input"
-            autoComplete="off"
+            style={{
+              width: "100%",
+              padding: "8px 12px",
+              fontSize: "13px",
+              borderRadius: "6px",
+              border: "1px solid var(--border)",
+              background: "var(--background)",
+              color: "var(--primary)",
+              boxSizing: "border-box"
+            }}
           />
         </div>
       </div>
@@ -125,9 +230,23 @@ export function SecuritiesFilterBar({ onFilterChange }: Props) {
       {isFiltered && (
         <button
           onClick={clearFilters}
-          className="mt-4 flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition font-medium"
+          style={{
+            marginTop: "12px",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "8px 16px",
+            background: "var(--background)",
+            color: "var(--secondary)",
+            border: "1px solid var(--border)",
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontSize: "13px",
+            fontWeight: "600",
+            transition: "all 0.2s"
+          }}
         >
-          <X size={16} />
+          <X size={14} />
           Clear Filters
         </button>
       )}

@@ -20,13 +20,35 @@ export function CapTableChart() {
       const data = payload[0].payload;
       const ownershipItem = capTableData.ownership.find((o) => o.category === data.name);
       return (
-        <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
-          <p className="font-semibold text-gray-900">{data.name}</p>
-          <p className="text-sm text-gray-700">Percentage: {data.value.toFixed(2)}%</p>
+        <div style={{
+          background: "var(--background)",
+          padding: "12px",
+          border: "1px solid var(--border)",
+          borderRadius: "6px",
+          boxShadow: "0 10px 25px rgba(0, 0, 0, 0.3)"
+        }}>
+          <p style={{
+            fontWeight: "600",
+            color: "var(--primary)",
+            margin: "0 0 6px 0"
+          }}>{data.name}</p>
+          <p style={{
+            fontSize: "13px",
+            color: "var(--secondary)",
+            margin: "4px 0"
+          }}>Percentage: {data.value.toFixed(2)}%</p>
           {ownershipItem && (
             <>
-              <p className="text-sm text-gray-700">Shares: {ownershipItem.shares.toLocaleString()}</p>
-              <p className="text-sm text-gray-700">
+              <p style={{
+                fontSize: "13px",
+                color: "var(--secondary)",
+                margin: "4px 0"
+              }}>Shares: {ownershipItem.shares.toLocaleString()}</p>
+              <p style={{
+                fontSize: "13px",
+                color: "var(--secondary)",
+                margin: "4px 0"
+              }}>
                 Valuation: ${ownershipItem.valuation.toLocaleString("en-US", { minimumFractionDigits: 2 })}
               </p>
             </>
@@ -39,15 +61,39 @@ export function CapTableChart() {
 
   if (pieData.length === 0) {
     return (
-      <div className="bg-white rounded-lg p-8 border border-gray-200 flex items-center justify-center h-96">
-        <p className="text-gray-500 text-center">No ownership data available yet</p>
+      <div style={{
+        background: "var(--background)",
+        borderRadius: "8px",
+        padding: "32px",
+        border: "1px solid var(--border)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "384px"
+      }}>
+        <p style={{
+          color: "var(--secondary)",
+          textAlign: "center",
+          margin: 0
+        }}>No ownership data available yet</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg p-6 border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Cap Table (Ownership Distribution)</h3>
+    <div style={{
+      background: "var(--background)",
+      borderRadius: "8px",
+      padding: "24px",
+      border: "1px solid var(--border)"
+    }}>
+      <h3 style={{
+        fontSize: "16px",
+        fontWeight: "700",
+        color: "var(--primary)",
+        marginBottom: "16px",
+        margin: 0
+      }}>Cap Table (Ownership Distribution)</h3>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
@@ -65,29 +111,67 @@ export function CapTableChart() {
             ))}
           </Pie>
           <Tooltip content={<CustomTooltip />} />
-          <Legend />
+          <Legend
+            wrapperStyle={{
+              paddingTop: "20px",
+              color: "var(--secondary)"
+            }}
+          />
         </PieChart>
       </ResponsiveContainer>
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div style={{
+        marginTop: "24px",
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        gap: "16px"
+      }}>
         {capTableData.ownership.map((item, idx) => (
-          <div key={item.category} className="bg-gray-50 rounded p-4">
-            <div className="flex items-center gap-3 mb-2">
+          <div
+            key={item.category}
+            style={{
+              background: "var(--border)",
+              borderRadius: "6px",
+              padding: "16px",
+              display: "flex",
+              flexDirection: "column"
+            }}
+          >
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "12px"
+            }}>
               <div
-                className="w-4 h-4 rounded"
-                style={{ backgroundColor: COLORS[idx % COLORS.length] }}
+                style={{
+                  width: "16px",
+                  height: "16px",
+                  borderRadius: "4px",
+                  backgroundColor: COLORS[idx % COLORS.length]
+                }}
               />
-              <span className="font-semibold text-gray-900">{item.category}</span>
+              <span style={{
+                fontWeight: "700",
+                color: "var(--primary)",
+                fontSize: "14px"
+              }}>{item.category}</span>
             </div>
-            <div className="text-sm text-gray-700 space-y-1">
-              <p>
-                Shares: <span className="font-medium">{item.shares.toLocaleString()}</span>
+            <div style={{
+              fontSize: "13px",
+              color: "var(--secondary)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "6px"
+            }}>
+              <p style={{ margin: 0 }}>
+                Shares: <span style={{ fontWeight: "600", color: "var(--primary)" }}>{item.shares.toLocaleString()}</span>
               </p>
-              <p>
-                Ownership: <span className="font-medium">{item.percentage.toFixed(2)}%</span>
+              <p style={{ margin: 0 }}>
+                Ownership: <span style={{ fontWeight: "600", color: "var(--primary)" }}>{item.percentage.toFixed(2)}%</span>
               </p>
-              <p>
+              <p style={{ margin: 0 }}>
                 Valuation:{" "}
-                <span className="font-medium">
+                <span style={{ fontWeight: "600", color: "var(--primary)" }}>
                   ${item.valuation.toLocaleString("en-US", { minimumFractionDigits: 2 })}
                 </span>
               </p>
