@@ -19,7 +19,7 @@ export function EditNoteModal({ isOpen, note, onClose, onSave, contacts = [], co
 
   const handleSave = ()=>{
     const res = Schema.safeParse(form);
-    if(!res.success){ setError(res.error.errors.map(e=>e.message).join(', ')); return; }
+    if(!res.success){ setError(res.error.issues.map(i=>i.message).join(', ')); return; }
     onSave?.(note.id, { ...form, linkedEntityName: (form.linkedEntityType === 'Contact' ? contacts.find(c=>c.id===form.linkedEntityId)?.fullName : form.linkedEntityType === 'Company' ? companies.find(c=>c.id===form.linkedEntityId)?.name : deals.find(d=>d.id===form.linkedEntityId)?.name) });
     onClose();
   };
@@ -72,7 +72,7 @@ export function EditNoteModal({ isOpen, note, onClose, onSave, contacts = [], co
                 {tags.map(t=>{
                   const selected = (form.tags||[]).includes(t.id);
                   return (
-                    <button key={t.id} onClick={()=>setForm(f=>({ ...f, tags: selected ? f.tags.filter((x:string)=>x!==t.id) : [ ...(f.tags||[]), t.id ] }))} className="btn btn-ghost" style={{ borderRadius: 8, background: selected ? t.color : undefined }}>{t.name}</button>
+                    <button key={t.id} onClick={()=>setForm((f:any)=>({ ...f, tags: selected ? f.tags.filter((x:string)=>x!==t.id) : [ ...(f.tags||[]), t.id ] }))} className="btn btn-ghost" style={{ borderRadius: 8, background: selected ? t.color : undefined }}>{t.name}</button>
                   );
                 })}
               </div>

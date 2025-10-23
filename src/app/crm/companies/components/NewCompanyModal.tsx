@@ -35,7 +35,10 @@ export function NewCompanyModal({ isOpen, onClose, industries, onSave }: Props) 
 
   const handleSave = () => {
     const res = CompanySchema.safeParse(form);
-    if (!res.success) { setError(res.error.errors.map(e => e.message).join(', ')); return; }
+    if (!res.success) {
+      setError(res.error.issues.map(i => i.message).join(', '));
+      return;
+    }
     onSave?.({ ...form, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
     onClose();
   };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useSign } from "@/store/useSign";
 import { Document } from "@/types/document";
 import { SendDocumentModal } from "@/components/Sign/SendDocumentModal";
@@ -10,13 +10,13 @@ import { SignFlow } from "@/components/Sign/SignFlow";
 import { FiltersBar } from "@/components/Sign/FiltersBar";
 import { ApprovalsPanel } from "@/components/Sign/ApprovalsPanel";
 import { useToast } from "@/components/toast";
-import { Send, CheckCircle, Clock, XCircle, FileText } from "lucide-react";
+import { Send, CheckCircle, Clock, XCircle } from "lucide-react";
 
 interface KPICard {
   label: string;
   value: number;
   color: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
 }
 
 export function SignPageClient() {
@@ -26,7 +26,6 @@ export function SignPageClient() {
     resendReminder,
     cancelDocument,
     approveDocument,
-    sendDocument,
   } = useSign();
 
   const { showToast } = useToast();
@@ -91,7 +90,7 @@ export function SignPageClient() {
 
   const handleCancel = async (doc: Document) => {
     if (
-      confirm(
+      window.confirm(
         `Are you sure you want to cancel "${doc.title}"? This cannot be undone.`
       )
     ) {
@@ -120,13 +119,13 @@ export function SignPageClient() {
     setShowSignFlow(true);
   };
 
-  const handleApprove = async (doc: Document, note: string) => {
+  const handleApprove = async (doc: Document, note?: string) => {
     try {
       await approveDocument({
         documentId: doc.id,
         approverId: "current-user",
         approverName: "Current User",
-        note,
+        note: note ?? "",
       });
       showToast("Document approved", "success");
     } catch (error) {
@@ -134,9 +133,10 @@ export function SignPageClient() {
     }
   };
 
-  const handleReject = async (doc: Document, reason: string) => {
+  const handleReject = async (doc: Document, reason?: string) => {
     try {
       // In a real app, this would call a reject API
+      // use reason if provided, e.g. send it to the API or log it
       showToast("Document rejected", "success");
     } catch (error) {
       showToast("Failed to reject document", "error");
@@ -150,21 +150,21 @@ export function SignPageClient() {
   const getSigner = () => {
     if (!selectedForSign) return null;
     // In demo, just return first signer
-    return selectedForSign.signers[0];
+    return selectedForSign.signers?.[0] ?? null;
   };
 
   return (
-    <div className="h-screen flex flex-col bg-[var(--background)]">
+    <div className="h-screen flex flex-col bg-(--background)">
       {/* Header */}
-      <div className="bg-[var(--card-bg)] border-b border-[var(--border)] px-8 py-6">
-        <h1 className="text-3xl font-bold text-[var(--foreground)]">Sign</h1>
-        <p className="text-[var(--secondary)] mt-1">
+      <div className="bg-(--card-bg) border-b border-(--border) px-8 py-6">
+        <h1 className="text-3xl font-bold text-(--foreground)">Sign</h1>
+        <p className="text-(--secondary) mt-1">
           Send, sign, and approve documents online for streamlined workflows.
         </p>
       </div>
 
       {/* KPI Cards */}
-      <div className="px-8 py-4 bg-[var(--background)] border-b border-[var(--border)] overflow-x-auto">
+      <div className="px-8 py-4 bg-(--background) border-b border-(--border) overflow-x-auto">
         <div className="flex gap-4 min-w-max">
           {kpis.map((kpi) => (
             <div
@@ -184,20 +184,20 @@ export function SignPageClient() {
       {/* Main Layout */}
       <div className="flex-1 overflow-hidden flex flex-col">
         {/* Toolbar */}
-        <div className="bg-[var(--card-bg)] border-b border-[var(--border)] px-8 py-4 flex items-center justify-between">
-          <h2 className="font-semibold text-[var(--foreground)]">
+        <div className="bg-(--card-bg) border-b border-(--border) px-8 py-4 flex items-center justify-between">
+          <h2 className="font-semibold text-(--foreground)">
             Documents ({documents.length})
           </h2>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowApprovalsPanel(!showApprovalsPanel)}
-              className="px-3 py-2 border border-[var(--border)] rounded-lg hover:bg-[var(--background)] text-[var(--foreground)] text-sm font-medium transition-colors"
+              className="px-3 py-2 border border-(--border) rounded-lg hover:bg-(--background) text-(--foreground) text-sm font-medium transition-colors"
             >
               Approvals
             </button>
             <button
               onClick={() => setShowSendModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-[var(--primary)] hover:opacity-90 text-white rounded-lg font-medium transition-opacity"
+              className="flex items-center gap-2 px-4 py-2 bg-(--primary) hover:opacity-90 text-white rounded-lg font-medium transition-opacity"
             >
               <Send className="w-4 h-4" />
               Send Document
@@ -208,7 +208,7 @@ export function SignPageClient() {
         {/* Content: Filters row above cards */}
         <div className="flex-1 overflow-hidden flex flex-col">
           {/* Filters Row */}
-          <div className="px-8 py-4 border-b border-[var(--border)]">
+          <div className="px-8 py-4 border-b border-(--border)">
             <FiltersBar />
           </div>
 
@@ -267,3 +267,5 @@ export function SignPageClient() {
     </div>
   );
 }
+
+export default SignPageClient;

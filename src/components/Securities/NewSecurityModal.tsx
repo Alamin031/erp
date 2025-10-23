@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSecurities } from "@/store/useSecurities";
 import { newSecuritySchema, NewSecurityInput } from "@/lib/securities-validation";
@@ -18,7 +18,7 @@ export function NewSecurityModal({ isOpen, onClose }: { isOpen: boolean; onClose
     formState: { errors },
     reset,
   } = useForm<NewSecurityInput>({
-    resolver: zodResolver(newSecuritySchema),
+    resolver: zodResolver(newSecuritySchema) as Resolver<NewSecurityInput>,
     defaultValues: { type: "Common", status: "Issued" },
   });
 

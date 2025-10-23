@@ -26,7 +26,7 @@ export function NewLeadModal({
   onSave,
 }: NewLeadModalProps) {
   const { showToast } = useToast();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Omit<Lead, "id" | "createdAt" | "updatedAt" | "interactionHistory">>({
     name: "",
     company: "",
     email: "",
@@ -36,7 +36,7 @@ export function NewLeadModal({
     assignedToName: "",
     stage: "New" as LeadStage,
     potentialValue: 0,
-    status: "Active" as const,
+    status: "Active",
     notes: "",
   });
 

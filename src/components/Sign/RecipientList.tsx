@@ -38,24 +38,24 @@ export function RecipientList({ document, onSignNow }: RecipientListProps) {
       {document.signers.map((signer, idx) => (
         <div
           key={signer.id}
-          className="p-4 border border-[var(--border)] rounded-lg hover:border-[var(--primary)] transition-colors"
+          className="p-4 border border-(--border) rounded-lg hover:border-(--primary) transition-colors"
         >
           {/* Header */}
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-3 flex-1">
-              <div className="w-10 h-10 rounded-full bg-[var(--primary)]/20 flex items-center justify-center text-sm font-semibold text-[var(--primary)]">
+              <div className="w-10 h-10 rounded-full bg-(--primary)/20 flex items-center justify-center text-sm font-semibold text-(--primary)">
                 {signer.name.charAt(0).toUpperCase()}
               </div>
               <div className="flex-1">
-                <p className="font-semibold text-[var(--foreground)]">
+                <p className="font-semibold text-(--foreground)">
                   {signer.name}
                 </p>
-                <p className="text-xs text-[var(--secondary)]">{signer.email}</p>
+                <p className="text-xs text-(--secondary)">{signer.email}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               {getStatusIcon(signer.status)}
-              <span className="text-xs font-medium capitalize text-[var(--foreground)]">
+              <span className="text-xs font-medium capitalize text-(--foreground)">
                 {signer.status}
               </span>
             </div>
@@ -77,16 +77,16 @@ export function RecipientList({ document, onSignNow }: RecipientListProps) {
 
           {/* Fields status */}
           <div className="mb-3">
-            <p className="text-xs font-medium text-[var(--secondary)] mb-2">
+            <p className="text-xs font-medium text-(--secondary) mb-2">
               Signature Fields ({signer.fields.length})
             </p>
             <div className="space-y-1">
               {signer.fields.map((field) => (
                 <div
                   key={field.id}
-                  className="flex items-center justify-between p-2 bg-[var(--background)] rounded text-xs"
+                  className="flex items-center justify-between p-2 bg-(--background) rounded text-xs"
                 >
-                  <span className="text-[var(--foreground)]">
+                  <span className="text-(--foreground)">
                     Page {field.page}
                   </span>
                   <span
@@ -107,7 +107,7 @@ export function RecipientList({ document, onSignNow }: RecipientListProps) {
           {signer.status === "pending" && onSignNow && (
             <button
               onClick={() => onSignNow(document)}
-              className="w-full px-3 py-2 bg-[var(--primary)] hover:opacity-90 text-white rounded-lg text-sm font-medium transition-opacity"
+              className="w-full px-3 py-2 bg-(--primary) hover:opacity-90 text-white rounded-lg text-sm font-medium transition-opacity"
             >
               Sign Now
             </button>

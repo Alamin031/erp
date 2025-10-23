@@ -124,7 +124,7 @@ export function GuestsPageClient() {
                 onViewClick={handleView}
                 onEditClick={handleEdit}
                 pagination={pagination}
-                onPaginationChange={setPagination}
+                onPaginationChange={(page, pageSize) => setPagination({ page, pageSize })}
               />
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

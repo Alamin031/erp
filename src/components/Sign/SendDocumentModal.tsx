@@ -90,7 +90,9 @@ export function SendDocumentModal({
     value: string | number
   ) => {
     const newFields = [...fields];
-    newFields[idx][field as any] = value;
+    // Use a spread + computed property and assert the result as FieldInput
+    // to avoid indexing with `any` while keeping type safety.
+    newFields[idx] = { ...newFields[idx], [field]: value } as FieldInput;
     setFields(newFields);
   };
 
@@ -212,32 +214,32 @@ export function SendDocumentModal({
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[var(--card-bg)] rounded-xl border border-[var(--border)] shadow-xl z-50"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-(--card-bg) rounded-xl border border-(--border) shadow-xl z-50"
           >
             {/* Header */}
-            <div className="sticky top-0 px-6 py-4 border-b border-[var(--border)] bg-[var(--card-bg)] flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-[var(--foreground)]">
+            <div className="sticky top-0 px-6 py-4 border-b border-(--border) bg-(--card-bg) flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-(--foreground)">
                 Send Document
               </h2>
               <button
                 onClick={onClose}
                 disabled={isLoading}
-                className="p-1 hover:bg-[var(--background)] rounded transition-colors disabled:opacity-50"
+                className="p-1 hover:bg-(--background) rounded transition-colors disabled:opacity-50"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Progress Indicator */}
-            <div className="px-6 py-4 border-b border-[var(--border)] bg-[var(--background)]">
+            <div className="px-6 py-4 border-b border-(--border) bg-(--background)">
               <div className="flex gap-2">
                 {[1, 2, 3, 4].map((s) => (
                   <div key={s} className="flex items-center gap-2 flex-1">
                     <div
                       className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-colors ${
                         s <= step
-                          ? "bg-[var(--primary)] text-white"
-                          : "bg-[var(--border)] text-[var(--secondary)]"
+                          ? "bg-(--primary) text-white"
+                          : "bg-(--border) text-(--secondary)"
                       }`}
                     >
                       {s}
@@ -245,14 +247,14 @@ export function SendDocumentModal({
                     {s < 4 && (
                       <div
                         className={`flex-1 h-1 transition-colors ${
-                          s < step ? "bg-[var(--primary)]" : "bg-[var(--border)]"
+                          s < step ? "bg-(--primary)" : "bg-(--border)"
                         }`}
                       />
                     )}
                   </div>
                 ))}
               </div>
-              <div className="mt-2 text-xs text-[var(--secondary)]">
+              <div className="mt-2 text-xs text-(--secondary)">
                 {step === 1 && "Upload Document"}
                 {step === 2 && "Add Recipients"}
                 {step === 3 && "Place Signature Fields"}
@@ -272,7 +274,7 @@ export function SendDocumentModal({
               {step === 1 && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                    <label className="block text-sm font-medium text-(--foreground) mb-2">
                       Document Title *
                     </label>
                     <input
@@ -280,12 +282,12 @@ export function SendDocumentModal({
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       placeholder="e.g., Service Agreement"
-                      className="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                    <label className="block text-sm font-medium text-(--foreground) mb-2">
                       File Name *
                     </label>
                     <div className="flex gap-2">
@@ -294,16 +296,16 @@ export function SendDocumentModal({
                         value={fileName}
                         onChange={(e) => setFileName(e.target.value)}
                         placeholder="e.g., agreement.pdf"
-                        className="flex-1 px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                        className="flex-1 px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                       />
                       <button
                         disabled
-                        className="px-4 py-2 border border-[var(--border)] rounded-lg hover:bg-[var(--background)] text-[var(--secondary)] opacity-50 flex items-center gap-2"
+                        className="px-4 py-2 border border-(--border) rounded-lg hover:bg-(--background) text-(--secondary) opacity-50 flex items-center gap-2"
                       >
                         <Upload className="w-4 h-4" />
                       </button>
                     </div>
-                    <p className="text-xs text-[var(--secondary)] mt-1">
+                    <p className="text-xs text-(--secondary) mt-1">
                       Demo mode: File upload simulation
                     </p>
                   </div>
@@ -314,13 +316,13 @@ export function SendDocumentModal({
               {step === 2 && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-medium text-[var(--foreground)]">
+                    <h3 className="font-medium text-(--foreground)">
                       Signing Order
                     </h3>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="flex items-center gap-2 p-3 border border-[var(--border)] rounded-lg cursor-pointer hover:bg-[var(--background)]">
+                    <label className="flex items-center gap-2 p-3 border border-(--border) rounded-lg cursor-pointer hover:bg-(--background)">
                       <input
                         type="radio"
                         name="order"
@@ -329,16 +331,16 @@ export function SendDocumentModal({
                         onChange={(e) => setSigningOrder(e.target.value as SigningOrder)}
                       />
                       <div>
-                        <p className="text-sm font-medium text-[var(--foreground)]">
+                        <p className="text-sm font-medium text-(--foreground)">
                           Parallel (Everyone at once)
                         </p>
-                        <p className="text-xs text-[var(--secondary)]">
+                        <p className="text-xs text-(--secondary)">
                           All signers can sign simultaneously
                         </p>
                       </div>
                     </label>
 
-                    <label className="flex items-center gap-2 p-3 border border-[var(--border)] rounded-lg cursor-pointer hover:bg-[var(--background)]">
+                    <label className="flex items-center gap-2 p-3 border border-(--border) rounded-lg cursor-pointer hover:bg-(--background)">
                       <input
                         type="radio"
                         name="order"
@@ -347,24 +349,24 @@ export function SendDocumentModal({
                         onChange={(e) => setSigningOrder(e.target.value as SigningOrder)}
                       />
                       <div>
-                        <p className="text-sm font-medium text-[var(--foreground)]">
+                        <p className="text-sm font-medium text-(--foreground)">
                           Sequential (One at a time)
                         </p>
-                        <p className="text-xs text-[var(--secondary)]">
+                        <p className="text-xs text-(--secondary)">
                           Signers sign in the order listed below
                         </p>
                       </div>
                     </label>
                   </div>
 
-                  <div className="border-t border-[var(--border)] pt-4">
+                  <div className="border-t border-(--border) pt-4">
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-medium text-[var(--foreground)]">
+                      <h3 className="font-medium text-(--foreground)">
                         Recipients
                       </h3>
                       <button
                         onClick={handleAddSigner}
-                        className="flex items-center gap-1 px-3 py-1 text-sm bg-[var(--primary)] hover:opacity-90 text-white rounded transition-opacity"
+                        className="flex items-center gap-1 px-3 py-1 text-sm bg-(--primary) hover:opacity-90 text-white rounded transition-opacity"
                       >
                         <Plus className="w-4 h-4" />
                         Add
@@ -373,9 +375,9 @@ export function SendDocumentModal({
 
                     <div className="space-y-3">
                       {signers.map((signer, idx) => (
-                        <div key={idx} className="p-3 border border-[var(--border)] rounded-lg bg-[var(--background)]">
+                        <div key={idx} className="p-3 border border-(--border) rounded-lg bg-(--background)">
                           <div className="flex items-start gap-2 mb-2">
-                            <span className="text-xs font-bold text-[var(--primary)] bg-[var(--primary)]/10 px-2 py-1 rounded">
+                            <span className="text-xs font-bold text-(--primary) bg-(--primary)/10 px-2 py-1 rounded">
                               {idx + 1}
                             </span>
                             {signers.length > 1 && (
@@ -395,7 +397,7 @@ export function SendDocumentModal({
                                 handleSignerChange(idx, "email", e.target.value)
                               }
                               placeholder="Email address"
-                              className="w-full px-2 py-1 text-sm border border-[var(--border)] rounded bg-[var(--card-bg)] text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                             />
                             <input
                               type="text"
@@ -404,7 +406,7 @@ export function SendDocumentModal({
                                 handleSignerChange(idx, "name", e.target.value)
                               }
                               placeholder="Full name"
-                              className="w-full px-2 py-1 text-sm border border-[var(--border)] rounded bg-[var(--card-bg)] text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                             />
                           </div>
                         </div>
@@ -417,17 +419,17 @@ export function SendDocumentModal({
               {/* Step 3: Signature Fields */}
               {step === 3 && (
                 <div className="space-y-4">
-                  <p className="text-sm text-[var(--secondary)]">
+                  <p className="text-sm text-(--secondary)">
                     Define where each signer should place their signature. In demo mode, you specify page and coordinates.
                   </p>
 
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-medium text-[var(--foreground)]">
+                    <h3 className="font-medium text-(--foreground)">
                       Signature Fields
                     </h3>
                     <button
                       onClick={handleAddField}
-                      className="flex items-center gap-1 px-3 py-1 text-sm bg-[var(--primary)] hover:opacity-90 text-white rounded transition-opacity"
+                      className="flex items-center gap-1 px-3 py-1 text-sm bg-(--primary) hover:opacity-90 text-white rounded transition-opacity"
                     >
                       <Plus className="w-4 h-4" />
                       Add Field
@@ -436,9 +438,9 @@ export function SendDocumentModal({
 
                   <div className="space-y-3 max-h-64 overflow-y-auto">
                     {fields.map((field, idx) => (
-                      <div key={idx} className="p-3 border border-[var(--border)] rounded-lg bg-[var(--background)]">
+                      <div key={idx} className="p-3 border border-(--border) rounded-lg bg-(--background)">
                         <div className="flex items-start gap-2 mb-2">
-                          <span className="text-xs font-bold text-[var(--primary)] bg-[var(--primary)]/10 px-2 py-1 rounded">
+                          <span className="text-xs font-bold text-(--primary) bg-(--primary)/10 px-2 py-1 rounded">
                             Field {idx + 1}
                           </span>
                           {fields.length > 1 && (
@@ -453,7 +455,7 @@ export function SendDocumentModal({
 
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <label className="text-xs text-[var(--secondary)]">
+                            <label className="text-xs text-(--secondary)">
                               Page
                             </label>
                             <input
@@ -463,11 +465,11 @@ export function SendDocumentModal({
                               onChange={(e) =>
                                 handleFieldChange(idx, "page", Number(e.target.value))
                               }
-                              className="w-full px-2 py-1 text-sm border border-[var(--border)] rounded bg-[var(--card-bg)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                             />
                           </div>
                           <div>
-                            <label className="text-xs text-[var(--secondary)]">
+                            <label className="text-xs text-(--secondary)">
                               Assigned To
                             </label>
                             <select
@@ -475,7 +477,7 @@ export function SendDocumentModal({
                               onChange={(e) =>
                                 handleFieldChange(idx, "assignedTo", e.target.value)
                               }
-                              className="w-full px-2 py-1 text-sm border border-[var(--border)] rounded bg-[var(--card-bg)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                             >
                               <option value="">Select signer...</option>
                               {signers.map((s, i) => (
@@ -486,7 +488,7 @@ export function SendDocumentModal({
                             </select>
                           </div>
                           <div>
-                            <label className="text-xs text-[var(--secondary)]">
+                            <label className="text-xs text-(--secondary)">
                               X Position
                             </label>
                             <input
@@ -496,11 +498,11 @@ export function SendDocumentModal({
                               onChange={(e) =>
                                 handleFieldChange(idx, "x", Number(e.target.value))
                               }
-                              className="w-full px-2 py-1 text-sm border border-[var(--border)] rounded bg-[var(--card-bg)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                             />
                           </div>
                           <div>
-                            <label className="text-xs text-[var(--secondary)]">
+                            <label className="text-xs text-(--secondary)">
                               Y Position
                             </label>
                             <input
@@ -510,7 +512,7 @@ export function SendDocumentModal({
                               onChange={(e) =>
                                 handleFieldChange(idx, "y", Number(e.target.value))
                               }
-                              className="w-full px-2 py-1 text-sm border border-[var(--border)] rounded bg-[var(--card-bg)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                             />
                           </div>
                         </div>
@@ -524,20 +526,20 @@ export function SendDocumentModal({
               {step === 4 && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                    <label className="block text-sm font-medium text-(--foreground) mb-2">
                       Message to Signers (Optional)
                     </label>
                     <textarea
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Add a personal message or instructions..."
-                      className="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] text-sm"
+                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary) text-sm"
                       rows={3}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                    <label className="block text-sm font-medium text-(--foreground) mb-2">
                       Expiration Period (Days) *
                     </label>
                     <input
@@ -546,22 +548,22 @@ export function SendDocumentModal({
                       max="365"
                       value={expiresIn}
                       onChange={(e) => setExpiresIn(Number(e.target.value))}
-                      className="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                     />
-                    <p className="text-xs text-[var(--secondary)] mt-1">
+                    <p className="text-xs text-(--secondary) mt-1">
                       Signers must sign by{" "}
                       {new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000).toLocaleDateString()}
                     </p>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                    <label className="block text-sm font-medium text-(--foreground) mb-2">
                       Reminder Frequency
                     </label>
                     <select
                       value={reminders}
                       onChange={(e) => setReminders(e.target.value as any)}
-                      className="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                     >
                       <option value="once">Send once</option>
                       <option value="daily">Daily reminders</option>
@@ -573,11 +575,11 @@ export function SendDocumentModal({
             </div>
 
             {/* Actions */}
-            <div className="sticky bottom-0 border-t border-[var(--border)] px-6 py-4 bg-[var(--card-bg)] flex gap-2 justify-between">
+            <div className="sticky bottom-0 border-t border-(--border) px-6 py-4 bg-(--card-bg) flex gap-2 justify-between">
               <button
                 onClick={() => (step === 1 ? onClose() : setStep(step - 1))}
                 disabled={isLoading}
-                className="flex items-center gap-2 px-4 py-2 border border-[var(--border)] rounded-lg text-[var(--foreground)] hover:bg-[var(--background)] font-medium transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-4 py-2 border border-(--border) rounded-lg text-(--foreground) hover:bg-(--background) font-medium transition-colors disabled:opacity-50"
               >
                 <ChevronLeft className="w-4 h-4" />
                 {step === 1 ? "Cancel" : "Back"}
@@ -587,7 +589,7 @@ export function SendDocumentModal({
                 <button
                   onClick={handleNext}
                   disabled={isLoading}
-                  className="flex items-center gap-2 px-4 py-2 bg-[var(--primary)] hover:opacity-90 text-white rounded-lg font-medium transition-opacity disabled:opacity-50"
+                  className="flex items-center gap-2 px-4 py-2 bg-(--primary) hover:opacity-90 text-white rounded-lg font-medium transition-opacity disabled:opacity-50"
                 >
                   Next
                   <ChevronRight className="w-4 h-4" />

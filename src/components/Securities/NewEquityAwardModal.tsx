@@ -17,7 +17,7 @@ export function NewEquityAwardModal({ isOpen, onClose }: { isOpen: boolean; onCl
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<NewEquityAwardInput>({
+  } = useForm({
     resolver: zodResolver(newEquityAwardSchema),
     defaultValues: { awardType: "RSU", status: "Pending" },
   });

@@ -133,8 +133,8 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
           onClick={() => setMethod("draw")}
           className={`flex flex-col items-center gap-2 p-3 rounded-lg border transition-colors ${
             method === "draw"
-              ? "border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]"
-              : "border-[var(--border)] text-[var(--secondary)] hover:border-[var(--primary)]"
+              ? "border-(--primary) bg-(--primary)/10 text-(--primary)"
+              : "border-(--border) text-(--secondary) hover:border-(--primary)"
           }`}
         >
           <PenTool className="w-5 h-5" />
@@ -145,8 +145,8 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
           onClick={() => setMethod("image")}
           className={`flex flex-col items-center gap-2 p-3 rounded-lg border transition-colors opacity-50 cursor-not-allowed ${
             method === "image"
-              ? "border-[var(--primary)] bg-[var(--primary)]/10"
-              : "border-[var(--border)]"
+              ? "border-(--primary) bg-(--primary)/10"
+              : "border-(--border)"
           }`}
           disabled
         >
@@ -158,8 +158,8 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
           onClick={() => setMethod("type")}
           className={`flex flex-col items-center gap-2 p-3 rounded-lg border transition-colors ${
             method === "type"
-              ? "border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]"
-              : "border-[var(--border)] text-[var(--secondary)] hover:border-[var(--primary)]"
+              ? "border-(--primary) bg-(--primary)/10 text-(--primary)"
+              : "border-(--border) text-(--secondary) hover:border-(--primary)"
           }`}
         >
           <Type className="w-5 h-5" />
@@ -170,7 +170,7 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
       {/* Draw Method */}
       {method === "draw" && (
         <div className="space-y-3">
-          <p className="text-sm text-[var(--secondary)]">
+          <p className="text-sm text-(--secondary)">
             Draw your signature below
           </p>
           <canvas
@@ -179,11 +179,11 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
-            className="w-full h-48 border-2 border-dashed border-[var(--border)] rounded-lg cursor-crosshair bg-white"
+            className="w-full h-48 border-2 border-dashed border-(--border) rounded-lg cursor-crosshair bg-white"
           />
           <button
             onClick={handleClear}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-[var(--border)] rounded-lg hover:bg-[var(--background)] text-[var(--foreground)] text-sm transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-(--border) rounded-lg hover:bg-(--background) text-(--foreground) text-sm transition-colors"
           >
             <RotateCcw className="w-4 h-4" />
             Clear
@@ -195,7 +195,7 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
       {method === "type" && (
         <div className="space-y-3">
           <div>
-            <label className="text-sm font-medium text-[var(--foreground)] mb-2 block">
+            <label className="text-sm font-medium text-(--foreground) mb-2 block">
               Your Full Name
             </label>
             <input
@@ -203,12 +203,12 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
               value={typeSignature}
               onChange={(e) => setTypeSignature(e.target.value)}
               placeholder="Enter your full name"
-              className="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+              className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
             />
           </div>
 
           <div>
-            <label className="text-sm font-medium text-[var(--foreground)] mb-2 block">
+            <label className="text-sm font-medium text-(--foreground) mb-2 block">
               Font Style
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -218,8 +218,8 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
                   onClick={() => setSelectedFont(font)}
                   className={`p-3 rounded-lg border transition-colors capitalize ${
                     selectedFont === font
-                      ? "border-[var(--primary)] bg-[var(--primary)]/10"
-                      : "border-[var(--border)] hover:border-[var(--primary)]"
+                      ? "border-(--primary) bg-(--primary)/10"
+                      : "border-(--border) hover:border-(--primary)"
                   }`}
                   style={{ fontFamily: fonts[font], fontSize: "18px" }}
                 >
@@ -231,11 +231,11 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
 
           {/* Preview */}
           {typeSignature && (
-            <div className="p-4 border border-[var(--border)] rounded-lg bg-[var(--background)]">
-              <p className="text-xs text-[var(--secondary)] mb-2">Preview:</p>
+            <div className="p-4 border border-(--border) rounded-lg bg-(--background)">
+              <p className="text-xs text-(--secondary) mb-2">Preview:</p>
               <p
                 style={{ fontFamily: fonts[selectedFont], fontSize: "48px" }}
-                className="text-center text-[var(--foreground)]"
+                className="text-center text-(--foreground)"
               >
                 {typeSignature}
               </p>
@@ -246,7 +246,7 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
 
       {/* Image Method */}
       {method === "image" && (
-        <div className="p-4 border-2 border-dashed border-[var(--border)] rounded-lg text-center text-[var(--secondary)]">
+        <div className="p-4 border-2 border-dashed border-(--border) rounded-lg text-center text-(--secondary)">
           <p className="text-sm">Image upload not available in demo</p>
         </div>
       )}
@@ -255,7 +255,7 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
       <button
         onClick={handleApplySignature}
         disabled={!isReadyToSign || isLoading}
-        className="w-full px-4 py-2 bg-[var(--primary)] hover:opacity-90 text-white rounded-lg font-medium transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-4 py-2 bg-(--primary) hover:opacity-90 text-white rounded-lg font-medium transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isLoading ? "Applying..." : "Apply Signature"}
       </button>

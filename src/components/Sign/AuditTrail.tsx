@@ -4,7 +4,7 @@ import { Document } from "@/types/document";
 import { Download } from "lucide-react";
 
 interface AuditTrailProps {
-  document: Document;
+  doc: Document;
 }
 
 const ACTION_COLORS: Record<string, string> = {
@@ -19,7 +19,7 @@ const ACTION_COLORS: Record<string, string> = {
   cancelled: "bg-gray-100 text-gray-800",
 };
 
-export function AuditTrail({ document }: AuditTrailProps) {
+export function AuditTrail({ doc }: AuditTrailProps) {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString("en-US", {
       month: "short",
@@ -34,7 +34,7 @@ export function AuditTrail({ document }: AuditTrailProps) {
   const handleExportAudit = () => {
     const csv = [
       ["Timestamp", "User", "Action", "Details"],
-      ...document.auditTrail.map((entry) => [
+      ...doc.auditTrail.map((entry) => [
         formatDate(entry.timestamp),
         entry.userName,
         entry.action,
@@ -50,24 +50,27 @@ export function AuditTrail({ document }: AuditTrailProps) {
       )
       .join("\n");
 
-    const element = document.createElement("a");
-    element.setAttribute("href", `data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`);
-    element.setAttribute("download", `audit_trail_${document.id}.csv`);
+    const element = window.document.createElement("a");
+    element.setAttribute(
+      "href",
+      `data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`
+    );
+    element.setAttribute("download", `audit_trail_${doc.id}.csv`);
     element.style.display = "none";
-    document.body.appendChild(element);
+    window.document.body.appendChild(element);
     element.click();
-    document.body.removeChild(element);
+    window.document.body.removeChild(element);
   };
 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-[var(--foreground)]">
-          Audit Trail ({document.auditTrail.length})
+        <h3 className="font-semibold text-(--foreground)">
+          Audit Trail ({doc.auditTrail.length})
         </h3>
         <button
           onClick={handleExportAudit}
-          className="flex items-center gap-1 px-3 py-1 text-xs bg-[var(--primary)] hover:opacity-90 text-white rounded transition-opacity"
+          className="flex items-center gap-1 px-3 py-1 text-xs bg-(--primary) hover:opacity-90 text-white rounded transition-opacity"
         >
           <Download className="w-3 h-3" />
           Export
@@ -75,17 +78,21 @@ export function AuditTrail({ document }: AuditTrailProps) {
       </div>
 
       <div className="space-y-2">
-        {document.auditTrail.map((entry, idx) => (
+        {doc.auditTrail.map((entry, idx) => (
           <div
             key={entry.id}
-            className="p-3 border border-[var(--border)] rounded-lg hover:border-[var(--primary)] transition-colors"
+            className="p-3 border border-(--border) rounded-lg hover:border-(--primary) transition-colors"
           >
             <div className="flex items-start gap-3">
               {/* Timeline connector */}
               <div className="flex flex-col items-center">
-                <div className={`w-2 h-2 rounded-full ${ACTION_COLORS[entry.action] || "bg-gray-300"}`} />
-                {idx < document.auditTrail.length - 1 && (
-                  <div className="w-0.5 h-8 bg-[var(--border)]" />
+                <div
+                  className={`w-2 h-2 rounded-full ${
+                    ACTION_COLORS[entry.action] || "bg-gray-300"
+                  }`}
+                />
+                {idx < doc.auditTrail.length - 1 && (
+                  <div className="w-0.5 h-8 bg-(--border)" />
                 )}
               </div>
 
@@ -93,10 +100,10 @@ export function AuditTrail({ document }: AuditTrailProps) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <p className="font-medium text-[var(--foreground)] text-sm">
+                    <p className="font-medium text-(--foreground) text-sm">
                       {entry.userName}
                     </p>
-                    <p className="text-xs text-[var(--secondary)]">
+                    <p className="text-xs text-(--secondary)">
                       {formatDate(entry.timestamp)}
                     </p>
                   </div>
@@ -109,7 +116,7 @@ export function AuditTrail({ document }: AuditTrailProps) {
                   </span>
                 </div>
 
-                <p className="text-sm text-[var(--foreground)] mt-1">
+                <p className="text-sm text-(--foreground) mt-1">
                   {entry.details}
                 </p>
               </div>
@@ -118,11 +125,9 @@ export function AuditTrail({ document }: AuditTrailProps) {
         ))}
       </div>
 
-      {document.auditTrail.length === 0 && (
+      {doc.auditTrail.length === 0 && (
         <div className="text-center py-8">
-          <p className="text-[var(--secondary)]">
-            No audit entries yet
-          </p>
+          <p className="text-(--secondary)">No audit entries yet</p>
         </div>
       )}
     </div>

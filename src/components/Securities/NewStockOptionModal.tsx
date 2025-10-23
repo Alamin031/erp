@@ -19,7 +19,7 @@ export function NewStockOptionModal({ isOpen, onClose }: { isOpen: boolean; onCl
     reset,
     watch,
   } = useForm<NewStockOptionInput>({
-    resolver: zodResolver(newStockOptionSchema),
+    resolver: zodResolver(newStockOptionSchema) as any,
     defaultValues: { status: "Active" },
   });
 

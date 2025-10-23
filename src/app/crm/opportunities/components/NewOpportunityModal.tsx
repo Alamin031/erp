@@ -22,7 +22,7 @@ export function NewOpportunityModal({ isOpen, onClose, onSave }: Props) {
 
   const handleSave = ()=>{
     const res = Schema.safeParse({ ...form, value: Number(form.value) });
-    if(!res.success){ setError(res.error.errors.map(e=>e.message).join(', ')); return; }
+    if(!res.success){ setError(res.error.issues.map(i=>i.message).join(', ')); return; }
     onSave?.({ ...form, companyName: companies.find(c=>c.id===form.companyId)?.name, contactName: contacts.find(c=>c.id===form.contactId)?.fullName, status: 'In Progress', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
     onClose();
   };

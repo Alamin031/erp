@@ -16,7 +16,7 @@ export function OpportunityCard({ opportunity }: Props) {
   };
 
   return (
-    <motion.div draggable onDragStart={handleDragStart} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} whileHover={{ scale: 1.02 }} style={{ padding: 10, borderRadius: 8, background: 'white', border: '1px solid var(--border)', cursor: 'grab' }}>
+    <motion.div draggable onDragStart={handleDragStart as unknown as any} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} whileHover={{ scale: 1.02 }} style={{ padding: 10, borderRadius: 8, background: 'white', border: '1px solid var(--border)', cursor: 'grab' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
         <div style={{ fontWeight: 700 }}>{opportunity.name}</div>
         <div style={{ fontSize: 12, color: 'var(--secondary)' }}>${opportunity.value.toLocaleString()}</div>

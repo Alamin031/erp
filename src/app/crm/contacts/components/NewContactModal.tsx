@@ -39,7 +39,7 @@ export function NewContactModal({ isOpen, onClose, companies, tags, onSave }: Pr
   const handleSave = () => {
     const result = ContactSchema.safeParse(form);
     if (!result.success) {
-      setErrors(result.error.errors.map(e => e.message).join(", "));
+      setErrors(result.error.issues.map(i => i.message).join(", "));
       return;
     }
 

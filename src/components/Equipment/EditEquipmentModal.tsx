@@ -14,7 +14,7 @@ export function EditEquipmentModal({ isOpen, onClose, equipment }: { isOpen: boo
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<EquipmentFormInput>({
-    resolver: zodResolver(equipmentFormSchema),
+    resolver: zodResolver(equipmentFormSchema) as any,
   });
 
   useEffect(()=>{

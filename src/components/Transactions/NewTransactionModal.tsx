@@ -18,7 +18,7 @@ export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onCl
     formState: { errors },
     reset,
     watch,
-  } = useForm<NewTransactionInput>({
+  } = useForm({
     resolver: zodResolver(newTransactionSchema),
     defaultValues: { type: "Issuance", securityType: "Common", status: "Draft" },
   });
@@ -35,7 +35,7 @@ export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onCl
 
   if (!isOpen) return null;
 
-  const onSubmit = async (data: NewTransactionInput) => {
+  const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
       await new Promise((r) => setTimeout(r, 200));

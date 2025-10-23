@@ -43,27 +43,27 @@ export function FiltersBar({}: FiltersBarProps) {
   );
 
   return (
-    <div className="bg-[var(--card-bg)] border-b border-[var(--border)] p-4 space-y-4">
+    <div className="bg-(--card-bg) border-b border-(--border) p-4 space-y-4">
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-2.5 w-4 h-4 text-[var(--secondary)]" />
+        <Search className="absolute left-3 top-2.5 w-4 h-4 text-(--secondary)" />
         <input
           type="text"
           value={filters.keyword || ""}
           onChange={(e) => setFilters({ ...filters, keyword: e.target.value || undefined })}
           placeholder="Search documents..."
-          className="w-full pl-10 pr-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] text-sm"
+          className="w-full pl-10 pr-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary) text-sm"
         />
       </div>
 
       {/* Status Filters */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-semibold text-[var(--secondary)] uppercase">
+          <label className="text-xs font-semibold text-(--secondary) uppercase">
             Status
           </label>
           {filters.status && filters.status.length > 0 && (
-            <span className="text-xs text-[var(--primary)]">
+            <span className="text-xs text-(--primary)">
               {filters.status.length} selected
             </span>
           )}
@@ -72,7 +72,7 @@ export function FiltersBar({}: FiltersBarProps) {
           {STATUS_OPTIONS.map((status) => (
             <label
               key={status}
-              className="flex items-center gap-2 px-2 py-1 rounded-lg border border-[var(--border)] cursor-pointer hover:border-[var(--primary)] transition-colors"
+              className="flex items-center gap-2 px-2 py-1 rounded-lg border border-(--border) cursor-pointer hover:border-(--primary) transition-colors"
             >
               <input
                 type="checkbox"
@@ -80,7 +80,7 @@ export function FiltersBar({}: FiltersBarProps) {
                 onChange={(e) => handleStatusChange(status, e.target.checked)}
                 className="w-3 h-3 rounded"
               />
-              <span className="text-xs text-[var(--foreground)] capitalize">
+              <span className="text-xs text-(--foreground) capitalize">
                 {status.replace(/_/g, " ")}
               </span>
             </label>
@@ -92,7 +92,7 @@ export function FiltersBar({}: FiltersBarProps) {
       {hasActiveFilters && (
         <button
           onClick={clearFilters}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-[var(--border)] rounded-lg hover:bg-[var(--background)] text-[var(--secondary)] text-sm transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-(--border) rounded-lg hover:bg-(--background) text-(--secondary) text-sm transition-colors"
         >
           <X className="w-4 h-4" />
           Clear Filters

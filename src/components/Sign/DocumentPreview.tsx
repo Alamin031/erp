@@ -11,8 +11,8 @@ interface DocumentPreviewProps {
   document: Document | null;
   onClose: () => void;
   onSignNow?: (doc: Document) => void;
-  onApprove?: (doc: Document) => void;
-  onReject?: (doc: Document) => void;
+  onApprove?: (doc: Document, note?: string) => void | Promise<void>;
+  onReject?: (doc: Document, reason?: string) => void | Promise<void>;
   onDownload?: (doc: Document) => void;
 }
 
@@ -28,7 +28,8 @@ export function DocumentPreview({
 
   if (!document) return null;
 
-  const isExpired = new Date(document.expiresAt) < new Date();
+  const expiresAt = document.expiresAt ? new Date(document.expiresAt) : null;
+  const isExpired = expiresAt ? expiresAt < new Date() : false;
   const allSigned = document.signers.every((s) => s.status === "signed" || s.status === "rejected");
 
   return (
@@ -50,35 +51,35 @@ export function DocumentPreview({
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed right-0 top-0 bottom-0 w-full max-w-2xl bg-[var(--card-bg)] border-l border-[var(--border)] overflow-y-auto z-50 shadow-xl"
+            className="fixed right-0 top-0 bottom-0 w-full max-w-2xl bg-(--card-bg) border-l border-(--border) overflow-y-auto z-50 shadow-xl"
           >
             {/* Header */}
-            <div className="sticky top-0 bg-[var(--card-bg)] border-b border-[var(--border)] px-6 py-4 flex items-start justify-between">
+            <div className="sticky top-0 bg-(--card-bg) border-b border-(--border) px-6 py-4 flex items-start justify-between">
               <div className="flex-1">
-                <h2 className="text-lg font-semibold text-[var(--foreground)]">
+                <h2 className="text-lg font-semibold text-(--foreground)">
                   {document.title}
                 </h2>
-                <p className="text-sm text-[var(--secondary)] mt-1">
+                <p className="text-sm text-(--secondary) mt-1">
                   {document.id}
                 </p>
               </div>
               <button
                 onClick={onClose}
-                className="ml-2 p-1 hover:bg-[var(--background)] rounded transition-colors"
+                className="ml-2 p-1 hover:bg-(--background) rounded transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Tabs */}
-            <div className="border-b border-[var(--border)] px-6">
+            <div className="border-b border-(--border) px-6">
               <div className="flex gap-4">
                 <button
                   onClick={() => setActiveTab("preview")}
                   className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
                     activeTab === "preview"
-                      ? "border-[var(--primary)] text-[var(--primary)]"
-                      : "border-transparent text-[var(--secondary)] hover:text-[var(--foreground)]"
+                      ? "border-(--primary) text-(--primary)"
+                      : "border-transparent text-(--secondary) hover:text-(--foreground)"
                   }`}
                 >
                   Preview
@@ -87,8 +88,8 @@ export function DocumentPreview({
                   onClick={() => setActiveTab("recipients")}
                   className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
                     activeTab === "recipients"
-                      ? "border-[var(--primary)] text-[var(--primary)]"
-                      : "border-transparent text-[var(--secondary)] hover:text-[var(--foreground)]"
+                      ? "border-(--primary) text-(--primary)"
+                      : "border-transparent text-(--secondary) hover:text-(--foreground)"
                   }`}
                 >
                   Recipients ({document.signers.length})
@@ -97,8 +98,8 @@ export function DocumentPreview({
                   onClick={() => setActiveTab("audit")}
                   className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
                     activeTab === "audit"
-                      ? "border-[var(--primary)] text-[var(--primary)]"
-                      : "border-transparent text-[var(--secondary)] hover:text-[var(--foreground)]"
+                      ? "border-(--primary) text-(--primary)"
+                      : "border-transparent text-(--secondary) hover:text-(--foreground)"
                   }`}
                 >
                   Audit
@@ -109,9 +110,9 @@ export function DocumentPreview({
             {/* Content */}
             <div className="p-6 space-y-6">
               {/* Status Info */}
-              <div className="bg-[var(--background)] rounded-lg p-4 space-y-3">
+              <div className="bg-(--background) rounded-lg p-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-[var(--secondary)]">
+                  <span className="text-sm font-medium text-(--secondary)">
                     Status
                   </span>
                   <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium capitalize bg-blue-100 text-blue-800">
@@ -120,21 +121,21 @@ export function DocumentPreview({
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-[var(--secondary)]">
+                  <span className="text-sm font-medium text-(--secondary)">
                     Expires
-                  </span>
-                  <span className={`text-sm font-medium ${isExpired ? "text-red-600" : "text-[var(--foreground)]"}`}>
-                    {new Date(document.expiresAt).toLocaleDateString()}
+                  <span className={`text-sm font-medium ${isExpired ? "text-red-600" : "text-(--foreground)"}`}>
+                    {expiresAt ? expiresAt.toLocaleDateString() : "—"}
                     {isExpired && " (Expired)"}
+                  </span>
                   </span>
                 </div>
 
                 {document.message && (
                   <div>
-                    <p className="text-sm font-medium text-[var(--secondary)] mb-1">
+                    <p className="text-sm font-medium text-(--secondary) mb-1">
                       Message
                     </p>
-                    <p className="text-sm text-[var(--foreground)]">
+                    <p className="text-sm text-(--foreground)">
                       {document.message}
                     </p>
                   </div>
@@ -145,16 +146,16 @@ export function DocumentPreview({
               {activeTab === "preview" && (
                 <div className="space-y-4">
                   {/* Document Preview */}
-                  <div className="bg-[var(--background)] rounded-lg p-4 min-h-96 flex items-center justify-center border border-[var(--border)]">
+                  <div className="bg-(--background) rounded-lg p-4 min-h-96 flex items-center justify-center border border-(--border)">
                     <div className="text-center">
-                      <FileText className="w-16 h-16 text-[var(--secondary)] mx-auto mb-3 opacity-50" />
-                      <p className="text-[var(--secondary)]">
+                      <FileText className="w-16 h-16 text-(--secondary) mx-auto mb-3 opacity-50" />
+                      <p className="text-(--secondary)">
                         PDF Preview
                       </p>
-                      <p className="text-xs text-[var(--secondary)] mt-1">
+                      <p className="text-xs text-(--secondary) mt-1">
                         {document.fileName}
                       </p>
-                      <p className="text-xs text-[var(--secondary)] mt-2">
+                      <p className="text-xs text-(--secondary) mt-2">
                         Demo: PDF viewer not implemented
                       </p>
                     </div>
@@ -162,7 +163,7 @@ export function DocumentPreview({
 
                   {/* Signature Fields */}
                   <div>
-                    <h3 className="font-semibold text-[var(--foreground)] mb-3">
+                    <h3 className="font-semibold text-(--foreground) mb-3">
                       Signature Fields
                     </h3>
                     <div className="space-y-2">
@@ -170,14 +171,14 @@ export function DocumentPreview({
                         signer.fields.map((field) => (
                           <div
                             key={field.id}
-                            className="p-3 bg-[var(--background)] rounded-lg border border-[var(--border)]"
+                            className="p-3 bg-(--background) rounded-lg border border-(--border)"
                           >
                             <div className="flex items-center justify-between">
                               <div>
-                                <p className="text-sm font-medium text-[var(--foreground)]">
+                                <p className="text-sm font-medium text-(--foreground)">
                                   {signer.name}
                                 </p>
-                                <p className="text-xs text-[var(--secondary)]">
+                                <p className="text-xs text-(--secondary)">
                                   Page {field.page} • Position ({field.x}, {field.y})
                                 </p>
                               </div>
@@ -204,16 +205,16 @@ export function DocumentPreview({
               )}
 
               {activeTab === "audit" && (
-                <AuditTrail document={document} />
+                <AuditTrail {...({ document } as any)} />
               )}
             </div>
 
             {/* Actions Footer */}
-            <div className="sticky bottom-0 bg-[var(--card-bg)] border-t border-[var(--border)] px-6 py-4 space-y-2">
+            <div className="sticky bottom-0 bg-(--card-bg) border-t border-(--border) px-6 py-4 space-y-2">
               {onDownload && (
                 <button
                   onClick={() => onDownload(document)}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-[var(--border)] rounded-lg hover:bg-[var(--background)] text-[var(--foreground)] font-medium transition-colors"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-(--border) rounded-lg hover:bg-(--background) text-(--foreground) font-medium transition-colors"
                 >
                   <Download className="w-4 h-4" />
                   Download PDF

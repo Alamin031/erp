@@ -18,7 +18,7 @@ export function NewActivityModal({ isOpen, onClose, onSave, contacts = [], compa
 
   const handleSave = ()=>{
     const res = Schema.safeParse(form);
-    if(!res.success){ setError(res.error.errors.map(e=>e.message).join(', ')); return; }
+    if(!res.success){ setError(res.error.issues.map(e=>e.message).join(', ')); return; }
     onSave?.({ ...form, status: 'Pending', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), contactName: contacts.find(c=>c.id===form.contactId)?.fullName, companyName: companies.find(c=>c.id===form.companyId)?.name });
     onClose();
   };

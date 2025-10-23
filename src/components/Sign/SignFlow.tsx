@@ -112,32 +112,32 @@ export function SignFlow({
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md max-h-[90vh] overflow-y-auto bg-[var(--card-bg)] rounded-xl border border-[var(--border)] shadow-xl z-50"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md max-h-[90vh] overflow-y-auto bg-(--card-bg) rounded-xl border border-(--border) shadow-xl z-50"
           >
             {/* Header */}
-            <div className="sticky top-0 px-6 py-4 border-b border-[var(--border)] bg-[var(--card-bg)] flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-[var(--foreground)]">
+            <div className="sticky top-0 px-6 py-4 border-b border-(--border) bg-(--card-bg) flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-(--foreground)">
                 Sign Document
               </h2>
               <button
                 onClick={onClose}
                 disabled={isLoading}
-                className="p-1 hover:bg-[var(--background)] rounded transition-colors disabled:opacity-50"
+                className="p-1 hover:bg-(--background) rounded transition-colors disabled:opacity-50"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Progress */}
-            <div className="px-6 py-4 border-b border-[var(--border)] bg-[var(--background)]">
+            <div className="px-6 py-4 border-b border-(--border) bg-(--background)">
               <div className="flex gap-2">
                 {[1, 2, 3].map((s) => (
                   <div key={s} className="flex items-center gap-1 flex-1">
                     <div
                       className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
                         s <= step
-                          ? "bg-[var(--primary)] text-white"
-                          : "bg-[var(--border)] text-[var(--secondary)]"
+                          ? "bg-(--primary) text-white"
+                          : "bg-(--border) text-(--secondary)"
                       }`}
                     >
                       {s}
@@ -145,14 +145,14 @@ export function SignFlow({
                     {s < 3 && (
                       <div
                         className={`flex-1 h-1 transition-colors ${
-                          s < step ? "bg-[var(--primary)]" : "bg-[var(--border)]"
+                          s < step ? "bg-(--primary)" : "bg-(--border)"
                         }`}
                       />
                     )}
                   </div>
                 ))}
               </div>
-              <div className="mt-2 text-xs text-[var(--secondary)]">
+              <div className="mt-2 text-xs text-(--secondary)">
                 {step === 1 && "Confirm Identity"}
                 {step === 2 && "Accept Terms"}
                 {step === 3 && "Sign Document"}
@@ -170,7 +170,7 @@ export function SignFlow({
               {/* Step 1: Identity */}
               {step === 1 && (
                 <div className="space-y-4">
-                  <p className="text-sm text-[var(--secondary)]">
+                  <p className="text-sm text-(--secondary)">
                     Please confirm your identity
                   </p>
 
@@ -181,7 +181,7 @@ export function SignFlow({
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                    <label className="block text-sm font-medium text-(--foreground) mb-2">
                       Email Address *
                     </label>
                     <input
@@ -189,12 +189,12 @@ export function SignFlow({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="your.email@example.com"
-                      className="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                    <label className="block text-sm font-medium text-(--foreground) mb-2">
                       Full Name *
                     </label>
                     <input
@@ -202,7 +202,7 @@ export function SignFlow({
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Your Full Name"
-                      className="w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
                     />
                   </div>
                 </div>
@@ -211,14 +211,14 @@ export function SignFlow({
               {/* Step 2: Consent */}
               {step === 2 && (
                 <div className="space-y-4">
-                  <div className="bg-[var(--background)] rounded-lg p-4 space-y-3 max-h-64 overflow-y-auto">
-                    <h3 className="font-semibold text-[var(--foreground)]">
+                  <div className="bg-(--background) rounded-lg p-4 space-y-3 max-h-64 overflow-y-auto">
+                    <h3 className="font-semibold text-(--foreground)">
                       Signing Agreement
                     </h3>
-                    <p className="text-sm text-[var(--secondary)]">
+                    <p className="text-sm text-(--secondary)">
                       By signing this document, you acknowledge that:
                     </p>
-                    <ul className="text-sm text-[var(--secondary)] space-y-2 list-disc list-inside">
+                    <ul className="text-sm text-(--secondary) space-y-2 list-disc list-inside">
                       <li>
                         You have read and understand the document contents
                       </li>
@@ -234,14 +234,14 @@ export function SignFlow({
                     </ul>
                   </div>
 
-                  <label className="flex items-start gap-3 p-3 border border-[var(--border)] rounded-lg cursor-pointer hover:bg-[var(--background)] transition-colors">
+                  <label className="flex items-start gap-3 p-3 border border-(--border) rounded-lg cursor-pointer hover:bg-(--background) transition-colors">
                     <input
                       type="checkbox"
                       checked={consentChecked}
                       onChange={(e) => setConsentChecked(e.target.checked)}
                       className="mt-1"
                     />
-                    <span className="text-sm text-[var(--foreground)]">
+                    <span className="text-sm text-(--foreground)">
                       I confirm I am authorized to sign this document and accept all terms above
                     </span>
                   </label>
@@ -251,7 +251,7 @@ export function SignFlow({
               {/* Step 3: Signature */}
               {step === 3 && (
                 <div>
-                  <p className="text-sm text-[var(--secondary)] mb-4">
+                  <p className="text-sm text-(--secondary) mb-4">
                     Choose how to sign below
                   </p>
                   <SignaturePad
@@ -263,11 +263,11 @@ export function SignFlow({
             </div>
 
             {/* Actions */}
-            <div className="sticky bottom-0 border-t border-[var(--border)] px-6 py-4 bg-[var(--card-bg)] flex gap-2">
+            <div className="sticky bottom-0 border-t border-(--border) px-6 py-4 bg-(--card-bg) flex gap-2">
               <button
                 onClick={onClose}
                 disabled={isLoading}
-                className="flex-1 px-4 py-2 border border-[var(--border)] rounded-lg text-[var(--foreground)] hover:bg-[var(--background)] font-medium transition-colors disabled:opacity-50"
+                className="flex-1 px-4 py-2 border border-(--border) rounded-lg text-(--foreground) hover:bg-(--background) font-medium transition-colors disabled:opacity-50"
               >
                 Cancel
               </button>
@@ -276,7 +276,7 @@ export function SignFlow({
                 <button
                   onClick={handleNext}
                   disabled={isLoading}
-                  className="flex-1 px-4 py-2 bg-[var(--primary)] hover:opacity-90 text-white rounded-lg font-medium transition-opacity disabled:opacity-50"
+                  className="flex-1 px-4 py-2 bg-(--primary) hover:opacity-90 text-white rounded-lg font-medium transition-opacity disabled:opacity-50"
                 >
                   Next
                 </button>

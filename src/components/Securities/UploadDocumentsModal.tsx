@@ -108,7 +108,7 @@ export function UploadDocumentsModal({ isOpen, onClose, securityId, onDocumentsU
                     className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded p-3"
                   >
                     <div className="flex items-center gap-3 flex-1">
-                      <File size={16} className="text-blue-500 flex-shrink-0" />
+                      <File size={16} className="text-blue-500 shrink-0" />
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium text-gray-900 truncate">{doc.name}</p>
                         <p className="text-xs text-gray-600">{doc.type}</p>
@@ -117,7 +117,7 @@ export function UploadDocumentsModal({ isOpen, onClose, securityId, onDocumentsU
                     <button
                       type="button"
                       onClick={() => removeDocument(doc.id)}
-                      className="p-1 hover:bg-red-100 rounded text-red-600 flex-shrink-0"
+                      className="p-1 hover:bg-red-100 rounded text-red-600 shrink-0"
                     >
                       <Trash2 size={16} />
                     </button>
@@ -139,7 +139,7 @@ export function UploadDocumentsModal({ isOpen, onClose, securityId, onDocumentsU
                     className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded p-3"
                   >
                     <div className="flex items-center gap-3 flex-1">
-                      <File size={16} className="text-gray-500 flex-shrink-0" />
+                      <File size={16} className="text-gray-500 shrink-0" />
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium text-gray-900 truncate">{doc.name}</p>
                         <p className="text-xs text-gray-600">Uploaded: {doc.uploadedAt.split("T")[0]}</p>

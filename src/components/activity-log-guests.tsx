@@ -13,7 +13,14 @@ export function ActivityLogGuests({ maxItems = 10, guestId }: ActivityLogGuestsP
   const getActivityLog = () => {
     if (guestId) {
       const guest = guests.find((g) => g.id === guestId);
-      return guest?.activityLog || [];
+      return (
+        guest?.activityLog.map((log) => ({
+          timestamp: log.timestamp,
+          description: log.description,
+          guestName: `${guest?.firstName} ${guest?.lastName}`,
+          type: log.type,
+        })) || []
+      );
     }
 
     const allActivities: Array<{ timestamp: string; description: string; guestName: string; type: string }> = [];
