@@ -10,6 +10,7 @@ import { NewTransactionModal } from "@/components/Transactions/NewTransactionMod
 import { TransactionChart } from "@/components/Transactions/TransactionChart";
 import { TransactionActivityLog } from "@/components/Transactions/TransactionActivityLog";
 import { AlertCircle, Plus } from "lucide-react";
+import type { Transaction } from "@/types/transactions";
 
 export function TransactionsPageClient() {
   const {
