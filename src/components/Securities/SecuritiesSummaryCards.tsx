@@ -22,30 +22,30 @@ export function SecuritiesSummaryCards() {
     {
       title: "Total Shares Issued",
       value: stats.totalShares.toLocaleString(),
-      icon: <DollarSign className="text-blue-500" size={24} />,
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-200",
+      icon: <DollarSign className="text-white" size={28} />,
+      bgColor: "bg-gradient-to-br from-blue-600 to-blue-700",
+      borderColor: "border-blue-700",
     },
     {
       title: "Total Stock Options Granted",
       value: stats.totalOptions.toLocaleString(),
-      icon: <Target className="text-purple-500" size={24} />,
-      bgColor: "bg-purple-50",
-      borderColor: "border-purple-200",
+      icon: <Target className="text-white" size={28} />,
+      bgColor: "bg-gradient-to-br from-purple-600 to-purple-700",
+      borderColor: "border-purple-700",
     },
     {
       title: "Active Equity Awards",
       value: stats.activeAwards.toString(),
-      icon: <Award className="text-green-500" size={24} />,
-      bgColor: "bg-green-50",
-      borderColor: "border-green-200",
+      icon: <Award className="text-white" size={28} />,
+      bgColor: "bg-gradient-to-br from-green-600 to-green-700",
+      borderColor: "border-green-700",
     },
     {
       title: "Current Valuation",
       value: `$${(stats.valuation / 1000000).toFixed(1)}M`,
-      icon: <TrendingUp className="text-orange-500" size={24} />,
-      bgColor: "bg-orange-50",
-      borderColor: "border-orange-200",
+      icon: <TrendingUp className="text-white" size={28} />,
+      bgColor: "bg-gradient-to-br from-orange-600 to-orange-700",
+      borderColor: "border-orange-700",
     },
   ];
 
@@ -54,13 +54,15 @@ export function SecuritiesSummaryCards() {
       {cards.map((card) => (
         <div
           key={card.title}
-          className={`rounded-lg p-6 border ${card.bgColor} ${card.borderColor}`}
+          className={`rounded-lg p-6 border ${card.bgColor} ${card.borderColor} shadow-lg`}
         >
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-gray-700">{card.title}</h3>
-            {card.icon}
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-semibold text-white opacity-90">{card.title}</h3>
+            <div className="flex-shrink-0">
+              {card.icon}
+            </div>
           </div>
-          <p className="text-2xl font-bold text-gray-900">{card.value}</p>
+          <p className="text-3xl font-bold text-white">{card.value}</p>
         </div>
       ))}
     </div>

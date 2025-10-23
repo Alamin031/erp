@@ -15,7 +15,7 @@ import { NewStockOptionModal } from "@/components/Securities/NewStockOptionModal
 import { NewEquityAwardModal } from "@/components/Securities/NewEquityAwardModal";
 import { UploadDocumentsModal } from "@/components/Securities/UploadDocumentsModal";
 import { Security } from "@/types/securities";
-import { Plus } from "lucide-react";
+import { Plus, Download, Upload } from "lucide-react";
 
 type TabType = "securities" | "options" | "awards";
 
@@ -83,117 +83,319 @@ export function SecuritiesPageClient() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header with Summary Cards */}
-      <div>
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Securities</h1>
-            <p className="text-gray-600 mt-1">Manage equity securities, stock options, and equity awards.</p>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={() => setIsNewSecurityModalOpen(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition flex items-center gap-2"
-            >
-              <Plus size={20} />
-              New Security
-            </button>
-          </div>
-        </div>
+    <div className="dashboard-container">
+      {/* Page Header */}
+      <div className="dashboard-header-content mb-6">
+        <h1 className="dashboard-page-title">Securities Management</h1>
+        <p className="dashboard-subtitle">Manage equity securities, stock options, and equity awards in one place.</p>
+      </div>
 
+      {/* Summary Cards */}
+      <div style={{ marginBottom: "24px" }}>
         <SecuritiesSummaryCards />
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        {/* Left: Filters */}
-        <div className="xl:col-span-1">
+      {/* Quick Actions */}
+      <div style={{ marginBottom: "24px" }}>
+        <div style={{
+          background: "white",
+          borderRadius: "8px",
+          border: "1px solid var(--border)",
+          padding: "24px"
+        }}>
+          <h3 style={{
+            fontSize: "14px",
+            fontWeight: "700",
+            color: "var(--primary)",
+            marginBottom: "16px",
+            textTransform: "uppercase",
+            letterSpacing: "0.5px"
+          }}>Quick Actions</h3>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
+            gap: "16px"
+          }}>
+            <button
+              onClick={() => setIsNewSecurityModalOpen(true)}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "16px",
+                borderRadius: "8px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            >
+              <div style={{
+                width: "48px",
+                height: "48px",
+                background: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px"
+              }}>
+                <Plus size={24} style={{ color: "white" }} />
+              </div>
+              <span style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "var(--secondary)",
+                textAlign: "center"
+              }}>New Security</span>
+            </button>
+            <button
+              onClick={() => setIsNewOptionModalOpen(true)}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "16px",
+                borderRadius: "8px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            >
+              <div style={{
+                width: "48px",
+                height: "48px",
+                background: "linear-gradient(135deg, #9333ea 0%, #7e22ce 100%)",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px"
+              }}>
+                <Plus size={24} style={{ color: "white" }} />
+              </div>
+              <span style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "var(--secondary)",
+                textAlign: "center"
+              }}>New Option</span>
+            </button>
+            <button
+              onClick={() => setIsNewAwardModalOpen(true)}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "16px",
+                borderRadius: "8px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            >
+              <div style={{
+                width: "48px",
+                height: "48px",
+                background: "linear-gradient(135deg, #16a34a 0%, #15803d 100%)",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px"
+              }}>
+                <Plus size={24} style={{ color: "white" }} />
+              </div>
+              <span style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "var(--secondary)",
+                textAlign: "center"
+              }}>New Award</span>
+            </button>
+            <button
+              onClick={() => setIsUploadModalOpen(true)}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "16px",
+                borderRadius: "8px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            >
+              <div style={{
+                width: "48px",
+                height: "48px",
+                background: "linear-gradient(135deg, #ea580c 0%, #dc2626 100%)",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px"
+              }}>
+                <Upload size={24} style={{ color: "white" }} />
+              </div>
+              <span style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "var(--secondary)",
+                textAlign: "center"
+              }}>Upload Docs</span>
+            </button>
+            <button
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "16px",
+                borderRadius: "8px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            >
+              <div style={{
+                width: "48px",
+                height: "48px",
+                background: "linear-gradient(135deg, #4f46e5 0%, #4338ca 100%)",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px"
+              }}>
+                <Download size={24} style={{ color: "white" }} />
+              </div>
+              <span style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "var(--secondary)",
+                textAlign: "center"
+              }}>Export</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Filters & Search */}
+      <div style={{ marginBottom: "24px" }}>
+        <div style={{
+          background: "white",
+          borderRadius: "8px",
+          border: "1px solid var(--border)",
+          padding: "24px"
+        }}>
+          <h3 style={{
+            fontSize: "14px",
+            fontWeight: "700",
+            color: "var(--primary)",
+            marginBottom: "16px",
+            textTransform: "uppercase",
+            letterSpacing: "0.5px"
+          }}>Filters & Search</h3>
           <SecuritiesFilterBar />
         </div>
+      </div>
 
-        {/* Center & Right: Tables and Charts */}
-        <div className="xl:col-span-2 space-y-6">
-          {/* Tabs for Securities, Options, Awards */}
-          <div className="bg-white rounded-lg border border-gray-200">
-            <div className="border-b flex">
-              {(["securities", "options", "awards"] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-6 py-3 font-medium text-sm border-b-2 transition ${
-                    activeTab === tab
-                      ? "border-blue-600 text-blue-600"
-                      : "border-transparent text-gray-700 hover:text-gray-900"
-                  }`}
-                >
-                  {tab === "securities" && "Securities"}
-                  {tab === "options" && "Stock Options"}
-                  {tab === "awards" && "Equity Awards"}
-                  {tab === "securities" && ` (${filteredSecurities.length})`}
-                  {tab === "options" && ` (${stockOptions.length})`}
-                  {tab === "awards" && ` (${equityAwards.length})`}
-                </button>
-              ))}
-              {activeTab !== "securities" && (
-                <div className="ml-auto px-6 py-3">
-                  {activeTab === "options" && (
-                    <button
-                      onClick={() => setIsNewOptionModalOpen(true)}
-                      className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-2"
-                    >
-                      <Plus size={18} />
-                      New Option
-                    </button>
-                  )}
-                  {activeTab === "awards" && (
-                    <button
-                      onClick={() => setIsNewAwardModalOpen(true)}
-                      className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-2"
-                    >
-                      <Plus size={18} />
-                      New Award
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
+      {/* Tabs and Content */}
+      <div style={{
+        background: "white",
+        borderRadius: "8px",
+        border: "1px solid var(--border)",
+        overflow: "hidden",
+        marginBottom: "24px"
+      }}>
+        <div style={{
+          borderBottom: "1px solid var(--border)",
+          display: "flex",
+          background: "var(--background)"
+        }}>
+          {(["securities", "options", "awards"] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              style={{
+                padding: "12px 20px",
+                fontSize: "13px",
+                fontWeight: activeTab === tab ? "700" : "600",
+                color: activeTab === tab ? "var(--primary)" : "var(--secondary)",
+                background: activeTab === tab ? "white" : "transparent",
+                border: "none",
+                borderBottom: `3px solid ${activeTab === tab ? "var(--primary)" : "transparent"}`,
+                cursor: "pointer",
+                transition: "all 0.2s",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {tab === "securities" && "Securities"}
+              {tab === "options" && "Stock Options"}
+              {tab === "awards" && "Equity Awards"}
+              {tab === "securities" && ` (${filteredSecurities.length})`}
+              {tab === "options" && ` (${stockOptions.length})`}
+              {tab === "awards" && ` (${equityAwards.length})`}
+            </button>
+          ))}
+        </div>
 
-            <div className="p-6">
-              {activeTab === "securities" && (
-                <SecuritiesTable
-                  items={filteredSecurities}
-                  onView={handleViewDetails}
-                  onEdit={handleEditSecurity}
-                  onDelete={handleDeleteSecurity}
-                  onAddTransaction={handleAddTransaction}
-                />
-              )}
+        <div style={{ padding: "24px" }}>
+          {activeTab === "securities" && (
+            <SecuritiesTable
+              items={filteredSecurities}
+              onView={handleViewDetails}
+              onEdit={handleEditSecurity}
+              onDelete={handleDeleteSecurity}
+              onAddTransaction={handleAddTransaction}
+            />
+          )}
 
-              {activeTab === "options" && (
-                <StockOptionsTable
-                  items={stockOptions}
-                  onEdit={handleEditOption}
-                  onDelete={() => {}}
-                />
-              )}
+          {activeTab === "options" && (
+            <StockOptionsTable
+              items={stockOptions}
+              onEdit={handleEditOption}
+              onDelete={() => {}}
+            />
+          )}
 
-              {activeTab === "awards" && (
-                <EquityAwardsTable
-                  items={equityAwards}
-                  onEdit={handleEditAward}
-                  onDelete={() => {}}
-                  onViewHistory={handleViewAwardHistory}
-                />
-              )}
-            </div>
-          </div>
+          {activeTab === "awards" && (
+            <EquityAwardsTable
+              items={equityAwards}
+              onEdit={handleEditAward}
+              onDelete={() => {}}
+              onViewHistory={handleViewAwardHistory}
+            />
+          )}
+        </div>
+      </div>
 
-          {/* Charts */}
-          <div className="space-y-6">
-            <CapTableChart />
-            <ValuationHistoryChart />
-          </div>
+      {/* Charts */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginTop: "24px" }}>
+        <div style={{ background: "white", borderRadius: "8px", border: "1px solid var(--border)", padding: "24px" }}>
+          <CapTableChart />
+        </div>
+        <div style={{ background: "white", borderRadius: "8px", border: "1px solid var(--border)", padding: "24px" }}>
+          <ValuationHistoryChart />
         </div>
       </div>
 
