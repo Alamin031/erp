@@ -1,5 +1,12 @@
-export type LeadStage = "New" | "Contacted" | "Qualified" | "Proposal" | "Closed Won" | "Closed Lost";
 export type LeadStatus = "Active" | "Converted" | "Lost";
+
+export type LeadStage =
+  | "New"
+  | "Contacted"
+  | "Qualified"
+  | "Proposal"
+  | "Closed Won"
+  | "Closed Lost";
 
 export interface Lead {
   id: string;
@@ -67,7 +74,14 @@ export interface LeadActivityEntry {
   leadId: string;
   leadName: string;
   timestamp: string;
-  type: "created" | "updated" | "stage_changed" | "converted" | "lost" | "assigned" | "follow_up_scheduled";
+  type:
+    | "created"
+    | "updated"
+    | "stage_changed"
+    | "converted"
+    | "lost"
+    | "assigned"
+    | "follow_up_scheduled";
   details: string;
   user: string;
   oldValue?: string;
