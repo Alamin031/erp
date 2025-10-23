@@ -91,67 +91,230 @@ export function SecuritiesPageClient() {
       </div>
 
       {/* Summary Cards */}
-      <div className="mb-6">
+      <div style={{ marginBottom: "24px" }}>
         <SecuritiesSummaryCards />
       </div>
 
       {/* Quick Actions */}
-      <div className="mb-6">
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div style={{ marginBottom: "24px" }}>
+        <div style={{
+          background: "white",
+          borderRadius: "8px",
+          border: "1px solid var(--border)",
+          padding: "24px"
+        }}>
+          <h3 style={{
+            fontSize: "14px",
+            fontWeight: "700",
+            color: "var(--primary)",
+            marginBottom: "16px",
+            textTransform: "uppercase",
+            letterSpacing: "0.5px"
+          }}>Quick Actions</h3>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
+            gap: "16px"
+          }}>
             <button
               onClick={() => setIsNewSecurityModalOpen(true)}
-              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "16px",
+                borderRadius: "8px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-2">
-                <Plus size={20} className="text-blue-600" />
+              <div style={{
+                width: "48px",
+                height: "48px",
+                background: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px"
+              }}>
+                <Plus size={24} style={{ color: "white" }} />
               </div>
-              <span className="text-xs font-medium text-gray-700">New Security</span>
+              <span style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "var(--secondary)",
+                textAlign: "center"
+              }}>New Security</span>
             </button>
             <button
               onClick={() => setIsNewOptionModalOpen(true)}
-              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "16px",
+                borderRadius: "8px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-2">
-                <Plus size={20} className="text-purple-600" />
+              <div style={{
+                width: "48px",
+                height: "48px",
+                background: "linear-gradient(135deg, #9333ea 0%, #7e22ce 100%)",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px"
+              }}>
+                <Plus size={24} style={{ color: "white" }} />
               </div>
-              <span className="text-xs font-medium text-gray-700">New Option</span>
+              <span style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "var(--secondary)",
+                textAlign: "center"
+              }}>New Option</span>
             </button>
             <button
               onClick={() => setIsNewAwardModalOpen(true)}
-              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "16px",
+                borderRadius: "8px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-2">
-                <Plus size={20} className="text-green-600" />
+              <div style={{
+                width: "48px",
+                height: "48px",
+                background: "linear-gradient(135deg, #16a34a 0%, #15803d 100%)",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px"
+              }}>
+                <Plus size={24} style={{ color: "white" }} />
               </div>
-              <span className="text-xs font-medium text-gray-700">New Award</span>
+              <span style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "var(--secondary)",
+                textAlign: "center"
+              }}>New Award</span>
             </button>
             <button
               onClick={() => setIsUploadModalOpen(true)}
-              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "16px",
+                borderRadius: "8px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
-              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-2">
-                <Upload size={20} className="text-orange-600" />
+              <div style={{
+                width: "48px",
+                height: "48px",
+                background: "linear-gradient(135deg, #ea580c 0%, #dc2626 100%)",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px"
+              }}>
+                <Upload size={24} style={{ color: "white" }} />
               </div>
-              <span className="text-xs font-medium text-gray-700">Upload Docs</span>
+              <span style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "var(--secondary)",
+                textAlign: "center"
+              }}>Upload Docs</span>
             </button>
             <button
-              className="flex flex-col items-center justify-center p-4 rounded-lg hover:bg-gray-50 transition text-center"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "16px",
+                borderRadius: "8px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--background)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
-              <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mb-2">
-                <Download size={20} className="text-indigo-600" />
+              <div style={{
+                width: "48px",
+                height: "48px",
+                background: "linear-gradient(135deg, #4f46e5 0%, #4338ca 100%)",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px"
+              }}>
+                <Download size={24} style={{ color: "white" }} />
               </div>
-              <span className="text-xs font-medium text-gray-700">Export</span>
+              <span style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "var(--secondary)",
+                textAlign: "center"
+              }}>Export</span>
             </button>
           </div>
         </div>
       </div>
 
       {/* Filters & Search */}
-      <div className="mb-6">
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Filters & Search</h3>
+      <div style={{ marginBottom: "24px" }}>
+        <div style={{
+          background: "white",
+          borderRadius: "8px",
+          border: "1px solid var(--border)",
+          padding: "24px"
+        }}>
+          <h3 style={{
+            fontSize: "14px",
+            fontWeight: "700",
+            color: "var(--primary)",
+            marginBottom: "16px",
+            textTransform: "uppercase",
+            letterSpacing: "0.5px"
+          }}>Filters & Search</h3>
           <SecuritiesFilterBar />
         </div>
       </div>
