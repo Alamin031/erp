@@ -32,9 +32,10 @@ export function DocumentCard({
   const [showMenu, setShowMenu] = useState(false);
 
   const status = STATUS_COLORS[document.status] || STATUS_COLORS.draft;
-  const isExpired = new Date(document.expiresAt) < new Date();
+  const isExpired = document.expiresAt ? new Date(document.expiresAt) < new Date() : false;
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "—";
     return new Date(dateString).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
@@ -44,139 +45,123 @@ export function DocumentCard({
   const pendingSigners = document.signers.filter((s) => s.status === "pending").length;
 
   return (
-    <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-xl p-4 hover:border-[var(--primary)] transition-colors">
+  <div className="bg-[color:var(--card-bg)] border border-[var(--border)] rounded-2xl p-6 hover:shadow-lg hover:border-[var(--primary)] transition-all">
       {/* Header */}
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
+      <div className="flex items-start justify-between mb-3 gap-3">
+        <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-[var(--foreground)] text-sm truncate">
             {document.title}
           </h3>
-          <p className="text-xs text-[var(--secondary)] mt-0.5">{document.id}</p>
+          <p className="text-xs text-[var(--secondary)] mt-0.5 truncate">{document.id}</p>
         </div>
-        <div className="relative">
-          <button
-            onClick={() => setShowMenu(!showMenu)}
-            className="p-1 hover:bg-[var(--background)] rounded transition-colors"
-          >
-            <MoreVertical className="w-4 h-4" />
-          </button>
+        <div className="flex items-start gap-2">
+          <span className={`text-xs font-semibold px-3 py-1 rounded-full ${status.bg} ${status.text}`}>{status.label}</span>
+          <div className="relative">
+            <button
+              onClick={() => setShowMenu(!showMenu)}
+              className="p-1 hover:bg-[var(--background)] rounded transition-colors"
+              aria-label="More"
+            >
+              <MoreVertical className="w-4 h-4" />
+            </button>
 
-          {showMenu && (
-            <div className="absolute right-0 mt-1 w-40 bg-[var(--card-bg)] border border-[var(--border)] rounded-lg shadow-lg z-10">
-              <button
-                onClick={() => {
-                  onView(document);
-                  setShowMenu(false);
-                }}
-                className="w-full text-left px-4 py-2 text-sm hover:bg-[var(--background)] transition-colors first:rounded-t-lg"
-              >
-                View
-              </button>
-              <button
-                onClick={() => {
-                  onManage(document);
-                  setShowMenu(false);
-                }}
-                className="w-full text-left px-4 py-2 text-sm hover:bg-[var(--background)] transition-colors"
-              >
-                Manage
-              </button>
-              {document.status !== "draft" && document.status !== "expired" && (
+            {showMenu && (
+              <div className="absolute right-0 mt-1 w-44 bg-[var(--card-bg)] border border-[var(--border)] rounded-lg shadow-lg z-10">
                 <button
                   onClick={() => {
-                    onResend(document);
+                    onView(document);
+                    setShowMenu(false);
+                  }}
+                  className="w-full text-left px-4 py-2 text-sm hover:bg-[var(--background)] transition-colors first:rounded-t-lg"
+                >
+                  View
+                </button>
+                <button
+                  onClick={() => {
+                    onManage(document);
                     setShowMenu(false);
                   }}
                   className="w-full text-left px-4 py-2 text-sm hover:bg-[var(--background)] transition-colors"
                 >
-                  Resend
+                  Manage
                 </button>
-              )}
-              {document.status !== "expired" && document.status !== "approved" && (
-                <button
-                  onClick={() => {
-                    onCancel(document);
-                    setShowMenu(false);
-                  }}
-                  className="w-full text-left px-4 py-2 text-sm hover:bg-red-50 text-red-700 transition-colors last:rounded-b-lg"
-                >
-                  Cancel
-                </button>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Owner */}
-      <div className="mb-3 pb-3 border-b border-[var(--border)]">
-        <p className="text-xs text-[var(--secondary)]">Owner</p>
-        <p className="text-sm font-medium text-[var(--foreground)]">
-          {document.owner.name}
-        </p>
-      </div>
-
-      {/* Signers avatars */}
-      <div className="mb-3">
-        <p className="text-xs text-[var(--secondary)] mb-2">Signers</p>
-        <div className="flex items-center gap-1 -space-x-2">
-          {document.signers.slice(0, 3).map((signer) => (
-            <div
-              key={signer.id}
-              className="w-8 h-8 rounded-full border-2 border-[var(--card-bg)] bg-[var(--primary)]/20 flex items-center justify-center text-xs font-semibold text-[var(--primary)]"
-              title={signer.name}
-            >
-              {signer.name.charAt(0).toUpperCase()}
-            </div>
-          ))}
-          {document.signers.length > 3 && (
-            <div className="w-8 h-8 rounded-full border-2 border-[var(--card-bg)] bg-[var(--background)] flex items-center justify-center text-xs text-[var(--secondary)]">
-              +{document.signers.length - 3}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Status & Dates */}
-      <div className="space-y-2 mb-4">
-        <div className="flex items-center justify-between">
-          <span className={`text-xs font-semibold px-2 py-1 rounded-full ${status.bg} ${status.text}`}>
-            {status.label}
-          </span>
-          {isExpired && (
-            <span className="text-xs text-red-600 font-medium">Expired</span>
-          )}
-        </div>
-
-        <div className="grid grid-cols-2 gap-2 text-xs">
-          <div>
-            <p className="text-[var(--secondary)]">Sent</p>
-            <p className="text-[var(--foreground)] font-medium">
-              {document.sentAt ? formatDate(document.sentAt) : "—"}
-            </p>
+                {document.status !== "draft" && document.status !== "expired" && (
+                  <button
+                    onClick={() => {
+                      onResend(document);
+                      setShowMenu(false);
+                    }}
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-[var(--background)] transition-colors"
+                  >
+                    Resend
+                  </button>
+                )}
+                {document.status !== "expired" && document.status !== "approved" && (
+                  <button
+                    onClick={() => {
+                      onCancel(document);
+                      setShowMenu(false);
+                    }}
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-red-50 text-red-700 transition-colors last:rounded-b-lg"
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
+            )}
           </div>
-          <div>
-            <p className="text-[var(--secondary)]">Expires</p>
-            <p className={`font-medium ${isExpired ? "text-red-600" : "text-[var(--foreground)]"}`}>
-              {formatDate(document.expiresAt)}
-            </p>
+        </div>
+      </div>
+
+      {/* Owner & Signers */}
+      <div className="mb-3 pb-3 border-b border-[var(--border)] flex items-center justify-between gap-4">
+        <div>
+          <p className="text-xs text-[var(--secondary)]">Owner</p>
+          <p className="text-sm font-medium text-[var(--foreground)]">{document.owner.name}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center -space-x-2">
+            {document.signers.slice(0, 3).map((signer) => (
+              <div
+                key={signer.id}
+                className="w-8 h-8 rounded-full border-2 border-[var(--card-bg)] bg-[var(--primary)]/20 flex items-center justify-center text-xs font-semibold text-[var(--primary)]"
+                title={signer.name}
+              >
+                {signer.name.charAt(0).toUpperCase()}
+              </div>
+            ))}
+            {document.signers.length > 3 && (
+              <div className="w-8 h-8 rounded-full border-2 border-[var(--card-bg)] bg-[var(--background)] flex items-center justify-center text-xs text-[var(--secondary)]">
+                +{document.signers.length - 3}
+              </div>
+            )}
           </div>
+        </div>
+      </div>
+
+      {/* Dates */}
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <p className="text-[var(--secondary)] text-xs">Sent</p>
+          <p className="text-[var(--foreground)] font-medium text-sm">{document.sentAt ? formatDate(document.sentAt) : "—"}</p>
+        </div>
+        <div className="text-right">
+          <p className="text-[var(--secondary)] text-xs">Expires</p>
+          <p className={`font-medium text-sm ${isExpired ? "text-red-600" : "text-[var(--foreground)]"}`}>{formatDate(document.expiresAt)}</p>
         </div>
       </div>
 
       {/* Pending signers */}
       {pendingSigners > 0 && (
-        <div className="mb-4 p-2 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p className="text-xs text-yellow-800 font-medium">
-            {pendingSigners} pending signature{pendingSigners !== 1 ? "s" : ""}
-          </p>
+        <div className="mb-3 inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">
+          {pendingSigners} pending signature{pendingSigners !== 1 ? "s" : ""}
         </div>
       )}
 
       {/* Actions */}
       <button
         onClick={() => onView(document)}
-        className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-[var(--primary)] hover:opacity-90 text-white rounded-lg text-sm font-medium transition-opacity"
+        className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-[var(--primary)] hover:opacity-90 text-white rounded-lg text-sm font-medium transition-opacity mt-3"
       >
         <Eye className="w-4 h-4" />
         View Document

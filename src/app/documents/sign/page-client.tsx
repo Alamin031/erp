@@ -205,15 +205,15 @@ export function SignPageClient() {
           </div>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-hidden flex">
-          {/* Filters Sidebar */}
-          <div className="w-64 border-r border-[var(--border)] overflow-y-auto">
+        {/* Content: Filters row above cards */}
+        <div className="flex-1 overflow-hidden flex flex-col">
+          {/* Filters Row */}
+          <div className="px-8 py-4 border-b border-[var(--border)]">
             <FiltersBar />
           </div>
 
           {/* Main Panel */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto p-6">
             {showApprovalsPanel ? (
               <div className="p-6">
                 <ApprovalsPanel
