@@ -290,78 +290,81 @@ export const navigationItems: NavItem[] = [
     ],
   },
 
-  // CRM (super_admin only)
+  // CRM (grouped under parent with dropdown)
   {
     label: "CRM",
     href: "/crm",
     icon: Folder,
+    description: "Customer relationship management",
     roles: ["super_admin"],
-  },
-  {
-    label: "Leads",
-    href: "/crm/leads",
-    icon: SearchFallback(),
-    roles: ["super_admin"],
-  },
-  {
-    label: "Contacts",
-    href: "/crm/contacts",
-    icon: Users,
-    roles: ["super_admin"],
-  },
-  {
-    label: "Companies",
-    href: "/crm/companies",
-    icon: Briefcase,
-    roles: ["super_admin"],
-  },
-  {
-    label: "Opportunities",
-    href: "/crm/opportunities",
-    icon: Briefcase,
-    roles: ["super_admin"],
-  },
-  {
-    label: "Pipeline",
-    href: "/crm/pipeline",
-    icon: BarChart2,
-    roles: ["super_admin"],
-  },
-  {
-    label: "Activities",
-    href: "/crm/activities",
-    icon: List,
-    roles: ["super_admin"],
-  },
-  {
-    label: "Notes",
-    href: "/crm/notes",
-    icon: FileText,
-    roles: ["super_admin"],
-  },
-  {
-    label: "Tasks",
-    href: "/crm/tasks",
-    icon: CheckSquare,
-    roles: ["super_admin"],
-  },
-  {
-    label: "Communication Log",
-    href: "/crm/communications",
-    icon: PhoneFallback(),
-    roles: ["super_admin"],
-  },
-  {
-    label: "Reports",
-    href: "/crm/reports",
-    icon: BarChart2,
-    roles: ["super_admin"],
-  },
-  {
-    label: "Settings",
-    href: "/crm/settings",
-    icon: Settings,
-    roles: ["super_admin"],
+    children: [
+      {
+        label: "Leads",
+        href: "/crm/leads",
+        icon: SearchFallback(),
+        roles: ["super_admin"],
+      },
+      {
+        label: "Contacts",
+        href: "/crm/contacts",
+        icon: Users,
+        roles: ["super_admin"],
+      },
+      {
+        label: "Companies",
+        href: "/crm/companies",
+        icon: Briefcase,
+        roles: ["super_admin"],
+      },
+      {
+        label: "Opportunities",
+        href: "/crm/opportunities",
+        icon: Briefcase,
+        roles: ["super_admin"],
+      },
+      {
+        label: "Pipeline",
+        href: "/crm/pipeline",
+        icon: BarChart2,
+        roles: ["super_admin"],
+      },
+      {
+        label: "Activities",
+        href: "/crm/activities",
+        icon: List,
+        roles: ["super_admin"],
+      },
+      {
+        label: "Notes",
+        href: "/crm/notes",
+        icon: FileText,
+        roles: ["super_admin"],
+      },
+      {
+        label: "Tasks",
+        href: "/crm/tasks",
+        icon: CheckSquare,
+        roles: ["super_admin"],
+      },
+      {
+        label: "Communication Log",
+        href: "/crm/communications",
+        icon: PhoneFallback(),
+        roles: ["super_admin"],
+      },
+      {
+        label: "Reports",
+        href: "/crm/reports",
+        icon: BarChart2,
+        roles: ["super_admin"],
+      },
+      {
+        label: "Settings",
+        href: "/crm/settings",
+        icon: Settings,
+        roles: ["super_admin"],
+      },
+    ],
   },
 
   // Documents / Signing
