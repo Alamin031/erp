@@ -1,0 +1,44 @@
+[
+  {
+    "id": "VAL-001",
+    "date": "2020-01-15",
+    "companyValuation": 1000000,
+    "perShareValue": 0.50
+  },
+  {
+    "id": "VAL-002",
+    "date": "2021-06-20",
+    "companyValuation": 5000000,
+    "perShareValue": 2.00
+  },
+  {
+    "id": "VAL-003",
+    "date": "2022-03-10",
+    "companyValuation": 10000000,
+    "perShareValue": 3.50
+  },
+  {
+    "id": "VAL-004",
+    "date": "2023-01-01",
+    "companyValuation": 25000000,
+    "perShareValue": 5.00
+  },
+  {
+    "id": "VAL-005",
+    "date": "2023-09-15",
+    "companyValuation": 40000000,
+    "perShareValue": 6.50
+  },
+  {
+    "id": "VAL-006",
+    "date": "2024-03-01",
+    "companyValuation": 55000000,
+    "perShareValue": 7.75
+  },
+  {
+    "id": "VAL-007",
+    "date": "2024-12-15",
+    "companyValuation": 75000000,
+    "perShareValue": 9.50
+  }
+]

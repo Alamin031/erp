@@ -1,0 +1,71 @@
+[
+  {
+    "id": "SH-001",
+    "name": "John Smith (Founder)",
+    "email": "john.smith@company.com",
+    "type": "Founder",
+    "joinDate": "2020-01-15"
+  },
+  {
+    "id": "SH-002",
+    "name": "Jane Doe (Founder)",
+    "email": "jane.doe@company.com",
+    "type": "Founder",
+    "joinDate": "2020-01-15"
+  },
+  {
+    "id": "SH-003",
+    "name": "TechVentures Fund",
+    "email": "contact@techventures.com",
+    "type": "Investor",
+    "joinDate": "2021-06-20"
+  },
+  {
+    "id": "SH-004",
+    "name": "Alice Johnson",
+    "email": "alice.johnson@company.com",
+    "type": "Employee",
+    "joinDate": "2021-03-01"
+  },
+  {
+    "id": "SH-005",
+    "name": "Bob Williams",
+    "email": "bob.williams@company.com",
+    "type": "Employee",
+    "joinDate": "2021-06-15"
+  },
+  {
+    "id": "SH-006",
+    "name": "Employee Stock Plan - Vesting",
+    "type": "Employee",
+    "joinDate": "2023-06-15"
+  },
+  {
+    "id": "SH-007",
+    "name": "Carol Davis",
+    "email": "carol.davis@company.com",
+    "type": "Employee",
+    "joinDate": "2022-01-10"
+  },
+  {
+    "id": "SH-008",
+    "name": "David Martinez",
+    "email": "david.martinez@company.com",
+    "type": "Employee",
+    "joinDate": "2022-09-01"
+  },
+  {
+    "id": "SH-009",
+    "name": "Growth Investors LLC",
+    "email": "hello@growthinvestors.com",
+    "type": "Investor",
+    "joinDate": "2022-03-10"
+  },
+  {
+    "id": "SH-010",
+    "name": "Emma Wilson",
+    "email": "emma.wilson@company.com",
+    "type": "Employee",
+    "joinDate": "2023-01-15"
+  }
+]

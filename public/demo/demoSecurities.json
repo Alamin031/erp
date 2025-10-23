@@ -1,0 +1,75 @@
+[
+  {
+    "id": "SEC-001",
+    "holderName": "John Smith (Founder)",
+    "type": "Common",
+    "shares": 1000000,
+    "value": 0.50,
+    "issueDate": "2020-01-15",
+    "status": "Active",
+    "documents": [],
+    "transactions": [],
+    "createdAt": "2020-01-15T10:00:00Z",
+    "updatedAt": "2020-01-15T10:00:00Z"
+  },
+  {
+    "id": "SEC-002",
+    "holderName": "Jane Doe (Founder)",
+    "type": "Common",
+    "shares": 800000,
+    "value": 0.50,
+    "issueDate": "2020-01-15",
+    "status": "Active",
+    "documents": [],
+    "transactions": [],
+    "createdAt": "2020-01-15T10:00:00Z",
+    "updatedAt": "2020-01-15T10:00:00Z"
+  },
+  {
+    "id": "SEC-003",
+    "holderName": "TechVentures Fund",
+    "type": "Preferred",
+    "shares": 500000,
+    "value": 2.00,
+    "issueDate": "2021-06-20",
+    "status": "Active",
+    "documents": [],
+    "transactions": [],
+    "createdAt": "2021-06-20T10:00:00Z",
+    "updatedAt": "2021-06-20T10:00:00Z"
+  },
+  {
+    "id": "SEC-004",
+    "holderName": "Growth Investors LLC",
+    "type": "Preferred",
+    "shares": 300000,
+    "value": 3.50,
+    "issueDate": "2022-03-10",
+    "status": "Active",
+    "documents": [],
+    "transactions": [],
+    "createdAt": "2022-03-10T10:00:00Z",
+    "updatedAt": "2022-03-10T10:00:00Z"
+  },
+  {
+    "id": "SEC-005",
+    "holderName": "Employee Stock Plan - Vesting",
+    "type": "Common",
+    "shares": 200000,
+    "value": 1.50,
+    "issueDate": "2023-01-01",
+    "status": "Vested",
+    "vestingSchedule": {
+      "totalShares": 200000,
+      "vestedShares": 100000,
+      "vestingStartDate": "2023-01-01",
+      "vestingEndDate": "2025-01-01",
+      "cliffMonths": 12,
+      "monthlyVestingPercent": 4.17
+    },
+    "documents": [],
+    "transactions": [],
+    "createdAt": "2023-01-01T10:00:00Z",
+    "updatedAt": "2023-01-01T10:00:00Z"
+  }
+]

@@ -1,0 +1,246 @@
+[
+  {
+    "id": "TXN-001",
+    "date": "2020-01-15",
+    "type": "Issuance",
+    "entity": "John Smith (Founder)",
+    "entityId": "SH-001",
+    "securityType": "Common",
+    "quantity": 1000000,
+    "unitPrice": 0.50,
+    "totalAmount": 500000,
+    "status": "Executed",
+    "notes": "Initial founder grant",
+    "documents": [],
+    "auditLog": [
+      {
+        "id": "AUD-001",
+        "timestamp": "2020-01-15T10:00:00Z",
+        "action": "Created",
+        "user": "System",
+        "details": "Transaction TXN-001 created"
+      },
+      {
+        "id": "AUD-002",
+        "timestamp": "2020-01-15T11:00:00Z",
+        "action": "Approved",
+        "user": "CFO",
+        "details": "Transaction approved"
+      },
+      {
+        "id": "AUD-003",
+        "timestamp": "2020-01-15T12:00:00Z",
+        "action": "Executed",
+        "user": "System",
+        "details": "Transaction executed"
+      }
+    ],
+    "approvedBy": "CFO",
+    "approvalDate": "2020-01-15T11:00:00Z",
+    "executedDate": "2020-01-15T12:00:00Z",
+    "createdAt": "2020-01-15T10:00:00Z",
+    "updatedAt": "2020-01-15T12:00:00Z",
+    "createdBy": "System"
+  },
+  {
+    "id": "TXN-002",
+    "date": "2020-01-15",
+    "type": "Issuance",
+    "entity": "Jane Doe (Founder)",
+    "entityId": "SH-002",
+    "securityType": "Common",
+    "quantity": 800000,
+    "unitPrice": 0.50,
+    "totalAmount": 400000,
+    "status": "Executed",
+    "notes": "Initial founder grant",
+    "documents": [],
+    "auditLog": [
+      {
+        "id": "AUD-004",
+        "timestamp": "2020-01-15T10:00:00Z",
+        "action": "Created",
+        "user": "System",
+        "details": "Transaction TXN-002 created"
+      },
+      {
+        "id": "AUD-005",
+        "timestamp": "2020-01-15T11:00:00Z",
+        "action": "Approved",
+        "user": "CFO",
+        "details": "Transaction approved"
+      }
+    ],
+    "approvedBy": "CFO",
+    "approvalDate": "2020-01-15T11:00:00Z",
+    "executedDate": "2020-01-15T12:00:00Z",
+    "createdAt": "2020-01-15T10:00:00Z",
+    "updatedAt": "2020-01-15T12:00:00Z",
+    "createdBy": "System"
+  },
+  {
+    "id": "TXN-003",
+    "date": "2021-06-20",
+    "type": "Issuance",
+    "entity": "TechVentures Fund",
+    "entityId": "SH-003",
+    "securityType": "Preferred",
+    "quantity": 500000,
+    "unitPrice": 2.00,
+    "totalAmount": 1000000,
+    "status": "Executed",
+    "notes": "Series A investment round",
+    "documents": [],
+    "auditLog": [],
+    "approvedBy": "CFO",
+    "approvalDate": "2021-06-20T10:00:00Z",
+    "executedDate": "2021-06-20T12:00:00Z",
+    "createdAt": "2021-06-20T10:00:00Z",
+    "updatedAt": "2021-06-20T12:00:00Z",
+    "createdBy": "CFO"
+  },
+  {
+    "id": "TXN-004",
+    "date": "2022-06-01",
+    "type": "Exercise",
+    "entity": "Alice Johnson",
+    "entityId": "SH-004",
+    "securityType": "Option",
+    "quantity": 10000,
+    "unitPrice": 1.00,
+    "totalAmount": 10000,
+    "status": "Executed",
+    "notes": "Stock option exercise",
+    "documents": [],
+    "auditLog": [],
+    "approvedBy": "HR",
+    "approvalDate": "2022-06-01T10:00:00Z",
+    "executedDate": "2022-06-01T14:00:00Z",
+    "createdAt": "2022-06-01T10:00:00Z",
+    "updatedAt": "2022-06-01T14:00:00Z",
+    "createdBy": "Alice Johnson"
+  },
+  {
+    "id": "TXN-005",
+    "date": "2023-01-10",
+    "type": "Transfer",
+    "entity": "Bob Williams",
+    "entityId": "SH-005",
+    "securityType": "Common",
+    "quantity": 50000,
+    "unitPrice": 1.50,
+    "totalAmount": 75000,
+    "status": "Pending",
+    "notes": "Planned share transfer to employee",
+    "documents": [],
+    "auditLog": [
+      {
+        "id": "AUD-006",
+        "timestamp": "2023-01-10T10:00:00Z",
+        "action": "Created",
+        "user": "System",
+        "details": "Transfer initiated"
+      }
+    ],
+    "createdAt": "2023-01-10T10:00:00Z",
+    "updatedAt": "2023-01-10T10:00:00Z",
+    "createdBy": "Bob Williams"
+  },
+  {
+    "id": "TXN-006",
+    "date": "2023-06-15",
+    "type": "Issuance",
+    "entity": "Employee Stock Plan - Vesting",
+    "entityId": "SH-006",
+    "securityType": "Common",
+    "quantity": 200000,
+    "unitPrice": 1.50,
+    "totalAmount": 300000,
+    "status": "Approved",
+    "notes": "Employee equity plan issuance",
+    "documents": [],
+    "auditLog": [
+      {
+        "id": "AUD-007",
+        "timestamp": "2023-06-15T10:00:00Z",
+        "action": "Created",
+        "user": "System",
+        "details": "Employee plan issuance created"
+      },
+      {
+        "id": "AUD-008",
+        "timestamp": "2023-06-15T14:00:00Z",
+        "action": "Approved",
+        "user": "HR Manager",
+        "details": "Approved by HR"
+      }
+    ],
+    "approvedBy": "HR Manager",
+    "approvalDate": "2023-06-15T14:00:00Z",
+    "createdAt": "2023-06-15T10:00:00Z",
+    "updatedAt": "2023-06-15T14:00:00Z",
+    "createdBy": "System"
+  },
+  {
+    "id": "TXN-007",
+    "date": "2023-09-01",
+    "type": "Exercise",
+    "entity": "Carol Davis",
+    "entityId": "SH-007",
+    "securityType": "Option",
+    "quantity": 5000,
+    "unitPrice": 2.00,
+    "totalAmount": 10000,
+    "status": "Executed",
+    "notes": "Options exercised by employee",
+    "documents": [],
+    "auditLog": [],
+    "createdAt": "2023-09-01T10:00:00Z",
+    "updatedAt": "2023-09-01T15:00:00Z",
+    "createdBy": "Carol Davis"
+  },
+  {
+    "id": "TXN-008",
+    "date": "2024-03-20",
+    "type": "Cancellation",
+    "entity": "Departed Employee",
+    "entityId": "SH-008",
+    "securityType": "Option",
+    "quantity": 2000,
+    "unitPrice": 1.50,
+    "totalAmount": 3000,
+    "status": "Executed",
+    "notes": "Unvested options cancelled upon termination",
+    "documents": [],
+    "auditLog": [],
+    "createdAt": "2024-03-20T10:00:00Z",
+    "updatedAt": "2024-03-20T12:00:00Z",
+    "createdBy": "HR"
+  },
+  {
+    "id": "TXN-009",
+    "date": "2024-06-10",
+    "type": "Conversion",
+    "entity": "Growth Investors LLC",
+    "entityId": "SH-003",
+    "securityType": "Preferred",
+    "quantity": 250000,
+    "unitPrice": 3.50,
+    "totalAmount": 875000,
+    "status": "Draft",
+    "notes": "Preferred shares conversion pending",
+    "documents": [],
+    "auditLog": [
+      {
+        "id": "AUD-009",
+        "timestamp": "2024-06-10T10:00:00Z",
+        "action": "Created",
+        "user": "System",
+        "details": "Conversion transaction created"
+      }
+    ],
+    "createdAt": "2024-06-10T10:00:00Z",
+    "updatedAt": "2024-06-10T10:00:00Z",
+    "createdBy": "System"
+  }
+]

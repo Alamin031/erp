@@ -1,0 +1,99 @@
+[
+  {
+    "id": "AWD-001",
+    "employeeName": "Alice Johnson",
+    "awardType": "RSU",
+    "quantity": 5000,
+    "vestingDate": "2025-06-01",
+    "status": "Active",
+    "vestingSchedule": {
+      "totalShares": 5000,
+      "vestedShares": 0,
+      "vestingStartDate": "2023-06-01",
+      "vestingEndDate": "2025-06-01",
+      "monthlyVestingPercent": 1.67
+    },
+    "history": [
+      {
+        "id": "H-001",
+        "timestamp": "2023-06-01T10:00:00Z",
+        "type": "Created",
+        "user": "HR Admin",
+        "details": "RSU award granted"
+      }
+    ],
+    "createdAt": "2023-06-01T10:00:00Z",
+    "updatedAt": "2023-06-01T10:00:00Z"
+  },
+  {
+    "id": "AWD-002",
+    "employeeName": "Bob Williams",
+    "awardType": "Bonus",
+    "quantity": 2000,
+    "vestingDate": "2024-12-31",
+    "status": "Vested",
+    "history": [
+      {
+        "id": "H-002",
+        "timestamp": "2023-12-31T10:00:00Z",
+        "type": "Created",
+        "user": "HR Admin",
+        "details": "Performance bonus awarded"
+      },
+      {
+        "id": "H-003",
+        "timestamp": "2024-12-31T10:00:00Z",
+        "type": "Vested",
+        "user": "System",
+        "details": "Bonus vested"
+      }
+    ],
+    "createdAt": "2023-12-31T10:00:00Z",
+    "updatedAt": "2024-12-31T10:00:00Z"
+  },
+  {
+    "id": "AWD-003",
+    "employeeName": "Carol Davis",
+    "awardType": "Performance",
+    "quantity": 3000,
+    "vestingDate": "2025-12-31",
+    "status": "Active",
+    "vestingSchedule": {
+      "totalShares": 3000,
+      "vestedShares": 750,
+      "vestingStartDate": "2024-01-01",
+      "vestingEndDate": "2025-12-31",
+      "monthlyVestingPercent": 1.39
+    },
+    "history": [
+      {
+        "id": "H-004",
+        "timestamp": "2024-01-01T10:00:00Z",
+        "type": "Created",
+        "user": "HR Admin",
+        "details": "Performance-based award granted"
+      }
+    ],
+    "createdAt": "2024-01-01T10:00:00Z",
+    "updatedAt": "2024-01-01T10:00:00Z"
+  },
+  {
+    "id": "AWD-004",
+    "employeeName": "Emma White",
+    "awardType": "RSU",
+    "quantity": 1000,
+    "vestingDate": "2025-03-15",
+    "status": "Pending",
+    "history": [
+      {
+        "id": "H-005",
+        "timestamp": "2024-12-01T10:00:00Z",
+        "type": "Created",
+        "user": "HR Admin",
+        "details": "Restricted Stock Units granted"
+      }
+    ],
+    "createdAt": "2024-12-01T10:00:00Z",
+    "updatedAt": "2024-12-01T10:00:00Z"
+  }
+]

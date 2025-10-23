@@ -1,0 +1,86 @@
+[
+  {
+    "id": "OPT-001",
+    "employeeName": "Alice Johnson",
+    "quantity": 50000,
+    "grantDate": "2022-06-01",
+    "vestingPeriod": 48,
+    "vestingSchedule": {
+      "totalShares": 50000,
+      "vestedShares": 25000,
+      "vestingStartDate": "2022-06-01",
+      "vestingEndDate": "2026-06-01",
+      "cliffMonths": 12,
+      "monthlyVestingPercent": 2.08
+    },
+    "expiryDate": "2032-06-01",
+    "strikePrice": 1.00,
+    "status": "Active",
+    "exercisedQuantity": 0,
+    "createdAt": "2022-06-01T10:00:00Z",
+    "updatedAt": "2022-06-01T10:00:00Z"
+  },
+  {
+    "id": "OPT-002",
+    "employeeName": "Bob Williams",
+    "quantity": 30000,
+    "grantDate": "2023-01-15",
+    "vestingPeriod": 48,
+    "vestingSchedule": {
+      "totalShares": 30000,
+      "vestedShares": 7500,
+      "vestingStartDate": "2023-01-15",
+      "vestingEndDate": "2027-01-15",
+      "cliffMonths": 12,
+      "monthlyVestingPercent": 2.08
+    },
+    "expiryDate": "2033-01-15",
+    "strikePrice": 1.50,
+    "status": "Active",
+    "exercisedQuantity": 0,
+    "createdAt": "2023-01-15T10:00:00Z",
+    "updatedAt": "2023-01-15T10:00:00Z"
+  },
+  {
+    "id": "OPT-003",
+    "employeeName": "Carol Davis",
+    "quantity": 20000,
+    "grantDate": "2023-06-10",
+    "vestingPeriod": 48,
+    "vestingSchedule": {
+      "totalShares": 20000,
+      "vestedShares": 5000,
+      "vestingStartDate": "2023-06-10",
+      "vestingEndDate": "2027-06-10",
+      "cliffMonths": 12,
+      "monthlyVestingPercent": 2.08
+    },
+    "expiryDate": "2033-06-10",
+    "strikePrice": 2.00,
+    "status": "Active",
+    "exercisedQuantity": 0,
+    "createdAt": "2023-06-10T10:00:00Z",
+    "updatedAt": "2023-06-10T10:00:00Z"
+  },
+  {
+    "id": "OPT-004",
+    "employeeName": "David Martinez",
+    "quantity": 10000,
+    "grantDate": "2021-09-01",
+    "vestingPeriod": 48,
+    "vestingSchedule": {
+      "totalShares": 10000,
+      "vestedShares": 10000,
+      "vestingStartDate": "2021-09-01",
+      "vestingEndDate": "2025-09-01",
+      "cliffMonths": 12,
+      "monthlyVestingPercent": 2.08
+    },
+    "expiryDate": "2031-09-01",
+    "strikePrice": 0.50,
+    "status": "Vested",
+    "exercisedQuantity": 0,
+    "createdAt": "2021-09-01T10:00:00Z",
+    "updatedAt": "2021-09-01T10:00:00Z"
+  }
+]
