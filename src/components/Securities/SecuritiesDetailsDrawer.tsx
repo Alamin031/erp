@@ -537,14 +537,14 @@ export function SecuritiesDetailsDrawer({ security, isOpen, onClose }: Props) {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        color: "#3b82f6",
+                        color: "var(--primary)",
                         fontSize: "11px",
                         fontWeight: "600",
                         textDecoration: "none",
-                        transition: "color 0.2s"
+                        transition: "opacity 0.2s"
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "#1d4ed8")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "#3b82f6")}
+                      onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+                      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
                     >
                       Download
                     </a>

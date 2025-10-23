@@ -233,7 +233,30 @@ Details: ${entry.details}
           <div className="border-t pt-4 flex gap-2">
             <button
               onClick={handleDownloadReceipt}
-              className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium flex items-center justify-center gap-2"
+              style={{
+                flex: 1,
+                background: "var(--primary)",
+                color: "white",
+                padding: "10px 16px",
+                borderRadius: "6px",
+                border: "none",
+                cursor: "pointer",
+                transition: "opacity 0.2s, transform 0.2s",
+                fontWeight: "600",
+                fontSize: "14px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.opacity = "0.9";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.opacity = "1";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
             >
               <Download size={18} />
               Download Receipt
@@ -241,7 +264,26 @@ Details: ${entry.details}
             {onEdit && (
               <button
                 onClick={() => onEdit(transaction.id)}
-                className="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition font-medium"
+                style={{
+                  flex: 1,
+                  background: "var(--success)",
+                  color: "white",
+                  padding: "10px 16px",
+                  borderRadius: "6px",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "opacity 0.2s, transform 0.2s",
+                  fontWeight: "600",
+                  fontSize: "14px"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = "0.9";
+                  e.currentTarget.style.transform = "translateY(-1px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = "1";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
               >
                 Edit
               </button>
@@ -249,7 +291,26 @@ Details: ${entry.details}
             {onDelete && (
               <button
                 onClick={() => onDelete(transaction.id)}
-                className="flex-1 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition font-medium"
+                style={{
+                  flex: 1,
+                  background: "var(--danger)",
+                  color: "white",
+                  padding: "10px 16px",
+                  borderRadius: "6px",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "opacity 0.2s, transform 0.2s",
+                  fontWeight: "600",
+                  fontSize: "14px"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = "0.9";
+                  e.currentTarget.style.transform = "translateY(-1px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = "1";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
               >
                 Delete
               </button>
