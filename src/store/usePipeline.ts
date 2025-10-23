@@ -23,7 +23,7 @@ interface PipelineStore {
 
 export const usePipeline = create<PipelineStore>()(
   persist((set, get) => ({
-    stages: ["Prospecting","Qualification","Proposal","Negotiation","Closed Won","Closed Lost"],
+    stages: ["Prospecting", "Qualification", "Proposal", "Negotiation", "Closed Won", "Closed Lost"],
     opportunities: [],
     filters: {},
     activity: [],
@@ -31,18 +31,18 @@ export const usePipeline = create<PipelineStore>()(
     loadDemoData: async () => {
       try {
         const [opps, stages] = await Promise.all([
-          fetch('/demo/demoOpportunities.json').then(r=>r.json()).catch(()=>[]),
-          fetch('/demo/stages.json').then(r=>r.json()).catch(()=>['Prospecting','Qualification','Proposal','Negotiation','Closed Won','Closed Lost']),
+          fetch('/demo/demoOpportunities.json').then(r => r.json()).catch(() => []),
+          fetch('/demo/stages.json').then(r => r.json()).catch(() => ['Prospecting', 'Qualification', 'Proposal', 'Negotiation', 'Closed Won', 'Closed Lost']),
         ]);
         set({ opportunities: opps, stages, activity: [{ id: `a-${Date.now()}`, text: `Loaded ${opps.length} opportunities`, timestamp: new Date().toISOString() }] });
       } catch (e) { console.error(e); }
     },
 
     moveOpportunity: (id, newStage) => {
-      const opp = get().opportunities.find(o=>o.id===id);
-      if(!opp) return;
+      const opp = get().opportunities.find(o => o.id === id);
+      if (!opp) return;
       const old = opp.stage;
-      set(state => ({ opportunities: state.opportunities.map(o => o.id===id ? { ...o, stage: newStage, updatedAt: new Date().toISOString() } : o), activity: [{ id: `act-${Date.now()}`, text: `Deal '${opp.name}' moved from ${old} → ${newStage}`, timestamp: new Date().toISOString() }, ...state.activity] }));
+      set(state => ({ opportunities: state.opportunities.map(o => o.id === id ? { ...o, stage: newStage, updatedAt: new Date().toISOString() } : o), activity: [{ id: `act-${Date.now()}`, text: `Deal '${opp.name}' moved from ${old} → ${newStage}`, timestamp: new Date().toISOString() }, ...state.activity] }));
     },
 
     filterPipeline: (f) => set({ filters: f }),
@@ -50,22 +50,22 @@ export const usePipeline = create<PipelineStore>()(
     calculateTotals: () => {
       const { opportunities } = get();
       const total = opportunities.length;
-      const totalValue = opportunities.reduce((s,o)=>s+(o.value||0),0);
-      const won = opportunities.filter(o=>o.stage==='Closed Won').length;
-      const winRate = total>0 ? Math.round((won/total)*100) : 0;
-      const avgDealSize = total>0 ? Math.round(totalValue/total) : 0;
+      const totalValue = opportunities.reduce((s, o) => s + (o.value || 0), 0);
+      const won = opportunities.filter(o => o.stage === 'Closed Won').length;
+      const winRate = total > 0 ? Math.round((won / total) * 100) : 0;
+      const avgDealSize = total > 0 ? Math.round(totalValue / total) : 0;
       return { total, totalValue, winRate, avgDealSize };
     },
 
     calculateConversionRates: () => {
       const { opportunities, stages } = get();
       const rates: number[] = [];
-      for(let i=0;i<stages.length-1;i++){
+      for (let i = 0; i < stages.length - 1; i++) {
         const s = stages[i];
-        const next = stages[i+1];
-        const countS = opportunities.filter(o=>o.stage===s).length;
-        const countNext = opportunities.filter(o=>o.stage===next).length;
-        rates.push(countS>0? (countNext/countS)*100 : 0);
+        const next = stages[i + 1];
+        const countS = opportunities.filter(o => o.stage === s).length;
+        const countNext = opportunities.filter(o => o.stage === next).length;
+        rates.push(countS > 0 ? (countNext / countS) * 100 : 0);
       }
       return rates;
     },
@@ -73,7 +73,7 @@ export const usePipeline = create<PipelineStore>()(
     getByStage: () => {
       const { opportunities, stages } = get();
       const res = {} as Record<StageName, Opportunity[]>;
-      stages.forEach((s:any)=> res[s]=opportunities.filter(o=>o.stage===s));
+      stages.forEach((s: StageName) => { res[s] = opportunities.filter(o => o.stage === s); });
       return res;
     },
 

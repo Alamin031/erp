@@ -90,13 +90,13 @@ export const useOpportunities = create<OpportunitiesStore>()(
           if (!o.name.toLowerCase().includes(q) && !(o.companyName || '').toLowerCase().includes(q)) return false;
         }
         return true;
-      }).sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      }).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     },
 
     getByStage: () => {
       const { opportunities, stages } = get();
       const res = {} as Record<StageName, Opportunity[]>;
-      stages.forEach((s: any) => { res[s] = opportunities.filter(o => o.stage === s); });
+      stages.forEach((s: StageName) => { res[s] = opportunities.filter(o => o.stage === s); });
       return res;
     },
 

@@ -1,13 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransactions } from "@/store/useTransactions";
-import { newTransactionSchema, NewTransactionInput } from "@/lib/transactions-validation";
+import {
+  newTransactionSchema,
+  NewTransactionInput,
+} from "@/lib/transactions-validation";
 import { useToast } from "@/components/toast";
 
-export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export function NewTransactionModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   const { createTransaction, shareholders, loadDemoData } = useTransactions();
   const { showToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -18,9 +27,13 @@ export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onCl
     formState: { errors },
     reset,
     watch,
-  } = useForm({
-    resolver: zodResolver(newTransactionSchema),
-    defaultValues: { type: "Issuance", securityType: "Common", status: "Draft" },
+  } = useForm<NewTransactionInput>({
+    resolver: zodResolver(newTransactionSchema) as Resolver<NewTransactionInput>,
+    defaultValues: {
+      type: "Issuance",
+      securityType: "Common",
+      status: "Draft",
+    },
   });
 
   const quantity = watch("quantity");
@@ -35,7 +48,7 @@ export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onCl
 
   if (!isOpen) return null;
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: NewTransactionInput) => {
     setIsSubmitting(true);
     try {
       await new Promise((r) => setTimeout(r, 200));
@@ -55,7 +68,10 @@ export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onCl
       reset();
       onClose();
     } catch (e) {
-      showToast((e as Error).message || "Failed to create transaction", "error");
+      showToast(
+        (e as Error).message || "Failed to create transaction",
+        "error"
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -82,13 +98,17 @@ export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onCl
                 <option value="Cancellation">Cancellation</option>
                 <option value="Conversion">Conversion</option>
               </select>
-              {errors.type && <p className="form-error">{errors.type.message}</p>}
+              {errors.type && (
+                <p className="form-error">{errors.type.message}</p>
+              )}
             </div>
           </div>
 
           <div className="form-row">
             <div>
-              <label className="form-label">Entity (Shareholder/Employee) *</label>
+              <label className="form-label">
+                Entity (Shareholder/Employee) *
+              </label>
               <input
                 className="form-input"
                 {...register("entity")}
@@ -100,7 +120,9 @@ export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onCl
                   <option key={sh.id} value={sh.name} />
                 ))}
               </datalist>
-              {errors.entity && <p className="form-error">{errors.entity.message}</p>}
+              {errors.entity && (
+                <p className="form-error">{errors.entity.message}</p>
+              )}
             </div>
           </div>
 
@@ -112,28 +134,50 @@ export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onCl
                 <option value="Preferred">Preferred</option>
                 <option value="Option">Option</option>
               </select>
-              {errors.securityType && <p className="form-error">{errors.securityType.message}</p>}
+              {errors.securityType && (
+                <p className="form-error">{errors.securityType.message}</p>
+              )}
             </div>
           </div>
 
           <div className="form-row">
             <div>
               <label className="form-label">Quantity *</label>
-              <input className="form-input" type="number" {...register("quantity")} placeholder="0" />
-              {errors.quantity && <p className="form-error">{errors.quantity.message}</p>}
+              <input
+                className="form-input"
+                type="number"
+                {...register("quantity")}
+                placeholder="0"
+              />
+              {errors.quantity && (
+                <p className="form-error">{errors.quantity.message}</p>
+              )}
             </div>
             <div>
               <label className="form-label">Unit Price / Value *</label>
-              <input className="form-input" type="number" step="0.01" {...register("unitPrice")} placeholder="0.00" />
-              {errors.unitPrice && <p className="form-error">{errors.unitPrice.message}</p>}
+              <input
+                className="form-input"
+                type="number"
+                step="0.01"
+                {...register("unitPrice")}
+                placeholder="0.00"
+              />
+              {errors.unitPrice && (
+                <p className="form-error">{errors.unitPrice.message}</p>
+              )}
             </div>
           </div>
 
           <div className="form-row">
             <div className="bg-blue-50 border border-blue-200 rounded p-3">
-              <p className="text-xs text-blue-600 font-medium">Total Amount (Auto-Calculated)</p>
+              <p className="text-xs text-blue-600 font-medium">
+                Total Amount (Auto-Calculated)
+              </p>
               <p className="text-2xl font-bold text-blue-900">
-                ${totalAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                $
+                {totalAmount.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                })}
               </p>
             </div>
           </div>
@@ -142,7 +186,9 @@ export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onCl
             <div>
               <label className="form-label">Transaction Date *</label>
               <input className="form-input" type="date" {...register("date")} />
-              {errors.date && <p className="form-error">{errors.date.message}</p>}
+              {errors.date && (
+                <p className="form-error">{errors.date.message}</p>
+              )}
             </div>
             <div>
               <label className="form-label">Status</label>
@@ -169,10 +215,18 @@ export function NewTransactionModal({ isOpen, onClose }: { isOpen: boolean; onCl
           </div>
 
           <div className="modal-actions">
-            <button type="button" onClick={onClose} className="btn btn-secondary">
+            <button
+              type="button"
+              onClick={onClose}
+              className="btn btn-secondary"
+            >
               Cancel
             </button>
-            <button type="submit" disabled={isSubmitting} className="btn btn-primary">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="btn btn-primary"
+            >
               {isSubmitting ? "Creating..." : "Create Transaction"}
             </button>
           </div>

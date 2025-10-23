@@ -43,9 +43,6 @@ export function UsersTable({
   const sorted = useMemo(() => {
     const copy = [...users];
     copy.sort((a, b) => {
-      let aVal: any = a[sort.field];
-      let bVal: any = b[sort.field];
-
       if (sort.field === "name") {
         const aName = a.name.toLowerCase();
         const bName = b.name.toLowerCase();

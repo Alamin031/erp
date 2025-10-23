@@ -196,7 +196,7 @@ export function UserProfileDrawer({
                   <button className="btn btn-secondary text-sm" onClick={handleImpersonate}>
                     👤 Impersonate
                   </button>
-                  {user.activeSessions > 0 && (
+                  {(user.activeSessions ?? 0) > 0 && (
                     <button
                       className="btn btn-secondary text-sm"
                       onClick={() => showToast("Force logout (simulated)", "info")}

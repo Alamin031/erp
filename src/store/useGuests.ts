@@ -23,18 +23,18 @@ interface GuestsStore {
   setSearchQuery: (query: string) => void;
   setViewMode: (mode: "table" | "grid") => void;
   setPagination: (page: number, pageSize: number) => void;
-  
+
   addGuest: (guest: Omit<Guest, "id" | "createdAt" | "updatedAt" | "activityLog">) => void;
   updateGuest: (id: string, updates: Partial<Guest>) => void;
   deleteGuest: (id: string) => void;
-  
+
   searchGuests: (query: string) => Guest[];
   filterGuests: () => Guest[];
   getFilteredGuests: () => Guest[];
   getCurrentGuests: () => Guest[];
   getVIPGuests: () => Guest[];
   getRecentArrivals: (days: number) => Guest[];
-  
+
   getStats: () => GuestStats;
   bulkExport: (ids: string[]) => void;
 }
@@ -106,20 +106,20 @@ export const useGuests = create<GuestsStore>()(
           guests: state.guests.map((g) =>
             g.id === id
               ? {
-                  ...g,
-                  ...updates,
-                  updatedAt: new Date().toISOString(),
-                  activityLog: [
-                    ...(g.activityLog || []),
-                    {
-                      id: `${(g.activityLog?.length || 0) + 1}`,
-                      timestamp: new Date().toISOString(),
-                      type: "edit",
-                      description: "Guest profile updated",
-                      performedBy: "Staff",
-                    },
-                  ],
-                }
+                ...g,
+                ...updates,
+                updatedAt: new Date().toISOString(),
+                activityLog: [
+                  ...(g.activityLog || []),
+                  {
+                    id: `${(g.activityLog?.length || 0) + 1}`,
+                    timestamp: new Date().toISOString(),
+                    type: "edit",
+                    description: "Guest profile updated",
+                    performedBy: "Staff",
+                  },
+                ],
+              }
               : g
           ),
           activityLog: [
@@ -171,8 +171,10 @@ export const useGuests = create<GuestsStore>()(
           filtered = filtered.filter((g) => g.status === filters.status);
         }
 
-        if (filters.tag !== "All") {
-          filtered = filtered.filter((g) => g.tags.includes(filters.tag));
+        // narrow the tag and cast for the includes check to satisfy TypeScript
+        const { tag } = filters;
+        if (tag !== "All") {
+          filtered = filtered.filter((g) => g.tags.includes(tag as any));
         }
 
         if (filters.dateFromArrival) {
