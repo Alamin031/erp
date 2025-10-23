@@ -42,7 +42,7 @@ export function WorkOrderDetailsDrawer({ id, isOpen, onClose, onAssign }: { id: 
               <div className="font-medium">{item.assetName || item.assetType || "—"}</div>
               <div className="text-sm"><span className="text-secondary">Priority:</span> {item.priority}</div>
               <div className="text-sm"><span className="text-secondary">Assigned:</span> {item.assignedTechName || "Unassigned"}</div>
-              <div className={`text-sm ${dueInfo.color}`}><span className="text-secondary">SLA:</span> {dueInfo.text}</div>
+              <div className="text-sm" style={{ color: dueInfo.color }}><span className="text-secondary">SLA:</span> {dueInfo.text}</div>
             </div>
 
             <div className="dashboard-section">
