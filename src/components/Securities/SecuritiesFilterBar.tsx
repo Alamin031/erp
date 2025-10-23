@@ -26,7 +26,7 @@ export function SecuritiesFilterBar({ onFilterChange }: Props) {
   );
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4">
+  <div className="bg-white rounded-lg border border-gray-200 p-4 relative overflow-visible">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -40,6 +40,7 @@ export function SecuritiesFilterBar({ onFilterChange }: Props) {
               value={filters.holderName || ""}
               onChange={(e) => updateFilter("holderName", e.target.value)}
               className="form-input pl-10"
+              autoComplete="off"
             />
           </div>
         </div>
@@ -88,6 +89,7 @@ export function SecuritiesFilterBar({ onFilterChange }: Props) {
             value={filters.minShares || ""}
             onChange={(e) => updateFilter("minShares", e.target.value ? Number(e.target.value) : undefined)}
             className="form-input"
+            autoComplete="off"
           />
         </div>
       </div>
@@ -102,6 +104,7 @@ export function SecuritiesFilterBar({ onFilterChange }: Props) {
             value={filters.dateFrom || ""}
             onChange={(e) => updateFilter("dateFrom", e.target.value)}
             className="form-input"
+            autoComplete="off"
           />
         </div>
 
@@ -114,6 +117,7 @@ export function SecuritiesFilterBar({ onFilterChange }: Props) {
             value={filters.dateTo || ""}
             onChange={(e) => updateFilter("dateTo", e.target.value)}
             className="form-input"
+            autoComplete="off"
           />
         </div>
       </div>

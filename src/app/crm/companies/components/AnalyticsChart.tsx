@@ -13,8 +13,20 @@ export function AnalyticsChart({ companies }: Props) {
   companies.forEach(c => {
     byIndustryMap[c.industry || 'Unknown'] = (byIndustryMap[c.industry || 'Unknown'] || 0) + 1;
     byCountryMap[c.country || 'Unknown'] = (byCountryMap[c.country || 'Unknown'] || 0) + 1;
-    const month = new Date(c.createdAt).toISOString().slice(0,7);
-    growthMap[month] = (growthMap[month]||0) + 1;
+
+    // Guard against missing/invalid dates
+    if (c.createdAt) {
+      const d = new Date(c.createdAt);
+      if (!isNaN(d.getTime())) {
+        const month = d.toISOString().slice(0, 7);
+        growthMap[month] = (growthMap[month] || 0) + 1;
+      } else {
+        // collect under 'Unknown' month to avoid crashing
+        growthMap['unknown'] = (growthMap['unknown'] || 0) + 1;
+      }
+    } else {
+      growthMap['unknown'] = (growthMap['unknown'] || 0) + 1;
+    }
   });
 
   const byIndustry = Object.entries(byIndustryMap).map(([name,value])=>({ name, value }));
