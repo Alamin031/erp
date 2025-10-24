@@ -272,22 +272,22 @@ export function EditEquityModal({
             </div>
 
             <div className="modal-actions">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleSave}
-            >
-              Save Changes
-            </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={onClose}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleSave}
+              >
+                Save Changes
+              </button>
+            </div>
           </div>
-        </div>
         </div>
       </motion.div>
     </>
