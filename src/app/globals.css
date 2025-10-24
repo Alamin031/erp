@@ -1496,4 +1496,12 @@ html.dark .status-badge[data-status="overdue"] {
     align-items: flex-start;
     gap: 6px;
   }
+
+  .responsive-grid-2-1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-container {
+    padding: 0 8px;
+  }
 }
