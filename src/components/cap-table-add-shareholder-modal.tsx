@@ -113,26 +113,26 @@ export function AddShareholderModal({
       >
         <div className="modal-card">
           <div className="modal-header">
-          <h2>{shareholder ? "Edit Shareholder" : "Add New Shareholder"}</h2>
-          <button
-            className="modal-close"
-            onClick={onClose}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "4px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--secondary)",
-            }}
-          >
-            <X size={20} />
-          </button>
-        </div>
+            <h2>{shareholder ? "Edit Shareholder" : "Add New Shareholder"}</h2>
+            <button
+              className="modal-close"
+              onClick={onClose}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "4px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--secondary)",
+              }}
+            >
+              <X size={20} />
+            </button>
+          </div>
 
-        <div className="modal-form">
+          <div className="modal-form">
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
             <div className="form-group">
               <label className="form-label">Full Name *</label>
