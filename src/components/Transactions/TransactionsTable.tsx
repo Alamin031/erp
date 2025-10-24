@@ -115,34 +115,34 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
   const getStatusBadgeColor = (status: string): string => {
     switch (status) {
       case "Draft":
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-700 text-gray-100";
       case "Approved":
-        return "bg-green-100 text-green-800";
+        return "bg-green-600 text-white";
       case "Rejected":
-        return "bg-red-100 text-red-800";
+        return "bg-red-600 text-white";
       case "Pending":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-500 text-black";
       case "Executed":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-600 text-white";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-700 text-gray-100";
     }
   };
 
   const getTypeBadgeColor = (type: string): string => {
     switch (type) {
       case "Issuance":
-        return "bg-green-100 text-green-800";
+        return "bg-green-600 text-white";
       case "Exercise":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-600 text-white";
       case "Transfer":
-        return "bg-purple-100 text-purple-800";
+        return "bg-purple-600 text-white";
       case "Cancellation":
-        return "bg-red-100 text-red-800";
+        return "bg-red-600 text-white";
       case "Conversion":
-        return "bg-orange-100 text-orange-800";
+        return "bg-orange-500 text-black";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-700 text-gray-100";
     }
   };
 
@@ -350,7 +350,11 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                   <td className="px-4 py-3 text-sm font-medium text-gray-900">{txn.id}</td>
                   <td className="px-4 py-3 text-sm text-gray-700">{txn.date}</td>
                   <td className="px-4 py-3 text-sm">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getTypeBadgeColor(txn.type)}`}>
+                    <span
+                      className={`inline-flex items-center justify-center h-6 min-w-[84px] px-3 rounded-full text-xs font-medium ${
+                        getTypeBadgeColor(txn.type)
+                      }`}
+                    >
                       {txn.type}
                     </span>
                   </td>
@@ -360,7 +364,11 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                     ${txn.totalAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
                   </td>
                   <td className="px-4 py-3 text-sm">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusBadgeColor(txn.status)}`}>
+                    <span
+                      className={`inline-flex items-center justify-center h-6 min-w-[72px] px-3 rounded-full text-xs font-medium ${
+                        getStatusBadgeColor(txn.status)
+                      }`}
+                    >
                       {txn.status}
                     </span>
                   </td>

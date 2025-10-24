@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from 'react';
 import { Transaction } from "@/types/transactions";
 import { useTransactions } from "@/store/useTransactions";
 import { X, Download } from "lucide-react";
@@ -93,47 +94,43 @@ Details: ${entry.details}
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose} />
-      <div className="fixed right-0 top-0 h-full w-96 bg-white shadow-lg z-50 overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b p-4 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-900">Transaction Details</h2>
-          <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded">
-            <X size={24} className="text-gray-600" />
+      <div className="slide-over-overlay" onClick={onClose} />
+      <div className="slide-over">
+        <div className="slide-over-header">
+          <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 700, color: 'var(--foreground)' }}>Transaction Details</h2>
+          <button onClick={onClose} className="slide-over-close">
+            <X size={24} style={{ color: 'var(--secondary)' }} />
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="slide-over-content">
           {/* Basic Information */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+            <h3 style={{ fontSize: '12px', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
               Transaction Information
             </h3>
-            <div className="space-y-3 bg-gray-50 rounded-lg p-4">
-              <div>
-                <p className="text-xs text-gray-600 font-medium">ID</p>
-                <p className="text-sm font-medium text-gray-900">{transaction.id}</p>
+            <div style={{ display: 'block', background: 'var(--background)', borderRadius: '8px', padding: '12px', border: '1px solid var(--border)' }}>
+              <div style={{ marginBottom: '8px' }}>
+                <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 600, margin: 0 }}>ID</p>
+                <p style={{ fontSize: '14px', color: 'var(--foreground)', fontWeight: 600, margin: '6px 0 0 0' }}>{transaction.id}</p>
               </div>
-              <div>
-                <p className="text-xs text-gray-600 font-medium">Date</p>
-                <p className="text-sm font-medium text-gray-900">{transaction.date}</p>
+              <div style={{ marginBottom: '8px' }}>
+                <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 600, margin: 0 }}>Date</p>
+                <p style={{ fontSize: '14px', color: 'var(--foreground)', fontWeight: 600, margin: '6px 0 0 0' }}>{transaction.date}</p>
               </div>
-              <div>
-                <p className="text-xs text-gray-600 font-medium">Type</p>
-                <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getTypeBadgeColor(transaction.type)}`}>
+              <div style={{ marginBottom: '8px' }}>
+                <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 600, margin: 0 }}>Type</p>
+                <span style={{ display: 'inline-block', padding: '6px 10px', borderRadius: '999px', fontSize: '12px', fontWeight: 600, marginTop: '6px', ...getTypeBadgeStyle(transaction.type) }}>
                   {transaction.type}
                 </span>
               </div>
-              <div>
-                <p className="text-xs text-gray-600 font-medium">Entity</p>
-                <p className="text-sm font-medium text-gray-900">{transaction.entity}</p>
+              <div style={{ marginBottom: '8px' }}>
+                <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 600, margin: 0 }}>Entity</p>
+                <p style={{ fontSize: '14px', color: 'var(--foreground)', fontWeight: 600, margin: '6px 0 0 0' }}>{transaction.entity}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-600 font-medium">Status</p>
-                <span
-                  className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getStatusBadgeColor(
-                    transaction.status
-                  )}`}
-                >
+                <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 600, margin: 0 }}>Status</p>
+                <span style={{ display: 'inline-block', padding: '6px 10px', borderRadius: '999px', fontSize: '12px', fontWeight: 600, marginTop: '6px', ...getStatusBadgeStyle(transaction.status) }}>
                   {transaction.status}
                 </span>
               </div>
@@ -142,23 +139,23 @@ Details: ${entry.details}
 
           {/* Financial Summary */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Financial Summary</h3>
-            <div className="space-y-3 bg-gray-50 rounded-lg p-4">
-              <div className="flex justify-between">
-                <p className="text-xs text-gray-600 font-medium">Security Type</p>
-                <p className="text-sm font-medium text-gray-900">{transaction.securityType}</p>
+            <h3 style={{ fontSize: '12px', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Financial Summary</h3>
+            <div style={{ display: 'block', background: 'var(--background)', borderRadius: '8px', padding: '12px', border: '1px solid var(--border)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 600, margin: 0 }}>Security Type</p>
+                <p style={{ fontSize: '14px', color: 'var(--foreground)', fontWeight: 600, margin: 0 }}>{transaction.securityType}</p>
               </div>
-              <div className="flex justify-between">
-                <p className="text-xs text-gray-600 font-medium">Quantity</p>
-                <p className="text-sm font-medium text-gray-900">{transaction.quantity.toLocaleString()}</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 600, margin: 0 }}>Quantity</p>
+                <p style={{ fontSize: '14px', color: 'var(--foreground)', fontWeight: 600, margin: 0 }}>{transaction.quantity.toLocaleString()}</p>
               </div>
-              <div className="flex justify-between">
-                <p className="text-xs text-gray-600 font-medium">Unit Price</p>
-                <p className="text-sm font-medium text-gray-900">${transaction.unitPrice.toFixed(2)}</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 600, margin: 0 }}>Unit Price</p>
+                <p style={{ fontSize: '14px', color: 'var(--foreground)', fontWeight: 600, margin: 0 }}>${transaction.unitPrice.toFixed(2)}</p>
               </div>
-              <div className="flex justify-between border-t pt-3">
-                <p className="text-xs text-gray-600 font-bold">Total Amount</p>
-                <p className="text-lg font-bold text-gray-900">
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
+                <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 700, margin: 0 }}>Total Amount</p>
+                <p style={{ fontSize: '18px', color: 'var(--foreground)', fontWeight: 700, margin: 0 }}>
                   ${transaction.totalAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
                 </p>
               </div>
@@ -197,19 +194,19 @@ Details: ${entry.details}
           {/* Documents */}
           {transaction.documents && transaction.documents.length > 0 && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Attached Documents</h3>
-              <div className="space-y-2">
+              <h3 style={{ fontSize: '12px', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Attached Documents</h3>
+              <div style={{ display: 'grid', gap: '8px' }}>
                 {transaction.documents.map((doc) => (
-                  <div key={doc.id} className="bg-gray-50 rounded p-3 flex items-center justify-between">
+                  <div key={doc.id} style={{ background: 'var(--background)', borderRadius: '6px', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px solid var(--border)' }}>
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{doc.name}</p>
-                      <p className="text-xs text-gray-600">{doc.type}</p>
+                      <p style={{ fontSize: '14px', color: 'var(--foreground)', fontWeight: 600, margin: 0 }}>{doc.name}</p>
+                      <p style={{ fontSize: '12px', color: 'var(--secondary)', margin: '4px 0 0 0' }}>{doc.type}</p>
                     </div>
                     <a
                       href={doc.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 text-xs font-medium"
+                      style={{ color: 'var(--primary)', fontSize: '12px', fontWeight: 600 }}
                     >
                       View
                     </a>
@@ -222,15 +219,15 @@ Details: ${entry.details}
           {/* Notes */}
           {transaction.notes && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Notes</h3>
-              <div className="bg-gray-50 rounded p-4">
-                <p className="text-sm text-gray-700">{transaction.notes}</p>
+              <h3 style={{ fontSize: '12px', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Notes</h3>
+              <div style={{ background: 'var(--background)', borderRadius: '6px', padding: '12px', border: '1px solid var(--border)' }}>
+                <p style={{ fontSize: '14px', color: 'var(--foreground)', margin: 0 }}>{transaction.notes}</p>
               </div>
             </div>
           )}
 
           {/* Action Buttons */}
-          <div className="border-t pt-4 flex gap-2">
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '12px', display: 'flex', gap: '8px' }}>
             <button
               onClick={handleDownloadReceipt}
               style={{
@@ -266,23 +263,23 @@ Details: ${entry.details}
                 onClick={() => onEdit(transaction.id)}
                 style={{
                   flex: 1,
-                  background: "var(--success)",
-                  color: "white",
-                  padding: "10px 16px",
-                  borderRadius: "6px",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "opacity 0.2s, transform 0.2s",
-                  fontWeight: "600",
-                  fontSize: "14px"
+                  background: 'var(--success)',
+                  color: 'white',
+                  padding: '10px 16px',
+                  borderRadius: '6px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'opacity 0.2s, transform 0.2s',
+                  fontWeight: 600,
+                  fontSize: '14px'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = "0.9";
-                  e.currentTarget.style.transform = "translateY(-1px)";
+                  e.currentTarget.style.opacity = '0.9';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = "1";
-                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.opacity = '1';
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
                 Edit
@@ -318,16 +315,16 @@ Details: ${entry.details}
           </div>
 
           {/* Metadata */}
-          <div className="border-t pt-4">
-            <p className="text-xs text-gray-600">
-              Created: <span className="font-medium">{transaction.createdAt}</span>
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '12px' }}>
+            <p style={{ fontSize: '12px', color: 'var(--secondary)', margin: 0 }}>
+              Created: <span style={{ color: 'var(--foreground)', fontWeight: 600 }}>{transaction.createdAt}</span>
             </p>
-            <p className="text-xs text-gray-600">
-              Updated: <span className="font-medium">{transaction.updatedAt}</span>
+            <p style={{ fontSize: '12px', color: 'var(--secondary)', margin: '6px 0 0 0' }}>
+              Updated: <span style={{ color: 'var(--foreground)', fontWeight: 600 }}>{transaction.updatedAt}</span>
             </p>
             {transaction.createdBy && (
-              <p className="text-xs text-gray-600">
-                Created By: <span className="font-medium">{transaction.createdBy}</span>
+              <p style={{ fontSize: '12px', color: 'var(--secondary)', margin: '6px 0 0 0' }}>
+                Created By: <span style={{ color: 'var(--foreground)', fontWeight: 600 }}>{transaction.createdBy}</span>
               </p>
             )}
           </div>
@@ -335,4 +332,61 @@ Details: ${entry.details}
       </div>
     </>
   );
+}
+
+// helper functions to return inline styles for badges using CSS variables
+function getStatusBadgeStyle(status: string) {
+  let color = 'var(--secondary)';
+  switch (status) {
+    case 'Draft':
+      color = 'var(--secondary)';
+      break;
+    case 'Approved':
+      color = 'var(--success)';
+      break;
+    case 'Rejected':
+      color = 'var(--danger)';
+      break;
+    case 'Pending':
+      color = 'var(--warning)';
+      break;
+    case 'Executed':
+      color = 'var(--primary)';
+      break;
+    default:
+      color = 'var(--secondary)';
+  }
+  const bg = color.startsWith("var(") ? "rgba(255,255,255,0.03)" : `${color}20`;
+  return {
+    backgroundColor: bg,
+    color: color,
+  } as CSSProperties;
+}
+
+function getTypeBadgeStyle(type: string) {
+  let color = 'var(--secondary)';
+  switch (type) {
+    case 'Issuance':
+      color = 'var(--success)';
+      break;
+    case 'Exercise':
+      color = 'var(--primary)';
+      break;
+    case 'Transfer':
+      color = '#9f7aea';
+      break;
+    case 'Cancellation':
+      color = 'var(--danger)';
+      break;
+    case 'Conversion':
+      color = '#f59e0b';
+      break;
+    default:
+      color = 'var(--secondary)';
+  }
+  const bg = color.startsWith("var(") ? "rgba(255,255,255,0.03)" : `${color}20`;
+  return {
+    backgroundColor: bg,
+    color: color,
+  } as CSSProperties;
 }

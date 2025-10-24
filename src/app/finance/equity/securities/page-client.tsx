@@ -39,6 +39,7 @@ export function SecuritiesPageClient() {
 
   const filteredSecurities = filterSecurities();
   const selectedSecurity = securities.find((s) => s.id === selectedSecurityId) || null;
+  const [editingSecurity, setEditingSecurity] = useState<Security | null>(null);
 
   useEffect(() => {
     if (securities.length === 0) {
@@ -52,9 +53,14 @@ export function SecuritiesPageClient() {
   }, [setSelectedSecurityId]);
 
   const handleEditSecurity = useCallback((id: string) => {
-    // In a real app, you'd open an edit modal
-    alert(`Edit functionality for security ${id}`);
-  }, []);
+    const sec = securities.find((s) => s.id === id) || null;
+    setEditingSecurity(sec);
+    // close drawer if open
+    setIsDetailsDrawerOpen(false);
+    setSelectedSecurityId(undefined);
+    // open modal in edit mode
+    setIsNewSecurityModalOpen(true);
+  }, [securities, setSelectedSecurityId]);
 
   const handleDeleteSecurity = useCallback(() => {
     setIsDetailsDrawerOpen(false);
@@ -353,7 +359,14 @@ export function SecuritiesPageClient() {
       </div>
 
       {/* Modals and Drawers */}
-      <NewSecurityModal isOpen={isNewSecurityModalOpen} onClose={() => setIsNewSecurityModalOpen(false)} />
+      <NewSecurityModal
+        isOpen={isNewSecurityModalOpen}
+        onClose={() => {
+          setIsNewSecurityModalOpen(false);
+          setEditingSecurity(null);
+        }}
+        security={editingSecurity}
+      />
       <NewStockOptionModal isOpen={isNewOptionModalOpen} onClose={() => setIsNewOptionModalOpen(false)} />
       <NewEquityAwardModal isOpen={isNewAwardModalOpen} onClose={() => setIsNewAwardModalOpen(false)} />
       <SecuritiesDetailsDrawer

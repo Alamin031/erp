@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSecurities } from "@/store/useSecurities";
 import { newSecuritySchema, NewSecurityInput } from "@/lib/securities-validation";
 import { useToast } from "@/components/toast";
+import { Security } from "@/types/securities";
 
-export function NewSecurityModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const { addSecurity } = useSecurities();
+export function NewSecurityModal({ isOpen, onClose, security }: { isOpen: boolean; onClose: () => void; security?: Security | null }) {
+  const { addSecurity, updateSecurity } = useSecurities();
   const { showToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -22,25 +23,57 @@ export function NewSecurityModal({ isOpen, onClose }: { isOpen: boolean; onClose
     defaultValues: { type: "Common", status: "Issued" },
   });
 
+  // Prefill form when editing
+  useEffect(() => {
+    if (security) {
+      reset({
+        holderName: security.holderName,
+        type: security.type,
+        shares: security.shares,
+        value: security.value,
+        issueDate: security.issueDate?.split("T")?.[0] || security.issueDate,
+        status: security.status,
+      });
+    } else if (isOpen) {
+      // reset to defaults when opening create modal
+      reset({ type: "Common", status: "Issued" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [security, isOpen]);
+
   if (!isOpen) return null;
 
   const onSubmit = async (data: NewSecurityInput) => {
     setIsSubmitting(true);
     try {
       await new Promise((r) => setTimeout(r, 200));
-      addSecurity({
-        holderName: data.holderName,
-        type: data.type,
-        shares: data.shares,
-        value: data.value,
-        issueDate: data.issueDate,
-        status: data.status,
-        documents: [],
-        transactions: [],
-      });
-      showToast("Security added successfully", "success");
-      reset();
-      onClose();
+      if (security) {
+        // update
+        updateSecurity(security.id, {
+          holderName: data.holderName,
+          type: data.type,
+          shares: data.shares,
+          value: data.value,
+          issueDate: data.issueDate,
+          status: data.status,
+        });
+        showToast("Security updated successfully", "success");
+        onClose();
+      } else {
+        addSecurity({
+          holderName: data.holderName,
+          type: data.type,
+          shares: data.shares,
+          value: data.value,
+          issueDate: data.issueDate,
+          status: data.status,
+          documents: [],
+          transactions: [],
+        });
+        showToast("Security added successfully", "success");
+        reset();
+        onClose();
+      }
     } catch (e) {
       showToast((e as Error).message || "Failed to add security", "error");
     } finally {
@@ -51,14 +84,15 @@ export function NewSecurityModal({ isOpen, onClose }: { isOpen: boolean; onClose
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <div className="modal" style={{ maxWidth: 600 }}>
-        <div className="modal-header">
-          <h2>Issue New Security</h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
+      <div className="modal">
+        <div className="modal-card" style={{ maxWidth: 600 }}>
+          <div className="modal-header">
+            <h2>{security ? "Edit Security" : "Issue New Security"}</h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
           <div className="form-row">
             <div>
               <label className="form-label">Shareholder Name *</label>
@@ -115,10 +149,11 @@ export function NewSecurityModal({ isOpen, onClose }: { isOpen: boolean; onClose
               Cancel
             </button>
             <button type="submit" disabled={isSubmitting} className="btn btn-primary">
-              {isSubmitting ? "Adding..." : "Add Security"}
+              {isSubmitting ? (security ? "Updating..." : "Adding...") : security ? "Update Security" : "Add Security"}
             </button>
           </div>
         </form>
+        </div>
       </div>
     </>
   );

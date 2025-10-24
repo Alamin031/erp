@@ -13,11 +13,13 @@ import { useToast } from "@/components/toast";
 export function NewTransactionModal({
   isOpen,
   onClose,
+  transaction,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  transaction?: any;
 }) {
-  const { createTransaction, shareholders, loadDemoData } = useTransactions();
+  const { createTransaction, shareholders, loadDemoData, updateTransaction } = useTransactions();
   const { showToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -46,13 +48,45 @@ export function NewTransactionModal({
     }
   }, [shareholders.length, loadDemoData]);
 
+  // if editing, prefill the form
+  useEffect(() => {
+    if (transaction) {
+      reset({
+        type: transaction.type,
+        securityType: transaction.securityType,
+        entity: transaction.entity,
+        quantity: transaction.quantity,
+        unitPrice: transaction.unitPrice,
+        date: transaction.date.split("T")[0],
+        status: transaction.status,
+        notes: transaction.notes || "",
+      });
+    } else {
+      reset({ type: "Issuance", securityType: "Common", status: "Draft" });
+    }
+  }, [transaction, reset]);
+
   if (!isOpen) return null;
 
   const onSubmit = async (data: NewTransactionInput) => {
     setIsSubmitting(true);
     try {
       await new Promise((r) => setTimeout(r, 200));
-      createTransaction({
+      if (transaction) {
+        updateTransaction(transaction.id, {
+          date: data.date,
+          type: data.type,
+          entity: data.entity,
+          securityType: data.securityType,
+          quantity: data.quantity,
+          unitPrice: data.unitPrice,
+          totalAmount: data.quantity * data.unitPrice,
+          status: data.status,
+          notes: data.notes,
+        });
+        showToast("Transaction updated successfully", "success");
+      } else {
+        createTransaction({
         date: data.date,
         type: data.type,
         entity: data.entity,
@@ -63,8 +97,9 @@ export function NewTransactionModal({
         status: data.status,
         notes: data.notes,
         documents: [],
-      });
-      showToast("Transaction created successfully", "success");
+        });
+        showToast("Transaction created successfully", "success");
+      }
       reset();
       onClose();
     } catch (e) {
@@ -80,14 +115,16 @@ export function NewTransactionModal({
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <div className="modal" style={{ maxWidth: 700 }}>
-        <div className="modal-header">
-          <h2>Record New Transaction</h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
+      {/* fixed centered wrapper; inner .modal-card holds the visual content */}
+      <div className="modal">
+        <div className="modal-card" style={{ maxWidth: 700 }}>
+          <div className="modal-header">
+            <h2>Record New Transaction</h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
           <div className="form-row">
             <div>
               <label className="form-label">Transaction Type *</label>
@@ -169,15 +206,12 @@ export function NewTransactionModal({
           </div>
 
           <div className="form-row">
-            <div className="bg-blue-50 border border-blue-200 rounded p-3">
-              <p className="text-xs text-blue-600 font-medium">
+            <div style={{ background: 'var(--background)', border: '1px solid var(--border)', borderRadius: 6, padding: 12 }}>
+              <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 600, margin: 0 }}>
                 Total Amount (Auto-Calculated)
               </p>
-              <p className="text-2xl font-bold text-blue-900">
-                $
-                {totalAmount.toLocaleString("en-US", {
-                  minimumFractionDigits: 2,
-                })}
+              <p style={{ fontSize: '20px', fontWeight: 700, color: 'var(--primary)', margin: '8px 0 0 0' }}>
+                ${totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </p>
             </div>
           </div>
@@ -230,7 +264,8 @@ export function NewTransactionModal({
               {isSubmitting ? "Creating..." : "Create Transaction"}
             </button>
           </div>
-        </form>
+          </form>
+        </div>
       </div>
     </>
   );

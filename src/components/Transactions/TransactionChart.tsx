@@ -20,7 +20,17 @@ export function TransactionChart() {
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
+        <div
+          style={{
+            background: "var(--card-bg)",
+            padding: 12,
+            border: "1px solid var(--border)",
+            borderRadius: 8,
+            boxShadow: "0 6px 18px rgba(0,0,0,0.4)",
+            color: "var(--foreground)",
+            minWidth: 120,
+          }}
+        >
           {payload.map((entry: any, index: number) => (
             <p key={index} style={{ color: entry.color }} className="text-sm">
               {entry.name}: {entry.value.toLocaleString()}
@@ -33,26 +43,32 @@ export function TransactionChart() {
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900">Transaction Analysis</h3>
+    <div
+      style={{ padding: 16, height: "100%", boxSizing: "border-box", background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 8 }}
+    >
+      <div className="flex items-center justify-between mb-4">
+        <h3 style={{ color: "var(--foreground)" }} className="text-lg font-semibold">
+          Transaction Analysis
+        </h3>
         <div className="flex gap-2">
           <button
             onClick={() => setActiveChart("byType")}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+            style={{ minWidth: 96, height: 36, padding: "6px 12px" }}
+            className={`rounded-lg text-sm font-medium transition ${
               activeChart === "byType"
                 ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                : "bg-transparent text-gray-300 hover:bg-gray-800"
             }`}
           >
             By Type
           </button>
           <button
             onClick={() => setActiveChart("monthly")}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+            style={{ minWidth: 110, height: 36, padding: "6px 12px" }}
+            className={`rounded-lg text-sm font-medium transition ${
               activeChart === "monthly"
                 ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                : "bg-transparent text-gray-300 hover:bg-gray-800"
             }`}
           >
             Monthly Trend
@@ -63,19 +79,21 @@ export function TransactionChart() {
       {activeChart === "byType" && (
         <>
           {transactionsByType.length === 0 ? (
-            <div className="flex items-center justify-center h-80">
-              <p className="text-gray-500">No transaction data available</p>
+            <div className="flex items-center justify-center h-full">
+              <p style={{ color: "var(--secondary)" }}>No transaction data available</p>
             </div>
           ) : (
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={transactionsByType}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="type" />
-                <YAxis />
-                <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="count" fill="#3b82f6" name="Transaction Count" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div style={{ height: "calc(100% - 48px)", width: "100%" }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={transactionsByType} margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                  <XAxis dataKey="type" stroke="var(--secondary)" />
+                  <YAxis stroke="var(--secondary)" />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Bar dataKey="count" fill="#3b82f6" name="Transaction Count" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           )}
         </>
       )}
@@ -83,47 +101,49 @@ export function TransactionChart() {
       {activeChart === "monthly" && (
         <>
           {monthlyData.length === 0 ? (
-            <div className="flex items-center justify-center h-80">
-              <p className="text-gray-500">No monthly data available</p>
+            <div className="flex items-center justify-center h-full">
+              <p style={{ color: "var(--secondary)" }}>No monthly data available</p>
             </div>
           ) : (
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={monthlyData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip content={<CustomTooltip />} />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="issuances"
-                  stroke="#10b981"
-                  name="Issuances"
-                  dot={{ fill: "#10b981" }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="exercises"
-                  stroke="#3b82f6"
-                  name="Exercises"
-                  dot={{ fill: "#3b82f6" }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="transfers"
-                  stroke="#f59e0b"
-                  name="Transfers"
-                  dot={{ fill: "#f59e0b" }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="cancellations"
-                  stroke="#ef4444"
-                  name="Cancellations"
-                  dot={{ fill: "#ef4444" }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <div style={{ height: "calc(100% - 48px)", width: "100%" }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={monthlyData} margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                  <XAxis dataKey="month" stroke="var(--secondary)" />
+                  <YAxis stroke="var(--secondary)" />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend formatter={(value) => <span style={{ color: "var(--secondary)" }}>{value}</span>} />
+                  <Line
+                    type="monotone"
+                    dataKey="issuances"
+                    stroke="#10b981"
+                    name="Issuances"
+                    dot={{ fill: "#10b981" }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="exercises"
+                    stroke="#3b82f6"
+                    name="Exercises"
+                    dot={{ fill: "#3b82f6" }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="transfers"
+                    stroke="#f59e0b"
+                    name="Transfers"
+                    dot={{ fill: "#f59e0b" }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="cancellations"
+                    stroke="#ef4444"
+                    name="Cancellations"
+                    dot={{ fill: "#ef4444" }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           )}
         </>
       )}

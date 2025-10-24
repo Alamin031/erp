@@ -30,14 +30,15 @@ export function TransactionActivityLog({ limit = 15 }: Props) {
             title: `${entry.action}: ${txn.type}`,
             description: `${txn.entity} - ${txn.quantity.toLocaleString()} shares - By ${entry.user}`,
             icon: entry.action === "Approved" ? "✓" : entry.action === "Rejected" ? "✕" : "◆",
+            // use CSS variable colors for dark theme
             color:
               entry.action === "Approved"
-                ? "text-green-600"
+                ? "var(--success)"
                 : entry.action === "Rejected"
-                  ? "text-red-600"
-                  : entry.action === "Executed"
-                    ? "text-blue-600"
-                    : "text-gray-600",
+                ? "var(--danger)"
+                : entry.action === "Executed"
+                ? "var(--primary)"
+                : "var(--secondary)",
           });
         });
       }
@@ -50,32 +51,34 @@ export function TransactionActivityLog({ limit = 15 }: Props) {
 
   if (activityItems.length === 0) {
     return (
-      <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
-        <Clock className="mx-auto text-gray-400 mb-3" size={32} />
-        <p className="text-gray-500">No recent activity</p>
+      <div style={{ padding: 16, boxSizing: "border-box", background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 8 }} className="text-center">
+        <Clock size={32} style={{ color: "var(--secondary)", margin: "0 auto 12px" }} />
+        <p style={{ color: "var(--secondary)" }}>No recent activity</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
-      <div className="space-y-4">
-        {activityItems.map((item, idx) => (
-          <div key={item.id} className="relative flex gap-4">
-            <div className="flex flex-col items-center">
-              <div className={`w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center text-sm font-bold ${item.color}`}>
-                {item.icon}
+    <div style={{ padding: 16, boxSizing: "border-box", background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 8, height: "100%", display: "flex", flexDirection: "column" }}>
+      <h3 style={{ color: "var(--foreground)", marginBottom: 12, fontSize: 18, fontWeight: 600 }}>Recent Activity</h3>
+      <div style={{ overflowY: "auto", flex: 1 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {activityItems.map((item, idx) => (
+            <div key={item.id} style={{ position: "relative", display: "flex", gap: 16 }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <div style={{ width: 32, height: 32, borderRadius: 9999, border: "2px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: item.color }}>
+                  {item.icon}
+                </div>
+                {idx < activityItems.length - 1 && <div style={{ width: 2, height: 48, background: "var(--border)", marginTop: 8, opacity: 0.7 }} />}
               </div>
-              {idx < activityItems.length - 1 && <div className="w-0.5 h-12 bg-gray-200 mt-2" />}
+              <div style={{ flex: 1, paddingBottom: 8 }}>
+                <p style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)", margin: 0 }}>{item.title}</p>
+                <p style={{ fontSize: 12, color: "var(--secondary)", marginTop: 6 }}>{item.description}</p>
+                <p style={{ fontSize: 12, color: "var(--secondary)", marginTop: 6 }}>{new Date(item.timestamp).toLocaleString()}</p>
+              </div>
             </div>
-            <div className="flex-1 pb-2">
-              <p className="text-sm font-semibold text-gray-900">{item.title}</p>
-              <p className="text-xs text-gray-600 mt-1">{item.description}</p>
-              <p className="text-xs text-gray-500 mt-1">{new Date(item.timestamp).toLocaleString()}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

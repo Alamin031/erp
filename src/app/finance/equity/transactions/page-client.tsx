@@ -25,6 +25,8 @@ export function TransactionsPageClient() {
   } = useTransactions();
 
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
+  const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState(false);
+  const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
   const [isDetailsDrawerOpen, setIsDetailsDrawerOpen] = useState(false);
 
   const filteredTransactions = filterTransactions();
@@ -45,8 +47,15 @@ export function TransactionsPageClient() {
   );
 
   const handleEditTransaction = useCallback((id: string) => {
-    alert(`Edit functionality for transaction ${id}`);
-  }, []);
+    const tx = transactions.find((t) => t.id === id) || null;
+    if (tx) {
+      // Close the details drawer before opening the edit modal to avoid overlapping UI
+      setIsDetailsDrawerOpen(false);
+      setSelectedTransactionId(undefined);
+      setEditingTransaction(tx);
+      setIsEditTransactionModalOpen(true);
+    }
+  }, [transactions]);
 
   const handleDeleteTransaction = useCallback(() => {
     setIsDetailsDrawerOpen(false);
@@ -187,17 +196,29 @@ export function TransactionsPageClient() {
       </div>
 
       {/* Charts and Activity */}
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "24px", marginTop: "24px" }}>
-        <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "24px" }}>
-          <TransactionChart />
-        </div>
-        <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "24px" }}>
-          <TransactionActivityLog />
-        </div>
-      </div>
+          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "24px", marginTop: "24px", alignItems: "stretch" }}>
+            <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "16px", boxSizing: "border-box", minHeight: "360px", overflow: "hidden" }}>
+              <TransactionChart />
+            </div>
+            <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "16px", boxSizing: "border-box", minHeight: "360px", overflowY: "auto" }}>
+              <TransactionActivityLog />
+            </div>
+          </div>
 
       {/* Modals and Drawers */}
-      <NewTransactionModal isOpen={isNewTransactionModalOpen} onClose={() => setIsNewTransactionModalOpen(false)} />
+      <NewTransactionModal
+        isOpen={isNewTransactionModalOpen}
+        onClose={() => setIsNewTransactionModalOpen(false)}
+      />
+
+      <NewTransactionModal
+        isOpen={isEditTransactionModalOpen}
+        onClose={() => {
+          setIsEditTransactionModalOpen(false);
+          setEditingTransaction(null);
+        }}
+        transaction={editingTransaction}
+      />
 
       <TransactionDetailsDrawer
         transaction={selectedTransaction}
