@@ -112,12 +112,13 @@ export function EditEquityModal({
       />
       <motion.div
         className="modal"
-        style={{ zIndex: 1001, maxHeight: "90vh", overflowY: "auto" }}
+        style={{ zIndex: 1001 }}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
       >
-        <div className="modal-header">
+        <div className="modal-card" style={{ maxHeight: "90vh", overflowY: "auto" }}>
+          <div className="modal-header">
           <h2>Edit Equity Class: {formData.name}</h2>
           <button
             className="modal-close"
@@ -286,6 +287,7 @@ export function EditEquityModal({
               Save Changes
             </button>
           </div>
+        </div>
         </div>
       </motion.div>
     </>
