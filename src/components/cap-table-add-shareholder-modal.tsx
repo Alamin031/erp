@@ -133,7 +133,7 @@ export function AddShareholderModal({
           </div>
 
           <div className="modal-form">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
             <div className="form-group">
               <label className="form-label">Full Name *</label>
               <input
