@@ -56,7 +56,7 @@ export function ContactsPageClient() {
           <TagsFilter />
           <ContactStatsCards total={stats.total} customers={stats.customers} prospects={stats.prospects} activeThisMonth={stats.activeThisMonth} />
 
-          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 24 }}>
+          <div className="responsive-grid-2-1">
             <div>
               <ContactsTable
                 contacts={filtered}
