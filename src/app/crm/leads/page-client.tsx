@@ -148,7 +148,7 @@ export function LeadsPageClient() {
             onChangeStage={(id, stage) => changeStage(id, stage)}
           />
 
-          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 24 }}>
+          <div className="responsive-grid-2-1">
             <div>
               <LeadsTable
                 leads={filteredLeads}

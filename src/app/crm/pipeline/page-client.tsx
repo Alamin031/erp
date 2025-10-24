@@ -44,7 +44,7 @@ export function PipelinePageClient() {
 
           <PipelineStatsCards total={totals.total} pipelineValue={totals.totalValue} winRate={totals.winRate} avgDealSize={totals.avgDealSize} />
 
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 24, marginTop: 12 }}>
+          <div className="responsive-grid-2-1" style={{ marginTop: 12 }}>
             <div>
               <PipelineBoard byStage={byStage} onMove={(id,stage)=>{ moveOpportunity(id,stage); showToast('Opportunity moved','success'); }} />
             </div>

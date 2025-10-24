@@ -445,6 +445,7 @@ body {
 .dashboard-container {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 16px;
 }
 
 .dashboard-header-content {
@@ -891,18 +892,17 @@ body {
 }
 
 .modal {
-  /* wrapper: fixed and centered in the viewport. Keep transform here so it's not
-     overwritten by framer-motion (which applies inline transform on animated elements). */
+  /* wrapper: fixed and centered in the viewport */
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 1001;
-  /* allow the inner card to size itself; using flex keeps it centered if needed */
+  /* allow the inner card to size itself; using flex keeps it centered */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   pointer-events: none; /* clicks should fall through to overlay except for the card */
 }
 
@@ -1495,5 +1495,44 @@ html.dark .status-badge[data-status="overdue"] {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
+  }
+
+  .responsive-grid-2-1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-container {
+    padding: 0 8px;
+  }
+}
+
+.responsive-grid-2-1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .responsive-grid-2-1 {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dashboard-section {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .responsive-grid-2-1 {
+    gap: 12px;
+  }
+
+  .dashboard-section {
+    padding: 12px;
+  }
+
+  .dashboard-container {
+    padding: 0 8px;
   }
 }
