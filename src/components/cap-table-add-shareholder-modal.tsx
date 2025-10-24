@@ -111,28 +111,29 @@ export function AddShareholderModal({
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
       >
-        <div className="modal-header">
-          <h2>{shareholder ? "Edit Shareholder" : "Add New Shareholder"}</h2>
-          <button
-            className="modal-close"
-            onClick={onClose}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "4px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--secondary)",
-            }}
-          >
-            <X size={20} />
-          </button>
-        </div>
+        <div className="modal-card">
+          <div className="modal-header">
+            <h2>{shareholder ? "Edit Shareholder" : "Add New Shareholder"}</h2>
+            <button
+              className="modal-close"
+              onClick={onClose}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "4px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--secondary)",
+              }}
+            >
+              <X size={20} />
+            </button>
+          </div>
 
-        <div className="modal-form">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+          <div className="modal-form">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
             <div className="form-group">
               <label className="form-label">Full Name *</label>
               <input
@@ -143,10 +144,10 @@ export function AddShareholderModal({
                 placeholder="e.g., John Smith"
               />
               {errors.name && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.name}</span>}
-            </div>
+              </div>
 
-            <div className="form-group">
-              <label className="form-label">Email</label>
+              <div className="form-group">
+                <label className="form-label">Email</label>
               <input
                 type="email"
                 className="form-input"
@@ -223,6 +224,7 @@ export function AddShareholderModal({
               {shareholder ? "Update Shareholder" : "Add Shareholder"}
             </button>
           </div>
+        </div>
         </div>
       </motion.div>
     </>

@@ -112,33 +112,34 @@ export function EditEquityModal({
       />
       <motion.div
         className="modal"
-        style={{ zIndex: 1001, maxHeight: "90vh", overflowY: "auto" }}
+        style={{ zIndex: 1001 }}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
       >
-        <div className="modal-header">
-          <h2>Edit Equity Class: {formData.name}</h2>
-          <button
-            className="modal-close"
-            onClick={onClose}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "4px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--secondary)",
-            }}
-          >
-            <X size={20} />
-          </button>
-        </div>
+        <div className="modal-card" style={{ maxHeight: "90vh", overflowY: "auto" }}>
+          <div className="modal-header">
+            <h2>Edit Equity Class: {formData.name}</h2>
+            <button
+              className="modal-close"
+              onClick={onClose}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "4px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--secondary)",
+              }}
+            >
+              <X size={20} />
+            </button>
+          </div>
 
-        <div className="modal-form">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+          <div className="modal-form">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
             <div className="form-group">
               <label className="form-label">Equity Class Name</label>
               <input
@@ -241,10 +242,10 @@ export function EditEquityModal({
                 rows={3}
                 style={{ resize: "vertical", fontFamily: "inherit" }}
               />
+              </div>
             </div>
-          </div>
 
-          <div style={{ background: "var(--background)", padding: "16px", borderRadius: "8px", marginBottom: "24px", border: "1px solid var(--border)" }}>
+            <div style={{ background: "var(--background)", padding: "16px", borderRadius: "8px", marginBottom: "24px", border: "1px solid var(--border)" }}>
             <h4 style={{ margin: "0 0 16px 0", fontSize: "13px", fontWeight: "600", color: "var(--foreground)" }}>
               Auto-Calculated Totals
             </h4>
@@ -268,23 +269,24 @@ export function EditEquityModal({
                 </div>
               </div>
             </div>
-          </div>
+            </div>
 
-          <div className="modal-actions">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleSave}
-            >
-              Save Changes
-            </button>
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={onClose}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleSave}
+              >
+                Save Changes
+              </button>
+            </div>
           </div>
         </div>
       </motion.div>
