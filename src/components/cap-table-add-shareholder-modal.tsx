@@ -144,10 +144,10 @@ export function AddShareholderModal({
                 placeholder="e.g., John Smith"
               />
               {errors.name && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.name}</span>}
-            </div>
+              </div>
 
-            <div className="form-group">
-              <label className="form-label">Email</label>
+              <div className="form-group">
+                <label className="form-label">Email</label>
               <input
                 type="email"
                 className="form-input"
