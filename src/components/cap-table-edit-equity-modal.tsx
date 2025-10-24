@@ -242,10 +242,10 @@ export function EditEquityModal({
                 rows={3}
                 style={{ resize: "vertical", fontFamily: "inherit" }}
               />
+              </div>
             </div>
-          </div>
 
-          <div style={{ background: "var(--background)", padding: "16px", borderRadius: "8px", marginBottom: "24px", border: "1px solid var(--border)" }}>
+            <div style={{ background: "var(--background)", padding: "16px", borderRadius: "8px", marginBottom: "24px", border: "1px solid var(--border)" }}>
             <h4 style={{ margin: "0 0 16px 0", fontSize: "13px", fontWeight: "600", color: "var(--foreground)" }}>
               Auto-Calculated Totals
             </h4>
