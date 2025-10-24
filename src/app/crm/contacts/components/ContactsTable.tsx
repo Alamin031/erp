@@ -7,19 +7,19 @@ export function ContactsTable({ contacts, onView, onEdit, onDelete }: Props) {
   if (!contacts || contacts.length === 0) return <div style={{ color: "var(--secondary)" }}>No contacts found.</div>;
 
   return (
-    <div style={{ overflowX: "auto", borderRadius: 8, border: "1px solid var(--border)", background: "var(--card-bg)" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+    <div style={{ width: "100%", overflowX: "auto", borderRadius: 8, border: "1px solid var(--border)", background: "var(--card-bg)" }}>
+      <table style={{ width: "100%", minWidth: 900, borderCollapse: "collapse" }}>
         <thead>
           <tr style={{ textAlign: "left", background: "var(--background)", borderBottom: "1px solid var(--border)" }}>
-            <th style={{ padding: 12 }}>Name</th>
-            <th style={{ padding: 12 }}>Company</th>
-            <th style={{ padding: 12 }}>Email</th>
-            <th style={{ padding: 12 }}>Phone</th>
-            <th style={{ padding: 12 }}>Type</th>
-            <th style={{ padding: 12 }}>Tags</th>
-            <th style={{ padding: 12 }}>Country</th>
-            <th style={{ padding: 12 }}>Last Activity</th>
-            <th style={{ padding: 12 }}>Actions</th>
+            <th style={{ padding: 12, whiteSpace: "nowrap" }}>Name</th>
+            <th style={{ padding: 12, whiteSpace: "nowrap" }}>Company</th>
+            <th style={{ padding: 12, whiteSpace: "nowrap" }}>Email</th>
+            <th style={{ padding: 12, whiteSpace: "nowrap" }}>Phone</th>
+            <th style={{ padding: 12, whiteSpace: "nowrap" }}>Type</th>
+            <th style={{ padding: 12, whiteSpace: "nowrap" }}>Tags</th>
+            <th style={{ padding: 12, whiteSpace: "nowrap" }}>Country</th>
+            <th style={{ padding: 12, whiteSpace: "nowrap" }}>Last Activity</th>
+            <th style={{ padding: 12, whiteSpace: "nowrap" }}>Actions</th>
           </tr>
         </thead>
         <tbody>

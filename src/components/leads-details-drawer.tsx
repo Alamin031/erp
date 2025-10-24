@@ -36,21 +36,17 @@ export function LeadDetailsDrawer({
 
   return (
     <>
-      <div
-        className="slide-over-overlay"
-        onClick={onClose}
-        style={{ zIndex: 1000 }}
-      />
+      <div className="slide-over-overlay" onClick={onClose} />
       <motion.div
         className="slide-over"
-        style={{ zIndex: 1001 }}
         initial={{ x: "100%" }}
         animate={{ x: 0 }}
-        exit={{ x: "100%" }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        transition={{ type: "tween", duration: 0.3 }}
       >
         <div className="slide-over-header">
-          <h2>{lead.name}</h2>
+          <h2 style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 8 }}>
+            {lead.name}
+          </h2>
           <button className="slide-over-close" onClick={onClose}>
             <X size={20} />
           </button>
@@ -65,11 +61,19 @@ export function LeadDetailsDrawer({
             </div>
             <div className="detail-item">
               <span className="detail-label">Email</span>
-              <span className="detail-value">{lead.email}</span>
+              <span className="detail-value" style={{ wordBreak: 'break-word' }}>
+                <a href={`mailto:${lead.email}`} style={{ color: 'var(--primary)', textDecoration: 'none' }}>
+                  {lead.email}
+                </a>
+              </span>
             </div>
             <div className="detail-item">
               <span className="detail-label">Phone</span>
-              <span className="detail-value">{lead.phone}</span>
+              <span className="detail-value">
+                <a href={`tel:${lead.phone}`} style={{ color: 'var(--primary)', textDecoration: 'none' }}>
+                  {lead.phone}
+                </a>
+              </span>
             </div>
           </div>
 
@@ -154,7 +158,6 @@ export function LeadDetailsDrawer({
             className="btn btn-primary"
             onClick={() => {
               onEdit?.(lead);
-              onClose();
             }}
             style={{ width: "100%" }}
           >
@@ -176,8 +179,10 @@ export function LeadDetailsDrawer({
                 <button
                   className="btn btn-secondary"
                   onClick={() => {
-                    onMarkConverted?.(lead.id);
-                    onClose();
+                    if(confirm(`Mark ${lead.name} as converted?`)) {
+                      onMarkConverted?.(lead.id);
+                      onClose();
+                    }
                   }}
                   style={{ width: "100%", borderColor: "#059669", color: "#059669" }}
                 >
@@ -187,8 +192,10 @@ export function LeadDetailsDrawer({
               <button
                 className="btn btn-secondary"
                 onClick={() => {
-                  onMarkLost?.(lead.id);
-                  onClose();
+                  if(confirm(`Mark ${lead.name} as lost?`)) {
+                    onMarkLost?.(lead.id);
+                    onClose();
+                  }
                 }}
                 style={{ width: "100%", borderColor: "#dc3545", color: "#dc3545" }}
               >

@@ -30,72 +30,74 @@ export function NewOpportunityModal({ isOpen, onClose, onSave }: Props) {
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <motion.div className="modal" initial={{ opacity:0, scale:0.98 }} animate={{ opacity:1, scale:1 }}>
-        <div className="modal-header">
-          <h2>Create Opportunity</h2>
-          <button className="modal-close" onClick={onClose}><X size={20} /></button>
-        </div>
-        <div className="modal-form">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap:12 }}>
-            <div>
-              <label className="form-label">Opportunity Name</label>
-              <input className="form-input" value={form.name} onChange={(e)=>setForm({...form, name: e.target.value})} />
+      <div className="modal">
+        <motion.div className="modal-card" initial={{ opacity:0, scale:0.98 }} animate={{ opacity:1, scale:1 }}>
+          <div className="modal-header">
+            <h2>Create Opportunity</h2>
+            <button className="modal-close" onClick={onClose}><X size={20} /></button>
+          </div>
+          <div className="modal-form">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap:12 }}>
+              <div>
+                <label className="form-label">Opportunity Name</label>
+                <input className="form-input" value={form.name} onChange={(e)=>setForm({...form, name: e.target.value})} placeholder="Enter opportunity name" />
+              </div>
+              <div>
+                <label className="form-label">Company</label>
+                <select className="form-input" value={form.companyId} onChange={(e)=>setForm({...form, companyId: e.target.value})}>
+                  <option value="">Select company</option>
+                  {companies.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="form-label">Contact</label>
+                <select className="form-input" value={form.contactId} onChange={(e)=>setForm({...form, contactId: e.target.value})}>
+                  <option value="">Select contact</option>
+                  {contacts.map(c=><option key={c.id} value={c.id}>{c.fullName || (c.firstName + ' ' + c.lastName)}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="form-label">Stage</label>
+                <select className="form-input" value={form.stage} onChange={(e)=>setForm({...form, stage: e.target.value})}>
+                  <option>Prospecting</option>
+                  <option>Qualification</option>
+                  <option>Proposal</option>
+                  <option>Negotiation</option>
+                  <option>Closed Won</option>
+                  <option>Closed Lost</option>
+                </select>
+              </div>
+              <div>
+                <label className="form-label">Source</label>
+                <input className="form-input" value={form.source} onChange={(e)=>setForm({...form, source: e.target.value})} placeholder="e.g., Website, Referral" />
+              </div>
+              <div>
+                <label className="form-label">Owner</label>
+                <input className="form-input" value={form.ownerId} onChange={(e)=>setForm({...form, ownerId: e.target.value, ownerName: e.target.value})} placeholder="Owner ID or name (demo)" />
+              </div>
+              <div>
+                <label className="form-label">Expected Close Date</label>
+                <input type="date" className="form-input" value={form.expectedCloseDate} onChange={(e)=>setForm({...form, expectedCloseDate: e.target.value})} />
+              </div>
+              <div>
+                <label className="form-label">Value</label>
+                <input type="number" className="form-input" value={form.value} onChange={(e)=>setForm({...form, value: Number(e.target.value)})} placeholder="0" min="0" />
+              </div>
+              <div style={{ gridColumn: '1 / -1' }}>
+                <label className="form-label">Description</label>
+                <textarea className="form-input" rows={3} value={form.description} onChange={(e)=>setForm({...form, description: e.target.value})} placeholder="Enter opportunity description..." />
+              </div>
             </div>
-            <div>
-              <label className="form-label">Company</label>
-              <select className="form-input" value={form.companyId} onChange={(e)=>setForm({...form, companyId: e.target.value})}>
-                <option value="">Select company</option>
-                {companies.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="form-label">Contact</label>
-              <select className="form-input" value={form.contactId} onChange={(e)=>setForm({...form, contactId: e.target.value})}>
-                <option value="">Select contact</option>
-                {contacts.map(c=><option key={c.id} value={c.id}>{c.fullName || (c.firstName + ' ' + c.lastName)}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="form-label">Stage</label>
-              <select className="form-input" value={form.stage} onChange={(e)=>setForm({...form, stage: e.target.value})}>
-                <option>Prospecting</option>
-                <option>Qualification</option>
-                <option>Proposal</option>
-                <option>Negotiation</option>
-                <option>Closed Won</option>
-                <option>Closed Lost</option>
-              </select>
-            </div>
-            <div>
-              <label className="form-label">Source</label>
-              <input className="form-input" value={form.source} onChange={(e)=>setForm({...form, source: e.target.value})} />
-            </div>
-            <div>
-              <label className="form-label">Owner</label>
-              <input className="form-input" value={form.ownerId} onChange={(e)=>setForm({...form, ownerId: e.target.value, ownerName: e.target.value})} placeholder="Owner ID or name (demo)" />
-            </div>
-            <div>
-              <label className="form-label">Expected Close Date</label>
-              <input type="date" className="form-input" value={form.expectedCloseDate} onChange={(e)=>setForm({...form, expectedCloseDate: e.target.value})} />
-            </div>
-            <div>
-              <label className="form-label">Value</label>
-              <input type="number" className="form-input" value={form.value} onChange={(e)=>setForm({...form, value: Number(e.target.value)})} />
-            </div>
-            <div style={{ gridColumn: '1 / -1' }}>
-              <label className="form-label">Description</label>
-              <textarea className="form-input" rows={3} value={form.description} onChange={(e)=>setForm({...form, description: e.target.value})} />
+
+            {error && <div style={{ color: '#dc3545', marginTop: 8 }}>{error}</div>}
+
+            <div className="modal-actions">
+              <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
+              <button className="btn btn-primary" onClick={handleSave}>Create</button>
             </div>
           </div>
-
-          {error && <div style={{ color: '#dc3545' }}>{error}</div>}
-
-          <div className="modal-actions">
-            <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
-            <button className="btn btn-primary" onClick={handleSave}>Create</button>
-          </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </>
   );
 }

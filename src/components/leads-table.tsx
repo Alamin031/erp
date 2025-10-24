@@ -139,8 +139,8 @@ export function LeadsTable({
   }
 
   return (
-    <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "8px", overflow: "hidden" }}>
-      <div style={{ padding: "16px", borderBottom: "1px solid var(--border)", display: "flex", gap: "8px" }}>
+    <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "8px", overflow: "hidden", width: "100%" }}>
+      <div style={{ padding: "16px", borderBottom: "1px solid var(--border)", display: "flex", gap: "8px", flexWrap: "wrap" }}>
         <button
           onClick={handleExportCSV}
           style={{
@@ -162,8 +162,8 @@ export function LeadsTable({
         </button>
       </div>
 
-      <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+      <div style={{ width: "100%", overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: "1000px", borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)", background: "var(--background)" }}>
               <th

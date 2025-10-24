@@ -79,24 +79,26 @@ export function PipelineStageBoard({
         borderRadius: "8px",
         padding: "24px",
         marginBottom: "32px",
-        overflowX: "auto",
+        width: "100%",
       }}
     >
       <h3 style={{ margin: "0 0 24px 0", fontSize: "16px", fontWeight: "600", color: "var(--foreground)" }}>
         Sales Pipeline
       </h3>
 
-      <motion.div
-        style={{
-          display: "grid",
-          gridAutoFlow: "column",
-          gridAutoColumns: "minmax(300px, 1fr)",
-          gap: "16px",
-        }}
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-      >
+      <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden' }}>
+        <motion.div
+          style={{
+            display: "grid",
+            gridAutoFlow: "column",
+            gridAutoColumns: "minmax(280px, 1fr)",
+            gap: "16px",
+            minWidth: "min-content",
+          }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+        >
         {stages.map((stage) => {
           const config = stageConfig[stage];
           const stageLeads = leadsByStage[stage] || [];
@@ -247,7 +249,8 @@ export function PipelineStageBoard({
             </motion.div>
           );
         })}
-      </motion.div>
+        </motion.div>
+      </div>
     </motion.div>
   );
 }

@@ -29,7 +29,7 @@ export function ContactsPageClient() {
   const filtered = getFilteredContacts();
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container" style={{ overflow: "hidden" }}>
       <div className="dashboard-header-content">
         <div className="page-header">
           <div>
@@ -46,18 +46,18 @@ export function ContactsPageClient() {
 
       <div className="dashboard-grid">
         <div className="dashboard-section" role="alert" aria-live="polite">
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
             <AlertCircle size={18} color="#f59e0b" />
             <span style={{ color: "var(--secondary)" }}>⚙️ Contacts management is under development.</span>
           </div>
         </div>
 
-        <div className="dashboard-section">
+        <div className="dashboard-section" style={{ overflow: "hidden" }}>
           <TagsFilter />
           <ContactStatsCards total={stats.total} customers={stats.customers} prospects={stats.prospects} activeThisMonth={stats.activeThisMonth} />
 
           <div className="responsive-grid-2-1">
-            <div>
+            <div style={{ minWidth: 0, overflow: "hidden" }}>
               <ContactsTable
                 contacts={filtered}
                 onView={(c) => setSelected(c)}
@@ -65,7 +65,7 @@ export function ContactsPageClient() {
                 onDelete={(id) => { removeContact(id); showToast("Contact deleted", "success"); }}
               />
             </div>
-            <div>
+            <div style={{ minWidth: 0 }}>
               <div className="dashboard-section" style={{ marginBottom: 16 }}>
                 <h3 className="section-title">Segment Analytics</h3>
                 <SegmentAnalyticsChart contacts={filtered} />

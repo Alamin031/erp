@@ -12,35 +12,46 @@ export function OpportunityDetailsDrawer({ isOpen, opportunity, onClose, onEdit,
   return (
     <>
       <div className="slide-over-overlay" onClick={onClose} />
-      <motion.div className="slide-over" initial={{ x: '100%' }} animate={{ x: 0 }}>
+      <motion.div className="slide-over" initial={{ x: '100%' }} animate={{ x: 0 }} transition={{ type: 'tween', duration: 0.3 }}>
         <div className="slide-over-header">
-          <h2>{opportunity.name}</h2>
+          <h2 style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 8 }}>{opportunity.name}</h2>
           <button className="slide-over-close" onClick={onClose}><X size={20} /></button>
         </div>
         <div className="slide-over-content">
           <div className="details-section">
             <h3 className="details-title">Key Info</h3>
+            <div className="detail-item"><span className="detail-label">Stage</span><span className="detail-value">{opportunity.stage}</span></div>
             <div className="detail-item"><span className="detail-label">Value</span><span className="detail-value">${opportunity.value.toLocaleString()}</span></div>
+            <div className="detail-item"><span className="detail-label">Status</span><span className="detail-value">{opportunity.status || 'In Progress'}</span></div>
             <div className="detail-item"><span className="detail-label">Owner</span><span className="detail-value">{opportunity.ownerName||'-'}</span></div>
             <div className="detail-item"><span className="detail-label">Expected Close</span><span className="detail-value">{opportunity.expectedCloseDate?new Date(opportunity.expectedCloseDate).toLocaleDateString():'-'}</span></div>
-            <div className="detail-item"><span className="detail-label">Probability</span><span className="detail-value">{opportunity.probability||'-'}%</span></div>
+            {opportunity.probability && <div className="detail-item"><span className="detail-label">Probability</span><span className="detail-value">{opportunity.probability}%</span></div>}
           </div>
 
           <div className="details-section">
             <h3 className="details-title">Related</h3>
             <div className="detail-item"><span className="detail-label">Company</span><span className="detail-value">{opportunity.companyName||'-'}</span></div>
             <div className="detail-item"><span className="detail-label">Contact</span><span className="detail-value">{opportunity.contactName||'-'}</span></div>
+            {opportunity.source && <div className="detail-item"><span className="detail-label">Source</span><span className="detail-value">{opportunity.source}</span></div>}
           </div>
 
           <div className="details-section">
             <h3 className="details-title">Description</h3>
-            <div className="details-notes">{opportunity.description||'No description'}</div>
+            <div className="details-notes">{opportunity.description||'No description provided.'}</div>
           </div>
+
+          {opportunity.createdAt && (
+            <div className="details-section">
+              <h3 className="details-title">Timeline</h3>
+              <div className="detail-item"><span className="detail-label">Created</span><span className="detail-value">{new Date(opportunity.createdAt).toLocaleDateString()}</span></div>
+              {opportunity.updatedAt && <div className="detail-item"><span className="detail-label">Last Updated</span><span className="detail-value">{new Date(opportunity.updatedAt).toLocaleDateString()}</span></div>}
+            </div>
+          )}
         </div>
 
         <div className="slide-over-actions">
-          <button className="btn btn-primary" onClick={()=>{ onEdit?.(opportunity); onClose(); }}><Edit2 size={16} /> Edit</button>
-          <button className="btn btn-secondary" onClick={()=>{ onDelete?.(opportunity.id); onClose(); }} style={{ borderColor:'#dc3545', color:'#dc3545' }}><Trash2 size={16} /> Delete</button>
+          <button className="btn btn-primary" onClick={()=>{ onEdit?.(opportunity); }}><Edit2 size={16} style={{ marginRight: 6 }} /> Edit</button>
+          <button className="btn btn-secondary" onClick={()=>{ if(confirm('Are you sure you want to delete this opportunity?')) { onDelete?.(opportunity.id); onClose(); } }} style={{ borderColor:'#dc3545', color:'#dc3545' }}><Trash2 size={16} style={{ marginRight: 6 }} /> Delete</button>
         </div>
       </motion.div>
     </>

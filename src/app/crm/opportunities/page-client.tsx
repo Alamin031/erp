@@ -41,7 +41,7 @@ export function OpportunitiesPageClient() {
   const filtered = getFiltered();
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container" style={{ overflow: "hidden" }}>
       <div className="dashboard-header-content">
         <div className="page-header">
           <div>
@@ -60,7 +60,7 @@ export function OpportunitiesPageClient() {
 
       <div className="dashboard-grid">
         <div className="dashboard-section" role="alert" aria-live="polite">
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
             <AlertCircle size={18} color="#2563eb" />
             <span style={{ color: "var(--secondary)" }}>
               💼 Opportunities management is under development.
@@ -68,7 +68,7 @@ export function OpportunitiesPageClient() {
           </div>
         </div>
 
-        <div className="dashboard-section">
+        <div className="dashboard-section" style={{ overflow: "hidden" }}>
           <OpportunityStatsCards
             total={stats.total}
             won={stats.won}
@@ -77,7 +77,7 @@ export function OpportunitiesPageClient() {
           />
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 12 }}>
-            <div>
+            <div style={{ width: "100%", overflow: "hidden" }}>
               <PipelineView
                 byStage={byStage}
                 onMove={(id, stage) => {
@@ -89,7 +89,7 @@ export function OpportunitiesPageClient() {
             </div>
 
             <div className="responsive-grid-2-1">
-              <div>
+              <div style={{ minWidth: 0, overflow: "hidden" }}>
                 <OpportunitiesTable
                   opportunities={filtered}
                   onView={(o) => setSelected(o)}
@@ -100,7 +100,7 @@ export function OpportunitiesPageClient() {
                   }}
                 />
               </div>
-              <div>
+              <div style={{ minWidth: 0 }}>
                 <div className="dashboard-section" style={{ marginBottom: 16 }}>
                   <h3 className="section-title">Analytics</h3>
                   <AnalyticsChart opportunities={filtered} />

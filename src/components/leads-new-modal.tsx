@@ -106,35 +106,22 @@ export function NewLeadModal({
 
   return (
     <>
-      <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1000 }} />
-      <motion.div
-        className="modal"
-        style={{ zIndex: 1001, maxHeight: "90vh", overflowY: "auto" }}
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-      >
-        <div className="modal-header">
-          <h2>{lead ? "Edit Lead" : "Create New Lead"}</h2>
-          <button
-            className="modal-close"
-            onClick={onClose}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "4px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--secondary)",
-            }}
-          >
-            <X size={20} />
-          </button>
-        </div>
+      <div className="modal-overlay" onClick={onClose} />
+      <div className="modal">
+        <motion.div
+          className="modal-card"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+        >
+          <div className="modal-header">
+            <h2>{lead ? "Edit Lead" : "Create New Lead"}</h2>
+            <button className="modal-close" onClick={onClose}>
+              <X size={20} />
+            </button>
+          </div>
 
-        <div className="modal-form">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+          <div className="modal-form">
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "16px", marginBottom: "24px" }}>
             <div className="form-group">
               <label className="form-label">Lead Name *</label>
               <input
@@ -259,16 +246,17 @@ export function NewLeadModal({
             </div>
           </div>
 
-          <div className="modal-actions">
-            <button className="btn btn-secondary" onClick={onClose}>
-              Cancel
-            </button>
-            <button className="btn btn-primary" onClick={handleSave}>
-              {lead ? "Update Lead" : "Create Lead"}
-            </button>
+            <div className="modal-actions">
+              <button className="btn btn-secondary" onClick={onClose}>
+                Cancel
+              </button>
+              <button className="btn btn-primary" onClick={handleSave}>
+                {lead ? "Update Lead" : "Create Lead"}
+              </button>
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </>
   );
 }

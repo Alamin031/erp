@@ -105,7 +105,7 @@ export function LeadsPageClient() {
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container" style={{ overflow: "hidden" }}>
       <div className="dashboard-header-content">
         <div className="page-header">
           <div>
@@ -120,13 +120,13 @@ export function LeadsPageClient() {
 
       <div className="dashboard-grid">
         <div className="dashboard-section" role="alert" aria-live="polite">
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
             <AlertCircle size={18} color="#f59e0b" />
             <span style={{ color: "var(--secondary)" }}>⚙️ Leads management is under development.</span>
           </div>
         </div>
 
-        <div className="dashboard-section">
+        <div className="dashboard-section" style={{ overflow: "hidden" }}>
           <div className="filters-section">
             <LeadsSearchBar />
             <LeadsFiltersBar />
@@ -141,15 +141,17 @@ export function LeadsPageClient() {
             totalValue={stats.totalValue}
           />
 
-          <PipelineStageBoard
-            leadsByStage={leadsByStage}
-            onEdit={handleEdit}
-            onViewDetails={handleView}
-            onChangeStage={(id, stage) => changeStage(id, stage)}
-          />
+          <div style={{ width: "100%", overflow: "hidden" }}>
+            <PipelineStageBoard
+              leadsByStage={leadsByStage}
+              onEdit={handleEdit}
+              onViewDetails={handleView}
+              onChangeStage={(id, stage) => changeStage(id, stage)}
+            />
+          </div>
 
           <div className="responsive-grid-2-1">
-            <div>
+            <div style={{ minWidth: 0, overflow: "hidden" }}>
               <LeadsTable
                 leads={filteredLeads}
                 onEdit={handleEdit}
@@ -161,7 +163,7 @@ export function LeadsPageClient() {
                 onMarkLost={handleMarkLost}
               />
             </div>
-            <div>
+            <div style={{ minWidth: 0 }}>
               <div className="dashboard-section" style={{ marginBottom: 24 }}>
                 <h3 className="section-title">Analytics</h3>
                 <LeadsAnalyticsChart leads={filteredLeads} />

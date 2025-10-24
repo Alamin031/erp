@@ -7,18 +7,18 @@ export function OpportunitiesTable({ opportunities, onView, onEdit, onDelete }: 
   if (!opportunities || opportunities.length === 0) return <div style={{ color: 'var(--secondary)' }}>No opportunities found.</div>;
 
   return (
-    <div style={{ overflowX: 'auto', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--card-bg)' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+    <div style={{ width: '100%', overflowX: 'auto', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--card-bg)' }}>
+      <table style={{ width: '100%', minWidth: 800, borderCollapse: 'collapse' }}>
         <thead>
           <tr style={{ textAlign: 'left', background: 'var(--background)', borderBottom: '1px solid var(--border)' }}>
-            <th style={{ padding: 12 }}>Opportunity</th>
-            <th style={{ padding: 12 }}>Company</th>
-            <th style={{ padding: 12 }}>Stage</th>
-            <th style={{ padding: 12 }}>Value</th>
-            <th style={{ padding: 12 }}>Owner</th>
-            <th style={{ padding: 12 }}>Close Date</th>
-            <th style={{ padding: 12 }}>Status</th>
-            <th style={{ padding: 12 }}>Actions</th>
+            <th style={{ padding: 12, whiteSpace: 'nowrap' }}>Opportunity</th>
+            <th style={{ padding: 12, whiteSpace: 'nowrap' }}>Company</th>
+            <th style={{ padding: 12, whiteSpace: 'nowrap' }}>Stage</th>
+            <th style={{ padding: 12, whiteSpace: 'nowrap' }}>Value</th>
+            <th style={{ padding: 12, whiteSpace: 'nowrap' }}>Owner</th>
+            <th style={{ padding: 12, whiteSpace: 'nowrap' }}>Close Date</th>
+            <th style={{ padding: 12, whiteSpace: 'nowrap' }}>Status</th>
+            <th style={{ padding: 12, whiteSpace: 'nowrap' }}>Actions</th>
           </tr>
         </thead>
         <tbody>
