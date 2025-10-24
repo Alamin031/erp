@@ -269,9 +269,9 @@ export function EditEquityModal({
                 </div>
               </div>
             </div>
-          </div>
+            </div>
 
-          <div className="modal-actions">
+            <div className="modal-actions">
             <button
               type="button"
               className="btn btn-secondary"
