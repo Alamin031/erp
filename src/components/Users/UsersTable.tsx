@@ -80,13 +80,13 @@ export function UsersTable({
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
       case "active":
-        return "bg-green-100 text-green-800";
+        return "bg-green-900/30 text-green-400 border border-green-500/30";
       case "disabled":
-        return "bg-red-100 text-red-800";
+        return "bg-red-900/30 text-red-400 border border-red-500/30";
       case "pending_invite":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-900/30 text-yellow-400 border border-yellow-500/30";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-900/30 text-gray-400 border border-gray-500/30";
     }
   };
 
@@ -220,8 +220,8 @@ export function UsersTable({
               </tr>
             ) : (
               pageItems.map((user) => (
-                <tr key={user.id}>
-                  <td>
+                <tr key={user.id} className="h-16">
+                  <td className="px-4 py-3">
                     <input
                       type="checkbox"
                       checked={selected.has(user.id)}
@@ -232,36 +232,37 @@ export function UsersTable({
                           return s;
                         })
                       }
+                      className="w-4 h-4"
                     />
                   </td>
-                  <td>
+                  <td className="px-4 py-3">
                     <img
                       src={user.avatar || "https://via.placeholder.com/32"}
                       alt={user.name}
-                      className="w-8 h-8 rounded-full"
+                      className="w-10 h-10 rounded-full"
                     />
                   </td>
-                  <td className="font-medium">{user.name}</td>
-                  <td className="text-sm text-secondary">{user.email}</td>
-                  <td className="text-sm">
+                  <td className="font-medium px-4 py-3 text-white">{user.name}</td>
+                  <td className="text-sm text-gray-300 px-4 py-3">{user.email}</td>
+                  <td className="text-sm px-4 py-3">
                     {user.roles.map((role) => (
                       <span
                         key={role}
-                        className="inline-block px-2 py-0.5 rounded text-xs mr-1 bg-blue-100 text-blue-800"
+                        className="inline-block px-3 py-1.5 rounded-md text-xs mr-1 bg-blue-900/40 text-blue-300 border border-blue-500/30 font-medium min-w-[100px] text-center"
                       >
                         {ROLE_LABELS[role]}
                       </span>
                     ))}
                   </td>
-                  <td className="text-xs text-secondary">
+                  <td className="text-sm text-gray-300 px-4 py-3">
                     {user.lastActive ? new Date(user.lastActive).toLocaleString() : "—"}
                   </td>
-                  <td>
-                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${getStatusBadgeColor(user.status)}`}>
+                  <td className="px-4 py-3">
+                    <span className={`inline-block px-3 py-1.5 rounded-md text-xs font-medium min-w-[80px] text-center ${getStatusBadgeColor(user.status)}`}>
                       {user.status.split("_").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
                     </span>
                   </td>
-                  <td>
+                  <td className="px-4 py-3">
                     <div className="table-actions text-sm">
                       <button className="action-btn" title="View" onClick={() => onView(user.id)}>
                         👁️

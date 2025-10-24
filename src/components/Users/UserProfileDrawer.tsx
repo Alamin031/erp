@@ -61,8 +61,8 @@ export function UserProfileDrawer({
               className="w-12 h-12 rounded-full"
             />
             <div>
-              <h2 className="slide-over-title">{user.name}</h2>
-              <p className="text-secondary text-sm">{user.email}</p>
+              <h2 className="text-xl font-semibold text-white">{user.name}</h2>
+              <p className="text-gray-400 text-sm">{user.email}</p>
             </div>
           </div>
           <button className="slide-over-close" onClick={onClose}>
@@ -70,27 +70,27 @@ export function UserProfileDrawer({
           </button>
         </div>
         <div className="slide-over-body">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div className="lg:col-span-2 flex flex-col gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-6">
               {/* Profile Details */}
               <div className="dashboard-section">
                 <h3 className="section-title">Profile Information</h3>
-                <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <div className="text-secondary">User ID</div>
-                    <div className="font-medium text-xs">{user.id}</div>
+                    <div className="text-gray-400 mb-1">User ID</div>
+                    <div className="font-medium text-white">{user.id}</div>
                   </div>
                   <div>
-                    <div className="text-secondary">Email</div>
-                    <div className="font-medium">{user.email}</div>
+                    <div className="text-gray-400 mb-1">Email</div>
+                    <div className="font-medium text-white">{user.email}</div>
                   </div>
                   <div>
-                    <div className="text-secondary">Phone</div>
-                    <div className="font-medium">{user.phone || "—"}</div>
+                    <div className="text-gray-400 mb-1">Phone</div>
+                    <div className="font-medium text-white">{user.phone || "—"}</div>
                   </div>
                   <div>
-                    <div className="text-secondary">Status</div>
-                    <div className="font-medium capitalize">{user.status.replace(/_/g, " ")}</div>
+                    <div className="text-gray-400 mb-1">Status</div>
+                    <div className="font-medium text-white capitalize">{user.status.replace(/_/g, " ")}</div>
                   </div>
                 </div>
               </div>
@@ -102,7 +102,7 @@ export function UserProfileDrawer({
                   {user.roles.map((role) => (
                     <span
                       key={role}
-                      className="px-3 py-1 rounded text-sm bg-blue-100 text-blue-800"
+                      className="px-3 py-1.5 rounded-md text-sm bg-blue-900/30 text-blue-300 border border-blue-500/30"
                     >
                       {ROLE_LABELS[role]}
                     </span>
@@ -118,7 +118,7 @@ export function UserProfileDrawer({
                     {userGroups.map((group) => (
                       <span
                         key={group.id}
-                        className="px-3 py-1 rounded text-sm bg-purple-100 text-purple-800"
+                        className="px-3 py-1.5 rounded-md text-sm bg-purple-900/30 text-purple-300 border border-purple-500/30"
                       >
                         {group.name}
                       </span>
@@ -130,26 +130,26 @@ export function UserProfileDrawer({
               {/* Session Info */}
               <div className="dashboard-section">
                 <h3 className="section-title">Session Information</h3>
-                <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <div className="text-secondary">Last Login</div>
-                    <div className="font-medium text-xs">
+                    <div className="text-gray-400 mb-1">Last Login</div>
+                    <div className="font-medium text-white">
                       {user.lastLogin ? new Date(user.lastLogin).toLocaleString() : "Never"}
                     </div>
                   </div>
                   <div>
-                    <div className="text-secondary">Active Sessions</div>
-                    <div className="font-medium">{user.activeSessions || 0}</div>
+                    <div className="text-gray-400 mb-1">Active Sessions</div>
+                    <div className="font-medium text-white">{user.activeSessions || 0}</div>
                   </div>
                   <div>
-                    <div className="text-secondary">Last Active</div>
-                    <div className="font-medium text-xs">
+                    <div className="text-gray-400 mb-1">Last Active</div>
+                    <div className="font-medium text-white">
                       {user.lastActive ? new Date(user.lastActive).toLocaleString() : "—"}
                     </div>
                   </div>
                   <div>
-                    <div className="text-secondary">MFA Status</div>
-                    <div className={`font-medium ${user.mfaEnabled ? "text-green-600" : "text-red-600"}`}>
+                    <div className="text-gray-400 mb-1">MFA Status</div>
+                    <div className={`font-medium ${user.mfaEnabled ? "text-green-400" : "text-red-400"}`}>
                       {user.mfaEnabled ? "Enabled" : "Disabled"}
                     </div>
                   </div>
@@ -159,22 +159,22 @@ export function UserProfileDrawer({
               {/* Activity Timeline */}
               <div className="dashboard-section">
                 <h3 className="section-title">Recent Activity</h3>
-                <div className="flex flex-col gap-2 max-h-48 overflow-y-auto text-sm">
+                <div className="flex flex-col gap-3 max-h-64 overflow-y-auto text-sm">
                   {userActivity.length === 0 ? (
-                    <div className="text-secondary">No activity yet</div>
+                    <div className="text-gray-400">No activity yet</div>
                   ) : (
                     userActivity.map((act) => (
                       <div
                         key={act.id}
-                        className="activity-item border-l-2 border-primary pl-3"
+                        className="border-l-2 border-primary pl-3 py-1"
                       >
-                        <div className="flex justify-between">
-                          <span className="font-medium">{act.action}</span>
-                          <span className="text-secondary text-xs">
+                        <div className="flex justify-between items-start">
+                          <span className="font-medium text-white">{act.action}</span>
+                          <span className="text-gray-400 text-xs whitespace-nowrap ml-2">
                             {new Date(act.timestamp).toLocaleString()}
                           </span>
                         </div>
-                        {act.details && <p className="text-secondary text-xs mt-1">{act.details}</p>}
+                        {act.details && <p className="text-gray-400 text-xs mt-1">{act.details}</p>}
                       </div>
                     ))
                   )}
@@ -183,25 +183,25 @@ export function UserProfileDrawer({
             </div>
 
             {/* Actions Sidebar */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-6">
               <div className="dashboard-section">
                 <h3 className="section-title">Actions</h3>
-                <div className="flex flex-col gap-2">
-                  <button className="btn btn-secondary text-sm" onClick={onEdit}>
-                    ✎ Edit Profile
+                <div className="flex flex-col gap-3">
+                  <button className="btn btn-secondary text-sm w-full justify-start" onClick={onEdit}>
+                    <span className="mr-2">✎</span> Edit Profile
                   </button>
-                  <button className="btn btn-secondary text-sm" onClick={handleResetPassword}>
-                    🔑 Reset Password
+                  <button className="btn btn-secondary text-sm w-full justify-start" onClick={handleResetPassword}>
+                    <span className="mr-2">🔑</span> Reset Password
                   </button>
-                  <button className="btn btn-secondary text-sm" onClick={handleImpersonate}>
-                    👤 Impersonate
+                  <button className="btn btn-secondary text-sm w-full justify-start" onClick={handleImpersonate}>
+                    <span className="mr-2">👤</span> Impersonate
                   </button>
                   {(user.activeSessions ?? 0) > 0 && (
                     <button
-                      className="btn btn-secondary text-sm"
+                      className="btn btn-secondary text-sm w-full justify-start"
                       onClick={() => showToast("Force logout (simulated)", "info")}
                     >
-                      🚪 Force Logout
+                      <span className="mr-2">🚪</span> Force Logout
                     </button>
                   )}
                 </div>
@@ -210,16 +210,16 @@ export function UserProfileDrawer({
               {/* Security Settings */}
               <div className="dashboard-section">
                 <h3 className="section-title">Security</h3>
-                <div className="text-sm">
-                  <div className="flex justify-between mb-2">
-                    <span>Password Reset Required:</span>
-                    <span className="font-medium">
+                <div className="text-sm space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">Password Reset Required:</span>
+                    <span className="font-medium text-white">
                       {user.requirePasswordReset ? "Yes" : "No"}
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>2FA Enabled:</span>
-                    <span className="font-medium">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">2FA Enabled:</span>
+                    <span className="font-medium text-white">
                       {user.mfaEnabled ? "Yes" : "No"}
                     </span>
                   </div>

@@ -61,94 +61,100 @@ export function NewUserModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <div className="modal" style={{ pointer: "auto" }}>
-        <div className="modal-header">
-          <h2>Create New User</h2>
-          <button type="button" className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
-        <form onSubmit={handleSubmit} className="modal-form">
-          <div className="form-row">
-            <div>
-              <label className="form-label">Name *</label>
-              <input
-                type="text"
-                placeholder="Full name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="form-input"
-              />
-            </div>
-            <div>
-              <label className="form-label">Email *</label>
-              <input
-                type="email"
-                placeholder="user@orionhotel.com"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="form-input"
-              />
-            </div>
+      <div className="modal">
+        <div className="modal-card">
+          <div className="modal-header">
+            <h2>Create New User</h2>
+            <button type="button" className="modal-close" onClick={onClose}>
+              ✕
+            </button>
           </div>
-
-          <div className="form-row">
-            <div>
-              <label className="form-label">Phone</label>
-              <input
-                type="tel"
-                placeholder="+1-555-0000"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="form-input"
-              />
-            </div>
-            <div>
-              <label className="form-label">Role *</label>
-              <select
-                value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value as UserRole })}
-                className="form-input"
-              >
-                {roles.map(([role, label]) => (
-                  <option key={role} value={role}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="form-row">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={formData.sendInvite}
-                onChange={(e) => setFormData({ ...formData, sendInvite: e.target.checked })}
-              />
-              <div className="flex-1">
-                <span className="text-sm font-semibold">Send invitation email</span>
-                <span className="text-xs block mt-1">
-                  The user will receive an email with login instructions and a temporary password
-                </span>
+          <form onSubmit={handleSubmit} className="modal-form">
+            <div className="form-row">
+              <div className="flex flex-col gap-2">
+                <label className="form-label">Name *</label>
+                <input
+                  type="text"
+                  placeholder="Full name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="form-input"
+                  required
+                />
               </div>
-            </label>
-          </div>
+              <div className="flex flex-col gap-2">
+                <label className="form-label">Email *</label>
+                <input
+                  type="email"
+                  placeholder="user@orionhotel.com"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="form-input"
+                  required
+                />
+              </div>
+            </div>
 
-          <div className="modal-actions">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={onClose}
-              disabled={isSubmitting}
-            >
-              Cancel
-            </button>
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-              {isSubmitting ? "Creating..." : "Create User"}
-            </button>
-          </div>
-        </form>
+            <div className="form-row">
+              <div className="flex flex-col gap-2">
+                <label className="form-label">Phone</label>
+                <input
+                  type="tel"
+                  placeholder="+1-555-0000"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="form-input"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="form-label">Role *</label>
+                <select
+                  value={formData.role}
+                  onChange={(e) => setFormData({ ...formData, role: e.target.value as UserRole })}
+                  className="form-input"
+                  required
+                >
+                  {roles.map(([role, label]) => (
+                    <option key={role} value={role}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="form-row" style={{ gridTemplateColumns: "1fr" }}>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formData.sendInvite}
+                  onChange={(e) => setFormData({ ...formData, sendInvite: e.target.checked })}
+                  className="w-4 h-4"
+                />
+                <div className="flex-1">
+                  <div className="text-sm font-medium text-white">Send invitation email</div>
+                  <div className="text-xs text-gray-400 mt-1">
+                    The user will receive an email with login instructions and a temporary password
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={onClose}
+                disabled={isSubmitting}
+              >
+                Cancel
+              </button>
+              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                {isSubmitting ? "Creating..." : "Create User"}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );
