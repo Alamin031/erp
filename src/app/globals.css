@@ -1515,5 +1515,24 @@ html.dark .status-badge[data-status="overdue"] {
 @media (max-width: 1024px) {
   .responsive-grid-2-1 {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dashboard-section {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .responsive-grid-2-1 {
+    gap: 12px;
+  }
+
+  .dashboard-section {
+    padding: 12px;
+  }
+
+  .dashboard-container {
+    padding: 0 8px;
   }
 }
