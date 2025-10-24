@@ -150,7 +150,7 @@ export function LeadsPageClient() {
             />
           </div>
 
-          <div className="responsive-grid-2-1">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24 }}>
             <div style={{ minWidth: 0, overflow: "hidden" }}>
               <LeadsTable
                 leads={filteredLeads}
@@ -163,8 +163,9 @@ export function LeadsPageClient() {
                 onMarkLost={handleMarkLost}
               />
             </div>
-            <div style={{ minWidth: 0 }}>
-              <div className="dashboard-section" style={{ marginBottom: 24 }}>
+            
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24, minWidth: 0 }}>
+              <div className="dashboard-section">
                 <h3 className="section-title">Analytics</h3>
                 <LeadsAnalyticsChart leads={filteredLeads} />
               </div>

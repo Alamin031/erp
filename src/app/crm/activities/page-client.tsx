@@ -87,56 +87,47 @@ export function ActivitiesPageClient() {
             }}
           />
 
-          <ActivityStatsCards
-            total={stats.total}
-            callsToday={stats.callsToday}
-            meetings={stats.meetings}
-            pendingFollowUps={stats.pendingFollowUps}
+          <div style={{ marginTop: 24 }}>
+            <ActivityStatsCards
+              total={stats.total}
+              callsToday={stats.callsToday}
+              meetings={stats.meetings}
+              pendingFollowUps={stats.pendingFollowUps}
+            />
+          </div>
+
+          <div style={{ marginBottom: 12 }}>
+            <CalendarView
+              onQuickAdd={(date) => {
+                setIsNewOpen(true);
+                showToast("Quick add open", "info");
+              }}
+            />
+          </div>
+
+          <ActivitiesTable
+            activities={filtered}
+            onView={(a) => setSelected(a)}
+            onEdit={(a) => setEditing(a)}
+            onDelete={(id) => {
+              deleteActivity(id);
+              showToast("Activity deleted", "success");
+            }}
+            onMarkCompleted={(id) => {
+              markCompleted(id);
+              showToast("Marked completed", "success");
+            }}
           />
 
-          <ActivityStatsCards
-            total={stats.total}
-            callsToday={stats.callsToday}
-            meetings={stats.meetings}
-            pendingFollowUps={stats.pendingFollowUps}
-          />
-
-          <div
-            style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 24 }}
-          >
-            <div>
-              <div style={{ marginBottom: 12 }}>
-                <CalendarView
-                  onQuickAdd={(date) => {
-                    setIsNewOpen(true);
-                    showToast("Quick add open", "info");
-                  }}
-                />
-              </div>
-
-              <ActivitiesTable
-                activities={filtered}
-                onView={(a) => setSelected(a)}
-                onEdit={(a) => setEditing(a)}
-                onDelete={(id) => {
-                  deleteActivity(id);
-                  showToast("Activity deleted", "success");
-                }}
-                onMarkCompleted={(id) => {
-                  markCompleted(id);
-                  showToast("Marked completed", "success");
-                }}
-              />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16, marginTop: 24 }}>
+            <div className="dashboard-section">
+              <h3 className="section-title">Activity Timeline</h3>
+              <ActivityTimeline activities={filtered} />
             </div>
-
-            <div>
-              <div className="dashboard-section" style={{ marginBottom: 12 }}>
-                <h3 className="section-title">Activity Timeline</h3>
-                <ActivityTimeline activities={filtered} />
-              </div>
-              <div className="dashboard-section">
-                <h3 className="section-title">Upcoming</h3>
-                {upcoming.map((u) => (
+            <div className="dashboard-section">
+              <h3 className="section-title">Upcoming</h3>
+              {upcoming.length > 0 ? (
+                upcoming.map((u) => (
                   <div
                     key={u.id}
                     style={{
@@ -147,8 +138,12 @@ export function ActivitiesPageClient() {
                     {u.type} — {u.contactName || u.companyName} —{" "}
                     {new Date(u.dateTime).toLocaleString()}
                   </div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <div style={{ padding: 12, color: 'var(--secondary)', textAlign: 'center' }}>
+                  No upcoming activities
+                </div>
+              )}
             </div>
           </div>
         </div>

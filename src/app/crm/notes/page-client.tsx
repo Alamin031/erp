@@ -38,11 +38,13 @@ export default function NotesClientPage() {
 
       <NotesStatsCards />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 16, marginTop: 16 }}>
-        <div>
-          <NotesTable notes={notes} tags={tags} onView={(n)=>setViewing(n)} onEdit={(n)=>setEditing(n)} onDelete={(id)=>deleteNote(id)} />
-        </div>
-        <div>
+      <div style={{ marginTop: 24 }}>
+        <NotesTable notes={notes} tags={tags} onView={(n)=>setViewing(n)} onEdit={(n)=>setEditing(n)} onDelete={(id)=>deleteNote(id)} />
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16, marginTop: 24 }}>
+        <div className="dashboard-section">
+          <h3 className="section-title">Activity Timeline</h3>
           <ActivityTimeline />
         </div>
       </div>

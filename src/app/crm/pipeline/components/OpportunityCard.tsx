@@ -4,9 +4,9 @@ import { Opportunity } from "@/types/opportunities";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-interface Props { opportunity: Opportunity }
+interface Props { opportunity: Opportunity; onOpen?: (opp: Opportunity) => void }
 
-export function OpportunityCard({ opportunity }: Props) {
+export function OpportunityCard({ opportunity, onOpen }: Props) {
   const [hover, setHover] = useState(false);
   const initials = (opportunity.ownerName || 'U').split(' ').map(n=>n[0]).slice(0,2).join('');
 
@@ -62,7 +62,16 @@ export function OpportunityCard({ opportunity }: Props) {
       </div>
 
       <div style={{ textAlign: 'right' }}>
-        <button className="btn btn-secondary" style={{ fontSize: 12, padding: '6px 12px' }}>View Details</button>
+        <button 
+          className="btn btn-secondary" 
+          style={{ fontSize: 12, padding: '6px 12px' }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onOpen?.(opportunity);
+          }}
+        >
+          View Details
+        </button>
       </div>
     </motion.div>
   );

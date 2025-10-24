@@ -56,7 +56,7 @@ export function ContactsPageClient() {
           <TagsFilter />
           <ContactStatsCards total={stats.total} customers={stats.customers} prospects={stats.prospects} activeThisMonth={stats.activeThisMonth} />
 
-          <div className="responsive-grid-2-1">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24 }}>
             <div style={{ minWidth: 0, overflow: "hidden" }}>
               <ContactsTable
                 contacts={filtered}
@@ -65,8 +65,9 @@ export function ContactsPageClient() {
                 onDelete={(id) => { removeContact(id); showToast("Contact deleted", "success"); }}
               />
             </div>
-            <div style={{ minWidth: 0 }}>
-              <div className="dashboard-section" style={{ marginBottom: 16 }}>
+            
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24, minWidth: 0 }}>
+              <div className="dashboard-section">
                 <h3 className="section-title">Segment Analytics</h3>
                 <SegmentAnalyticsChart contacts={filtered} />
               </div>

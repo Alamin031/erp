@@ -158,6 +158,7 @@ export function LeadDetailsDrawer({
             className="btn btn-primary"
             onClick={() => {
               onEdit?.(lead);
+              onClose();
             }}
             style={{ width: "100%" }}
           >

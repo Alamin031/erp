@@ -72,55 +72,110 @@ export function EditContactModal({ isOpen, contact, onClose, onSave, companies, 
             <button className="modal-close" onClick={onClose}><X size={20} /></button>
           </div>
           <div className="modal-form">
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
               <div>
-                <label className="form-label">First Name</label>
-                <input className="form-input" value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1) })} placeholder="Enter first name" />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>First Name <span style={{ color: '#dc3545' }}>*</span></label>
+                <input 
+                  className="form-input" 
+                  value={form.firstName} 
+                  onChange={(e) => setForm({ ...form, firstName: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1) })} 
+                  placeholder="Enter first name"
+                  style={{ width: '100%' }}
+                />
               </div>
               <div>
-                <label className="form-label">Last Name</label>
-                <input className="form-input" value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1) })} placeholder="Enter last name" />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Last Name <span style={{ color: '#dc3545' }}>*</span></label>
+                <input 
+                  className="form-input" 
+                  value={form.lastName} 
+                  onChange={(e) => setForm({ ...form, lastName: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1) })} 
+                  placeholder="Enter last name"
+                  style={{ width: '100%' }}
+                />
               </div>
               <div>
-                <label className="form-label">Email</label>
-                <input type="email" className="form-input" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="email@example.com" />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Email <span style={{ color: '#dc3545' }}>*</span></label>
+                <input 
+                  type="email" 
+                  className="form-input" 
+                  value={form.email} 
+                  onChange={(e) => setForm({ ...form, email: e.target.value })} 
+                  placeholder="email@example.com"
+                  style={{ width: '100%' }}
+                />
               </div>
               <div>
-                <label className="form-label">Phone</label>
-                <input type="tel" className="form-input" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="+1 (555) 000-0000" />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Phone</label>
+                <input 
+                  type="tel" 
+                  className="form-input" 
+                  value={form.phone} 
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })} 
+                  placeholder="+1 (555) 000-0000"
+                  style={{ width: '100%' }}
+                />
               </div>
               <div>
-                <label className="form-label">Company</label>
-                <select className="form-input" value={form.companyId} onChange={(e) => setForm({ ...form, companyId: e.target.value })}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Company</label>
+                <select 
+                  className="form-input" 
+                  value={form.companyId} 
+                  onChange={(e) => setForm({ ...form, companyId: e.target.value })}
+                  style={{ width: '100%' }}
+                >
                   <option value="">Select company</option>
                   {companies.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
               </div>
               <div>
-                <label className="form-label">Country</label>
-                <input className="form-input" value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} placeholder="United States" />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Country</label>
+                <input 
+                  className="form-input" 
+                  value={form.country} 
+                  onChange={(e) => setForm({ ...form, country: e.target.value })} 
+                  placeholder="United States"
+                  style={{ width: '100%' }}
+                />
               </div>
               <div>
-                <label className="form-label">Contact Type</label>
-                <select className="form-input" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Contact Type <span style={{ color: '#dc3545' }}>*</span></label>
+                <select 
+                  className="form-input" 
+                  value={form.type} 
+                  onChange={(e) => setForm({ ...form, type: e.target.value })}
+                  style={{ width: '100%' }}
+                >
                   <option value="Customer">Customer</option>
                   <option value="Prospect">Prospect</option>
                 </select>
               </div>
               <div>
-                <label className="form-label">Tags</label>
-                <select className="form-input" multiple value={form.tags} onChange={(e) => setForm({ ...form, tags: Array.from(e.target.selectedOptions).map(o => o.value) })} style={{ minHeight: 80 }}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Tags</label>
+                <select 
+                  className="form-input" 
+                  multiple 
+                  value={form.tags} 
+                  onChange={(e) => setForm({ ...form, tags: Array.from(e.target.selectedOptions).map(o => o.value) })} 
+                  style={{ height: 100, width: '100%' }}
+                >
                   {tags.map(t => <option key={t.id} value={t.name}>{t.name}</option>)}
                 </select>
-                <small style={{ color: 'var(--secondary)', fontSize: 11 }}>Hold Ctrl/Cmd to select multiple</small>
+                <small style={{ color: 'var(--secondary)', fontSize: 11, display: 'block', marginTop: 6 }}>Hold Ctrl/Cmd to select multiple</small>
               </div>
               <div style={{ gridColumn: "1 / -1" }}>
-                <label className="form-label">Notes</label>
-                <textarea className="form-input" rows={3} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="Add any additional notes..." />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Notes</label>
+                <textarea 
+                  className="form-input" 
+                  rows={4} 
+                  value={form.notes} 
+                  onChange={(e) => setForm({ ...form, notes: e.target.value })} 
+                  placeholder="Add any additional notes..."
+                  style={{ resize: 'vertical', width: '100%' }}
+                />
               </div>
             </div>
 
-            {errors && <div style={{ color: "#dc3545", marginTop: 8 }}>{errors}</div>}
+            {errors && <div style={{ color: "#dc3545", marginTop: 16, padding: '12px', background: 'rgba(220, 53, 69, 0.1)', borderRadius: '6px', fontSize: '14px' }}>{errors}</div>}
 
             <div className="modal-actions">
               <button className="btn btn-secondary" onClick={onClose}>Cancel</button>

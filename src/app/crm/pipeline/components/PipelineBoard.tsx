@@ -4,9 +4,9 @@ import { StageName } from "@/types/opportunities";
 import { Opportunity } from "@/types/opportunities";
 import { StageColumn } from "./StageColumn";
 
-interface Props { byStage: Record<StageName, Opportunity[]>; onMove?: (id: string, stage: StageName) => void }
+interface Props { byStage: Record<StageName, Opportunity[]>; onMove?: (id: string, stage: StageName) => void; onOpen?: (opp: Opportunity) => void }
 
-export function PipelineBoard({ byStage, onMove }: Props) {
+export function PipelineBoard({ byStage, onMove, onOpen }: Props) {
   const stages = Object.keys(byStage) as StageName[];
 
   return (
@@ -19,7 +19,7 @@ export function PipelineBoard({ byStage, onMove }: Props) {
       minWidth: 'min-content' 
     }}>
       {stages.map(s => (
-        <StageColumn key={s} stage={s} opportunities={byStage[s]} onDrop={(id)=>onMove?.(id, s)} />
+        <StageColumn key={s} stage={s} opportunities={byStage[s]} onDrop={(id)=>onMove?.(id, s)} onOpen={onOpen} />
       ))}
     </div>
   );

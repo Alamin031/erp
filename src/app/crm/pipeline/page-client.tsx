@@ -2,18 +2,24 @@
 
 import { useEffect, useState } from "react";
 import { usePipeline } from "@/store/usePipeline";
+import { Opportunity, StageName } from "@/types/opportunities";
 import { PipelineStatsCards } from "./components/PipelineStatsCards";
 import { PipelineBoard } from "./components/PipelineBoard";
 import { ConversionFunnelChart } from "./components/ConversionFunnelChart";
 import { RevenueForecastChart } from "./components/RevenueForecastChart";
 import { FiltersBar } from "./components/FiltersBar";
 import { ActivityFeed } from "./components/ActivityFeed";
+import { OpportunityDetailsDrawer } from "../opportunities/components/OpportunityDetailsDrawer";
+import { useOpportunities } from "@/store/useOpportunities";
 import { useToast } from "@/components/toast";
 
 export function PipelinePageClient() {
   const { loadDemoData, getTotals, getByStage, getConversionRates, moveOpportunity, filterPipeline } = usePipeline();
+  const { editOpportunity, deleteOpportunity } = useOpportunities();
   const { showToast } = useToast();
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [selected, setSelected] = useState<Opportunity | null>(null);
+  const [editing, setEditing] = useState<Opportunity | null>(null);
 
   useEffect(() => { loadDemoData().catch(()=>showToast('Failed to load pipeline demo','error')); }, []);
 
@@ -50,7 +56,11 @@ export function PipelinePageClient() {
             <h3 className="section-title" style={{ marginBottom: 0 }}>Pipeline Board</h3>
           </div>
           <div style={{ overflowX: 'auto', padding: '0 24px 24px 24px' }}>
-            <PipelineBoard byStage={byStage} onMove={(id,stage)=>{ moveOpportunity(id,stage); showToast('Opportunity moved','success'); }} />
+            <PipelineBoard 
+              byStage={byStage} 
+              onMove={(id,stage)=>{ moveOpportunity(id,stage); showToast('Opportunity moved','success'); }}
+              onOpen={(opp) => setSelected(opp)}
+            />
           </div>
         </div>
 
@@ -70,6 +80,25 @@ export function PipelinePageClient() {
           <ActivityFeed />
         </div>
       </div>
+
+      <OpportunityDetailsDrawer 
+        isOpen={!!selected}
+        opportunity={selected || undefined}
+        onClose={() => setSelected(null)}
+        onEdit={(o) => {
+          setEditing(o);
+          setSelected(null);
+        }}
+        onMove={(id, stage) => {
+          moveOpportunity(id, stage as StageName);
+          showToast('Stage updated', 'success');
+        }}
+        onDelete={(id) => {
+          deleteOpportunity(id);
+          showToast('Opportunity deleted', 'success');
+          setSelected(null);
+        }}
+      />
     </div>
   );
 }

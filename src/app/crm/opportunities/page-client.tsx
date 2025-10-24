@@ -76,7 +76,7 @@ export function OpportunitiesPageClient() {
             totalValue={stats.totalValue}
           />
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24 }}>
             <div style={{ width: "100%", overflow: "hidden" }}>
               <PipelineView
                 byStage={byStage}
@@ -88,27 +88,24 @@ export function OpportunitiesPageClient() {
               />
             </div>
 
-            <div className="responsive-grid-2-1">
-              <div style={{ minWidth: 0, overflow: "hidden" }}>
-                <OpportunitiesTable
-                  opportunities={filtered}
-                  onView={(o) => setSelected(o)}
-                  onEdit={(o) => setEditing(o)}
-                  onDelete={(id) => {
-                    deleteOpportunity(id);
-                    showToast("Opportunity deleted", "success");
-                  }}
-                />
+            <OpportunitiesTable
+              opportunities={filtered}
+              onView={(o) => setSelected(o)}
+              onEdit={(o) => setEditing(o)}
+              onDelete={(id) => {
+                deleteOpportunity(id);
+                showToast("Opportunity deleted", "success");
+              }}
+            />
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
+              <div className="dashboard-section">
+                <h3 className="section-title">Analytics</h3>
+                <AnalyticsChart opportunities={filtered} />
               </div>
-              <div style={{ minWidth: 0 }}>
-                <div className="dashboard-section" style={{ marginBottom: 16 }}>
-                  <h3 className="section-title">Analytics</h3>
-                  <AnalyticsChart opportunities={filtered} />
-                </div>
-                <div className="dashboard-section">
-                  <h3 className="section-title">Recent Activity</h3>
-                  <ActivityLog limit={12} />
-                </div>
+              <div className="dashboard-section">
+                <h3 className="section-title">Recent Activity</h3>
+                <ActivityLog limit={12} />
               </div>
             </div>
           </div>

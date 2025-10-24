@@ -37,28 +37,49 @@ export function NewOpportunityModal({ isOpen, onClose, onSave }: Props) {
             <button className="modal-close" onClick={onClose}><X size={20} /></button>
           </div>
           <div className="modal-form">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap:12 }}>
-              <div>
-                <label className="form-label">Opportunity Name</label>
-                <input className="form-input" value={form.name} onChange={(e)=>setForm({...form, name: e.target.value})} placeholder="Enter opportunity name" />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div style={{ gridColumn: '1 / -1' }}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Opportunity Name <span style={{ color: '#dc3545' }}>*</span></label>
+                <input 
+                  className="form-input" 
+                  value={form.name} 
+                  onChange={(e)=>setForm({...form, name: e.target.value})} 
+                  placeholder="Enter opportunity name"
+                  style={{ width: '100%' }}
+                />
               </div>
               <div>
-                <label className="form-label">Company</label>
-                <select className="form-input" value={form.companyId} onChange={(e)=>setForm({...form, companyId: e.target.value})}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Company</label>
+                <select 
+                  className="form-input" 
+                  value={form.companyId} 
+                  onChange={(e)=>setForm({...form, companyId: e.target.value})}
+                  style={{ width: '100%' }}
+                >
                   <option value="">Select company</option>
                   {companies.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
               </div>
               <div>
-                <label className="form-label">Contact</label>
-                <select className="form-input" value={form.contactId} onChange={(e)=>setForm({...form, contactId: e.target.value})}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Contact</label>
+                <select 
+                  className="form-input" 
+                  value={form.contactId} 
+                  onChange={(e)=>setForm({...form, contactId: e.target.value})}
+                  style={{ width: '100%' }}
+                >
                   <option value="">Select contact</option>
                   {contacts.map(c=><option key={c.id} value={c.id}>{c.fullName || (c.firstName + ' ' + c.lastName)}</option>)}
                 </select>
               </div>
               <div>
-                <label className="form-label">Stage</label>
-                <select className="form-input" value={form.stage} onChange={(e)=>setForm({...form, stage: e.target.value})}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Stage <span style={{ color: '#dc3545' }}>*</span></label>
+                <select 
+                  className="form-input" 
+                  value={form.stage} 
+                  onChange={(e)=>setForm({...form, stage: e.target.value})}
+                  style={{ width: '100%' }}
+                >
                   <option>Prospecting</option>
                   <option>Qualification</option>
                   <option>Proposal</option>
@@ -68,28 +89,61 @@ export function NewOpportunityModal({ isOpen, onClose, onSave }: Props) {
                 </select>
               </div>
               <div>
-                <label className="form-label">Source</label>
-                <input className="form-input" value={form.source} onChange={(e)=>setForm({...form, source: e.target.value})} placeholder="e.g., Website, Referral" />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Value <span style={{ color: '#dc3545' }}>*</span></label>
+                <input 
+                  type="number" 
+                  className="form-input" 
+                  value={form.value} 
+                  onChange={(e)=>setForm({...form, value: Number(e.target.value)})} 
+                  placeholder="0" 
+                  min="0"
+                  style={{ width: '100%' }}
+                />
               </div>
               <div>
-                <label className="form-label">Owner</label>
-                <input className="form-input" value={form.ownerId} onChange={(e)=>setForm({...form, ownerId: e.target.value, ownerName: e.target.value})} placeholder="Owner ID or name (demo)" />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Source</label>
+                <input 
+                  className="form-input" 
+                  value={form.source} 
+                  onChange={(e)=>setForm({...form, source: e.target.value})} 
+                  placeholder="e.g., Website, Referral"
+                  style={{ width: '100%' }}
+                />
               </div>
               <div>
-                <label className="form-label">Expected Close Date</label>
-                <input type="date" className="form-input" value={form.expectedCloseDate} onChange={(e)=>setForm({...form, expectedCloseDate: e.target.value})} />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Owner</label>
+                <input 
+                  className="form-input" 
+                  value={form.ownerId} 
+                  onChange={(e)=>setForm({...form, ownerId: e.target.value, ownerName: e.target.value})} 
+                  placeholder="Owner ID or name"
+                  style={{ width: '100%' }}
+                />
               </div>
               <div>
-                <label className="form-label">Value</label>
-                <input type="number" className="form-input" value={form.value} onChange={(e)=>setForm({...form, value: Number(e.target.value)})} placeholder="0" min="0" />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Expected Close Date</label>
+                <input 
+                  type="date" 
+                  className="form-input" 
+                  value={form.expectedCloseDate} 
+                  onChange={(e)=>setForm({...form, expectedCloseDate: e.target.value})}
+                  style={{ width: '100%' }}
+                />
               </div>
               <div style={{ gridColumn: '1 / -1' }}>
-                <label className="form-label">Description</label>
-                <textarea className="form-input" rows={3} value={form.description} onChange={(e)=>setForm({...form, description: e.target.value})} placeholder="Enter opportunity description..." />
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Description</label>
+                <textarea 
+                  className="form-input" 
+                  rows={4} 
+                  value={form.description} 
+                  onChange={(e)=>setForm({...form, description: e.target.value})} 
+                  placeholder="Enter opportunity description..."
+                  style={{ resize: 'vertical', width: '100%' }}
+                />
               </div>
             </div>
 
-            {error && <div style={{ color: '#dc3545', marginTop: 8 }}>{error}</div>}
+            {error && <div style={{ color: '#dc3545', marginTop: 16, padding: '12px', background: 'rgba(220, 53, 69, 0.1)', borderRadius: '6px', fontSize: '14px' }}>{error}</div>}
 
             <div className="modal-actions">
               <button className="btn btn-secondary" onClick={onClose}>Cancel</button>

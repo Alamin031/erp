@@ -33,65 +33,79 @@ export function EditNoteModal({ isOpen, note, onClose, onSave, contacts = [], co
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <motion.div className="modal" initial={{ opacity:0, scale:0.98 }} animate={{ opacity:1, scale:1 }}>
-        <div className="modal-header">
-          <h2>Edit Note</h2>
-          <button className="modal-close" onClick={onClose}><X size={20} /></button>
-        </div>
-        <div className="modal-form">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-            <div>
-              <label className="form-label">Title</label>
-              <input className="form-input" value={form.title} onChange={(e)=>setForm({...form, title: e.target.value})} />
-            </div>
-            <div>
-              <label className="form-label">Linked Entity Type</label>
-              <select className="form-input" value={form.linkedEntityType} onChange={(e)=>setForm({...form, linkedEntityType: e.target.value, linkedEntityId: ''})}>
-                <option>Contact</option>
-                <option>Company</option>
-                <option>Deal</option>
-              </select>
-            </div>
+      <div className="modal">
+        <motion.div className="modal-card" initial={{ opacity:0, scale:0.98 }} animate={{ opacity:1, scale:1 }}>
+          <div className="modal-header">
+            <h2>Edit Note</h2>
+            <button className="modal-close" onClick={onClose}><X size={20} /></button>
+          </div>
+          <div className="modal-form">
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div style={{ gridColumn: '1 / -1' }}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Title <span style={{ color: '#dc3545' }}>*</span></label>
+                <input className="form-input" value={form.title} onChange={(e)=>setForm({...form, title: e.target.value})} placeholder="Enter note title" style={{ width: '100%' }} />
+              </div>
+              <div>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Linked Entity Type <span style={{ color: '#dc3545' }}>*</span></label>
+                <select className="form-input" value={form.linkedEntityType} onChange={(e)=>setForm({...form, linkedEntityType: e.target.value, linkedEntityId: ''})} style={{ width: '100%' }}>
+                  <option>Contact</option>
+                  <option>Company</option>
+                  <option>Deal</option>
+                </select>
+              </div>
 
-            <div>
-              <label className="form-label">Linked Entity</label>
-              <select className="form-input" value={form.linkedEntityId} onChange={(e)=>setForm({...form, linkedEntityId: e.target.value})}>
-                <option value="">Select</option>
-                {optionsFor(form.linkedEntityType).map((o:any)=>(<option key={o.id} value={o.id}>{o.name || o.fullName || o.firstName + ' ' + o.lastName}</option>))}
-              </select>
-            </div>
+              <div>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Linked Entity</label>
+                <select className="form-input" value={form.linkedEntityId} onChange={(e)=>setForm({...form, linkedEntityId: e.target.value})} style={{ width: '100%' }}>
+                  <option value="">Select</option>
+                  {optionsFor(form.linkedEntityType).map((o:any)=>(<option key={o.id} value={o.id}>{o.name || o.fullName || o.firstName + ' ' + o.lastName}</option>))}
+                </select>
+              </div>
 
-            <div>
-              <label className="form-label">Owner</label>
-              <input className="form-input" value={form.ownerName} onChange={(e)=>setForm({...form, ownerName: e.target.value})} placeholder="Owner name (demo)" />
-            </div>
+              <div style={{ gridColumn: '1 / -1' }}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Owner</label>
+                <input className="form-input" value={form.ownerName} onChange={(e)=>setForm({...form, ownerName: e.target.value})} placeholder="Owner name" style={{ width: '100%' }} />
+              </div>
 
-            <div style={{ gridColumn: '1 / -1' }}>
-              <label className="form-label">Tags</label>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {tags.map(t=>{
-                  const selected = (form.tags||[]).includes(t.id);
-                  return (
-                    <button key={t.id} onClick={()=>setForm((f:any)=>({ ...f, tags: selected ? f.tags.filter((x:string)=>x!==t.id) : [ ...(f.tags||[]), t.id ] }))} className="btn btn-ghost" style={{ borderRadius: 8, background: selected ? t.color : undefined }}>{t.name}</button>
-                  );
-                })}
+              <div style={{ gridColumn: '1 / -1' }}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Tags</label>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
+                  {tags.map(t=>{
+                    const selected = (form.tags||[]).includes(t.id);
+                    return (
+                      <button 
+                        key={t.id} 
+                        onClick={()=>setForm((f:any)=>({ ...f, tags: selected ? f.tags.filter((x:string)=>x!==t.id) : [ ...(f.tags||[]), t.id ] }))} 
+                        className="btn btn-ghost" 
+                        style={{ 
+                          borderRadius: 8, 
+                          background: selected ? t.color : undefined,
+                          color: selected ? 'white' : undefined,
+                          border: selected ? 'none' : '1px solid var(--border)'
+                        }}
+                      >
+                        {t.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div style={{ gridColumn: '1 / -1' }}>
+                <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>Description</label>
+                <textarea className="form-input" rows={5} value={form.description} onChange={(e)=>setForm({...form, description: e.target.value})} placeholder="Add note description..." style={{ resize: 'vertical', width: '100%' }} />
               </div>
             </div>
 
-            <div style={{ gridColumn: '1 / -1' }}>
-              <label className="form-label">Description</label>
-              <textarea className="form-input" rows={4} value={form.description} onChange={(e)=>setForm({...form, description: e.target.value})} />
+            {error && <div style={{ color: '#dc3545', marginTop: 16, padding: '12px', background: 'rgba(220, 53, 69, 0.1)', borderRadius: '6px', fontSize: '14px' }}>{error}</div>}
+
+            <div className="modal-actions">
+              <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
+              <button className="btn btn-primary" onClick={handleSave}>Save Changes</button>
             </div>
           </div>
-
-          {error && <div style={{ color: '#dc3545' }}>{error}</div>}
-
-          <div className="modal-actions">
-            <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
-            <button className="btn btn-primary" onClick={handleSave}>Save Changes</button>
-          </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </>
   );
 }

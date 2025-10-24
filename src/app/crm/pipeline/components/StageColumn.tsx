@@ -4,9 +4,9 @@ import { Opportunity } from "@/types/opportunities";
 import { motion } from "framer-motion";
 import { OpportunityCard } from "./OpportunityCard";
 
-interface Props { stage: string; opportunities: Opportunity[]; onDrop: (id: string) => void }
+interface Props { stage: string; opportunities: Opportunity[]; onDrop: (id: string) => void; onOpen?: (opp: Opportunity) => void }
 
-export function StageColumn({ stage, opportunities = [], onDrop }: Props) {
+export function StageColumn({ stage, opportunities = [], onDrop, onOpen }: Props) {
   const handleDragOver = (e: React.DragEvent) => e.preventDefault();
   const handleDrop = (e: React.DragEvent) => {
     const id = e.dataTransfer.getData('text/opportunity-id');
@@ -55,7 +55,7 @@ export function StageColumn({ stage, opportunities = [], onDrop }: Props) {
           </div>
         ) : (
           opportunities.map(o => (
-            <OpportunityCard key={o.id} opportunity={o} />
+            <OpportunityCard key={o.id} opportunity={o} onOpen={onOpen} />
           ))
         )}
       </div>

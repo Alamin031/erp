@@ -56,12 +56,11 @@ export function CompaniesPageClient() {
           <IndustryFilter />
           <CompanyStatsCards total={stats.total} activeClients={stats.activeClients} prospects={stats.prospects} avgEmployees={stats.avgEmployees} />
 
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 24 }}>
-            <div>
-              <CompaniesTable companies={filtered} onView={(c) => setSelected(c)} onEdit={(c) => setEditing(c)} onDelete={(id) => { removeCompany(id); showToast('Company deleted', 'success'); }} />
-            </div>
-            <div>
-              <div className="dashboard-section" style={{ marginBottom: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 24 }}>
+            <CompaniesTable companies={filtered} onView={(c) => setSelected(c)} onEdit={(c) => setEditing(c)} onDelete={(id) => { removeCompany(id); showToast('Company deleted', 'success'); }} />
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
+              <div className="dashboard-section">
                 <h3 className="section-title">Analytics</h3>
                 <AnalyticsChart companies={filtered} />
               </div>
