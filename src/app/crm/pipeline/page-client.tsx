@@ -43,26 +43,31 @@ export function PipelinePageClient() {
           <FiltersBar onApply={(f)=>{ filterPipeline(f); showToast('Filters applied','info'); }} onReset={()=>{ filterPipeline({}); showToast('Filters reset','info'); }} />
 
           <PipelineStatsCards total={totals.total} pipelineValue={totals.totalValue} winRate={totals.winRate} avgDealSize={totals.avgDealSize} />
+        </div>
 
-          <div className="responsive-grid-2-1" style={{ marginTop: 12 }}>
-            <div>
-              <PipelineBoard byStage={byStage} onMove={(id,stage)=>{ moveOpportunity(id,stage); showToast('Opportunity moved','success'); }} />
-            </div>
-            <div>
-              <div className="dashboard-section" style={{ marginBottom: 12 }}>
-                <h3 className="section-title">Conversion Funnel</h3>
-                <ConversionFunnelChart conversion={conversion} />
-              </div>
-              <div className="dashboard-section" style={{ marginBottom: 12 }}>
-                <h3 className="section-title">Revenue Forecast</h3>
-                <RevenueForecastChart />
-              </div>
-              <div className="dashboard-section">
-                <h3 className="section-title">Activity Feed</h3>
-                <ActivityFeed />
-              </div>
-            </div>
+        <div className="dashboard-section" style={{ padding: 0, overflow: 'hidden' }}>
+          <div style={{ padding: '24px 24px 16px 24px' }}>
+            <h3 className="section-title" style={{ marginBottom: 0 }}>Pipeline Board</h3>
           </div>
+          <div style={{ overflowX: 'auto', padding: '0 24px 24px 24px' }}>
+            <PipelineBoard byStage={byStage} onMove={(id,stage)=>{ moveOpportunity(id,stage); showToast('Opportunity moved','success'); }} />
+          </div>
+        </div>
+
+        <div className="responsive-grid-2-1">
+          <div className="dashboard-section">
+            <h3 className="section-title">Conversion Funnel</h3>
+            <ConversionFunnelChart conversion={conversion} />
+          </div>
+          <div className="dashboard-section">
+            <h3 className="section-title">Revenue Forecast</h3>
+            <RevenueForecastChart />
+          </div>
+        </div>
+
+        <div className="dashboard-section">
+          <h3 className="section-title">Activity Feed</h3>
+          <ActivityFeed />
         </div>
       </div>
     </div>

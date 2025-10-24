@@ -10,7 +10,14 @@ export function PipelineBoard({ byStage, onMove }: Props) {
   const stages = Object.keys(byStage) as StageName[];
 
   return (
-    <div style={{ display: 'grid', gridAutoFlow: 'column', gridAutoColumns: 'minmax(300px, 1fr)', gap: 12, overflowX: 'auto', paddingBottom: 8 }}>
+    <div style={{ 
+      display: 'grid', 
+      gridAutoFlow: 'column', 
+      gridAutoColumns: 'minmax(300px, 1fr)', 
+      gap: 16, 
+      paddingBottom: 8, 
+      minWidth: 'min-content' 
+    }}>
       {stages.map(s => (
         <StageColumn key={s} stage={s} opportunities={byStage[s]} onDrop={(id)=>onMove?.(id, s)} />
       ))}
