@@ -170,7 +170,7 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
       {/* Draw Method */}
       {method === "draw" && (
         <div className="space-y-3">
-          <p className="text-sm text-(--secondary)">
+          <p className="text-sm text-(--secondary)" style={{ marginTop: '16px', marginBottom: '12px' }}>
             Draw your signature below
           </p>
           <canvas
@@ -183,7 +183,8 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
           />
           <button
             onClick={handleClear}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-(--border) rounded-lg hover:bg-(--background) text-(--foreground) text-sm transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-(--border) rounded-lg hover:bg-(--background) text-(--foreground) text-sm font-medium transition-colors"
+            style={{ marginTop: '12px', height: '42px' }}
           >
             <RotateCcw className="w-4 h-4" />
             Clear
@@ -193,9 +194,9 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
 
       {/* Type Method */}
       {method === "type" && (
-        <div className="space-y-3">
-          <div>
-            <label className="text-sm font-medium text-(--foreground) mb-2 block">
+        <div className="space-y-4">
+          <div style={{ marginTop: '16px' }}>
+            <label className="text-sm font-medium text-(--foreground) block" style={{ marginBottom: '10px' }}>
               Your Full Name
             </label>
             <input
@@ -203,12 +204,13 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
               value={typeSignature}
               onChange={(e) => setTypeSignature(e.target.value)}
               placeholder="Enter your full name"
-              className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
+              className="w-full px-4 py-2.5 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
+              style={{ height: '44px' }}
             />
           </div>
 
-          <div>
-            <label className="text-sm font-medium text-(--foreground) mb-2 block">
+          <div style={{ marginTop: '20px' }}>
+            <label className="text-sm font-medium text-(--foreground) block" style={{ marginBottom: '10px' }}>
               Font Style
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -231,8 +233,8 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
 
           {/* Preview */}
           {typeSignature && (
-            <div className="p-4 border border-(--border) rounded-lg bg-(--background)">
-              <p className="text-xs text-(--secondary) mb-2">Preview:</p>
+            <div className="p-4 border border-(--border) rounded-lg bg-(--background)" style={{ marginTop: '20px' }}>
+              <p className="text-xs text-(--secondary)" style={{ marginBottom: '12px' }}>Preview:</p>
               <p
                 style={{ fontFamily: fonts[selectedFont], fontSize: "48px" }}
                 className="text-center text-(--foreground)"
@@ -255,14 +257,15 @@ export function SignaturePad({ onSign, isLoading }: SignaturePadProps) {
       <button
         onClick={handleApplySignature}
         disabled={!isReadyToSign || isLoading}
-        className="w-full px-4 py-2 bg-(--primary) hover:opacity-90 text-white rounded-lg font-medium transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-4 py-3.5 h-12 bg-(--primary) hover:opacity-90 text-white rounded-lg font-semibold transition-opacity disabled:opacity-50 disabled:cursor-not-allowed text-[15px]"
+        style={{ marginTop: '20px' }}
       >
         {isLoading ? "Applying..." : "Apply Signature"}
       </button>
 
       {/* Legal Copy */}
-      <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-        <p className="text-xs text-blue-800">
+      <div className="p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg" style={{ marginTop: '16px' }}>
+        <p className="text-xs text-blue-900 dark:text-blue-200 leading-relaxed">
           By signing, you agree that this signature is legally binding and you are authorized to execute this document.
         </p>
       </div>

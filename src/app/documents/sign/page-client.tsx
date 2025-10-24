@@ -154,82 +154,124 @@ export function SignPageClient() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-(--background)">
-      {/* Header */}
-      <div className="bg-(--card-bg) border-b border-(--border) px-8 py-6">
-        <h1 className="text-3xl font-bold text-(--foreground)">Sign</h1>
-        <p className="text-(--secondary) mt-1">
-          Send, sign, and approve documents online for streamlined workflows.
-        </p>
-      </div>
-
-      {/* KPI Cards */}
-      <div className="px-8 py-4 bg-(--background) border-b border-(--border) overflow-x-auto">
-        <div className="flex gap-4 min-w-max">
-          {kpis.map((kpi) => (
-            <div
-              key={kpi.label}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg ${kpi.color} min-w-fit`}
-            >
-              {kpi.icon}
-              <div>
-                <p className="text-sm font-semibold">{kpi.label}</p>
-                <p className="text-2xl font-bold">{kpi.value}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Main Layout */}
-      <div className="flex-1 overflow-hidden flex flex-col">
-        {/* Toolbar */}
-        <div className="bg-(--card-bg) border-b border-(--border) px-8 py-4 flex items-center justify-between">
-          <h2 className="font-semibold text-(--foreground)">
-            Documents ({documents.length})
-          </h2>
-          <div className="flex items-center gap-2">
+    <div style={{ padding: 24 }}>
+      {/* Header Section */}
+      <div style={{ marginBottom: 24 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--foreground)' }}>Sign</h2>
+          <div style={{ display: 'flex', gap: 12 }}>
             <button
               onClick={() => setShowApprovalsPanel(!showApprovalsPanel)}
-              className="px-3 py-2 border border-(--border) rounded-lg hover:bg-(--background) text-(--foreground) text-sm font-medium transition-colors"
+              className="btn btn-secondary"
+              style={{ display: 'flex', alignItems: 'center', gap: 8 }}
             >
               Approvals
             </button>
             <button
               onClick={() => setShowSendModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-(--primary) hover:opacity-90 text-white rounded-lg font-medium transition-opacity"
+              className="btn btn-primary"
+              style={{ display: 'flex', alignItems: 'center', gap: 8 }}
             >
-              <Send className="w-4 h-4" />
+              <Send size={16} />
               Send Document
             </button>
           </div>
         </div>
+        <p style={{ color: 'var(--muted)', fontSize: 14 }}>
+          Send, sign, and approve documents online for streamlined workflows.
+        </p>
+      </div>
 
-        {/* Content: Filters row above cards */}
-        <div className="flex-1 overflow-hidden flex flex-col">
-          {/* Filters Row */}
-          <div className="px-8 py-4 border-b border-(--border)">
-            <FiltersBar />
+      {/* KPI Cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 16, marginBottom: 24 }}>
+        {kpis.map((kpi) => (
+          <div
+            key={kpi.label}
+            style={{
+              background: 'var(--card)',
+              border: '1px solid var(--border)',
+              borderRadius: 12,
+              padding: 20,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              transition: 'all 0.2s ease',
+              cursor: 'default'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <div style={{
+              width: 48,
+              height: 48,
+              borderRadius: 10,
+              background: kpi.label.includes('Sent') ? 'rgba(59, 130, 246, 0.1)' :
+                         kpi.label.includes('Pending') ? 'rgba(234, 179, 8, 0.1)' :
+                         kpi.label.includes('Completed') ? 'rgba(34, 197, 94, 0.1)' :
+                         'rgba(239, 68, 68, 0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: kpi.label.includes('Sent') ? '#3b82f6' :
+                     kpi.label.includes('Pending') ? '#eab308' :
+                     kpi.label.includes('Completed') ? '#22c55e' :
+                     '#ef4444'
+            }}>
+              {kpi.icon}
+            </div>
+            <div>
+              <p style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 4 }}>{kpi.label}</p>
+              <p style={{ fontSize: 28, fontWeight: 700, color: 'var(--foreground)' }}>{kpi.value}</p>
+            </div>
           </div>
+        ))}
+      </div>
 
-          {/* Main Panel */}
-          <div className="flex-1 overflow-y-auto p-6">
-            {showApprovalsPanel ? (
-              <div className="p-6">
-                <ApprovalsPanel
-                  onApprove={handleApprove}
-                  onReject={handleReject}
-                />
-              </div>
-            ) : (
-              <DocumentList
-                onView={handleView}
-                onManage={handleManage}
-                onCancel={handleCancel}
-                onResend={handleResend}
+      {/* Filters Section */}
+      <div style={{ marginBottom: 20 }}>
+        <FiltersBar />
+      </div>
+
+      {/* Documents Section */}
+      <div style={{ 
+        background: 'var(--card)', 
+        border: '1px solid var(--border)', 
+        borderRadius: 12,
+        overflow: 'hidden'
+      }}>
+        <div style={{ 
+          padding: '16px 20px', 
+          borderBottom: '1px solid var(--border)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: 'var(--foreground)' }}>
+            Documents ({documents.length})
+          </h3>
+        </div>
+        <div style={{ padding: 0 }}>
+          {showApprovalsPanel ? (
+            <div style={{ padding: 24 }}>
+              <ApprovalsPanel
+                onApprove={handleApprove}
+                onReject={handleReject}
               />
-            )}
-          </div>
+            </div>
+          ) : (
+            <DocumentList
+              onView={handleView}
+              onManage={handleManage}
+              onCancel={handleCancel}
+              onResend={handleResend}
+            />
+          )}
         </div>
       </div>
 

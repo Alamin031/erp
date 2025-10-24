@@ -12,14 +12,14 @@ interface DocumentCardProps {
   onResend: (doc: Document) => void;
 }
 
-const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }> = {
-  draft: { bg: "bg-gray-100", text: "text-gray-800", label: "Draft" },
-  sent: { bg: "bg-blue-100", text: "text-blue-800", label: "Sent" },
-  partially_signed: { bg: "bg-yellow-100", text: "text-yellow-800", label: "Partially Signed" },
-  completed: { bg: "bg-green-100", text: "text-green-800", label: "Completed" },
-  approved: { bg: "bg-green-200", text: "text-green-900", label: "Approved" },
-  rejected: { bg: "bg-red-100", text: "text-red-800", label: "Rejected" },
-  expired: { bg: "bg-gray-200", text: "text-gray-900", label: "Expired" },
+const STATUS_CONFIG: Record<string, { bg: string; text: string; label: string }> = {
+  draft: { bg: 'rgba(107, 114, 128, 0.1)', text: '#6b7280', label: "Draft" },
+  sent: { bg: 'rgba(59, 130, 246, 0.1)', text: '#3b82f6', label: "Sent" },
+  partially_signed: { bg: 'rgba(234, 179, 8, 0.1)', text: '#eab308', label: "Partially Signed" },
+  completed: { bg: 'rgba(34, 197, 94, 0.1)', text: '#22c55e', label: "Completed" },
+  approved: { bg: 'rgba(34, 197, 94, 0.15)', text: '#16a34a', label: "Approved" },
+  rejected: { bg: 'rgba(239, 68, 68, 0.1)', text: '#ef4444', label: "Rejected" },
+  expired: { bg: 'rgba(107, 114, 128, 0.15)', text: '#4b5563', label: "Expired" },
 };
 
 export function DocumentCard({
@@ -31,7 +31,7 @@ export function DocumentCard({
 }: DocumentCardProps) {
   const [showMenu, setShowMenu] = useState(false);
 
-  const status = STATUS_COLORS[document.status] || STATUS_COLORS.draft;
+  const status = STATUS_CONFIG[document.status] || STATUS_CONFIG.draft;
   const isExpired = document.expiresAt ? new Date(document.expiresAt) < new Date() : false;
 
   const formatDate = (dateString?: string) => {
@@ -45,93 +45,249 @@ export function DocumentCard({
   const pendingSigners = document.signers.filter((s) => s.status === "pending").length;
 
   return (
-  <div className="bg-[color:var(--card-bg)] border border-[var(--border)] rounded-2xl p-6 hover:shadow-lg hover:border-[var(--primary)] transition-all">
+    <div 
+      style={{
+        background: 'var(--card)',
+        border: '1px solid var(--border)',
+        borderRadius: 10,
+        padding: 20,
+        transition: 'all 0.2s ease',
+        position: 'relative'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-2px)';
+        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
+        e.currentTarget.style.borderColor = 'var(--primary)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = 'none';
+        e.currentTarget.style.borderColor = 'var(--border)';
+      }}
+    >
       {/* Header */}
-      <div className="flex items-start justify-between mb-3 gap-3">
-        <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-[var(--foreground)] text-sm truncate">
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16, gap: 12 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <h3 style={{ 
+            fontWeight: 600, 
+            color: 'var(--foreground)', 
+            fontSize: 15,
+            marginBottom: 4,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap'
+          }}>
             {document.title}
           </h3>
-          <p className="text-xs text-[var(--secondary)] mt-0.5 truncate">{document.id}</p>
+          <p style={{ fontSize: 12, color: 'var(--muted)' }}>{document.id}</p>
         </div>
-        <div className="flex items-start gap-2">
-          <span className={`text-xs font-semibold px-3 py-1 rounded-full ${status.bg} ${status.text}`}>{status.label}</span>
-          <div className="relative">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+          <span style={{ 
+            fontSize: 11, 
+            fontWeight: 600, 
+            padding: '4px 10px', 
+            borderRadius: 6,
+            background: status.bg,
+            color: status.text
+          }}>
+            {status.label}
+          </span>
+          <div style={{ position: 'relative' }}>
             <button
               onClick={() => setShowMenu(!showMenu)}
-              className="p-1 hover:bg-[var(--background)] rounded transition-colors"
-              aria-label="More"
+              style={{
+                padding: 4,
+                borderRadius: 6,
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--muted)'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'var(--background)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
             >
-              <MoreVertical className="w-4 h-4" />
+              <MoreVertical size={16} />
             </button>
 
             {showMenu && (
-              <div className="absolute right-0 mt-1 w-44 bg-[var(--card-bg)] border border-[var(--border)] rounded-lg shadow-lg z-10">
-                <button
-                  onClick={() => {
-                    onView(document);
-                    setShowMenu(false);
-                  }}
-                  className="w-full text-left px-4 py-2 text-sm hover:bg-[var(--background)] transition-colors first:rounded-t-lg"
-                >
-                  View
-                </button>
-                <button
-                  onClick={() => {
-                    onManage(document);
-                    setShowMenu(false);
-                  }}
-                  className="w-full text-left px-4 py-2 text-sm hover:bg-[var(--background)] transition-colors"
-                >
-                  Manage
-                </button>
-                {document.status !== "draft" && document.status !== "expired" && (
+              <>
+                <div 
+                  style={{ 
+                    position: 'fixed', 
+                    inset: 0, 
+                    zIndex: 10 
+                  }} 
+                  onClick={() => setShowMenu(false)} 
+                />
+                <div style={{
+                  position: 'absolute',
+                  right: 0,
+                  top: '100%',
+                  marginTop: 4,
+                  minWidth: 160,
+                  background: 'var(--card)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 8,
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  zIndex: 20,
+                  overflow: 'hidden'
+                }}>
                   <button
                     onClick={() => {
-                      onResend(document);
+                      onView(document);
                       setShowMenu(false);
                     }}
-                    className="w-full text-left px-4 py-2 text-sm hover:bg-[var(--background)] transition-colors"
+                    style={{
+                      width: '100%',
+                      textAlign: 'left',
+                      padding: '10px 14px',
+                      fontSize: 13,
+                      border: 'none',
+                      background: 'transparent',
+                      cursor: 'pointer',
+                      color: 'var(--foreground)'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--background)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                   >
-                    Resend
+                    View
                   </button>
-                )}
-                {document.status !== "expired" && document.status !== "approved" && (
                   <button
                     onClick={() => {
-                      onCancel(document);
+                      onManage(document);
                       setShowMenu(false);
                     }}
-                    className="w-full text-left px-4 py-2 text-sm hover:bg-red-50 text-red-700 transition-colors last:rounded-b-lg"
+                    style={{
+                      width: '100%',
+                      textAlign: 'left',
+                      padding: '10px 14px',
+                      fontSize: 13,
+                      border: 'none',
+                      background: 'transparent',
+                      cursor: 'pointer',
+                      color: 'var(--foreground)'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--background)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                   >
-                    Cancel
+                    Manage
                   </button>
-                )}
-              </div>
+                  {document.status !== "draft" && document.status !== "expired" && (
+                    <button
+                      onClick={() => {
+                        onResend(document);
+                        setShowMenu(false);
+                      }}
+                      style={{
+                        width: '100%',
+                        textAlign: 'left',
+                        padding: '10px 14px',
+                        fontSize: 13,
+                        border: 'none',
+                        background: 'transparent',
+                        cursor: 'pointer',
+                        color: 'var(--foreground)'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = 'var(--background)'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                    >
+                      Resend
+                    </button>
+                  )}
+                  {document.status !== "expired" && document.status !== "approved" && (
+                    <button
+                      onClick={() => {
+                        onCancel(document);
+                        setShowMenu(false);
+                      }}
+                      style={{
+                        width: '100%',
+                        textAlign: 'left',
+                        padding: '10px 14px',
+                        fontSize: 13,
+                        border: 'none',
+                        background: 'transparent',
+                        cursor: 'pointer',
+                        color: '#ef4444'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
+              </>
             )}
           </div>
         </div>
       </div>
 
       {/* Owner & Signers */}
-      <div className="mb-3 pb-3 border-b border-[var(--border)] flex items-center justify-between gap-4">
-        <div>
-          <p className="text-xs text-[var(--secondary)]">Owner</p>
-          <p className="text-sm font-medium text-[var(--foreground)]">{document.owner.name}</p>
+      <div style={{ 
+        marginBottom: 16, 
+        paddingBottom: 16, 
+        borderBottom: '1px solid var(--border)', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between',
+        gap: 16
+      }}>
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <p style={{ fontSize: 11, color: 'var(--muted)', marginBottom: 4 }}>Owner</p>
+          <p style={{ 
+            fontSize: 14, 
+            fontWeight: 500, 
+            color: 'var(--foreground)',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap'
+          }}>
+            {document.owner.name}
+          </p>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center -space-x-2">
-            {document.signers.slice(0, 3).map((signer) => (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginRight: -8 }}>
+            {document.signers.slice(0, 3).map((signer, idx) => (
               <div
                 key={signer.id}
-                className="w-8 h-8 rounded-full border-2 border-[var(--card-bg)] bg-[var(--primary)]/20 flex items-center justify-center text-xs font-semibold text-[var(--primary)]"
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  border: '2px solid var(--card)',
+                  background: `hsl(${idx * 60}, 70%, 60%)`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: 'white',
+                  marginLeft: -8
+                }}
                 title={signer.name}
               >
                 {signer.name.charAt(0).toUpperCase()}
               </div>
             ))}
             {document.signers.length > 3 && (
-              <div className="w-8 h-8 rounded-full border-2 border-[var(--card-bg)] bg-[var(--background)] flex items-center justify-center text-xs text-[var(--secondary)]">
+              <div style={{
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+                border: '2px solid var(--card)',
+                background: 'var(--background)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 11,
+                fontWeight: 600,
+                color: 'var(--muted)',
+                marginLeft: -8
+              }}>
                 +{document.signers.length - 3}
               </div>
             )}
@@ -140,30 +296,57 @@ export function DocumentCard({
       </div>
 
       {/* Dates */}
-      <div className="flex items-center justify-between mb-4">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
         <div>
-          <p className="text-[var(--secondary)] text-xs">Sent</p>
-          <p className="text-[var(--foreground)] font-medium text-sm">{document.sentAt ? formatDate(document.sentAt) : "—"}</p>
+          <p style={{ color: 'var(--muted)', fontSize: 11, marginBottom: 4 }}>Sent</p>
+          <p style={{ color: 'var(--foreground)', fontWeight: 500, fontSize: 14 }}>
+            {document.sentAt ? formatDate(document.sentAt) : "—"}
+          </p>
         </div>
-        <div className="text-right">
-          <p className="text-[var(--secondary)] text-xs">Expires</p>
-          <p className={`font-medium text-sm ${isExpired ? "text-red-600" : "text-[var(--foreground)]"}`}>{formatDate(document.expiresAt)}</p>
+        <div style={{ textAlign: 'right' }}>
+          <p style={{ color: 'var(--muted)', fontSize: 11, marginBottom: 4 }}>Expires</p>
+          <p style={{ 
+            fontWeight: 500, 
+            fontSize: 14,
+            color: isExpired ? '#ef4444' : 'var(--foreground)'
+          }}>
+            {formatDate(document.expiresAt)}
+          </p>
         </div>
       </div>
 
-      {/* Pending signers */}
+      {/* Pending signers badge */}
       {pendingSigners > 0 && (
-        <div className="mb-3 inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">
-          {pendingSigners} pending signature{pendingSigners !== 1 ? "s" : ""}
+        <div style={{ marginBottom: 12 }}>
+          <span style={{
+            display: 'inline-block',
+            padding: '4px 10px',
+            background: 'rgba(234, 179, 8, 0.1)',
+            color: '#eab308',
+            borderRadius: 6,
+            fontSize: 11,
+            fontWeight: 600
+          }}>
+            {pendingSigners} pending signature{pendingSigners !== 1 ? "s" : ""}
+          </span>
         </div>
       )}
 
-      {/* Actions */}
+      {/* Action Button */}
       <button
         onClick={() => onView(document)}
-        className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-[var(--primary)] hover:opacity-90 text-white rounded-lg text-sm font-medium transition-opacity mt-3"
+        className="btn btn-primary"
+        style={{ 
+          width: '100%', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          gap: 8,
+          fontSize: 14,
+          fontWeight: 500
+        }}
       >
-        <Eye className="w-4 h-4" />
+        <Eye size={16} />
         View Document
       </button>
     </div>

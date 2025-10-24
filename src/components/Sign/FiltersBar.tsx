@@ -43,48 +43,103 @@ export function FiltersBar({}: FiltersBarProps) {
   );
 
   return (
-    <div className="bg-(--card-bg) border-b border-(--border) p-4 space-y-4">
+    <div style={{ 
+      background: 'var(--card)', 
+      border: '1px solid var(--border)', 
+      borderRadius: 10,
+      padding: 20
+    }}>
       {/* Search */}
-      <div className="relative">
-        <Search className="absolute left-3 top-2.5 w-4 h-4 text-(--secondary)" />
+      <div style={{ position: 'relative', marginBottom: 20 }}>
+        <Search 
+          size={16} 
+          style={{ 
+            position: 'absolute', 
+            left: 12, 
+            top: '50%', 
+            transform: 'translateY(-50%)',
+            color: 'var(--muted)',
+            pointerEvents: 'none'
+          }} 
+        />
         <input
           type="text"
           value={filters.keyword || ""}
           onChange={(e) => setFilters({ ...filters, keyword: e.target.value || undefined })}
           placeholder="Search documents..."
-          className="w-full pl-10 pr-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary) text-sm"
+          className="form-input"
+          style={{ 
+            width: '100%', 
+            paddingLeft: 38,
+            fontSize: 14
+          }}
         />
       </div>
 
       {/* Status Filters */}
       <div>
-        <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-semibold text-(--secondary) uppercase">
-            Status
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <label style={{ 
+            fontSize: 11, 
+            fontWeight: 600, 
+            color: 'var(--muted)', 
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
+          }}>
+            STATUS
           </label>
           {filters.status && filters.status.length > 0 && (
-            <span className="text-xs text-(--primary)">
+            <span style={{ fontSize: 12, color: 'var(--primary)', fontWeight: 500 }}>
               {filters.status.length} selected
             </span>
           )}
         </div>
-        <div className="flex flex-wrap gap-2">
-          {STATUS_OPTIONS.map((status) => (
-            <label
-              key={status}
-              className="flex items-center gap-2 px-2 py-1 rounded-lg border border-(--border) cursor-pointer hover:border-(--primary) transition-colors"
-            >
-              <input
-                type="checkbox"
-                checked={filters.status?.includes(status) || false}
-                onChange={(e) => handleStatusChange(status, e.target.checked)}
-                className="w-3 h-3 rounded"
-              />
-              <span className="text-xs text-(--foreground) capitalize">
-                {status.replace(/_/g, " ")}
-              </span>
-            </label>
-          ))}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {STATUS_OPTIONS.map((status) => {
+            const isChecked = filters.status?.includes(status) || false;
+            return (
+              <label
+                key={status}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '8px 12px',
+                  borderRadius: 8,
+                  border: `1px solid ${isChecked ? 'var(--primary)' : 'var(--border)'}`,
+                  background: isChecked ? 'rgba(var(--primary-rgb), 0.05)' : 'transparent',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  fontSize: 13
+                }}
+                onMouseEnter={(e) => {
+                  if (!isChecked) e.currentTarget.style.borderColor = 'var(--primary)';
+                }}
+                onMouseLeave={(e) => {
+                  if (!isChecked) e.currentTarget.style.borderColor = 'var(--border)';
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={(e) => handleStatusChange(status, e.target.checked)}
+                  style={{ 
+                    width: 16, 
+                    height: 16,
+                    cursor: 'pointer',
+                    accentColor: 'var(--primary)'
+                  }}
+                />
+                <span style={{ 
+                  color: 'var(--foreground)', 
+                  textTransform: 'capitalize',
+                  fontWeight: isChecked ? 500 : 400
+                }}>
+                  {status.replace(/_/g, " ")}
+                </span>
+              </label>
+            );
+          })}
         </div>
       </div>
 
@@ -92,9 +147,18 @@ export function FiltersBar({}: FiltersBarProps) {
       {hasActiveFilters && (
         <button
           onClick={clearFilters}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-(--border) rounded-lg hover:bg-(--background) text-(--secondary) text-sm transition-colors"
+          className="btn btn-secondary"
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            marginTop: 16,
+            fontSize: 13
+          }}
         >
-          <X className="w-4 h-4" />
+          <X size={16} />
           Clear Filters
         </button>
       )}

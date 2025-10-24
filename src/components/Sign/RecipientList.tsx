@@ -21,41 +21,59 @@ export function RecipientList({ document, onSignNow }: RecipientListProps) {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "signed":
-        return <Check className="w-5 h-5 text-green-600" />;
+        return <Check size={18} style={{ color: '#22c55e' }} />;
       case "pending":
-        return <Clock className="w-5 h-5 text-yellow-600" />;
+        return <Clock size={18} style={{ color: '#eab308' }} />;
       case "rejected":
-        return <X className="w-5 h-5 text-red-600" />;
+        return <X size={18} style={{ color: '#ef4444' }} />;
       case "expired":
-        return <X className="w-5 h-5 text-gray-400" />;
+        return <X size={18} style={{ color: 'var(--muted)' }} />;
       default:
         return null;
     }
   };
 
   return (
-    <div className="space-y-3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       {document.signers.map((signer, idx) => (
         <div
           key={signer.id}
-          className="p-4 border border-(--border) rounded-lg hover:border-(--primary) transition-colors"
+          style={{
+            padding: 16,
+            border: '1px solid var(--border)',
+            borderRadius: 10,
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--primary)'}
+          onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border)'}
         >
           {/* Header */}
-          <div className="flex items-start justify-between mb-3">
-            <div className="flex items-center gap-3 flex-1">
-              <div className="w-10 h-10 rounded-full bg-(--primary)/20 flex items-center justify-center text-sm font-semibold text-(--primary)">
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1 }}>
+              <div style={{
+                width: 40,
+                height: 40,
+                borderRadius: '50%',
+                background: 'rgba(var(--primary-rgb), 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 14,
+                fontWeight: 600,
+                color: 'var(--primary)'
+              }}>
                 {signer.name.charAt(0).toUpperCase()}
               </div>
-              <div className="flex-1">
-                <p className="font-semibold text-(--foreground)">
+              <div style={{ flex: 1 }}>
+                <p style={{ fontWeight: 600, color: 'var(--foreground)', fontSize: 14, marginBottom: 2 }}>
                   {signer.name}
                 </p>
-                <p className="text-xs text-(--secondary)">{signer.email}</p>
+                <p style={{ fontSize: 12, color: 'var(--muted)' }}>{signer.email}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
               {getStatusIcon(signer.status)}
-              <span className="text-xs font-medium capitalize text-(--foreground)">
+              <span style={{ fontSize: 12, fontWeight: 500, textTransform: 'capitalize', color: 'var(--foreground)' }}>
                 {signer.status}
               </span>
             </div>
@@ -63,38 +81,67 @@ export function RecipientList({ document, onSignNow }: RecipientListProps) {
 
           {/* Signing order indicator for sequential */}
           {document.signingOrder === "sequential" && (
-            <div className="mb-3 p-2 bg-blue-50 border border-blue-200 rounded text-xs text-blue-800">
+            <div style={{ 
+              marginBottom: 12, 
+              padding: 8, 
+              background: 'rgba(59, 130, 246, 0.1)', 
+              border: '1px solid rgba(59, 130, 246, 0.3)', 
+              borderRadius: 6,
+              fontSize: 12,
+              color: '#3b82f6',
+              fontWeight: 500
+            }}>
               Position: #{idx + 1} in signing order
             </div>
           )}
 
           {/* Status details */}
           {signer.status === "signed" && signer.signedAt && (
-            <div className="mb-3 p-2 bg-green-50 border border-green-200 rounded text-xs text-green-800">
+            <div style={{ 
+              marginBottom: 12, 
+              padding: 8, 
+              background: 'rgba(34, 197, 94, 0.1)', 
+              border: '1px solid rgba(34, 197, 94, 0.3)', 
+              borderRadius: 6,
+              fontSize: 12,
+              color: '#22c55e',
+              fontWeight: 500
+            }}>
               Signed on {formatDate(signer.signedAt)} by {signer.signedBy}
             </div>
           )}
 
           {/* Fields status */}
-          <div className="mb-3">
-            <p className="text-xs font-medium text-(--secondary) mb-2">
+          <div style={{ marginBottom: 12 }}>
+            <p style={{ fontSize: 12, fontWeight: 500, color: 'var(--muted)', marginBottom: 8 }}>
               Signature Fields ({signer.fields.length})
             </p>
-            <div className="space-y-1">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {signer.fields.map((field) => (
                 <div
                   key={field.id}
-                  className="flex items-center justify-between p-2 bg-(--background) rounded text-xs"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: 8,
+                    background: 'var(--background)',
+                    borderRadius: 6,
+                    fontSize: 12
+                  }}
                 >
-                  <span className="text-(--foreground)">
+                  <span style={{ color: 'var(--foreground)', fontWeight: 500 }}>
                     Page {field.page}
                   </span>
                   <span
-                    className={`px-2 py-0.5 rounded-full font-medium ${
-                      field.status === "signed"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-yellow-100 text-yellow-800"
-                    }`}
+                    style={{
+                      padding: '3px 8px',
+                      borderRadius: 6,
+                      fontWeight: 600,
+                      fontSize: 11,
+                      background: field.status === "signed" ? 'rgba(34, 197, 94, 0.1)' : 'rgba(234, 179, 8, 0.1)',
+                      color: field.status === "signed" ? '#22c55e' : '#eab308'
+                    }}
                   >
                     {field.status}
                   </span>
@@ -107,7 +154,11 @@ export function RecipientList({ document, onSignNow }: RecipientListProps) {
           {signer.status === "pending" && onSignNow && (
             <button
               onClick={() => onSignNow(document)}
-              className="w-full px-3 py-2 bg-(--primary) hover:opacity-90 text-white rounded-lg text-sm font-medium transition-opacity"
+              className="btn btn-primary"
+              style={{
+                width: '100%',
+                fontSize: 14
+              }}
             >
               Sign Now
             </button>

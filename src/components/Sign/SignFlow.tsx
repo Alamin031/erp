@@ -100,59 +100,140 @@ export function SignFlow({
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/40 z-50"
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0, 0, 0, 0.6)',
+              backdropFilter: 'blur(4px)',
+              WebkitBackdropFilter: 'blur(4px)',
+              zIndex: 10000,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
           />
 
+          {/* Modal */}
           <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md max-h-[90vh] overflow-y-auto bg-(--card-bg) rounded-xl border border-(--border) shadow-xl z-50"
+            initial={{ scale: 0.95, opacity: 0, y: '-50%', x: '-50%' }}
+            animate={{ scale: 1, opacity: 1, y: '-50%', x: '-50%' }}
+            exit={{ scale: 0.95, opacity: 0, y: '-50%', x: '-50%' }}
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              width: 'calc(100% - 32px)',
+              maxWidth: 560,
+              maxHeight: '90vh',
+              display: 'flex',
+              flexDirection: 'column',
+              background: 'var(--card)',
+              borderRadius: 12,
+              border: '1px solid var(--border)',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)',
+              zIndex: 10001,
+              overflow: 'hidden'
+            }}
           >
             {/* Header */}
-            <div className="sticky top-0 px-6 py-4 border-b border-(--border) bg-(--card-bg) flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-(--foreground)">
+            <div style={{
+              padding: '16px 20px',
+              borderBottom: '1px solid var(--border)',
+              background: 'var(--card)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexShrink: 0
+            }}>
+              <h2 style={{ 
+                fontSize: 18, 
+                fontWeight: 600, 
+                color: 'var(--foreground)',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                marginRight: 12
+              }}>
                 Sign Document
               </h2>
               <button
                 onClick={onClose}
                 disabled={isLoading}
-                className="p-1 hover:bg-(--background) rounded transition-colors disabled:opacity-50"
+                style={{
+                  padding: 6,
+                  border: 'none',
+                  background: 'transparent',
+                  borderRadius: 6,
+                  cursor: isLoading ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--muted)',
+                  opacity: isLoading ? 0.5 : 1,
+                  flexShrink: 0
+                }}
+                onMouseEnter={(e) => !isLoading && (e.currentTarget.style.background = 'var(--background)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
               >
-                <X className="w-5 h-5" />
+                <X size={20} />
               </button>
             </div>
 
             {/* Progress */}
-            <div className="px-6 py-4 border-b border-(--border) bg-(--background)">
-              <div className="flex gap-2">
+            <div style={{
+              padding: '16px 20px',
+              borderBottom: '1px solid var(--border)',
+              background: 'var(--background)',
+              flexShrink: 0
+            }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'center', maxWidth: '100%' }}>
                 {[1, 2, 3].map((s) => (
-                  <div key={s} className="flex items-center gap-1 flex-1">
+                  <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <div
-                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
-                        s <= step
-                          ? "bg-(--primary) text-white"
-                          : "bg-(--border) text-(--secondary)"
-                      }`}
+                      style={{
+                        width: 36,
+                        height: 36,
+                        minWidth: 36,
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 14,
+                        fontWeight: 700,
+                        transition: 'all 0.2s ease',
+                        background: s <= step ? 'var(--primary)' : 'var(--border)',
+                        color: s <= step ? '#fff' : 'var(--muted)'
+                      }}
                     >
                       {s}
                     </div>
                     {s < 3 && (
                       <div
-                        className={`flex-1 h-1 transition-colors ${
-                          s < step ? "bg-(--primary)" : "bg-(--border)"
-                        }`}
+                        style={{
+                          width: 60,
+                          height: 3,
+                          borderRadius: 2,
+                          transition: 'all 0.2s ease',
+                          background: s < step ? 'var(--primary)' : 'var(--border)'
+                        }}
                       />
                     )}
                   </div>
                 ))}
               </div>
-              <div className="mt-2 text-xs text-(--secondary)">
+              <div style={{ 
+                marginTop: 12, 
+                fontSize: 13, 
+                fontWeight: 600, 
+                color: 'var(--foreground)',
+                textAlign: 'center'
+              }}>
                 {step === 1 && "Confirm Identity"}
                 {step === 2 && "Accept Terms"}
                 {step === 3 && "Sign Document"}
@@ -160,28 +241,52 @@ export function SignFlow({
             </div>
 
             {/* Content */}
-            <div className="p-6 space-y-4">
+            <div style={{
+              padding: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 16,
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              flex: 1
+            }}>
               {error && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-sm text-red-800">{error}</p>
+                <div style={{
+                  padding: 12,
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  borderRadius: 8
+                }}>
+                  <p style={{ fontSize: 13, color: '#dc2626', fontWeight: 500 }}>{error}</p>
                 </div>
               )}
 
               {/* Step 1: Identity */}
               {step === 1 && (
-                <div className="space-y-4">
-                  <p className="text-sm text-(--secondary)">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  <p style={{ fontSize: 14, color: 'var(--muted)' }}>
                     Please confirm your identity
                   </p>
 
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
-                    <p className="text-xs text-blue-800">
+                  <div style={{
+                    background: 'rgba(59, 130, 246, 0.1)',
+                    border: '1px solid rgba(59, 130, 246, 0.3)',
+                    borderRadius: 8,
+                    padding: 12
+                  }}>
+                    <p style={{ fontSize: 12, color: '#1e40af', lineHeight: 1.5, wordBreak: 'break-word' }}>
                       <strong>Demo Mode:</strong> Identity verification is simulated. In production, this would include OTP, KBA, or OAuth verification.
                     </p>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-(--foreground) mb-2">
+                    <label style={{
+                      display: 'block',
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: 'var(--foreground)',
+                      marginBottom: 8
+                    }}>
                       Email Address *
                     </label>
                     <input
@@ -189,12 +294,19 @@ export function SignFlow({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="your.email@example.com"
-                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
+                      className="form-input"
+                      style={{ width: '100%' }}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-(--foreground) mb-2">
+                    <label style={{
+                      display: 'block',
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: 'var(--foreground)',
+                      marginBottom: 8
+                    }}>
                       Full Name *
                     </label>
                     <input
@@ -202,7 +314,8 @@ export function SignFlow({
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Your Full Name"
-                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
+                      className="form-input"
+                      style={{ width: '100%' }}
                     />
                   </div>
                 </div>
@@ -210,15 +323,32 @@ export function SignFlow({
 
               {/* Step 2: Consent */}
               {step === 2 && (
-                <div className="space-y-4">
-                  <div className="bg-(--background) rounded-lg p-4 space-y-3 max-h-64 overflow-y-auto">
-                    <h3 className="font-semibold text-(--foreground)">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  <div style={{
+                    background: 'var(--background)',
+                    borderRadius: 8,
+                    padding: 16,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 12,
+                    maxHeight: 256,
+                    overflowY: 'auto'
+                  }}>
+                    <h3 style={{ fontWeight: 600, color: 'var(--foreground)', fontSize: 15 }}>
                       Signing Agreement
                     </h3>
-                    <p className="text-sm text-(--secondary)">
+                    <p style={{ fontSize: 13, color: 'var(--muted)' }}>
                       By signing this document, you acknowledge that:
                     </p>
-                    <ul className="text-sm text-(--secondary) space-y-2 list-disc list-inside">
+                    <ul style={{
+                      fontSize: 13,
+                      color: 'var(--muted)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 8,
+                      listStyle: 'disc',
+                      paddingLeft: 24
+                    }}>
                       <li>
                         You have read and understand the document contents
                       </li>
@@ -234,14 +364,26 @@ export function SignFlow({
                     </ul>
                   </div>
 
-                  <label className="flex items-start gap-3 p-3 border border-(--border) rounded-lg cursor-pointer hover:bg-(--background) transition-colors">
+                  <label style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 12,
+                    padding: 12,
+                    border: '1px solid var(--border)',
+                    borderRadius: 8,
+                    cursor: 'pointer',
+                    transition: 'background 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = 'var(--background)'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
                     <input
                       type="checkbox"
                       checked={consentChecked}
                       onChange={(e) => setConsentChecked(e.target.checked)}
-                      className="mt-1"
+                      style={{ marginTop: 2, cursor: 'pointer' }}
                     />
-                    <span className="text-sm text-(--foreground)">
+                    <span style={{ fontSize: 13, color: 'var(--foreground)', lineHeight: 1.5 }}>
                       I confirm I am authorized to sign this document and accept all terms above
                     </span>
                   </label>
@@ -251,7 +393,7 @@ export function SignFlow({
               {/* Step 3: Signature */}
               {step === 3 && (
                 <div>
-                  <p className="text-sm text-(--secondary) mb-4">
+                  <p style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 16 }}>
                     Choose how to sign below
                   </p>
                   <SignaturePad
@@ -263,11 +405,25 @@ export function SignFlow({
             </div>
 
             {/* Actions */}
-            <div className="sticky bottom-0 border-t border-(--border) px-6 py-4 bg-(--card-bg) flex gap-2">
+            <div style={{
+              position: 'sticky',
+              bottom: 0,
+              borderTop: '1px solid var(--border)',
+              padding: '14px 20px',
+              background: 'var(--card)',
+              display: 'flex',
+              gap: 10,
+              flexShrink: 0
+            }}>
               <button
                 onClick={onClose}
                 disabled={isLoading}
-                className="flex-1 px-4 py-2 border border-(--border) rounded-lg text-(--foreground) hover:bg-(--background) font-medium transition-colors disabled:opacity-50"
+                className="btn btn-secondary"
+                style={{
+                  flex: 1,
+                  opacity: isLoading ? 0.5 : 1,
+                  cursor: isLoading ? 'not-allowed' : 'pointer'
+                }}
               >
                 Cancel
               </button>
@@ -276,7 +432,12 @@ export function SignFlow({
                 <button
                   onClick={handleNext}
                   disabled={isLoading}
-                  className="flex-1 px-4 py-2 bg-(--primary) hover:opacity-90 text-white rounded-lg font-medium transition-opacity disabled:opacity-50"
+                  className="btn btn-primary"
+                  style={{
+                    flex: 1,
+                    opacity: isLoading ? 0.5 : 1,
+                    cursor: isLoading ? 'not-allowed' : 'pointer'
+                  }}
                 >
                   Next
                 </button>

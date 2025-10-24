@@ -7,16 +7,16 @@ interface AuditTrailProps {
   doc: Document;
 }
 
-const ACTION_COLORS: Record<string, string> = {
-  created: "bg-gray-100 text-gray-800",
-  sent: "bg-blue-100 text-blue-800",
-  viewed: "bg-cyan-100 text-cyan-800",
-  signed: "bg-green-100 text-green-800",
-  rejected: "bg-red-100 text-red-800",
-  approved: "bg-emerald-100 text-emerald-800",
-  expired: "bg-orange-100 text-orange-800",
-  resent: "bg-indigo-100 text-indigo-800",
-  cancelled: "bg-gray-100 text-gray-800",
+const ACTION_COLORS: Record<string, { bg: string; text: string }> = {
+  created: { bg: 'rgba(107, 114, 128, 0.1)', text: '#6b7280' },
+  sent: { bg: 'rgba(59, 130, 246, 0.1)', text: '#3b82f6' },
+  viewed: { bg: 'rgba(6, 182, 212, 0.1)', text: '#06b6d4' },
+  signed: { bg: 'rgba(34, 197, 94, 0.1)', text: '#22c55e' },
+  rejected: { bg: 'rgba(239, 68, 68, 0.1)', text: '#ef4444' },
+  approved: { bg: 'rgba(16, 185, 129, 0.1)', text: '#10b981' },
+  expired: { bg: 'rgba(249, 115, 22, 0.1)', text: '#f97316' },
+  resent: { bg: 'rgba(99, 102, 241, 0.1)', text: '#6366f1' },
+  cancelled: { bg: 'rgba(107, 114, 128, 0.1)', text: '#6b7280' },
 };
 
 export function AuditTrail({ doc }: AuditTrailProps) {
@@ -63,71 +63,194 @@ export function AuditTrail({ doc }: AuditTrailProps) {
   };
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-(--foreground)">
-          Audit Trail ({doc.auditTrail.length})
-        </h3>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* Header Section */}
+      <div style={{ 
+        display: 'flex', 
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center', 
+        justifyContent: 'space-between',
+        gap: 12,
+        padding: '16px 20px',
+        background: 'var(--background)',
+        borderRadius: 10,
+        border: '1px solid var(--border)'
+      }}>
+        <div style={{ flex: '1 1 auto', minWidth: 150 }}>
+          <h3 style={{ fontWeight: 600, color: 'var(--foreground)', fontSize: 16, marginBottom: 4 }}>
+            Audit Trail
+          </h3>
+          <p style={{ fontSize: 13, color: 'var(--muted)' }}>
+            {doc.auditTrail.length} {doc.auditTrail.length === 1 ? 'entry' : 'entries'}
+          </p>
+        </div>
         <button
           onClick={handleExportAudit}
-          className="flex items-center gap-1 px-3 py-1 text-xs bg-(--primary) hover:opacity-90 text-white rounded transition-opacity"
+          className="btn btn-primary"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            fontSize: 13,
+            padding: '8px 16px',
+            whiteSpace: 'nowrap'
+          }}
         >
-          <Download className="w-3 h-3" />
-          Export
+          <Download size={16} />
+          <span>Export CSV</span>
         </button>
       </div>
 
-      <div className="space-y-2">
-        {doc.auditTrail.map((entry, idx) => (
-          <div
-            key={entry.id}
-            className="p-3 border border-(--border) rounded-lg hover:border-(--primary) transition-colors"
-          >
-            <div className="flex items-start gap-3">
-              {/* Timeline connector */}
-              <div className="flex flex-col items-center">
+      {/* Timeline Container */}
+      <div style={{ 
+        position: 'relative',
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: 0
+      }}>
+        {doc.auditTrail.map((entry, idx) => {
+          const colors = ACTION_COLORS[entry.action] || { bg: 'rgba(107, 114, 128, 0.1)', text: '#6b7280' };
+          const isLast = idx === doc.auditTrail.length - 1;
+          
+          return (
+            <div
+              key={entry.id}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 16,
+                paddingBottom: isLast ? 0 : 24,
+                position: 'relative'
+              }}
+            >
+              {/* Timeline Line & Dot */}
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center',
+                position: 'relative',
+                paddingTop: 2,
+                minWidth: 12,
+                flexShrink: 0
+              }}>
                 <div
-                  className={`w-2 h-2 rounded-full ${
-                    ACTION_COLORS[entry.action] || "bg-gray-300"
-                  }`}
+                  style={{
+                    width: 12,
+                    height: 12,
+                    borderRadius: '50%',
+                    background: colors.text,
+                    border: '3px solid var(--card)',
+                    boxShadow: `0 0 0 1px ${colors.text}`,
+                    position: 'relative',
+                    zIndex: 2
+                  }}
                 />
-                {idx < doc.auditTrail.length - 1 && (
-                  <div className="w-0.5 h-8 bg-(--border)" />
+                {!isLast && (
+                  <div 
+                    style={{ 
+                      width: 2, 
+                      position: 'absolute',
+                      top: 16,
+                      bottom: -24,
+                      background: 'var(--border)'
+                    }} 
+                  />
                 )}
               </div>
 
-              {/* Content */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <p className="font-medium text-(--foreground) text-sm">
-                      {entry.userName}
-                    </p>
-                    <p className="text-xs text-(--secondary)">
-                      {formatDate(entry.timestamp)}
-                    </p>
+              {/* Content Card */}
+              <div 
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  padding: 16,
+                  background: 'var(--background)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 10,
+                  transition: 'all 0.2s ease',
+                  cursor: 'default'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = colors.text;
+                  e.currentTarget.style.boxShadow = `0 2px 8px ${colors.bg}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--border)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  gap: 10
+                }}>
+                  {/* Header Row */}
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <p style={{ fontWeight: 600, color: 'var(--foreground)', fontSize: 14, marginBottom: 4, wordBreak: 'break-word' }}>
+                        {entry.userName}
+                      </p>
+                      <p style={{ fontSize: 12, color: 'var(--muted)' }}>
+                        {formatDate(entry.timestamp)}
+                      </p>
+                    </div>
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        padding: '6px 12px',
+                        borderRadius: 6,
+                        textTransform: 'capitalize',
+                        whiteSpace: 'nowrap',
+                        background: colors.bg,
+                        color: colors.text,
+                        border: `1px solid ${colors.text}33`,
+                        flexShrink: 0
+                      }}
+                    >
+                      {entry.action.replace(/_/g, " ")}
+                    </span>
                   </div>
-                  <span
-                    className={`text-xs font-medium px-2 py-1 rounded-full capitalize whitespace-nowrap ${
-                      ACTION_COLORS[entry.action] || "bg-gray-100 text-gray-800"
-                    }`}
-                  >
-                    {entry.action.replace(/_/g, " ")}
-                  </span>
-                </div>
 
-                <p className="text-sm text-(--foreground) mt-1">
-                  {entry.details}
-                </p>
+                  {/* Details */}
+                  <p style={{ fontSize: 13, color: 'var(--foreground)', lineHeight: 1.6, wordBreak: 'break-word' }}>
+                    {entry.details}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
+      {/* Empty State */}
       {doc.auditTrail.length === 0 && (
-        <div className="text-center py-8">
-          <p className="text-(--secondary)">No audit entries yet</p>
+        <div style={{ 
+          textAlign: 'center', 
+          padding: '48px 20px',
+          background: 'var(--background)',
+          borderRadius: 10,
+          border: '1px solid var(--border)'
+        }}>
+          <div style={{ 
+            width: 48, 
+            height: 48, 
+            borderRadius: '50%', 
+            background: 'rgba(107, 114, 128, 0.1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 12px'
+          }}>
+            <Download size={24} style={{ color: 'var(--muted)', opacity: 0.5 }} />
+          </div>
+          <p style={{ color: 'var(--foreground)', fontSize: 14, fontWeight: 500, marginBottom: 4 }}>
+            No audit entries yet
+          </p>
+          <p style={{ color: 'var(--muted)', fontSize: 13 }}>
+            Activity history will appear here once actions are taken
+          </p>
         </div>
       )}
     </div>

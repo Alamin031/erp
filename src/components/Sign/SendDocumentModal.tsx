@@ -202,411 +202,524 @@ export function SendDocumentModal({
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/40 z-50"
-          />
+          <div className="modal-overlay" onClick={onClose} />
 
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-(--card-bg) rounded-xl border border-(--border) shadow-xl z-50"
-          >
-            {/* Header */}
-            <div className="sticky top-0 px-6 py-4 border-b border-(--border) bg-(--card-bg) flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-(--foreground)">
-                Send Document
-              </h2>
-              <button
-                onClick={onClose}
-                disabled={isLoading}
-                className="p-1 hover:bg-(--background) rounded transition-colors disabled:opacity-50"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+          <div className="modal">
+            <motion.div 
+              className="modal-card"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              style={{ maxWidth: 700, maxHeight: '90vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
+            >
+              {/* Header */}
+              <div className="modal-header">
+                <h2>Send Document</h2>
+                <button className="modal-close" onClick={onClose} disabled={isLoading}>
+                  <X size={20} />
+                </button>
+              </div>
 
-            {/* Progress Indicator */}
-            <div className="px-6 py-4 border-b border-(--border) bg-(--background)">
-              <div className="flex gap-2">
-                {[1, 2, 3, 4].map((s) => (
-                  <div key={s} className="flex items-center gap-2 flex-1">
-                    <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-colors ${
-                        s <= step
-                          ? "bg-(--primary) text-white"
-                          : "bg-(--border) text-(--secondary)"
-                      }`}
-                    >
-                      {s}
-                    </div>
-                    {s < 4 && (
+              {/* Progress Indicator */}
+              <div style={{ 
+                padding: '16px 24px', 
+                borderBottom: '1px solid var(--border)',
+                background: 'var(--background)'
+              }}>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  {[1, 2, 3, 4].map((s) => (
+                    <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1 }}>
                       <div
-                        className={`flex-1 h-1 transition-colors ${
-                          s < step ? "bg-(--primary)" : "bg-(--border)"
-                        }`}
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-              <div className="mt-2 text-xs text-(--secondary)">
-                {step === 1 && "Upload Document"}
-                {step === 2 && "Add Recipients"}
-                {step === 3 && "Place Signature Fields"}
-                {step === 4 && "Message & Expiration"}
-              </div>
-            </div>
-
-            {/* Content */}
-            <div className="p-6 space-y-4">
-              {error && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-sm text-red-800">{error}</p>
+                        style={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 13,
+                          fontWeight: 600,
+                          transition: 'all 0.2s ease',
+                          background: s <= step ? 'var(--primary)' : 'var(--border)',
+                          color: s <= step ? 'white' : 'var(--muted)'
+                        }}
+                      >
+                        {s}
+                      </div>
+                      {s < 4 && (
+                        <div
+                          style={{
+                            flex: 1,
+                            height: 3,
+                            borderRadius: 2,
+                            transition: 'all 0.2s ease',
+                            background: s < step ? 'var(--primary)' : 'var(--border)'
+                          }}
+                        />
+                      )}
+                    </div>
+                  ))}
                 </div>
-              )}
+                <div style={{ marginTop: 12, fontSize: 12, color: 'var(--muted)', fontWeight: 500 }}>
+                  {step === 1 && "Upload Document"}
+                  {step === 2 && "Add Recipients"}
+                  {step === 3 && "Place Signature Fields"}
+                  {step === 4 && "Message & Expiration"}
+                </div>
+              </div>
 
-              {/* Step 1: Upload Document */}
-              {step === 1 && (
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-(--foreground) mb-2">
-                      Document Title *
-                    </label>
-                    <input
-                      type="text"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      placeholder="e.g., Service Agreement"
-                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
-                    />
+              {/* Content */}
+              <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+                {error && (
+                  <div style={{ 
+                    padding: 12, 
+                    background: 'rgba(239, 68, 68, 0.1)', 
+                    border: '1px solid rgba(239, 68, 68, 0.3)', 
+                    borderRadius: 8,
+                    marginBottom: 16
+                  }}>
+                    <p style={{ fontSize: 13, color: '#ef4444' }}>{error}</p>
                   </div>
+                )}
 
-                  <div>
-                    <label className="block text-sm font-medium text-(--foreground) mb-2">
-                      File Name *
-                    </label>
-                    <div className="flex gap-2">
+                {/* Step 1: Upload Document */}
+                {step === 1 && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                    <div>
+                      <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>
+                        Document Title <span style={{ color: '#dc3545' }}>*</span>
+                      </label>
                       <input
                         type="text"
-                        value={fileName}
-                        onChange={(e) => setFileName(e.target.value)}
-                        placeholder="e.g., agreement.pdf"
-                        className="flex-1 px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="e.g., Service Agreement"
+                        className="form-input"
+                        style={{ width: '100%' }}
                       />
-                      <button
-                        disabled
-                        className="px-4 py-2 border border-(--border) rounded-lg hover:bg-(--background) text-(--secondary) opacity-50 flex items-center gap-2"
-                      >
-                        <Upload className="w-4 h-4" />
-                      </button>
                     </div>
-                    <p className="text-xs text-(--secondary) mt-1">
-                      Demo mode: File upload simulation
+
+                    <div>
+                      <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>
+                        File Name <span style={{ color: '#dc3545' }}>*</span>
+                      </label>
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        <input
+                          type="text"
+                          value={fileName}
+                          onChange={(e) => setFileName(e.target.value)}
+                          placeholder="e.g., agreement.pdf"
+                          className="form-input"
+                          style={{ flex: 1 }}
+                        />
+                        <button
+                          disabled
+                          className="btn btn-secondary"
+                          style={{ display: 'flex', alignItems: 'center', gap: 8, opacity: 0.5 }}
+                        >
+                          <Upload size={16} />
+                        </button>
+                      </div>
+                      <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 6 }}>
+                        Demo mode: File upload simulation
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 2: Add Recipients */}
+                {step === 2 && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                    <div style={{ marginBottom: 8 }}>
+                      <h3 style={{ fontWeight: 600, color: 'var(--foreground)', marginBottom: 12, fontSize: 15 }}>
+                        Signing Order
+                      </h3>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      <label style={{ 
+                        display: 'flex', 
+                        alignItems: 'flex-start', 
+                        gap: 12, 
+                        padding: 12, 
+                        border: '1px solid var(--border)', 
+                        borderRadius: 8,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = 'var(--background)'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      >
+                        <input
+                          type="radio"
+                          name="order"
+                          value="parallel"
+                          checked={signingOrder === "parallel"}
+                          onChange={(e) => setSigningOrder(e.target.value as SigningOrder)}
+                          style={{ marginTop: 2, cursor: 'pointer', accentColor: 'var(--primary)' }}
+                        />
+                        <div>
+                          <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--foreground)', marginBottom: 4 }}>
+                            Parallel (Everyone at once)
+                          </p>
+                          <p style={{ fontSize: 12, color: 'var(--muted)' }}>
+                            All signers can sign simultaneously
+                          </p>
+                        </div>
+                      </label>
+
+                      <label style={{ 
+                        display: 'flex', 
+                        alignItems: 'flex-start', 
+                        gap: 12, 
+                        padding: 12, 
+                        border: '1px solid var(--border)', 
+                        borderRadius: 8,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = 'var(--background)'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      >
+                        <input
+                          type="radio"
+                          name="order"
+                          value="sequential"
+                          checked={signingOrder === "sequential"}
+                          onChange={(e) => setSigningOrder(e.target.value as SigningOrder)}
+                          style={{ marginTop: 2, cursor: 'pointer', accentColor: 'var(--primary)' }}
+                        />
+                        <div>
+                          <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--foreground)', marginBottom: 4 }}>
+                            Sequential (One at a time)
+                          </p>
+                          <p style={{ fontSize: 12, color: 'var(--muted)' }}>
+                            Signers sign in the order listed below
+                          </p>
+                        </div>
+                      </label>
+                    </div>
+
+                    <div style={{ borderTop: '1px solid var(--border)', paddingTop: 16, marginTop: 8 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                        <h3 style={{ fontWeight: 600, color: 'var(--foreground)', fontSize: 15 }}>
+                          Recipients
+                        </h3>
+                        <button
+                          onClick={handleAddSigner}
+                          className="btn btn-primary"
+                          style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, padding: '6px 12px' }}
+                        >
+                          <Plus size={16} />
+                          Add
+                        </button>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                        {signers.map((signer, idx) => (
+                          <div key={idx} style={{ 
+                            padding: 12, 
+                            border: '1px solid var(--border)', 
+                            borderRadius: 8,
+                            background: 'var(--background)'
+                          }}>
+                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 10 }}>
+                              <span style={{ 
+                                fontSize: 11, 
+                                fontWeight: 700, 
+                                color: 'var(--primary)', 
+                                background: 'rgba(var(--primary-rgb), 0.1)', 
+                                padding: '4px 8px', 
+                                borderRadius: 6
+                              }}>
+                                {idx + 1}
+                              </span>
+                              {signers.length > 1 && (
+                                <button
+                                  onClick={() => handleRemoveSigner(idx)}
+                                  style={{
+                                    marginLeft: 'auto',
+                                    padding: 4,
+                                    border: 'none',
+                                    background: 'transparent',
+                                    color: '#ef4444',
+                                    cursor: 'pointer',
+                                    borderRadius: 4,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                  }}
+                                  onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)'}
+                                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                                >
+                                  <Trash2 size={16} />
+                                </button>
+                              )}
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                              <input
+                                type="email"
+                                value={signer.email}
+                                onChange={(e) =>
+                                  handleSignerChange(idx, "email", e.target.value)
+                                }
+                                placeholder="Email address"
+                                className="form-input"
+                                style={{ width: '100%', fontSize: 13 }}
+                              />
+                              <input
+                                type="text"
+                                value={signer.name}
+                                onChange={(e) =>
+                                  handleSignerChange(idx, "name", e.target.value)
+                                }
+                                placeholder="Full name"
+                                className="form-input"
+                                style={{ width: '100%', fontSize: 13 }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 3: Signature Fields */}
+                {step === 3 && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                    <p style={{ fontSize: 13, color: 'var(--muted)' }}>
+                      Define where each signer should place their signature. In demo mode, you specify page and coordinates.
                     </p>
-                  </div>
-                </div>
-              )}
 
-              {/* Step 2: Add Recipients */}
-              {step === 2 && (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-medium text-(--foreground)">
-                      Signing Order
-                    </h3>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 p-3 border border-(--border) rounded-lg cursor-pointer hover:bg-(--background)">
-                      <input
-                        type="radio"
-                        name="order"
-                        value="parallel"
-                        checked={signingOrder === "parallel"}
-                        onChange={(e) => setSigningOrder(e.target.value as SigningOrder)}
-                      />
-                      <div>
-                        <p className="text-sm font-medium text-(--foreground)">
-                          Parallel (Everyone at once)
-                        </p>
-                        <p className="text-xs text-(--secondary)">
-                          All signers can sign simultaneously
-                        </p>
-                      </div>
-                    </label>
-
-                    <label className="flex items-center gap-2 p-3 border border-(--border) rounded-lg cursor-pointer hover:bg-(--background)">
-                      <input
-                        type="radio"
-                        name="order"
-                        value="sequential"
-                        checked={signingOrder === "sequential"}
-                        onChange={(e) => setSigningOrder(e.target.value as SigningOrder)}
-                      />
-                      <div>
-                        <p className="text-sm font-medium text-(--foreground)">
-                          Sequential (One at a time)
-                        </p>
-                        <p className="text-xs text-(--secondary)">
-                          Signers sign in the order listed below
-                        </p>
-                      </div>
-                    </label>
-                  </div>
-
-                  <div className="border-t border-(--border) pt-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-medium text-(--foreground)">
-                        Recipients
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <h3 style={{ fontWeight: 600, color: 'var(--foreground)', fontSize: 15 }}>
+                        Signature Fields
                       </h3>
                       <button
-                        onClick={handleAddSigner}
-                        className="flex items-center gap-1 px-3 py-1 text-sm bg-(--primary) hover:opacity-90 text-white rounded transition-opacity"
+                        onClick={handleAddField}
+                        className="btn btn-primary"
+                        style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, padding: '6px 12px' }}
                       >
-                        <Plus className="w-4 h-4" />
-                        Add
+                        <Plus size={16} />
+                        Add Field
                       </button>
                     </div>
 
-                    <div className="space-y-3">
-                      {signers.map((signer, idx) => (
-                        <div key={idx} className="p-3 border border-(--border) rounded-lg bg-(--background)">
-                          <div className="flex items-start gap-2 mb-2">
-                            <span className="text-xs font-bold text-(--primary) bg-(--primary)/10 px-2 py-1 rounded">
-                              {idx + 1}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxHeight: 300, overflowY: 'auto' }}>
+                      {fields.map((field, idx) => (
+                        <div key={idx} style={{ 
+                          padding: 12, 
+                          border: '1px solid var(--border)', 
+                          borderRadius: 8,
+                          background: 'var(--background)'
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 10 }}>
+                            <span style={{ 
+                              fontSize: 11, 
+                              fontWeight: 700, 
+                              color: 'var(--primary)', 
+                              background: 'rgba(var(--primary-rgb), 0.1)', 
+                              padding: '4px 8px', 
+                              borderRadius: 6
+                            }}>
+                              Field {idx + 1}
                             </span>
-                            {signers.length > 1 && (
+                            {fields.length > 1 && (
                               <button
-                                onClick={() => handleRemoveSigner(idx)}
-                                className="ml-auto p-1 hover:bg-red-100 text-red-600 rounded transition-colors"
+                                onClick={() => handleRemoveField(idx)}
+                                style={{
+                                  marginLeft: 'auto',
+                                  padding: 4,
+                                  border: 'none',
+                                  background: 'transparent',
+                                  color: '#ef4444',
+                                  cursor: 'pointer',
+                                  borderRadius: 4,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
+                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                               >
-                                <Trash2 className="w-4 h-4" />
+                                <Trash2 size={16} />
                               </button>
                             )}
                           </div>
-                          <div className="space-y-2">
-                            <input
-                              type="email"
-                              value={signer.email}
-                              onChange={(e) =>
-                                handleSignerChange(idx, "email", e.target.value)
-                              }
-                              placeholder="Email address"
-                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
-                            />
-                            <input
-                              type="text"
-                              value={signer.name}
-                              onChange={(e) =>
-                                handleSignerChange(idx, "name", e.target.value)
-                              }
-                              placeholder="Full name"
-                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary)"
-                            />
+
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                            <div>
+                              <label style={{ fontSize: 11, color: 'var(--muted)', display: 'block', marginBottom: 4 }}>
+                                Page
+                              </label>
+                              <input
+                                type="number"
+                                min="1"
+                                value={field.page}
+                                onChange={(e) =>
+                                  handleFieldChange(idx, "page", Number(e.target.value))
+                                }
+                                className="form-input"
+                                style={{ width: '100%', fontSize: 13 }}
+                              />
+                            </div>
+                            <div>
+                              <label style={{ fontSize: 11, color: 'var(--muted)', display: 'block', marginBottom: 4 }}>
+                                Assigned To
+                              </label>
+                              <select
+                                value={field.assignedTo}
+                                onChange={(e) =>
+                                  handleFieldChange(idx, "assignedTo", e.target.value)
+                                }
+                                className="form-input"
+                                style={{ width: '100%', fontSize: 13 }}
+                              >
+                                <option value="">Select signer...</option>
+                                {signers.map((s, i) => (
+                                  <option key={i} value={s.email}>
+                                    {s.name || s.email}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div>
+                              <label style={{ fontSize: 11, color: 'var(--muted)', display: 'block', marginBottom: 4 }}>
+                                X Position
+                              </label>
+                              <input
+                                type="number"
+                                min="0"
+                                value={field.x}
+                                onChange={(e) =>
+                                  handleFieldChange(idx, "x", Number(e.target.value))
+                                }
+                                className="form-input"
+                                style={{ width: '100%', fontSize: 13 }}
+                              />
+                            </div>
+                            <div>
+                              <label style={{ fontSize: 11, color: 'var(--muted)', display: 'block', marginBottom: 4 }}>
+                                Y Position
+                              </label>
+                              <input
+                                type="number"
+                                min="0"
+                                value={field.y}
+                                onChange={(e) =>
+                                  handleFieldChange(idx, "y", Number(e.target.value))
+                                }
+                                className="form-input"
+                                style={{ width: '100%', fontSize: 13 }}
+                              />
+                            </div>
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Step 3: Signature Fields */}
-              {step === 3 && (
-                <div className="space-y-4">
-                  <p className="text-sm text-(--secondary)">
-                    Define where each signer should place their signature. In demo mode, you specify page and coordinates.
-                  </p>
+                {/* Step 4: Message & Expiration */}
+                {step === 4 && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                    <div>
+                      <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>
+                        Message to Signers (Optional)
+                      </label>
+                      <textarea
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Add a personal message or instructions..."
+                        className="form-input"
+                        style={{ width: '100%', resize: 'vertical' }}
+                        rows={3}
+                      />
+                    </div>
 
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-medium text-(--foreground)">
-                      Signature Fields
-                    </h3>
-                    <button
-                      onClick={handleAddField}
-                      className="flex items-center gap-1 px-3 py-1 text-sm bg-(--primary) hover:opacity-90 text-white rounded transition-opacity"
-                    >
-                      <Plus className="w-4 h-4" />
-                      Add Field
-                    </button>
+                    <div>
+                      <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>
+                        Expiration Period (Days) <span style={{ color: '#dc3545' }}>*</span>
+                      </label>
+                      <input
+                        type="number"
+                        min="1"
+                        max="365"
+                        value={expiresIn}
+                        onChange={(e) => setExpiresIn(Number(e.target.value))}
+                        className="form-input"
+                        style={{ width: '100%' }}
+                      />
+                      <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 6 }}>
+                        Signers must sign by{" "}
+                        {new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000).toLocaleDateString()}
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="form-label" style={{ marginBottom: 6, display: 'block', fontWeight: 500 }}>
+                        Reminder Frequency
+                      </label>
+                      <select
+                        value={reminders}
+                        onChange={(e) => setReminders(e.target.value as any)}
+                        className="form-input"
+                        style={{ width: '100%' }}
+                      >
+                        <option value="once">Send once</option>
+                        <option value="daily">Daily reminders</option>
+                        <option value="weekly">Weekly reminders</option>
+                      </select>
+                    </div>
                   </div>
+                )}
+              </div>
 
-                  <div className="space-y-3 max-h-64 overflow-y-auto">
-                    {fields.map((field, idx) => (
-                      <div key={idx} className="p-3 border border-(--border) rounded-lg bg-(--background)">
-                        <div className="flex items-start gap-2 mb-2">
-                          <span className="text-xs font-bold text-(--primary) bg-(--primary)/10 px-2 py-1 rounded">
-                            Field {idx + 1}
-                          </span>
-                          {fields.length > 1 && (
-                            <button
-                              onClick={() => handleRemoveField(idx)}
-                              className="ml-auto p-1 hover:bg-red-100 text-red-600 rounded transition-colors"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          )}
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-2">
-                          <div>
-                            <label className="text-xs text-(--secondary)">
-                              Page
-                            </label>
-                            <input
-                              type="number"
-                              min="1"
-                              value={field.page}
-                              onChange={(e) =>
-                                handleFieldChange(idx, "page", Number(e.target.value))
-                              }
-                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
-                            />
-                          </div>
-                          <div>
-                            <label className="text-xs text-(--secondary)">
-                              Assigned To
-                            </label>
-                            <select
-                              value={field.assignedTo}
-                              onChange={(e) =>
-                                handleFieldChange(idx, "assignedTo", e.target.value)
-                              }
-                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
-                            >
-                              <option value="">Select signer...</option>
-                              {signers.map((s, i) => (
-                                <option key={i} value={s.email}>
-                                  {s.name || s.email}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                          <div>
-                            <label className="text-xs text-(--secondary)">
-                              X Position
-                            </label>
-                            <input
-                              type="number"
-                              min="0"
-                              value={field.x}
-                              onChange={(e) =>
-                                handleFieldChange(idx, "x", Number(e.target.value))
-                              }
-                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
-                            />
-                          </div>
-                          <div>
-                            <label className="text-xs text-(--secondary)">
-                              Y Position
-                            </label>
-                            <input
-                              type="number"
-                              min="0"
-                              value={field.y}
-                              onChange={(e) =>
-                                handleFieldChange(idx, "y", Number(e.target.value))
-                              }
-                              className="w-full px-2 py-1 text-sm border border-(--border) rounded bg-(--card-bg) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Step 4: Message & Expiration */}
-              {step === 4 && (
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-(--foreground) mb-2">
-                      Message to Signers (Optional)
-                    </label>
-                    <textarea
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Add a personal message or instructions..."
-                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) placeholder-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--primary) text-sm"
-                      rows={3}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-(--foreground) mb-2">
-                      Expiration Period (Days) *
-                    </label>
-                    <input
-                      type="number"
-                      min="1"
-                      max="365"
-                      value={expiresIn}
-                      onChange={(e) => setExpiresIn(Number(e.target.value))}
-                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
-                    />
-                    <p className="text-xs text-(--secondary) mt-1">
-                      Signers must sign by{" "}
-                      {new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000).toLocaleDateString()}
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-(--foreground) mb-2">
-                      Reminder Frequency
-                    </label>
-                    <select
-                      value={reminders}
-                      onChange={(e) => setReminders(e.target.value as any)}
-                      className="w-full px-3 py-2 border border-(--border) rounded-lg bg-(--background) text-(--foreground) focus:outline-none focus:ring-2 focus:ring-(--primary)"
-                    >
-                      <option value="once">Send once</option>
-                      <option value="daily">Daily reminders</option>
-                      <option value="weekly">Weekly reminders</option>
-                    </select>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Actions */}
-            <div className="sticky bottom-0 border-t border-(--border) px-6 py-4 bg-(--card-bg) flex gap-2 justify-between">
-              <button
-                onClick={() => (step === 1 ? onClose() : setStep(step - 1))}
-                disabled={isLoading}
-                className="flex items-center gap-2 px-4 py-2 border border-(--border) rounded-lg text-(--foreground) hover:bg-(--background) font-medium transition-colors disabled:opacity-50"
-              >
-                <ChevronLeft className="w-4 h-4" />
-                {step === 1 ? "Cancel" : "Back"}
-              </button>
-
-              {step < 4 && (
+              {/* Actions */}
+              <div className="modal-actions" style={{ borderTop: '1px solid var(--border)' }}>
                 <button
-                  onClick={handleNext}
+                  onClick={() => (step === 1 ? onClose() : setStep(step - 1))}
                   disabled={isLoading}
-                  className="flex items-center gap-2 px-4 py-2 bg-(--primary) hover:opacity-90 text-white rounded-lg font-medium transition-opacity disabled:opacity-50"
+                  className="btn btn-secondary"
+                  style={{ display: 'flex', alignItems: 'center', gap: 8 }}
                 >
-                  Next
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronLeft size={16} />
+                  {step === 1 ? "Cancel" : "Back"}
                 </button>
-              )}
 
-              {step === 4 && (
-                <button
-                  onClick={handleSubmit}
-                  disabled={isLoading}
-                  className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50"
-                >
-                  {isLoading ? "Creating..." : "Send Document"}
-                </button>
-              )}
-            </div>
-          </motion.div>
+                {step < 4 && (
+                  <button
+                    onClick={handleNext}
+                    disabled={isLoading}
+                    className="btn btn-primary"
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    Next
+                    <ChevronRight size={16} />
+                  </button>
+                )}
+
+                {step === 4 && (
+                  <button
+                    onClick={handleSubmit}
+                    disabled={isLoading}
+                    className="btn btn-primary"
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: 8,
+                      background: '#16a34a'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#15803d'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#16a34a'}
+                  >
+                    {isLoading ? "Creating..." : "Send Document"}
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
