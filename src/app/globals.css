@@ -891,18 +891,17 @@ body {
 }
 
 .modal {
-  /* wrapper: fixed and centered in the viewport. Keep transform here so it's not
-     overwritten by framer-motion (which applies inline transform on animated elements). */
+  /* wrapper: fixed and centered in the viewport */
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 1001;
-  /* allow the inner card to size itself; using flex keeps it centered if needed */
+  /* allow the inner card to size itself; using flex keeps it centered */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   pointer-events: none; /* clicks should fall through to overlay except for the card */
 }
 
