@@ -1505,3 +1505,15 @@ html.dark .status-badge[data-status="overdue"] {
     padding: 0 8px;
   }
 }
+
+.responsive-grid-2-1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .responsive-grid-2-1 {
+    grid-template-columns: 1fr;
+  }
+}
