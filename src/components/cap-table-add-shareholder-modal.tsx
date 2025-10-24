@@ -111,7 +111,8 @@ export function AddShareholderModal({
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
       >
-        <div className="modal-header">
+        <div className="modal-card">
+          <div className="modal-header">
           <h2>{shareholder ? "Edit Shareholder" : "Add New Shareholder"}</h2>
           <button
             className="modal-close"
@@ -223,6 +224,7 @@ export function AddShareholderModal({
               {shareholder ? "Update Shareholder" : "Add Shareholder"}
             </button>
           </div>
+        </div>
         </div>
       </motion.div>
     </>
