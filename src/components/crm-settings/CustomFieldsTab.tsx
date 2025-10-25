@@ -151,8 +151,11 @@ export function CustomFieldsTab() {
         )}
 
         <AddCustomFieldModal
-          isOpen={isAddModalOpen}
-          onClose={() => setIsAddModalOpen(false)}
+          isOpen={isAddModalOpen || !!selectedFieldId}
+          onClose={() => {
+            setIsAddModalOpen(false);
+            setSelectedFieldId(null);
+          }}
           editingId={selectedFieldId}
           onEditingChange={setSelectedFieldId}
         />
