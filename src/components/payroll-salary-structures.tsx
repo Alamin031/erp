@@ -34,25 +34,29 @@ export function PayrollSalaryStructures({
       animate={{ opacity: 1, y: 0 }}
       className="space-y-4"
     >
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-xl shadow-md border border-gray-100">
+  <div style={{ background: 'var(--card-bg)', padding: 24, borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.15)', border: '1px solid var(--border)' }} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-1">
+          <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: 4 }}>
             Salary Structures
           </h3>
-          <p className="text-sm text-gray-600">
+          <p style={{ fontSize: 14, color: 'var(--secondary)' }}>
             {filteredStructures.length} structure{filteredStructures.length !== 1 ? "s" : ""} found
           </p>
         </div>
         <div className="flex gap-2 flex-wrap">
           <button
             onClick={() => setShowArchived(!showArchived)}
-            className="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            style={{ padding: '8px 16px', fontSize: 14, border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--secondary)', transition: 'background 0.2s' }}
+            onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+            onMouseOut={e => (e.currentTarget.style.background = 'var(--background)')}
           >
             {showArchived ? "Show Active" : "Show Archived"}
           </button>
           <button
             onClick={onAdd}
-            className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2 transition-colors"
+            style={{ padding: '8px 16px', fontSize: 14, background: '#2563eb', color: '#fff', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 8, border: 'none', transition: 'background 0.2s' }}
+            onMouseOver={e => (e.currentTarget.style.background = '#1d4ed8')}
+            onMouseOut={e => (e.currentTarget.style.background = '#2563eb')}
           >
             <Plus size={16} />
             Add Structure
@@ -67,48 +71,47 @@ export function PayrollSalaryStructures({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition-shadow"
+            style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10)', border: '1px solid var(--border)', padding: 24, transition: 'box-shadow 0.2s' }}
+            className="hover:shadow-lg"
           >
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h4 className="text-lg font-semibold text-gray-900">
-                  {structure.name}
-                </h4>
+                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--foreground)' }}>{structure.name}</h4>
                 {structure.department && (
-                  <p className="text-sm text-gray-600">{structure.department}</p>
+                  <p style={{ fontSize: 14, color: 'var(--secondary)' }}>{structure.department}</p>
                 )}
               </div>
               {structure.archived && (
-                <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded">
+                <span style={{ padding: '2px 8px', background: 'var(--background)', color: 'var(--secondary)', fontSize: 12, fontWeight: 500, borderRadius: 8 }}>
                   Archived
                 </span>
               )}
             </div>
 
-            <div className="space-y-3 mb-4 pb-4 border-b border-gray-100">
+            <div style={{ marginBottom: 16, paddingBottom: 16, borderBottom: '1px solid var(--border)' }}>
               <div className="flex justify-between">
-                <span className="text-gray-600 text-sm">Base Salary</span>
-                <span className="font-semibold text-gray-900">
+                <span style={{ color: 'var(--secondary)', fontSize: 14 }}>Base Salary</span>
+                <span style={{ fontWeight: 600, color: 'var(--foreground)' }}>
                   ${structure.baseAmount.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 text-sm">Allowances</span>
-                <span className="font-semibold text-gray-900">
+                <span style={{ color: 'var(--secondary)', fontSize: 14 }}>Allowances</span>
+                <span style={{ fontWeight: 600, color: 'var(--foreground)' }}>
                   ${structure.totalAllowances.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 text-sm">Deductions</span>
-                <span className="font-semibold text-red-600">
+                <span style={{ color: 'var(--secondary)', fontSize: 14 }}>Deductions</span>
+                <span style={{ fontWeight: 600, color: '#ef4444' }}>
                   -${structure.totalDeductions.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                 </span>
               </div>
             </div>
 
-            <div className="mb-4 pb-4 border-b border-gray-100">
-              <p className="text-sm text-gray-600 mb-2">Net Salary</p>
-              <p className="text-2xl font-bold text-green-600">
+            <div style={{ marginBottom: 16, paddingBottom: 16, borderBottom: '1px solid var(--border)' }}>
+              <p style={{ fontSize: 14, color: 'var(--secondary)', marginBottom: 8 }}>Net Salary</p>
+              <p style={{ fontSize: 24, fontWeight: 700, color: '#22c55e' }}>
                 ${structure.netSalary.toLocaleString("en-US", { maximumFractionDigits: 2 })}
               </p>
             </div>
@@ -116,14 +119,18 @@ export function PayrollSalaryStructures({
             <div className="flex gap-2">
               <button
                 onClick={() => onEdit(structure)}
-                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors"
+                style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '8px 12px', fontSize: 14, background: 'var(--background)', color: '#3b82f6', borderRadius: 8, border: '1px solid var(--border)', transition: 'background 0.2s' }}
+                onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+                onMouseOut={e => (e.currentTarget.style.background = 'var(--background)')}
               >
                 <Edit2 size={14} />
                 Edit
               </button>
               <button
                 onClick={() => onDuplicate(structure.id)}
-                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-green-50 hover:bg-green-100 text-green-600 rounded-lg transition-colors"
+                style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '8px 12px', fontSize: 14, background: 'var(--background)', color: '#22c55e', borderRadius: 8, border: '1px solid var(--border)', transition: 'background 0.2s' }}
+                onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+                onMouseOut={e => (e.currentTarget.style.background = 'var(--background)')}
               >
                 <Copy size={14} />
                 Duplicate
@@ -132,14 +139,18 @@ export function PayrollSalaryStructures({
                 onClick={() =>
                   structure.archived ? onEdit(structure) : onArchive(structure.id)
                 }
-                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-yellow-50 hover:bg-yellow-100 text-yellow-600 rounded-lg transition-colors"
+                style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '8px 12px', fontSize: 14, background: 'var(--background)', color: '#eab308', borderRadius: 8, border: '1px solid var(--border)', transition: 'background 0.2s' }}
+                onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+                onMouseOut={e => (e.currentTarget.style.background = 'var(--background)')}
               >
                 <Archive size={14} />
                 {structure.archived ? "Restore" : "Archive"}
               </button>
               <button
                 onClick={() => onDelete(structure.id)}
-                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors"
+                style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '8px 12px', fontSize: 14, background: 'var(--background)', color: '#ef4444', borderRadius: 8, border: '1px solid var(--border)', transition: 'background 0.2s' }}
+                onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+                onMouseOut={e => (e.currentTarget.style.background = 'var(--background)')}
               >
                 <Trash2 size={14} />
                 Delete
@@ -147,19 +158,18 @@ export function PayrollSalaryStructures({
             </div>
 
             {structure.components && structure.components.length > 0 && (
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-xs font-semibold text-gray-600 mb-2 uppercase">
+              <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--border)' }}>
+                <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--secondary)', marginBottom: 8, textTransform: 'uppercase' }}>
                   Components
                 </p>
-                <div className="space-y-1">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   {structure.components.slice(0, 3).map((comp) => (
-                    <div key={comp.id} className="text-xs text-gray-600">
-                      • {comp.name}:{" "}
-                      {comp.isPercentage ? `${comp.amount}%` : `$${comp.amount}`}
+                    <div key={comp.id} style={{ fontSize: 12, color: 'var(--secondary)' }}>
+                      • {comp.name}: {comp.isPercentage ? `${comp.amount}%` : `$${comp.amount}`}
                     </div>
                   ))}
                   {structure.components.length > 3 && (
-                    <div className="text-xs text-gray-500 italic">
+                    <div style={{ fontSize: 12, color: 'var(--secondary)', fontStyle: 'italic' }}>
                       +{structure.components.length - 3} more
                     </div>
                   )}
@@ -171,14 +181,16 @@ export function PayrollSalaryStructures({
       </div>
 
       {filteredStructures.length === 0 && (
-        <div className="text-center py-12 bg-white rounded-xl border border-gray-100">
-          <p className="text-gray-500 mb-4">
+        <div style={{ textAlign: 'center', padding: 48, background: 'var(--card-bg)', borderRadius: 16, border: '1px solid var(--border)' }}>
+          <p style={{ color: 'var(--secondary)', marginBottom: 16 }}>
             {showArchived ? "No archived structures" : "No salary structures found"}
           </p>
           {!showArchived && (
             <button
               onClick={onAdd}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center gap-2"
+              style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', borderRadius: 8, display: 'inline-flex', alignItems: 'center', gap: 8, border: 'none', transition: 'background 0.2s' }}
+              onMouseOver={e => (e.currentTarget.style.background = '#1d4ed8')}
+              onMouseOut={e => (e.currentTarget.style.background = '#2563eb')}
             >
               <Plus size={16} />
               Create First Structure

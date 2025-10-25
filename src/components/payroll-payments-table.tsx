@@ -26,10 +26,10 @@ interface PayrollPaymentsTableProps {
 }
 
 const statusConfig = {
-  Paid: { icon: CheckCircle, color: "text-green-600", bg: "bg-green-100" },
-  Pending: { icon: Clock, color: "text-yellow-600", bg: "bg-yellow-100" },
-  Processing: { icon: Clock, color: "text-blue-600", bg: "bg-blue-100" },
-  Failed: { icon: AlertCircle, color: "text-red-600", bg: "bg-red-100" },
+  Paid: { icon: CheckCircle, color: "text-green-600", bg: "", style: { background: 'rgba(34,197,94,0.1)', color: '#22c55e' } },
+  Pending: { icon: Clock, color: "text-yellow-600", bg: "", style: { background: 'rgba(234,179,8,0.1)', color: '#eab308' } },
+  Processing: { icon: Clock, color: "text-blue-600", bg: "", style: { background: 'rgba(59,130,246,0.1)', color: '#3b82f6' } },
+  Failed: { icon: AlertCircle, color: "text-red-600", bg: "", style: { background: 'rgba(239,68,68,0.1)', color: '#ef4444' } },
 };
 
 export function PayrollPaymentsTable({
@@ -82,28 +82,30 @@ export function PayrollPaymentsTable({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden"
+      style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.15)', border: '1px solid var(--border)', overflow: 'hidden' }}
     >
-      <div className="p-6 border-b border-gray-100">
+  <div style={{ padding: 24, borderBottom: '1px solid var(--border)' }}>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--foreground)' }}>
             Payment History
           </h3>
           <button
             onClick={onProcessPayroll}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: 16, transition: 'background 0.2s' }}
+            onMouseOver={e => (e.currentTarget.style.background = '#1d4ed8')}
+            onMouseOut={e => (e.currentTarget.style.background = '#2563eb')}
           >
             Process Payroll
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="flex items-center gap-2">
             <Filter size={18} className="text-gray-400" />
             <select
               value={filters.status}
               onChange={(e) => onFilterChange({ ...filters, status: e.target.value })}
-              className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              style={{ flex: 1, padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: 14 }}
             >
               <option value="">All Status</option>
               <option value="Pending">Pending</option>
@@ -118,7 +120,7 @@ export function PayrollPaymentsTable({
             onChange={(e) =>
               onFilterChange({ ...filters, month: parseInt(e.target.value) })
             }
-            className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            style={{ padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: 14 }}
           >
             {Array.from({ length: 12 }, (_, i) => (
               <option key={i} value={i + 1}>
@@ -134,7 +136,7 @@ export function PayrollPaymentsTable({
             onChange={(e) =>
               onFilterChange({ ...filters, year: parseInt(e.target.value) })
             }
-            className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            style={{ padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: 14 }}
           >
             {Array.from({ length: 5 }, (_, i) => {
               const year = new Date().getFullYear() - i;
@@ -153,15 +155,17 @@ export function PayrollPaymentsTable({
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          className="bg-blue-50 border-b border-blue-200 p-4 flex justify-between items-center"
+          style={{ background: 'var(--background)', borderBottom: '1px solid var(--border)', padding: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
         >
-          <p className="text-sm text-gray-900">
+          <p style={{ fontSize: 14, color: 'var(--foreground)' }}>
             {selectedPayments.length} payment{selectedPayments.length !== 1 ? "s" : ""} selected
           </p>
           <button
             onClick={handleProcessSelected}
             disabled={isProcessing}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors text-sm font-medium"
+            style={{ padding: '8px 16px', background: '#22c55e', color: '#fff', borderRadius: 8, border: 'none', fontWeight: 500, fontSize: 14, opacity: isProcessing ? 0.5 : 1, cursor: isProcessing ? 'not-allowed' : 'pointer', transition: 'background 0.2s' }}
+            onMouseOver={e => { if (!isProcessing) e.currentTarget.style.background = '#16a34a'; }}
+            onMouseOut={e => { if (!isProcessing) e.currentTarget.style.background = '#22c55e'; }}
           >
             {isProcessing ? "Processing..." : "Mark as Paid"}
           </button>
@@ -169,10 +173,10 @@ export function PayrollPaymentsTable({
       )}
 
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="bg-gray-50 border-b border-gray-100">
+        <table style={{ width: '100%', fontSize: 14 }}>
+          <thead style={{ background: 'var(--background)', borderBottom: '1px solid var(--border)' }}>
             <tr>
-              <th className="px-6 py-3 text-left">
+              <th style={{ padding: '16px', textAlign: 'left' }}>
                 <input
                   type="checkbox"
                   checked={
@@ -180,25 +184,25 @@ export function PayrollPaymentsTable({
                     selectedPayments.length === filteredPayments.length
                   }
                   onChange={(e) => handleSelectAll(e.target.checked)}
-                  className="w-4 h-4 rounded border-gray-300"
+                  style={{ width: 16, height: 16, borderRadius: 4, border: '1px solid var(--border)' }}
                 />
               </th>
-              <th className="px-6 py-3 text-left font-semibold text-gray-700">
+              <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600, color: 'var(--secondary)' }}>
                 Employee
               </th>
-              <th className="px-6 py-3 text-left font-semibold text-gray-700">
+              <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600, color: 'var(--secondary)' }}>
                 Period
               </th>
-              <th className="px-6 py-3 text-right font-semibold text-gray-700">
+              <th style={{ padding: '16px', textAlign: 'right', fontWeight: 600, color: 'var(--secondary)' }}>
                 Net Pay
               </th>
-              <th className="px-6 py-3 text-left font-semibold text-gray-700">
+              <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600, color: 'var(--secondary)' }}>
                 Status
               </th>
-              <th className="px-6 py-3 text-left font-semibold text-gray-700">
+              <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600, color: 'var(--secondary)' }}>
                 Payment Date
               </th>
-              <th className="px-6 py-3 text-left font-semibold text-gray-700">
+              <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600, color: 'var(--secondary)' }}>
                 Mode
               </th>
             </tr>
@@ -211,41 +215,40 @@ export function PayrollPaymentsTable({
               return (
                 <tr
                   key={payment.id}
-                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
+                  style={{ borderBottom: '1px solid var(--border)', transition: 'background 0.15s' }}
+                  className="hover:bg-[var(--sidebar-hover)]"
                 >
-                  <td className="px-6 py-4">
+                  <td style={{ padding: '16px' }}>
                     <input
                       type="checkbox"
                       checked={selectedPayments.includes(payment.id)}
                       onChange={(e) =>
                         handleSelectPayment(payment.id, e.target.checked)
                       }
-                      className="w-4 h-4 rounded border-gray-300"
+                      style={{ width: 16, height: 16, borderRadius: 4, border: '1px solid var(--border)' }}
                     />
                   </td>
-                  <td className="px-6 py-4 font-medium text-gray-900">
+                  <td style={{ padding: '16px', fontWeight: 500, color: 'var(--foreground)' }}>
                     {payment.employee?.name || "Unknown"}
                   </td>
-                  <td className="px-6 py-4 text-gray-600">
+                  <td style={{ padding: '16px', color: 'var(--secondary)' }}>
                     {payment.period}
                   </td>
-                  <td className="px-6 py-4 text-right font-semibold text-gray-900">
+                  <td style={{ padding: '16px', textAlign: 'right', fontWeight: 600, color: 'var(--foreground)' }}>
                     ${payment.netPay.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                      <Icon size={16} className={Config?.color} />
-                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${Config?.bg}`}>
-                        {payment.paymentStatus}
-                      </span>
+                  <td style={{ padding: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <Icon size={16} style={{ color: Config?.style?.color }} />
+                      <span style={{ fontSize: 12, fontWeight: 500, padding: '2px 10px', borderRadius: 12, ...Config?.style }}>{payment.paymentStatus}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-gray-600">
+                  <td style={{ padding: '16px', color: 'var(--secondary)' }}>
                     {payment.paymentDate
                       ? new Date(payment.paymentDate).toLocaleDateString()
                       : "-"}
                   </td>
-                  <td className="px-6 py-4 text-gray-600">
+                  <td style={{ padding: '16px', color: 'var(--secondary)' }}>
                     {payment.paymentMethod || "-"}
                   </td>
                 </tr>
@@ -256,22 +259,26 @@ export function PayrollPaymentsTable({
       </div>
 
       {filteredPayments.length === 0 && (
-        <div className="text-center py-12 text-gray-500">
+        <div style={{ textAlign: 'center', padding: 48, color: 'var(--secondary)' }}>
           No payments found
         </div>
       )}
 
-      <div className="border-t border-gray-100 p-4 bg-gray-50 flex gap-2">
+      <div style={{ borderTop: '1px solid var(--border)', padding: 16, background: 'var(--background)', display: 'flex', gap: 8 }}>
         <button
           onClick={() => onExport("pdf")}
-          className="flex items-center gap-2 px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-white transition-colors"
+          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px', fontSize: 14, border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', transition: 'background 0.2s' }}
+          onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+          onMouseOut={e => (e.currentTarget.style.background = 'var(--background)')}
         >
           <Download size={16} />
           Export PDF
         </button>
         <button
           onClick={() => onExport("excel")}
-          className="flex items-center gap-2 px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-white transition-colors"
+          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px', fontSize: 14, border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', transition: 'background 0.2s' }}
+          onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+          onMouseOut={e => (e.currentTarget.style.background = 'var(--background)')}
         >
           <Download size={16} />
           Export Excel

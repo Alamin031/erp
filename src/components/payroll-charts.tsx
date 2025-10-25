@@ -22,28 +22,31 @@ interface PayrollTrendChartProps {
 
 export function PayrollTrendChart({ data }: PayrollTrendChartProps) {
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+    <div style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.15)', padding: 24, border: '1px solid var(--border)' }}>
+      <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: 16 }}>
         Monthly Payroll Trend
       </h3>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
           <XAxis
             dataKey="month"
-            stroke="#6b7280"
+            stroke="var(--secondary)"
             style={{ fontSize: "12px" }}
           />
-          <YAxis stroke="#6b7280" style={{ fontSize: "12px" }} />
+          <YAxis stroke="var(--secondary)" style={{ fontSize: "12px" }} />
           <Tooltip
             formatter={(value) =>
               `$${typeof value === "number" ? value.toLocaleString() : value}`
             }
             contentStyle={{
-              backgroundColor: "#fff",
-              border: "1px solid #e5e7eb",
-              borderRadius: "8px",
+              backgroundColor: 'var(--card-bg)',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              color: 'var(--foreground)',
             }}
+            labelStyle={{ color: 'var(--foreground)' }}
+            itemStyle={{ color: 'var(--foreground)' }}
           />
           <Legend />
           <Line
@@ -75,15 +78,15 @@ export function DepartmentDistribution({ data }: DepartmentDistributionProps) {
 
   if (!data || data.length === 0) {
     return (
-      <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 flex items-center justify-center h-[350px] text-gray-500">
+      <div style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.15)', padding: 24, border: '1px solid var(--border)', color: 'var(--secondary)' }} className="flex items-center justify-center h-[350px]">
         No data available
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+    <div style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.15)', padding: 24, border: '1px solid var(--border)' }}>
+      <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: 16 }}>
         Department-wise Salary Distribution
       </h3>
       <ResponsiveContainer width="100%" height={300}>
@@ -110,10 +113,13 @@ export function DepartmentDistribution({ data }: DepartmentDistributionProps) {
               `$${typeof value === "number" ? value.toLocaleString() : value}`
             }
             contentStyle={{
-              backgroundColor: "#fff",
-              border: "1px solid #e5e7eb",
-              borderRadius: "8px",
+              backgroundColor: 'var(--card-bg)',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              color: 'var(--foreground)',
             }}
+            labelStyle={{ color: 'var(--foreground)' }}
+            itemStyle={{ color: 'var(--foreground)' }}
           />
         </PieChart>
       </ResponsiveContainer>

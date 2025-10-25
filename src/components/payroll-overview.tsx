@@ -61,32 +61,38 @@ export function PayrollOverview({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-white rounded-xl shadow-md p-6 border border-gray-100"
+        style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.25)', padding: 24, border: '1px solid var(--border)' }}
       >
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: 16 }}>
           Quick Actions
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <button
             onClick={() => handleQuickAction("Generate Payroll", onGeneratePayroll)}
-            className="flex items-center gap-3 p-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 16, background: 'var(--background)', borderRadius: 12, transition: 'background 0.2s', color: 'var(--foreground)', fontWeight: 500, border: '1px solid var(--border)' }}
+            onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+            onMouseOut={e => (e.currentTarget.style.background = 'var(--background)')}
           >
-            <BarChart3 size={20} className="text-blue-600" />
-            <span className="font-medium text-gray-900">Generate Payroll</span>
+            <BarChart3 size={20} style={{ color: '#3b82f6' }} />
+            <span style={{ fontWeight: 500, color: 'var(--foreground)' }}>Generate Payroll</span>
           </button>
           <button
             onClick={() => handleQuickAction("Send Payslips", onSendPayslips)}
-            className="flex items-center gap-3 p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors"
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 16, background: 'var(--background)', borderRadius: 12, transition: 'background 0.2s', color: 'var(--foreground)', fontWeight: 500, border: '1px solid var(--border)' }}
+            onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+            onMouseOut={e => (e.currentTarget.style.background = 'var(--background)')}
           >
-            <Mail size={20} className="text-green-600" />
-            <span className="font-medium text-gray-900">Send Payslips</span>
+            <Mail size={20} style={{ color: '#22c55e' }} />
+            <span style={{ fontWeight: 500, color: 'var(--foreground)' }}>Send Payslips</span>
           </button>
           <button
             onClick={() => handleQuickAction("Review Taxes", onReviewTaxes)}
-            className="flex items-center gap-3 p-4 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors"
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 16, background: 'var(--background)', borderRadius: 12, transition: 'background 0.2s', color: 'var(--foreground)', fontWeight: 500, border: '1px solid var(--border)' }}
+            onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+            onMouseOut={e => (e.currentTarget.style.background = 'var(--background)')}
           >
-            <DollarSign size={20} className="text-purple-600" />
-            <span className="font-medium text-gray-900">Review Taxes</span>
+            <DollarSign size={20} style={{ color: '#a21caf' }} />
+            <span style={{ fontWeight: 500, color: 'var(--foreground)' }}>Review Taxes</span>
           </button>
         </div>
       </motion.div>

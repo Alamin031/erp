@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Plus, FileDown, PlayCircle, ChevronDown } from "lucide-react";
 import { usePayrollStore } from "@/store/usePayrollStore";
 import { useToast } from "@/components/toast";
+import { EmployeePayrollDetailsDrawer } from "@/components/employee-payroll-details-drawer";
 import {
   Employee,
   SalaryStructure,
@@ -17,10 +18,139 @@ import { PayrollSalaryStructures } from "@/components/payroll-salary-structures"
 import { PayrollTaxDeductions } from "@/components/payroll-tax-deductions";
 import { PayrollPaymentsTable } from "@/components/payroll-payments-table";
 import { PayrollReports } from "@/components/payroll-reports";
-import {
-  SalaryStructureModal,
-  EmployeePayrollDetailsModal,
-} from "@/components/payroll-modals";
+import { SalaryStructureModal } from "@/components/payroll-modals";
+
+import { X } from "lucide-react";
+
+interface AddEmployeeSalaryModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  employees: Employee[];
+  onSave: (data: { employeeId: string; amount: number; paymentDate: string; note?: string }) => void;
+}
+
+function AddEmployeeSalaryModal({ isOpen, onClose, employees, onSave }: AddEmployeeSalaryModalProps) {
+  const [employeeId, setEmployeeId] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [paymentDate, setPaymentDate] = useState("");
+  const [note, setNote] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      setEmployeeId("");
+      setAmount(0);
+      setPaymentDate("");
+      setNote("");
+    }
+  }, [isOpen]);
+
+  const handleSave = () => {
+    if (!employeeId || !amount || !paymentDate) return;
+    onSave({ employeeId, amount, paymentDate, note });
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0  bg-opacity-50 flex items-center justify-center z-50 p-4"
+        >
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.25)' }}
+            className="max-w-md w-full max-h-[90vh] overflow-y-auto"
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 24, borderBottom: '1px solid var(--border)', position: 'sticky', top: 0, background: 'var(--card-bg)', zIndex: 1 }}>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)' }}>
+                Add Employee Salary
+              </h2>
+              <button
+                onClick={onClose}
+                style={{ padding: 8, borderRadius: 8, background: 'none', transition: 'background 0.2s', cursor: 'pointer' }}
+                onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+                onMouseOut={e => (e.currentTarget.style.background = 'none')}
+              >
+                <X size={20} color="var(--secondary)" />
+              </button>
+            </div>
+            <div style={{ padding: 24 }} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
+                  Employee *
+                </label>
+                <select
+                  value={employeeId}
+                  onChange={e => setEmployeeId(e.target.value)}
+                  style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
+                >
+                  <option value="">Select employee</option>
+                  {employees.map(emp => (
+                    <option key={emp.id} value={emp.id}>{emp.name} ({emp.employeeId})</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
+                  Amount *
+                </label>
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={e => setAmount(Number(e.target.value))}
+                  placeholder="Enter amount"
+                  style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
+                  Payment Date *
+                </label>
+                <input
+                  type="date"
+                  value={paymentDate}
+                  onChange={e => setPaymentDate(e.target.value)}
+                  style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
+                  Note
+                </label>
+                <textarea
+                  value={note}
+                  onChange={e => setNote(e.target.value)}
+                  placeholder="Optional note"
+                  style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem', minHeight: 60 }}
+                />
+              </div>
+            </div>
+            <div style={{ borderTop: '1px solid var(--border)', padding: 24, background: 'var(--background)', display: 'flex', gap: 12, position: 'sticky', bottom: 0 }}>
+              <button
+                onClick={onClose}
+                style={{ flex: 1, padding: '10px 0', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--secondary)', fontWeight: 500, fontSize: 16, cursor: 'pointer', transition: 'background 0.2s' }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                style={{ flex: 1, padding: '10px 0', borderRadius: 8, background: '#2563eb', color: '#fff', fontWeight: 600, fontSize: 16, cursor: 'pointer', border: 'none', transition: 'background 0.2s' }}
+                disabled={!employeeId || !amount || !paymentDate}
+              >
+                Save
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 
 type TabType =
   | "overview"
@@ -213,6 +343,8 @@ export function PayrollPageClient() {
   const [selectedStructure, setSelectedStructure] = useState<SalaryStructure | null>(null);
   const { showToast } = useToast();
 
+  const [isAddPaymentModalOpen, setIsAddPaymentModalOpen] = useState(false);
+
   useEffect(() => {
     if (employees.length === 0) {
       setEmployees(MOCK_EMPLOYEES);
@@ -227,9 +359,21 @@ export function PayrollPageClient() {
   const departmentStats = getDepartmentStats();
   const filteredPayrolls = filterPayrolls();
 
+
   const handleAddStructure = () => {
     setSelectedStructure(null);
     setIsStructureModalOpen(true);
+  };
+
+  const handleAddEmployeePayment = () => {
+    setIsAddPaymentModalOpen(true);
+  };
+
+  const handleSaveEmployeePayment = (data: { employeeId: string; amount: number; paymentDate: string; note?: string }) => {
+    // Here you would update the payroll store or add a new payroll record
+    // For now, just show a toast
+    showToast("Employee payment/salary added successfully", "success");
+    setIsAddPaymentModalOpen(false);
   };
 
   const handleEditStructure = (structure: SalaryStructure) => {
@@ -308,19 +452,20 @@ export function PayrollPageClient() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100"
+        style={{ background: 'transparent', border: '1px solid var(--border)' }}
+        className="rounded-xl p-6"
       >
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-bold" style={{ color: 'var(--foreground)', marginBottom: 8 }}>
           Payroll Management
         </h1>
-        <p className="text-gray-600 mb-4">
+        <p style={{ color: 'var(--secondary)', marginBottom: 16 }}>
           Manage employee payroll, salary structures, deductions, and payment processing.
         </p>
         <div className="flex flex-wrap gap-2">
-          <span className="text-sm px-3 py-1 bg-white rounded-full border border-blue-200 text-gray-700">
+          <span className="text-sm px-3 py-1 rounded-full border" style={{ background: 'var(--background)', borderColor: 'var(--border)', color: 'var(--secondary)' }}>
             Finance
           </span>
-          <span className="text-sm px-3 py-1 bg-white rounded-full border border-blue-200 text-gray-700">
+          <span className="text-sm px-3 py-1 rounded-full border" style={{ background: 'var(--background)', borderColor: 'var(--border)', color: 'var(--secondary)' }}>
             Payroll
           </span>
         </div>
@@ -336,6 +481,13 @@ export function PayrollPageClient() {
             Add Salary Structure
           </button>
           <button
+            onClick={handleAddEmployeePayment}
+            className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            <Plus size={18} />
+            Add Employee Salary
+          </button>
+          <button
             onClick={handleProcessPayroll}
             className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
           >
@@ -344,7 +496,8 @@ export function PayrollPageClient() {
           </button>
         </div>
         <button
-          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors group"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors group"
+          style={{ background: 'var(--background)', border: '1px solid var(--border)', color: 'var(--secondary)' }}
         >
           <FileDown size={18} className="group-hover:text-blue-600" />
           <span className="flex items-center gap-1">
@@ -354,8 +507,8 @@ export function PayrollPageClient() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-        <div className="flex overflow-x-auto border-b border-gray-100">
+  <div className="rounded-xl shadow-md overflow-hidden" style={{ background: 'transparent', border: '1px solid var(--border)' }}>
+        <div className="flex overflow-x-auto" style={{ borderBottom: '1px solid var(--border)' }}>
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -363,8 +516,9 @@ export function PayrollPageClient() {
               className={`px-6 py-4 text-sm font-medium transition-all whitespace-nowrap ${
                 activeTab === tab.id
                   ? "border-b-2 border-blue-600 text-blue-600"
-                  : "text-gray-700 hover:text-gray-900"
+                  : "text-[var(--secondary)] hover:text-[var(--foreground)]"
               }`}
+              style={activeTab === tab.id ? {} : { borderBottom: '2px solid transparent' }}
             >
               {tab.label}
             </button>
@@ -472,7 +626,14 @@ export function PayrollPageClient() {
         onSave={handleSaveStructure}
       />
 
-      <EmployeePayrollDetailsModal
+      <AddEmployeeSalaryModal
+        isOpen={isAddPaymentModalOpen}
+        onClose={() => setIsAddPaymentModalOpen(false)}
+        employees={employees}
+        onSave={handleSaveEmployeePayment}
+      />
+
+      <EmployeePayrollDetailsDrawer
         isOpen={isEmployeeDetailsOpen}
         onClose={() => {
           setIsEmployeeDetailsOpen(false);

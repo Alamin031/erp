@@ -124,29 +124,32 @@ export function SalaryStructureModal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0  bg-opacity-50 flex items-center justify-center z-50 p-4"
         >
           <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.25)' }}
+            className="max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           >
-            <div className="flex justify-between items-center p-6 border-b border-gray-100 sticky top-0 bg-white">
-              <h2 className="text-xl font-semibold text-gray-900">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 24, borderBottom: '1px solid var(--border)', position: 'sticky', top: 0, background: 'var(--card-bg)', zIndex: 1 }}>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)' }}>
                 {structure ? "Edit Salary Structure" : "Create Salary Structure"}
               </h2>
               <button
                 onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                style={{ padding: 8, borderRadius: 8, background: 'none', transition: 'background 0.2s', cursor: 'pointer' }}
+                onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+                onMouseOut={e => (e.currentTarget.style.background = 'none')}
               >
-                <X size={20} />
+                <X size={20} color="var(--secondary)" />
               </button>
             </div>
 
-            <div className="p-6 space-y-4">
+            <div style={{ padding: 24 }} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
                   Structure Name *
                 </label>
                 <input
@@ -154,12 +157,12 @@ export function SalaryStructureModal({
                   value={formData.name || ""}
                   onChange={(e) => handleInputChange("name", e.target.value)}
                   placeholder="e.g., Senior Developer"
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
                   Department
                 </label>
                 <input
@@ -167,13 +170,13 @@ export function SalaryStructureModal({
                   value={formData.department || ""}
                   onChange={(e) => handleInputChange("department", e.target.value)}
                   placeholder="e.g., Engineering"
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
                     Base Amount
                   </label>
                   <input
@@ -182,11 +185,11 @@ export function SalaryStructureModal({
                     onChange={(e) =>
                       handleInputChange("baseAmount", parseFloat(e.target.value) || 0)
                     }
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
                     Total Allowances
                   </label>
                   <input
@@ -195,11 +198,11 @@ export function SalaryStructureModal({
                     onChange={(e) =>
                       handleInputChange("totalAllowances", parseFloat(e.target.value) || 0)
                     }
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
                     Total Deductions
                   </label>
                   <input
@@ -208,47 +211,43 @@ export function SalaryStructureModal({
                     onChange={(e) =>
                       handleInputChange("totalDeductions", parseFloat(e.target.value) || 0)
                     }
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
                   />
                 </div>
               </div>
 
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-sm text-gray-700 mb-2">Net Salary</p>
-                <p className="text-2xl font-bold text-blue-600">
+              <div style={{ background: 'var(--background)', padding: 16, borderRadius: 12 }}>
+                <p style={{ fontSize: '0.95rem', color: 'var(--secondary)', marginBottom: 8 }}>Net Salary</p>
+                <p style={{ fontSize: '2rem', fontWeight: 700, color: '#3b82f6' }}>
                   ${calculateNetSalary().toLocaleString("en-US", { maximumFractionDigits: 2 })}
                 </p>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h4 className="font-medium text-gray-900">Salary Components</h4>
+              <div style={{ borderTop: '1px solid var(--border)', paddingTop: 24 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                  <h4 style={{ fontWeight: 500, color: 'var(--foreground)' }}>Salary Components</h4>
                   <button
                     onClick={handleAddComponent}
-                    className="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 px-3 py-1 rounded-lg transition-colors"
+                    style={{ fontSize: 12, background: 'var(--background)', color: '#3b82f6', padding: '4px 12px', borderRadius: 8, border: '1px solid var(--border)', transition: 'background 0.2s' }}
                   >
                     + Add Component
                   </button>
                 </div>
 
-                <div className="space-y-3">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {(formData.components || []).map((comp, idx) => (
-                    <div key={comp.id} className="flex gap-2 items-end">
+                    <div key={comp.id} style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
                       <input
                         type="text"
                         value={comp.name}
-                        onChange={(e) =>
-                          handleComponentChange(idx, "name", e.target.value)
-                        }
+                        onChange={(e) => handleComponentChange(idx, "name", e.target.value)}
                         placeholder="Component name"
-                        className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        style={{ flex: 1, padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: 14 }}
                       />
                       <select
                         value={comp.type}
-                        onChange={(e) =>
-                          handleComponentChange(idx, "type", e.target.value)
-                        }
-                        className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        onChange={(e) => handleComponentChange(idx, "type", e.target.value)}
+                        style={{ padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', fontSize: 14, outline: 'none' }}
                       >
                         <option value="base">Base</option>
                         <option value="allowance">Allowance</option>
@@ -258,15 +257,13 @@ export function SalaryStructureModal({
                       <input
                         type="number"
                         value={comp.amount}
-                        onChange={(e) =>
-                          handleComponentChange(idx, "amount", parseFloat(e.target.value) || 0)
-                        }
+                        onChange={(e) => handleComponentChange(idx, "amount", parseFloat(e.target.value) || 0)}
                         placeholder="Amount"
-                        className="w-24 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        style={{ width: 80, padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: 14 }}
                       />
                       <button
                         onClick={() => handleRemoveComponent(idx)}
-                        className="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition-colors text-sm"
+                        style={{ padding: '8px 12px', background: 'rgba(239,68,68,0.1)', color: '#ef4444', borderRadius: 8, border: '1px solid rgba(239,68,68,0.3)', fontSize: 14, transition: 'background 0.2s', cursor: 'pointer' }}
                       >
                         ✕
                       </button>
@@ -276,16 +273,16 @@ export function SalaryStructureModal({
               </div>
             </div>
 
-            <div className="border-t border-gray-100 p-6 bg-gray-50 flex gap-3 sticky bottom-0">
+            <div style={{ borderTop: '1px solid var(--border)', padding: 24, background: 'var(--background)', display: 'flex', gap: 12, position: 'sticky', bottom: 0 }}>
               <button
                 onClick={onClose}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-white transition-colors"
+                style={{ flex: 1, padding: '10px 0', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--secondary)', fontWeight: 500, fontSize: 16, cursor: 'pointer', transition: 'background 0.2s' }}
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                style={{ flex: 1, padding: '10px 0', borderRadius: 8, background: '#2563eb', color: '#fff', fontWeight: 600, fontSize: 16, cursor: 'pointer', border: 'none', transition: 'background 0.2s' }}
               >
                 {structure ? "Update" : "Create"}
               </button>
@@ -325,99 +322,102 @@ export function EmployeePayrollDetailsModal({
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.25)' }}
+            className="max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           >
-            <div className="flex justify-between items-center p-6 border-b border-gray-100 sticky top-0 bg-white">
-              <h2 className="text-xl font-semibold text-gray-900">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 24, borderBottom: '1px solid var(--border)', position: 'sticky', top: 0, background: 'var(--card-bg)', zIndex: 1 }}>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)' }}>
                 Payroll Details - {employee.name}
               </h2>
               <button
                 onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                style={{ padding: 8, borderRadius: 8, background: 'none', transition: 'background 0.2s', cursor: 'pointer' }}
+                onMouseOver={e => (e.currentTarget.style.background = 'var(--sidebar-hover)')}
+                onMouseOut={e => (e.currentTarget.style.background = 'none')}
               >
-                <X size={20} />
+                <X size={20} color="var(--secondary)" />
               </button>
             </div>
 
-            <div className="p-6 space-y-6">
+            <div style={{ padding: 24 }} className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-xs text-gray-600 uppercase font-semibold">
+                  <p style={{ fontSize: 11, color: 'var(--secondary)', textTransform: 'uppercase', fontWeight: 600 }}>
                     Employee ID
                   </p>
-                  <p className="text-lg font-semibold text-gray-900">
+                  <p style={{ fontSize: 18, fontWeight: 600, color: 'var(--foreground)' }}>
                     {employee.employeeId}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600 uppercase font-semibold">
+                  <p style={{ fontSize: 11, color: 'var(--secondary)', textTransform: 'uppercase', fontWeight: 600 }}>
                     Department
                   </p>
-                  <p className="text-lg font-semibold text-gray-900">
+                  <p style={{ fontSize: 18, fontWeight: 600, color: 'var(--foreground)' }}>
                     {employee.department}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600 uppercase font-semibold">
+                  <p style={{ fontSize: 11, color: 'var(--secondary)', textTransform: 'uppercase', fontWeight: 600 }}>
                     Position
                   </p>
-                  <p className="text-lg font-semibold text-gray-900">
+                  <p style={{ fontSize: 18, fontWeight: 600, color: 'var(--foreground)' }}>
                     {employee.position}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600 uppercase font-semibold">
+                  <p style={{ fontSize: 11, color: 'var(--secondary)', textTransform: 'uppercase', fontWeight: 600 }}>
                     Period
                   </p>
-                  <p className="text-lg font-semibold text-gray-900">
+                  <p style={{ fontSize: 18, fontWeight: 600, color: 'var(--foreground)' }}>
                     {payroll.period}
                   </p>
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <h4 className="font-semibold text-gray-900 mb-4">Salary Breakdown</h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Base Salary</span>
-                    <span className="font-semibold text-gray-900">
+              <div style={{ borderTop: '1px solid var(--border)', paddingTop: 24 }}>
+                <h4 style={{ fontWeight: 600, color: 'var(--foreground)', marginBottom: 16 }}>Salary Breakdown</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--secondary)' }}>Base Salary</span>
+                    <span style={{ fontWeight: 600, color: 'var(--foreground)' }}>
                       ${payroll.baseSalary.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Allowances</span>
-                    <span className="font-semibold text-green-600">
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--secondary)' }}>Allowances</span>
+                    <span style={{ fontWeight: 600, color: '#22c55e' }}>
                       +${payroll.allowances.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <h4 className="font-semibold text-gray-900 mb-4">Deductions</h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Income Tax</span>
-                    <span className="font-semibold text-red-600">
+              <div style={{ borderTop: '1px solid var(--border)', paddingTop: 24 }}>
+                <h4 style={{ fontWeight: 600, color: 'var(--foreground)', marginBottom: 16 }}>Deductions</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--secondary)' }}>Income Tax</span>
+                    <span style={{ fontWeight: 600, color: '#ef4444' }}>
                       -${payroll.incomeTax.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Provident Fund</span>
-                    <span className="font-semibold text-red-600">
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--secondary)' }}>Provident Fund</span>
+                    <span style={{ fontWeight: 600, color: '#ef4444' }}>
                       -${payroll.providentFund.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Insurance</span>
-                    <span className="font-semibold text-red-600">
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--secondary)' }}>Insurance</span>
+                    <span style={{ fontWeight: 600, color: '#ef4444' }}>
                       -${payroll.insurance.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                     </span>
                   </div>
                   {payroll.otherDeductions > 0 && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-700">Other Deductions</span>
-                      <span className="font-semibold text-red-600">
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'var(--secondary)' }}>Other Deductions</span>
+                      <span style={{ fontWeight: 600, color: '#ef4444' }}>
                         -${payroll.otherDeductions.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                       </span>
                     </div>
@@ -425,20 +425,20 @@ export function EmployeePayrollDetailsModal({
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6 bg-blue-50 p-4 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold text-gray-900">Net Pay</span>
-                  <span className="text-2xl font-bold text-blue-600">
+              <div style={{ borderTop: '1px solid var(--border)', paddingTop: 24, background: 'var(--background)', borderRadius: 12, marginTop: 16 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontWeight: 600, color: 'var(--foreground)' }}>Net Pay</span>
+                  <span style={{ fontSize: 24, fontWeight: 700, color: '#3b82f6' }}>
                     ${payroll.netPay.toLocaleString("en-US", { maximumFractionDigits: 2 })}
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="border-t border-gray-100 p-6 bg-gray-50 flex gap-3 sticky bottom-0">
+            <div style={{ borderTop: '1px solid var(--border)', padding: 24, background: 'var(--background)', display: 'flex', gap: 12, position: 'sticky', bottom: 0 }}>
               <button
                 onClick={onClose}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-white transition-colors"
+                style={{ flex: 1, padding: '10px 0', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--secondary)', fontWeight: 500, fontSize: 16, cursor: 'pointer', transition: 'background 0.2s' }}
               >
                 Close
               </button>

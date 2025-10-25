@@ -53,21 +53,21 @@ export function PayrollReports({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-xl shadow-md border border-gray-100 p-6"
+          style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.15)', border: '1px solid var(--border)', padding: 24 }}
         >
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: 16 }}>
             Report Filters
           </h3>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
                 Month
               </label>
               <select
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
               >
                 {Array.from({ length: 12 }, (_, i) => (
                   <option key={i} value={i + 1}>
@@ -80,13 +80,13 @@ export function PayrollReports({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
                 Year
               </label>
               <select
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
               >
                 {Array.from({ length: 5 }, (_, i) => {
                   const year = new Date().getFullYear() - i;
@@ -100,13 +100,13 @@ export function PayrollReports({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
                 Department
               </label>
               <select
                 value={selectedDepartment}
                 onChange={(e) => setSelectedDepartment(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
               >
                 <option value="">All Departments</option>
                 {departments.map((dept) => (
@@ -118,13 +118,13 @@ export function PayrollReports({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium" style={{ color: 'var(--secondary)', marginBottom: 8 }}>
                 Status
               </label>
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style={{ width: '100%', padding: '8px 16px', border: '1px solid var(--border)', borderRadius: 8, background: 'var(--background)', color: 'var(--foreground)', outline: 'none', fontSize: '1rem' }}
               >
                 <option value="">All Status</option>
                 {statuses.map((status) => (
@@ -137,7 +137,9 @@ export function PayrollReports({
 
             <button
               onClick={handlePrint}
-              className="w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 flex items-center justify-center gap-2 transition-colors"
+              style={{ width: '100%', padding: '8px 16px', background: '#334155', color: '#fff', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, border: 'none', fontWeight: 500, fontSize: 16, transition: 'background 0.2s' }}
+              onMouseOver={e => (e.currentTarget.style.background = '#1e293b')}
+              onMouseOut={e => (e.currentTarget.style.background = '#334155')}
             >
               <FileText size={16} />
               Print Report
@@ -150,22 +152,24 @@ export function PayrollReports({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl shadow-md border border-blue-100 p-6"
+            style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10)', border: '1px solid var(--border)', padding: 24 }}
           >
             <div className="flex items-start gap-4">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <Download size={24} className="text-blue-600" />
+              <div style={{ padding: 12, background: 'rgba(59,130,246,0.1)', borderRadius: 12 }}>
+                <Download size={24} style={{ color: '#3b82f6' }} />
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-gray-900 mb-2">
+                <h4 style={{ fontSize: 14, fontWeight: 600, color: 'var(--foreground)', marginBottom: 8 }}>
                   Export as PDF
                 </h4>
-                <p className="text-xs text-gray-600 mb-4">
+                <p style={{ fontSize: 12, color: 'var(--secondary)', marginBottom: 16 }}>
                   Download a formatted PDF report of payroll data with detailed breakdown
                 </p>
                 <button
                   onClick={() => handleExport("pdf")}
-                  className="text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  style={{ fontSize: 14, background: '#2563eb', color: '#fff', padding: '8px 16px', borderRadius: 8, border: 'none', transition: 'background 0.2s' }}
+                  onMouseOver={e => (e.currentTarget.style.background = '#1d4ed8')}
+                  onMouseOut={e => (e.currentTarget.style.background = '#2563eb')}
                 >
                   Export PDF
                 </button>
@@ -177,22 +181,24 @@ export function PayrollReports({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-md border border-green-100 p-6"
+            style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10)', border: '1px solid var(--border)', padding: 24 }}
           >
             <div className="flex items-start gap-4">
-              <div className="p-3 bg-green-100 rounded-lg">
-                <BarChart3 size={24} className="text-green-600" />
+              <div style={{ padding: 12, background: 'rgba(34,197,94,0.1)', borderRadius: 12 }}>
+                <BarChart3 size={24} style={{ color: '#22c55e' }} />
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-gray-900 mb-2">
+                <h4 style={{ fontSize: 14, fontWeight: 600, color: 'var(--foreground)', marginBottom: 8 }}>
                   Export as Excel
                 </h4>
-                <p className="text-xs text-gray-600 mb-4">
+                <p style={{ fontSize: 12, color: 'var(--secondary)', marginBottom: 16 }}>
                   Download an Excel spreadsheet with all payroll records for further analysis
                 </p>
                 <button
                   onClick={() => handleExport("excel")}
-                  className="text-sm bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                  style={{ fontSize: 14, background: '#22c55e', color: '#fff', padding: '8px 16px', borderRadius: 8, border: 'none', transition: 'background 0.2s' }}
+                  onMouseOver={e => (e.currentTarget.style.background = '#16a34a')}
+                  onMouseOut={e => (e.currentTarget.style.background = '#22c55e')}
                 >
                   Export Excel
                 </button>
@@ -206,49 +212,49 @@ export function PayrollReports({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-white rounded-xl shadow-md border border-gray-100 p-6"
+        style={{ background: 'var(--card-bg)', borderRadius: 16, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.15)', border: '1px solid var(--border)', padding: 24 }}
       >
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: 16 }}>
           Available Reports
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-            <h4 className="font-medium text-gray-900 mb-2">Monthly Payroll Summary</h4>
-            <p className="text-sm text-gray-600 mb-3">
+          <div style={{ padding: 16, border: '1px solid var(--border)', borderRadius: 12, transition: 'box-shadow 0.2s' }} className="hover:shadow-md">
+            <h4 style={{ fontWeight: 500, color: 'var(--foreground)', marginBottom: 8 }}>Monthly Payroll Summary</h4>
+            <p style={{ fontSize: 14, color: 'var(--secondary)', marginBottom: 12 }}>
               Complete breakdown of payroll expenses by employee and department
             </p>
-            <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+            <button style={{ fontSize: 14, color: '#3b82f6', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }}>
               Generate →
             </button>
           </div>
 
-          <div className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-            <h4 className="font-medium text-gray-900 mb-2">Tax Deduction Report</h4>
-            <p className="text-sm text-gray-600 mb-3">
+          <div style={{ padding: 16, border: '1px solid var(--border)', borderRadius: 12, transition: 'box-shadow 0.2s' }} className="hover:shadow-md">
+            <h4 style={{ fontWeight: 500, color: 'var(--foreground)', marginBottom: 8 }}>Tax Deduction Report</h4>
+            <p style={{ fontSize: 14, color: 'var(--secondary)', marginBottom: 12 }}>
               Detailed tax and deduction calculations for all employees
             </p>
-            <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+            <button style={{ fontSize: 14, color: '#3b82f6', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }}>
               Generate →
             </button>
           </div>
 
-          <div className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-            <h4 className="font-medium text-gray-900 mb-2">Payment History</h4>
-            <p className="text-sm text-gray-600 mb-3">
+          <div style={{ padding: 16, border: '1px solid var(--border)', borderRadius: 12, transition: 'box-shadow 0.2s' }} className="hover:shadow-md">
+            <h4 style={{ fontWeight: 500, color: 'var(--foreground)', marginBottom: 8 }}>Payment History</h4>
+            <p style={{ fontSize: 14, color: 'var(--secondary)', marginBottom: 12 }}>
               Complete payment history with status and transaction details
             </p>
-            <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+            <button style={{ fontSize: 14, color: '#3b82f6', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }}>
               Generate →
             </button>
           </div>
 
-          <div className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-            <h4 className="font-medium text-gray-900 mb-2">Department Analytics</h4>
-            <p className="text-sm text-gray-600 mb-3">
+          <div style={{ padding: 16, border: '1px solid var(--border)', borderRadius: 12, transition: 'box-shadow 0.2s' }} className="hover:shadow-md">
+            <h4 style={{ fontWeight: 500, color: 'var(--foreground)', marginBottom: 8 }}>Department Analytics</h4>
+            <p style={{ fontSize: 14, color: 'var(--secondary)', marginBottom: 12 }}>
               Salary distribution and expense trends by department
             </p>
-            <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+            <button style={{ fontSize: 14, color: '#3b82f6', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }}>
               Generate →
             </button>
           </div>
