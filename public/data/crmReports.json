@@ -1,0 +1,93 @@
+{
+  "salesData": [
+    { "month": "Jan", "sales": 45000, "target": 50000 },
+    { "month": "Feb", "sales": 52000, "target": 50000 },
+    { "month": "Mar", "sales": 48000, "target": 50000 },
+    { "month": "Apr", "sales": 61000, "target": 55000 },
+    { "month": "May", "sales": 55000, "target": 55000 },
+    { "month": "Jun", "sales": 67000, "target": 60000 },
+    { "month": "Jul", "sales": 72000, "target": 65000 },
+    { "month": "Aug", "sales": 68000, "target": 65000 },
+    { "month": "Sep", "sales": 75000, "target": 70000 },
+    { "month": "Oct", "sales": 81000, "target": 75000 },
+    { "month": "Nov", "sales": 89000, "target": 80000 },
+    { "month": "Dec", "sales": 95000, "target": 90000 }
+  ],
+  "pipelineData": [
+    { "name": "Prospects", "count": 142, "percentage": 100 },
+    { "name": "Qualified", "count": 89, "percentage": 62.7 },
+    { "name": "Proposal", "count": 45, "percentage": 50.6 },
+    { "name": "Negotiation", "count": 28, "percentage": 62.2 },
+    { "name": "Closed", "count": 18, "percentage": 64.3 }
+  ],
+  "forecastData": [
+    { "month": "Jan", "predicted": 48000, "actual": 45000, "variance": 3000 },
+    { "month": "Feb", "predicted": 51000, "actual": 52000, "variance": -1000 },
+    { "month": "Mar", "predicted": 49000, "actual": 48000, "variance": 1000 },
+    { "month": "Apr", "predicted": 60000, "actual": 61000, "variance": -1000 },
+    { "month": "May", "predicted": 56000, "actual": 55000, "variance": 1000 },
+    { "month": "Jun", "predicted": 65000, "actual": 67000, "variance": -2000 },
+    { "month": "Jul", "predicted": 70000, "actual": 72000, "variance": -2000 },
+    { "month": "Aug", "predicted": 69000, "actual": 68000, "variance": 1000 },
+    { "month": "Sep", "predicted": 76000, "actual": 75000, "variance": 1000 },
+    { "month": "Oct", "predicted": 82000, "actual": 81000, "variance": 1000 },
+    { "month": "Nov", "predicted": 88000, "actual": 89000, "variance": -1000 },
+    { "month": "Dec", "predicted": 94000, "actual": 95000, "variance": -1000 }
+  ],
+  "agentData": [
+    {
+      "id": "1",
+      "name": "Sarah Johnson",
+      "dealsClosedThisMonth": 8,
+      "revenue": 125000,
+      "avgDealSize": 15625,
+      "conversionRate": 45,
+      "forecastAccuracy": 92
+    },
+    {
+      "id": "2",
+      "name": "Michael Chen",
+      "dealsClosedThisMonth": 6,
+      "revenue": 98000,
+      "avgDealSize": 16333,
+      "conversionRate": 42,
+      "forecastAccuracy": 88
+    },
+    {
+      "id": "3",
+      "name": "Emily Rodriguez",
+      "dealsClosedThisMonth": 7,
+      "revenue": 112000,
+      "avgDealSize": 16000,
+      "conversionRate": 48,
+      "forecastAccuracy": 90
+    },
+    {
+      "id": "4",
+      "name": "James Wilson",
+      "dealsClosedThisMonth": 5,
+      "revenue": 85000,
+      "avgDealSize": 17000,
+      "conversionRate": 38,
+      "forecastAccuracy": 85
+    },
+    {
+      "id": "5",
+      "name": "Lisa Anderson",
+      "dealsClosedThisMonth": 9,
+      "revenue": 135000,
+      "avgDealSize": 15000,
+      "conversionRate": 50,
+      "forecastAccuracy": 94
+    },
+    {
+      "id": "6",
+      "name": "David Martinez",
+      "dealsClosedThisMonth": 4,
+      "revenue": 72000,
+      "avgDealSize": 18000,
+      "conversionRate": 35,
+      "forecastAccuracy": 82
+    }
+  ]
+}
