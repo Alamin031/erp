@@ -111,10 +111,12 @@ export function BillsPageClient() {
         <Filter size={16} />
         <input value={filters.dateFrom} onChange={(e) => setFilters({ dateFrom: e.target.value })} type="date" className="form-input" />
         <input value={filters.dateTo} onChange={(e) => setFilters({ dateTo: e.target.value })} type="date" className="form-input" />
-        <select value={filters.vendor} onChange={(e) => setFilters({ vendor: e.target.value })} className="form-input">
-          <option value="">All Vendors</option>
-          {vendors.map((v) => <option key={v} value={v}>{v}</option>)}
-        </select>
+        <div style={{ position: 'relative' }}>
+          <input list="vendors" value={filters.vendor} onChange={(e) => setFilters({ vendor: e.target.value })} className="form-input" placeholder="Vendor" />
+          <datalist id="vendors">
+            {vendors.map((v) => <option key={v} value={v} />)}
+          </datalist>
+        </div>
         <select value={filters.status} onChange={(e) => setFilters({ status: e.target.value as any })} className="form-input">
           <option value="">All Status</option>
           <option>Pending</option>
