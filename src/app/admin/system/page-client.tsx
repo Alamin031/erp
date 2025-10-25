@@ -43,14 +43,14 @@ export function SystemSettingsPageClient() {
   const current = settingsItems.find((i) => i.id === (activeTab as any));
 
   return (
-    <div className="flex gap-6 w-full">
+    <div className="relative flex w-full gap-8 px-4 md:px-6 lg:px-8 py-6">
       <div className="w-80 shrink-0">
         <SettingsSidebar />
       </div>
 
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="sticky top-0 z-10 bg-[var(--background)]/80 backdrop-blur border-b border-[var(--border)]">
-          <div className="max-w-6xl mx-auto px-8 py-4">
+      <div className="flex-1 flex flex-col overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card-bg)] shadow-sm">
+        <div className="sticky top-0 z-10 bg-[var(--background)]/80 backdrop-blur border-b border-[var(--border)] rounded-t-xl">
+          <div className="max-w-6xl mx-auto px-6 md:px-8 py-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-[var(--secondary)] mb-1">System Settings / {current?.label ?? "General"}</p>
@@ -63,7 +63,7 @@ export function SystemSettingsPageClient() {
           </div>
         </div>
         <div className="flex-1 overflow-y-auto">
-          <div className="max-w-6xl mx-auto p-8">
+          <div className="max-w-6xl mx-auto p-6 md:p-8 lg:p-10">
             <motion.div
               key={activeTab}
               initial={{ opacity: 0, y: 10 }}

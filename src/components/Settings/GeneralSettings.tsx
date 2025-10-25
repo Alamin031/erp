@@ -53,11 +53,11 @@ export function GeneralSettings() {
         </p>
       </div>
 
-      <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-lg p-6 space-y-8">
+      <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-xl p-8 space-y-10">
         <div>
           <h4 className="text-lg font-semibold text-[var(--foreground)]">System Identity</h4>
           <p className="text-sm text-[var(--secondary)] mb-4">Name and primary appearance options for your instance.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="form-group">
               <label className="form-label">System Name</label>
               <input
@@ -89,7 +89,7 @@ export function GeneralSettings() {
         <div>
           <h4 className="text-lg font-semibold text-[var(--foreground)]">Localization</h4>
           <p className="text-sm text-[var(--secondary)] mb-4">Language, time and regional formats.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="form-group">
               <label className="form-label">Default Language</label>
               <select
@@ -162,7 +162,7 @@ export function GeneralSettings() {
           </div>
         </div>
 
-        <div className="sticky bottom-0 -mx-6 px-6 py-4 bg-[var(--card-bg)]/90 backdrop-blur border-t border-[var(--border)]">
+        <div className="sticky bottom-0 -mx-8 px-8 py-5 bg-[var(--card-bg)]/90 backdrop-blur border-t border-[var(--border)]">
           <motion.button
             onClick={handleSave}
             disabled={!isDirty || isSaving}
