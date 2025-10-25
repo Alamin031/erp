@@ -124,8 +124,11 @@ export function PipelinesTab() {
         )}
 
         <AddPipelineModal
-          isOpen={isAddModalOpen}
-          onClose={() => setIsAddModalOpen(false)}
+          isOpen={isAddModalOpen || !!selectedPipelineId}
+          onClose={() => {
+            setIsAddModalOpen(false);
+            setSelectedPipelineId(null);
+          }}
           editingId={selectedPipelineId}
           onEditingChange={setSelectedPipelineId}
         />
