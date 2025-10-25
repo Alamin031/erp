@@ -31,20 +31,8 @@ export function ConfirmDeleteModal({ isOpen, title, message, onConfirm, onCancel
           <div style={{ padding: "20px 24px", borderBottom: "1px solid var(--border)" }}>
             <p style={{ color: "var(--secondary)" }}>{message}</p>
           </div>
-          <div className="modal-footer">
-            <button
-              onClick={onCancel}
-              style={{
-                padding: "10px 20px",
-                borderRadius: 8,
-                border: "1px solid var(--border)",
-                backgroundColor: "transparent",
-                color: "var(--foreground)",
-                fontWeight: 500,
-                cursor: "pointer",
-                transition: "background-color 0.3s ease",
-              }}
-            >
+          <div className="modal-actions">
+            <button className="btn btn-secondary" onClick={onCancel}>
               Cancel
             </button>
             <button
