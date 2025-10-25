@@ -243,7 +243,7 @@ export function DataRecyclePageClient() {
       </div>
 
       {/* KPI Chips */}
-      <div className="px-8 py-4 bg-[var(--background)] border-b border-[var(--border)] overflow-x-auto">
+      <div className="px-8 py-4 bg-[var(--background)] border-b border-[var(--border)]">
         <div className="flex gap-4 min-w-max">
           {kpis.map((kpi) => (
             <div
@@ -264,31 +264,27 @@ export function DataRecyclePageClient() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-hidden flex">
+      <div className=" p-6 space-y-6">
         {/* Filters Panel */}
         {showFiltersPanel && <FiltersPanel />}
 
-        {/* Center Table + Actions */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          {/* Bulk Actions Toolbar */}
-          {selectedRecordIds.length > 0 && (
-            <BulkActionsMenu
-              selectedCount={selectedRecordIds.length}
-              onRestore={handleBulkRestore}
-              onArchive={handleBulkArchive}
-              onDelete={handleBulkDelete}
-              onHold={handlePlaceHold}
-              onRemoveHold={handleRemoveHold}
-            />
-          )}
-
-          {/* Table */}
-          <div className="flex-1 overflow-hidden m-6">
-            <RecycleTable onSelectRecord={handleSelectRecord} />
-          </div>
-        </div>
+        {/* Bulk Actions Toolbar */}
+        {selectedRecordIds.length > 0 && (
+          <BulkActionsMenu
+            selectedCount={selectedRecordIds.length}
+            onRestore={handleBulkRestore}
+            onArchive={handleBulkArchive}
+            onDelete={handleBulkDelete}
+            onHold={handlePlaceHold}
+            onRemoveHold={handleRemoveHold}
+          />
+        )}
       </div>
+      <div className=" p-6 space-y-6">
 
+        {/* Table */}
+        <RecycleTable onSelectRecord={handleSelectRecord} />
+      </div>
       {/* Footer Toolbar */}
       <div className="bg-[var(--card-bg)] border-t border-[var(--border)] px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2 text-sm text-[var(--secondary)]">

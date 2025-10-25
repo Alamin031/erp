@@ -82,7 +82,7 @@ export function AuditLogs() {
           onClick={handleExportCSV}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-4 py-2 bg-[var(--primary)] text-white rounded-lg font-medium hover:bg-opacity-90"
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
         >
           <Download className="w-4 h-4" />
           Export CSV
@@ -91,17 +91,15 @@ export function AuditLogs() {
 
       <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-lg p-6 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="md:col-span-2">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[var(--secondary)]" />
-              <input
-                type="text"
-                placeholder="Search actions, details, users..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full form-input pl-10"
-              />
-            </div>
+          <div className="md:col-span-2 relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search actions, details, users..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full form-input pl-10"
+            />
           </div>
 
           <input
@@ -170,9 +168,14 @@ export function AuditLogs() {
                       </p>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="px-3 py-1 bg-[var(--primary)] bg-opacity-10 text-[var(--primary)] text-sm rounded font-medium">
-                        {log.action}
-                      </span>
+                      <div className="flex flex-col items-start">
+                        <span className="text-sm font-medium text-white">
+                          {log.action.split(' ')[0]}
+                        </span>
+                        <span className="text-xs text-gray-400">
+                          {log.action.split(' ').slice(1).join(' ')}
+                        </span>
+                      </div>
                     </td>
                     <td className="px-6 py-4">
                       <p className="text-sm text-[var(--foreground)]">{log.user}</p>
@@ -208,9 +211,9 @@ export function AuditLogs() {
         )}
       </div>
 
-      <div className="bg-blue-500 bg-opacity-10 border border-blue-500 border-opacity-30 rounded-lg p-6">
-        <h4 className="font-semibold text-blue-500 mb-2">Audit Log Information</h4>
-        <ul className="text-sm text-blue-400 space-y-1">
+      <div className="bg-blue-600 border border-blue-700 rounded-lg p-6">
+        <h4 className="font-semibold text-white mb-3">Audit Log Information</h4>
+        <ul className="text-sm text-white space-y-2">
           <li>• All system activities are automatically logged</li>
           <li>• Logs are retained for 90 days</li>
           <li>• User actions, system changes, and security events are tracked</li>

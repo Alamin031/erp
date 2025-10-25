@@ -57,8 +57,6 @@ export function RecycleTable({ onSelectRecord }: RecycleTableProps) {
       selectedRecordIds.length < pagedRecords.length;
   }, [selectedRecordIds, pagedRecords.length]);
 
-  const [hoveredRow, setHoveredRow] = useState<string | null>(null);
-
   const handleSort = (sortBy: "deletedAt" | "title" | "module") => {
     const newOrder =
       sort.sortBy === sortBy && sort.sortOrder === "desc" ? "asc" : "desc";
@@ -125,10 +123,10 @@ export function RecycleTable({ onSelectRecord }: RecycleTableProps) {
   };
 
   return (
-    <div className="flex flex-col h-full bg-(--card-bg) rounded-lg border border-(--border)">
-      <div className="overflow-x-auto flex-1">
+    <div className="flex flex-col bg-[var(--card-bg)] rounded-lg border border-[var(--border)] overflow-hidden">
+      <div className="overflow-x-auto">
         <table className="w-full border-collapse">
-          <thead className="bg-(--background) border-b border-(--border)">
+          <thead className="bg-[var(--background)] border-b border-[var(--border)] sticky top-0">
             <tr>
               <th className="px-4 py-3 text-left">
                 <input
@@ -139,49 +137,49 @@ export function RecycleTable({ onSelectRecord }: RecycleTableProps) {
                     selectedRecordIds.length === pagedRecords.length
                   }
                   onChange={handleSelectAll}
-                  className="rounded border border-(--border) cursor-pointer"
+                  className="rounded border border-[var(--border)] cursor-pointer"
                 />
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-(--foreground)">
+              <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--foreground)]">
                 Record ID
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-(--foreground)">
+              <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--foreground)]">
                 <button
                   onClick={() => handleSort("module")}
-                  className="flex items-center gap-2 hover:text-(--primary)"
+                  className="flex items-center gap-2 hover:text-[var(--primary)]"
                 >
                   Module
                   <SortIcon column="module" />
                 </button>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-(--foreground)">
+              <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--foreground)]">
                 <button
                   onClick={() => handleSort("title")}
-                  className="flex items-center gap-2 hover:text-(--primary)"
+                  className="flex items-center gap-2 hover:text-[var(--primary)]"
                 >
                   Title / Name
                   <SortIcon column="title" />
                 </button>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-(--foreground)">
+              <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--foreground)]">
                 Deleted By
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-(--foreground)">
+              <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--foreground)]">
                 <button
                   onClick={() => handleSort("deletedAt")}
-                  className="flex items-center gap-2 hover:text-(--primary)"
+                  className="flex items-center gap-2 hover:text-[var(--primary)]"
                 >
                   Deleted At
                   <SortIcon column="deletedAt" />
                 </button>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-(--foreground)">
+              <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--foreground)]">
                 Retention Status
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-(--foreground)">
+              <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--foreground)]">
                 Storage
               </th>
-              <th className="px-4 py-3 text-right text-sm font-semibold text-(--foreground)">
+              <th className="px-4 py-3 text-right text-sm font-semibold text-[var(--foreground)]">
                 Actions
               </th>
             </tr>
@@ -191,7 +189,7 @@ export function RecycleTable({ onSelectRecord }: RecycleTableProps) {
               <tr>
                 <td
                   colSpan={9}
-                  className="px-4 py-8 text-center text-(--secondary)"
+                  className="px-4 py-8 text-center text-[var(--secondary)]"
                 >
                   No records found
                 </td>
@@ -200,11 +198,9 @@ export function RecycleTable({ onSelectRecord }: RecycleTableProps) {
               pagedRecords.map((record) => (
                 <tr
                   key={record.id}
-                  onMouseEnter={() => setHoveredRow(record.id)}
-                  onMouseLeave={() => setHoveredRow(null)}
-                  className={`border-b border-(--border) hover:bg-(--background) transition-colors ${
+                  className={`border-b border-[var(--border)] hover:bg-[var(--background)] transition-colors ${
                     selectedRecordIds.includes(record.id)
-                      ? "bg-(--primary)/5"
+                      ? "bg-[var(--primary)]/5"
                       : ""
                   }`}
                 >
@@ -213,10 +209,10 @@ export function RecycleTable({ onSelectRecord }: RecycleTableProps) {
                       type="checkbox"
                       checked={selectedRecordIds.includes(record.id)}
                       onChange={() => toggleRecordSelection(record.id)}
-                      className="rounded border border-(--border) cursor-pointer"
+                      className="rounded border border-[var(--border)] cursor-pointer"
                     />
                   </td>
-                  <td className="px-4 py-3 text-sm font-mono text-(--foreground)">
+                  <td className="px-4 py-3 text-sm font-mono text-[var(--foreground)]">
                     {record.recordId}
                   </td>
                   <td className="px-4 py-3">
@@ -227,54 +223,52 @@ export function RecycleTable({ onSelectRecord }: RecycleTableProps) {
                   <td className="px-4 py-3">
                     <button
                       onClick={() => onSelectRecord(record)}
-                      className="text-sm text-(--primary) hover:underline font-medium truncate max-w-xs"
+                      className="text-sm text-[var(--primary)] hover:underline font-medium truncate max-w-xs"
                       title={record.title}
                     >
                       {record.title}
                     </button>
                   </td>
-                  <td className="px-4 py-3 text-sm text-(--secondary)">
+                  <td className="px-4 py-3 text-sm text-[var(--secondary)]">
                     {record.deletedBy}
                   </td>
-                  <td className="px-4 py-3 text-sm text-(--secondary)">
+                  <td className="px-4 py-3 text-sm text-[var(--secondary)]">
                     {formatDate(record.deletedAt)}
                   </td>
                   <td className="px-4 py-3">
                     {getRetentionBadge(record.retentionStatus)}
                   </td>
                   <td className="px-4 py-3 text-sm">
-                    <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-(--background) text-(--foreground)">
+                    <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-[var(--background)] text-[var(--foreground)]">
                       {record.currentStorage === "archived"
                         ? "📦 Archived"
                         : "💾 Active"}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right">
-                    {hoveredRow === record.id && (
-                      <div className="flex items-center justify-end gap-1">
-                        <button
-                          title="Restore"
-                          className="p-1.5 hover:bg-green-100 text-green-700 rounded transition-colors"
-                          onClick={() => onSelectRecord(record)}
-                        >
-                          <RotateCcw className="w-4 h-4" />
-                        </button>
-                        <button
-                          title="Archive"
-                          className="p-1.5 hover:bg-blue-100 text-blue-700 rounded transition-colors"
-                          onClick={() => onSelectRecord(record)}
-                        >
-                          <Archive className="w-4 h-4" />
-                        </button>
-                        <button
-                          title="Delete"
-                          className="p-1.5 hover:bg-red-100 text-red-700 rounded transition-colors"
-                          onClick={() => onSelectRecord(record)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
+                    <div className="flex items-center justify-end gap-1">
+                      <button
+                        title="Restore"
+                        className="p-1.5 hover:bg-green-100 text-green-700 rounded transition-colors"
+                        onClick={() => onSelectRecord(record)}
+                      >
+                        <RotateCcw className="w-4 h-4" />
+                      </button>
+                      <button
+                        title="Archive"
+                        className="p-1.5 hover:bg-blue-100 text-blue-700 rounded transition-colors"
+                        onClick={() => onSelectRecord(record)}
+                      >
+                        <Archive className="w-4 h-4" />
+                      </button>
+                      <button
+                        title="Delete"
+                        className="p-1.5 hover:bg-red-100 text-red-700 rounded transition-colors"
+                        onClick={() => onSelectRecord(record)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))
@@ -284,8 +278,8 @@ export function RecycleTable({ onSelectRecord }: RecycleTableProps) {
       </div>
 
       {filteredRecords.length > 0 && (
-        <div className="border-t border-(--border) px-4 py-3 flex items-center justify-between">
-          <div className="text-sm text-(--secondary)">
+        <div className="border-t border-[var(--border)] px-4 py-3 flex items-center justify-between bg-[var(--card-bg)]">
+          <div className="text-sm text-[var(--secondary)]">
             Showing {(pagination.page - 1) * pagination.pageSize + 1} to{" "}
             {Math.min(
               pagination.page * pagination.pageSize,
@@ -299,12 +293,12 @@ export function RecycleTable({ onSelectRecord }: RecycleTableProps) {
                 setPagination(pagination.page - 1, pagination.pageSize)
               }
               disabled={pagination.page === 1}
-              className="px-3 py-1 rounded border border-(--border) text-sm disabled:opacity-50 hover:bg-(--background)"
+              className="px-3 py-1 rounded border border-[var(--border)] text-sm disabled:opacity-50 hover:bg-[var(--background)] text-[var(--foreground)]"
             >
               Previous
             </button>
             <div className="flex items-center gap-1 px-3">
-              <span className="text-sm text-(--secondary)">
+              <span className="text-sm text-[var(--secondary)]">
                 Page {pagination.page} of {totalPages}
               </span>
             </div>
@@ -313,7 +307,7 @@ export function RecycleTable({ onSelectRecord }: RecycleTableProps) {
                 setPagination(pagination.page + 1, pagination.pageSize)
               }
               disabled={pagination.page >= totalPages}
-              className="px-3 py-1 rounded border border-(--border) text-sm disabled:opacity-50 hover:bg-(--background)"
+              className="px-3 py-1 rounded border border-[var(--border)] text-sm disabled:opacity-50 hover:bg-[var(--background)] text-[var(--foreground)]"
             >
               Next
             </button>

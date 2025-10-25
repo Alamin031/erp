@@ -130,7 +130,7 @@ export function BackupRestore() {
               disabled={isSaving}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[var(--primary)] text-white rounded-lg font-medium transition-opacity duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700"
             >
               {isSaving ? (
                 <>
@@ -150,7 +150,7 @@ export function BackupRestore() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={!backupRestore.lastBackupDate}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[var(--sidebar-hover)] text-[var(--foreground)] rounded-lg font-medium hover:bg-opacity-80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Download className="w-4 h-4" />
               Download Backup
@@ -221,17 +221,18 @@ export function BackupRestore() {
             )}
           </div>
 
-          <div className="bg-amber-500 bg-opacity-10 border border-amber-500 border-opacity-30 rounded-lg p-4">
-            <p className="text-sm text-amber-500">
-              ⚠️ Restoring will overwrite all current data. This action cannot be undone.
+          <div className="bg-orange-500 border border-orange-600 rounded-lg p-4 flex items-start gap-3">
+            <span className="text-2xl">⚠️</span>
+            <p className="text-sm text-white font-medium">
+              Restoring will overwrite all current data. This action cannot be undone.
             </p>
           </div>
         </motion.div>
       </div>
 
-      <div className="bg-blue-500 bg-opacity-10 border border-blue-500 border-opacity-30 rounded-lg p-6">
-        <h4 className="font-semibold text-blue-500 mb-2">Backup Information</h4>
-        <ul className="text-sm text-blue-400 space-y-1">
+      <div className="bg-blue-600 border border-blue-700 rounded-lg p-6">
+        <h4 className="font-semibold text-white mb-3">Backup Information</h4>
+        <ul className="text-sm text-white space-y-2">
           <li>• Backups include all system data, configurations, and user information</li>
           <li>• Automatic daily backups are performed at 2:00 AM UTC</li>
           <li>• Backups are retained for 30 days</li>

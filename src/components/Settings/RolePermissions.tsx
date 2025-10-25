@@ -146,24 +146,21 @@ export function RolePermissions() {
                     </p>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-2">
                       {role.permissions.length > 0 ? (
-                        role.permissions.slice(0, 3).map((perm) => (
-                          <span
-                            key={perm}
-                            className="px-2 py-1 bg-[var(--primary)] bg-opacity-20 text-[var(--primary)] text-xs rounded"
-                          >
-                            {perm}
-                          </span>
-                        ))
+                        <>
+                          {role.permissions.map((perm) => (
+                            <span
+                              key={perm}
+                              className="px-3 py-1.5 bg-blue-500 bg-opacity-90 text-white text-xs font-medium rounded-md capitalize"
+                            >
+                              {perm}
+                            </span>
+                          ))}
+                        </>
                       ) : (
                         <span className="text-sm text-[var(--secondary)]">
                           No permissions
-                        </span>
-                      )}
-                      {role.permissions.length > 3 && (
-                        <span className="text-xs text-[var(--secondary)]">
-                          +{role.permissions.length - 3}
                         </span>
                       )}
                     </div>
@@ -203,79 +200,92 @@ export function RolePermissions() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={handleCloseModal}
-              className="modal-overlay"
+              className="fixed inset-0   backdrop-blur-sm z-50 flex items-center justify-center"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="modal"
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
             >
-              <div className="modal-header">
-                <h2>{editingRole ? "Edit Role" : "Add New Role"}</h2>
-                <button onClick={handleCloseModal} className="modal-close">
-                  ✕
-                </button>
-              </div>
-
-              <div className="modal-form">
-                <div className="form-group">
-                  <label className="form-label">Role Name</label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, name: e.target.value }))
-                    }
-                    className="form-input"
-                    placeholder="e.g., Manager"
-                  />
+              <div className="bg-[#1e222d] border border-[#2a2f3c] rounded-xl shadow-2xl w-full max-w-md pointer-events-auto">
+                <div className="flex items-center justify-between p-6 border-b border-[#2a2f3c]">
+                  <h2 className="text-xl font-semibold text-white">
+                    {editingRole ? "Edit Role" : "Add New Role"}
+                  </h2>
+                  <button 
+                    onClick={handleCloseModal} 
+                    className="text-gray-400 hover:text-white text-2xl leading-none"
+                  >
+                    ✕
+                  </button>
                 </div>
 
-                <div className="form-group">
-                  <label className="form-label">Description</label>
-                  <input
-                    type="text"
-                    value={formData.description}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        description: e.target.value,
-                      }))
-                    }
-                    className="form-input"
-                    placeholder="Role description"
-                  />
-                </div>
+                <div className="p-6 space-y-5">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Role Name
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) =>
+                        setFormData((prev) => ({ ...prev, name: e.target.value }))
+                      }
+                      className="w-full px-4 py-2.5 bg-[#0f1117] border border-[#2a2f3c] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="e.g., Manager"
+                    />
+                  </div>
 
-                <div className="form-group">
-                  <label className="form-label mb-3 block">Permissions</label>
-                  <div className="space-y-2 max-h-64 overflow-y-auto">
-                    {AVAILABLE_PERMISSIONS.map((permission) => (
-                      <label
-                        key={permission}
-                        className="flex items-center gap-3 p-2 rounded hover:bg-[var(--sidebar-hover)] cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={formData.permissions.includes(permission)}
-                          onChange={() => handlePermissionToggle(permission)}
-                          className="w-4 h-4"
-                        />
-                        <span className="capitalize text-[var(--foreground)]">
-                          {permission}
-                        </span>
-                      </label>
-                    ))}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Description
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.description}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          description: e.target.value,
+                        }))
+                      }
+                      className="w-full px-4 py-2.5 bg-[#0f1117] border border-[#2a2f3c] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Role description"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-3">
+                      Permissions
+                    </label>
+                    <div className="space-y-2 max-h-64 overflow-y-auto bg-[#0f1117] border border-[#2a2f3c] rounded-lg p-3">
+                      {AVAILABLE_PERMISSIONS.map((permission) => (
+                        <label
+                          key={permission}
+                          className="flex items-center gap-3 p-2 rounded-md hover:bg-[#1e222d] cursor-pointer transition-colors"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={formData.permissions.includes(permission)}
+                            onChange={() => handlePermissionToggle(permission)}
+                            className="w-4 h-4 rounded border-gray-600 text-blue-600 focus:ring-blue-500 focus:ring-offset-0"
+                          />
+                          <span className="capitalize text-white text-sm">
+                            {permission}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                <div className="modal-actions mt-6 border-t border-[var(--border)] pt-6">
+                <div className="flex items-center justify-end gap-3 p-6 border-t border-[#2a2f3c]">
                   <motion.button
                     onClick={handleCloseModal}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-4 py-2 border border-[var(--border)] text-[var(--foreground)] rounded-lg hover:bg-[var(--sidebar-hover)]"
+                    className="px-5 py-2.5 border border-[#2a2f3c] text-gray-300 rounded-lg hover:bg-[#2a2f3c] transition-colors"
                   >
                     Cancel
                   </motion.button>
@@ -283,7 +293,7 @@ export function RolePermissions() {
                     onClick={handleSaveRole}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-6 py-2 bg-[var(--primary)] text-white rounded-lg font-medium"
+                    className="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
                   >
                     {editingRole ? "Update Role" : "Create Role"}
                   </motion.button>

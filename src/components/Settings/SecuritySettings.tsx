@@ -197,9 +197,9 @@ export function SecuritySettings() {
           </div>
 
           <div className="border-t border-[var(--border)] pt-6">
-            <div className="bg-amber-500 bg-opacity-10 border border-amber-500 border-opacity-30 rounded-lg p-4 mb-6 flex gap-3">
-              <AlertTriangle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-amber-500">
+            <div className="bg-orange-500 border border-orange-500 rounded-lg p-4 mb-6 flex gap-3 items-start">
+              <AlertTriangle className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-white font-medium">
                 Enforcing password reset will require all users to create new passwords on their next login.
               </p>
             </div>
@@ -208,7 +208,7 @@ export function SecuritySettings() {
               onClick={handleEnforcePasswordReset}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="px-6 py-2 bg-red-500 bg-opacity-10 text-red-500 border border-red-500 border-opacity-30 rounded-lg font-medium hover:bg-opacity-20 transition-colors"
+              className="px-6 py-3 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition-colors"
             >
               Enforce Password Reset for All Users
             </motion.button>
@@ -218,9 +218,9 @@ export function SecuritySettings() {
             <motion.button
               onClick={handleSave}
               disabled={!isDirty || isSaving}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-6 py-2 bg-[var(--primary)] text-white rounded-lg font-medium transition-opacity duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              whileHover={{ scale: isDirty && !isSaving ? 1.02 : 1 }}
+              whileTap={{ scale: isDirty && !isSaving ? 0.98 : 1 }}
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700"
             >
               {isSaving ? "Saving..." : "Save Changes"}
             </motion.button>

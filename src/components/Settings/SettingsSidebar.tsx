@@ -8,35 +8,40 @@ export function SettingsSidebar() {
   const { activeTab, setActiveTab } = useSettings();
 
   return (
-    <aside className="w-80 bg-[var(--card-bg)]/80 border-r border-[var(--border)] backdrop-blur overflow-y-auto sticky top-0 h-[100vh]">
-      <div className="p-5">
-        <h2 className="text-sm font-semibold tracking-wide uppercase text-[var(--secondary)] mb-4">Settings</h2>
-        <nav className="space-y-1">
+    <aside className="h-full">
+      <div className="p-6">
+        <h2 className="text-lg font-semibold text-white mb-4">Settings</h2>
+        <nav className="space-y-3">
           {settingsItems.map((item) => {
             const active = activeTab === item.id;
             return (
-              <motion.button
+              <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`group relative w-full text-left rounded-xl px-4 py-3 transition-colors ${
+                className={`w-full text-left px-3 py-2.5 rounded-md transition-colors duration-150 flex items-center gap-3 group ${
                   active
-                    ? "bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/20"
-                    : "text-[var(--foreground)] hover:bg-[var(--sidebar-hover)]"
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-400 hover:bg-[#2a2f3c] hover:text-gray-200"
                 }`}
-                whileHover={{ x: 3 }}
-                whileTap={{ scale: 0.98 }}
               >
-                <span className={`absolute left-0 top-0 h-full w-1 rounded-r ${active ? "bg-[var(--primary)]" : "bg-transparent group-hover:bg-[var(--border)]"}`} />
-                <div className="flex items-start gap-3">
-                  <div className={`mt-0.5 ${active ? "text-[var(--primary)]" : "text-[var(--secondary)]"}`}>{item.icon}</div>
-                  <div className="flex-1">
-                    <p className="font-medium leading-5">{item.label}</p>
-                    <p className="text-xs text-[var(--secondary)] leading-4">
-                      {item.description}
-                    </p>
-                  </div>
+                <div className={`flex-shrink-0 ${
+                  active ? "text-white" : "text-gray-400 group-hover:text-gray-300"
+                }`}>
+                  {item.icon}
                 </div>
-              </motion.button>
+                <div className="flex-1 min-w-0">
+                  <p className={`font-medium text-sm ${
+                    active ? "text-white" : "text-white"
+                  }`}>
+                    {item.label}
+                  </p>
+                  <p className={`text-xs ${
+                    active ? "text-blue-100" : "text-gray-500"
+                  }`}>
+                    {item.description}
+                  </p>
+                </div>
+              </button>
             );
           })}
         </nav>

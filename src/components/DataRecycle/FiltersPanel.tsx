@@ -139,10 +139,10 @@ export function FiltersPanel({ onClose }: FiltersPanelProps) {
   }
 
   return (
-    <div className="w-64 bg-[var(--card-bg)] border-r border-[var(--border)] h-full overflow-y-auto flex flex-col">
+    <div className="w-full bg-[var(--card-bg)] border border-[var(--border)] rounded-lg overflow-hidden flex flex-col">
       {/* Header */}
-      <div className="sticky top-0 bg-[var(--card-bg)] border-b border-[var(--border)] px-4 py-3 flex items-center justify-between">
-        <h2 className="font-semibold text-[var(--foreground)]">Filters</h2>
+      <div className="bg-[var(--card-bg)] border-b border-[var(--border)] px-6 py-4 flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-[var(--foreground)]">Filters</h2>
         <button
           onClick={() => setIsExpanded(false)}
           className="p-1 hover:bg-[var(--background)] rounded transition-colors"
@@ -153,55 +153,46 @@ export function FiltersPanel({ onClose }: FiltersPanelProps) {
       </div>
 
       {/* Content */}
-      <div className="flex-1 p-4 space-y-3">
-        {/* Clear & Save */}
-        {hasActiveFilters && (
-          <button
-            onClick={clearFilters}
-            className="w-full px-3 py-2 text-sm border border-[var(--border)] rounded-lg hover:bg-[var(--background)] transition-colors text-[var(--foreground)]"
-          >
-            Clear Filters
-          </button>
-        )}
-
-        {/* Search */}
-        <div>
-          <label className="text-xs font-semibold text-[var(--secondary)] uppercase">
-            Search
-          </label>
-          <input
-            type="text"
-            value={filters.keyword || ""}
-            onChange={(e) => setFilters({ ...filters, keyword: e.target.value || undefined })}
-            placeholder="Record ID or title..."
-            className="w-full mt-1 px-2 py-1.5 bg-[var(--background)] border border-[var(--border)] rounded text-sm text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-          />
-        </div>
+      <div className="p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          {/* Search */}
+          <div className="lg:col-span-1">
+            <label className="block text-xs font-semibold text-[var(--secondary)] uppercase mb-2">
+              Search
+            </label>
+            <input
+              type="text"
+              value={filters.keyword || ""}
+              onChange={(e) => setFilters({ ...filters, keyword: e.target.value || undefined })}
+              placeholder="Record ID or title..."
+              className="w-full px-3 py-2 bg-[var(--background)] border border-[var(--border)] rounded-lg text-sm text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all"
+            />
+          </div>
 
         {/* Module Type */}
         <div>
           <button
             onClick={() => toggleSection("modules")}
-            className="w-full flex items-center justify-between py-2 px-2 rounded hover:bg-[var(--background)] transition-colors"
+            className="w-full flex items-center justify-between mb-2 hover:text-[var(--primary)] transition-colors"
           >
-            <label className="text-xs font-semibold text-[var(--secondary)] uppercase">
+            <label className="text-xs font-semibold text-[var(--secondary)] uppercase cursor-pointer">
               Module Type
             </label>
             {expandedSections.modules ? (
-              <ChevronUp className="w-4 h-4" />
+              <ChevronUp className="w-4 h-4 text-[var(--secondary)]" />
             ) : (
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className="w-4 h-4 text-[var(--secondary)]" />
             )}
           </button>
           {expandedSections.modules && (
-            <div className="space-y-2 mt-2 pl-2 border-l border-[var(--border)]">
+            <div className="space-y-1.5 max-h-48 overflow-y-auto pr-2">
               {MODULES.map((module) => (
-                <label key={module} className="flex items-center gap-2 cursor-pointer">
+                <label key={module} className="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-[var(--background)] transition-colors">
                   <input
                     type="checkbox"
                     checked={filters.modules?.includes(module) || false}
                     onChange={(e) => handleModuleChange(module, e.target.checked)}
-                    className="rounded"
+                    className="w-4 h-4 rounded border-gray-600 text-blue-600 focus:ring-blue-500"
                   />
                   <span className="text-sm text-[var(--foreground)]">{module}</span>
                 </label>
@@ -214,21 +205,21 @@ export function FiltersPanel({ onClose }: FiltersPanelProps) {
         <div>
           <button
             onClick={() => toggleSection("dateRange")}
-            className="w-full flex items-center justify-between py-2 px-2 rounded hover:bg-[var(--background)] transition-colors"
+            className="w-full flex items-center justify-between mb-2 hover:text-[var(--primary)] transition-colors"
           >
-            <label className="text-xs font-semibold text-[var(--secondary)] uppercase">
+            <label className="text-xs font-semibold text-[var(--secondary)] uppercase cursor-pointer">
               Date Range
             </label>
             {expandedSections.dateRange ? (
-              <ChevronUp className="w-4 h-4" />
+              <ChevronUp className="w-4 h-4 text-[var(--secondary)]" />
             ) : (
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className="w-4 h-4 text-[var(--secondary)]" />
             )}
           </button>
           {expandedSections.dateRange && (
-            <div className="space-y-2 mt-2 pl-2 border-l border-[var(--border)]">
+            <div className="space-y-3">
               <div>
-                <label className="text-xs text-[var(--secondary)]">From</label>
+                <label className="block text-xs text-[var(--secondary)] mb-1">From</label>
                 <input
                   type="date"
                   value={
@@ -238,11 +229,11 @@ export function FiltersPanel({ onClose }: FiltersPanelProps) {
                       .split("T")[0]
                   }
                   onChange={(e) => handleDateRangeChange("from", e.target.value)}
-                  className="w-full mt-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] rounded text-sm text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                  className="w-full px-3 py-2 bg-[var(--background)] border border-[var(--border)] rounded-lg text-sm text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all"
                 />
               </div>
               <div>
-                <label className="text-xs text-[var(--secondary)]">To</label>
+                <label className="block text-xs text-[var(--secondary)] mb-1">To</label>
                 <input
                   type="date"
                   value={
@@ -250,7 +241,7 @@ export function FiltersPanel({ onClose }: FiltersPanelProps) {
                     new Date().toISOString().split("T")[0]
                   }
                   onChange={(e) => handleDateRangeChange("to", e.target.value)}
-                  className="w-full mt-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] rounded text-sm text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                  className="w-full px-3 py-2 bg-[var(--background)] border border-[var(--border)] rounded-lg text-sm text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all"
                 />
               </div>
             </div>
@@ -261,28 +252,28 @@ export function FiltersPanel({ onClose }: FiltersPanelProps) {
         <div>
           <button
             onClick={() => toggleSection("retention")}
-            className="w-full flex items-center justify-between py-2 px-2 rounded hover:bg-[var(--background)] transition-colors"
+            className="w-full flex items-center justify-between mb-2 hover:text-[var(--primary)] transition-colors"
           >
-            <label className="text-xs font-semibold text-[var(--secondary)] uppercase">
+            <label className="text-xs font-semibold text-[var(--secondary)] uppercase cursor-pointer">
               Retention Status
             </label>
             {expandedSections.retention ? (
-              <ChevronUp className="w-4 h-4" />
+              <ChevronUp className="w-4 h-4 text-[var(--secondary)]" />
             ) : (
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className="w-4 h-4 text-[var(--secondary)]" />
             )}
           </button>
           {expandedSections.retention && (
-            <div className="space-y-2 mt-2 pl-2 border-l border-[var(--border)]">
+            <div className="space-y-1.5">
               {RETENTION_STATUSES.map((status) => (
-                <label key={status} className="flex items-center gap-2 cursor-pointer">
+                <label key={status} className="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-[var(--background)] transition-colors">
                   <input
                     type="checkbox"
                     checked={filters.retentionStatus?.includes(status) || false}
                     onChange={(e) => handleRetentionStatusChange(status, e.target.checked)}
-                    className="rounded"
+                    className="w-4 h-4 rounded border-gray-600 text-blue-600 focus:ring-blue-500"
                   />
-                  <span className="text-sm text-[var(--foreground)]">
+                  <span className="text-sm text-[var(--foreground)] capitalize">
                     {status.replace(/_/g, " ")}
                   </span>
                 </label>
@@ -295,99 +286,112 @@ export function FiltersPanel({ onClose }: FiltersPanelProps) {
         <div>
           <button
             onClick={() => toggleSection("other")}
-            className="w-full flex items-center justify-between py-2 px-2 rounded hover:bg-[var(--background)] transition-colors"
+            className="w-full flex items-center justify-between mb-2 hover:text-[var(--primary)] transition-colors"
           >
-            <label className="text-xs font-semibold text-[var(--secondary)] uppercase">
+            <label className="text-xs font-semibold text-[var(--secondary)] uppercase cursor-pointer">
               Other
             </label>
             {expandedSections.other ? (
-              <ChevronUp className="w-4 h-4" />
+              <ChevronUp className="w-4 h-4 text-[var(--secondary)]" />
             ) : (
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className="w-4 h-4 text-[var(--secondary)]" />
             )}
           </button>
           {expandedSections.other && (
-            <div className="space-y-2 mt-2 pl-2 border-l border-[var(--border)]">
-              <div>
-                <label className="text-xs text-[var(--secondary)]">
-                  Older than (days)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  value={filters.olderThanDays || ""}
-                  onChange={(e) =>
-                    setFilters({
-                      ...filters,
-                      olderThanDays: e.target.value ? Number(e.target.value) : undefined,
-                    })
-                  }
-                  placeholder="Leave empty for any"
-                  className="w-full mt-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] rounded text-sm text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
-              </div>
+            <div>
+              <label className="block text-xs text-[var(--secondary)] mb-1">
+                Older than (days)
+              </label>
+              <input
+                type="number"
+                min="0"
+                value={filters.olderThanDays || ""}
+                onChange={(e) =>
+                  setFilters({
+                    ...filters,
+                    olderThanDays: e.target.value ? Number(e.target.value) : undefined,
+                  })
+                }
+                placeholder="Leave empty for any"
+                className="w-full px-3 py-2 bg-[var(--background)] border border-[var(--border)] rounded-lg text-sm text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all"
+              />
             </div>
           )}
         </div>
       </div>
 
-      {/* Presets Footer */}
-      <div className="border-t border-[var(--border)] p-4 space-y-2">
-        {filterPresets.length > 0 && (
-          <div className="space-y-1">
-            <p className="text-xs font-semibold text-[var(--secondary)] uppercase">
-              Saved Presets
-            </p>
-            {filterPresets.map((preset) => (
-              <div
-                key={preset.id}
-                className="flex items-center gap-2 p-2 rounded hover:bg-[var(--background)] group"
-              >
-                <button
-                  onClick={() => loadFilterPreset(preset.id)}
-                  className="flex-1 text-left text-xs text-[var(--primary)] hover:underline"
-                >
-                  {preset.name}
-                </button>
-                <button
-                  onClick={() => deleteFilterPreset(preset.id)}
-                  className="p-1 opacity-0 group-hover:opacity-100 hover:text-red-600 transition-all"
-                  title="Delete preset"
-                >
-                  <Trash2 className="w-3 h-3" />
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {showPresetInput && (
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={presetName}
-              onChange={(e) => setPresetName(e.target.value)}
-              placeholder="Preset name..."
-              className="flex-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] rounded text-sm text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-              autoFocus
-            />
-            <button
-              onClick={handleSavePreset}
-              className="p-1 hover:bg-[var(--primary)] hover:text-white rounded transition-colors"
-            >
-              <Save className="w-4 h-4" />
-            </button>
-          </div>
-        )}
-
-        {!showPresetInput && (
+      {/* Clear Filters Button */}
+      {hasActiveFilters && (
+        <div className="px-6 pb-4">
           <button
-            onClick={() => setShowPresetInput(true)}
-            className="w-full px-3 py-2 text-xs text-center bg-[var(--primary)] hover:opacity-90 text-white rounded-lg font-medium transition-opacity"
+            onClick={clearFilters}
+            className="w-full px-4 py-2.5 text-sm border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all font-medium"
           >
-            Save Current Filters
+            Clear All Filters
           </button>
-        )}
+        </div>
+      )}
+    </div>
+
+      {/* Presets Footer */}
+      <div className="border-t border-[var(--border)] p-6 bg-[var(--background)]">
+        <div className="max-w-md mx-auto">
+          {filterPresets.length > 0 && (
+            <div className="space-y-2 mb-4">
+              <p className="text-xs font-semibold text-[var(--secondary)] uppercase">
+                Saved Presets
+              </p>
+              {filterPresets.map((preset) => (
+                <div
+                  key={preset.id}
+                  className="flex items-center gap-2 p-3 rounded-lg hover:bg-[var(--card-bg)] group transition-colors border border-transparent hover:border-[var(--border)]"
+                >
+                  <button
+                    onClick={() => loadFilterPreset(preset.id)}
+                    className="flex-1 text-left text-sm text-[var(--primary)] hover:underline font-medium"
+                  >
+                    {preset.name}
+                  </button>
+                  <button
+                    onClick={() => deleteFilterPreset(preset.id)}
+                    className="p-2 opacity-0 group-hover:opacity-100 hover:text-red-600 hover:bg-red-50 rounded transition-all"
+                    title="Delete preset"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {showPresetInput && (
+            <div className="flex gap-2 mb-4">
+              <input
+                type="text"
+                value={presetName}
+                onChange={(e) => setPresetName(e.target.value)}
+                placeholder="Preset name..."
+                className="flex-1 px-3 py-2 bg-[var(--card-bg)] border border-[var(--border)] rounded-lg text-sm text-[var(--foreground)] placeholder-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                autoFocus
+              />
+              <button
+                onClick={handleSavePreset}
+                className="p-2 bg-[var(--primary)] hover:opacity-90 text-white rounded-lg transition-all"
+              >
+                <Save className="w-5 h-5" />
+              </button>
+            </div>
+          )}
+
+          {!showPresetInput && (
+            <button
+              onClick={() => setShowPresetInput(true)}
+              className="w-full px-4 py-2.5 text-sm text-center bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all shadow-sm hover:shadow"
+            >
+              Save Current Filters
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
