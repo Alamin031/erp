@@ -23,8 +23,6 @@ export function QuickAddTask() {
       status: 'open' as const,
       tags: [] as string[],
       dueAt: (dueAt || null) as string | null,
-      createdAt: new Date().toISOString(),
-      followUps: [] as [],
     }
     await addTask(payload)
     setSubject(''); setContact(''); setDueAt('')
