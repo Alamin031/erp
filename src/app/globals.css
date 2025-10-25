@@ -263,17 +263,21 @@ body {
   align-items: center;
   gap: 10px;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   color: var(--primary);
   flex: 1;
 }
 
 .brand-icon {
-  font-size: 24px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .brand-text {
   color: var(--foreground);
+  letter-spacing: 0.3px;
 }
 
 .toggle-btn {
