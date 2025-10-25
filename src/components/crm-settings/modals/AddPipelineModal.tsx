@@ -182,33 +182,11 @@ export function AddPipelineModal({ isOpen, onClose, editingId, onEditingChange }
               </button>
             </div>
           </div>
-          <div className="modal-footer">
-            <button
-              onClick={handleClose}
-              style={{
-                padding: "10px 20px",
-                borderRadius: 8,
-                border: "1px solid var(--border)",
-                backgroundColor: "transparent",
-                color: "var(--foreground)",
-                fontWeight: 500,
-                cursor: "pointer",
-              }}
-            >
+          <div className="modal-actions">
+            <button className="btn btn-secondary" onClick={handleClose}>
               Cancel
             </button>
-            <button
-              onClick={handleSave}
-              style={{
-                padding: "10px 20px",
-                borderRadius: 8,
-                border: "none",
-                backgroundColor: "var(--primary)",
-                color: "#fff",
-                fontWeight: 500,
-                cursor: "pointer",
-              }}
-            >
+            <button className="btn btn-primary" onClick={handleSave}>
               {editingId ? "Update Pipeline" : "Create Pipeline"}
             </button>
           </div>
