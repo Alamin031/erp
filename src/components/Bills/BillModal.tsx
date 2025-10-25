@@ -87,7 +87,7 @@ export function BillModal({ open, initial, onClose, onSave }: Props) {
       >
         <div className="modal-header">
           <h3 style={{ margin: 0 }}>{initial ? "Edit Bill" : "Add Bill"}</h3>
-          <button className="close-btn" onClick={onClose}>×</button>
+          <button className="modal-close" onClick={onClose}>×</button>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="modal-body" style={{ display: 'grid', gap: 12 }}>
