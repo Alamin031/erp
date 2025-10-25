@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
+import { CRMSettingsPageClient } from "@/components/crm-settings/SettingsPageClient";
 
 export default async function CRMSettingsPage() {
   const session = await getSession();
@@ -18,13 +19,7 @@ export default async function CRMSettingsPage() {
 
   return (
     <DashboardLayout>
-      <div style={{ padding: "24px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: "700", marginBottom: "16px" }}>Settings</h1>
-        <div style={{ background: "#fff", borderRadius: "8px", padding: "24px", border: "1px solid #eef2f6" }}>
-          <p style={{ color: "#6b7280", fontSize: "16px" }}>CRM settings are under development.</p>
-          <p style={{ color: "#6b7280", fontSize: "14px", marginTop: "12px" }}>Configure CRM preferences, pipelines, and custom fields.</p>
-        </div>
-      </div>
+      <CRMSettingsPageClient />
     </DashboardLayout>
   );
 }
