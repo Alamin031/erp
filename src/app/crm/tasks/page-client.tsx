@@ -13,7 +13,7 @@ import type { Task } from './types/task'
 
 export function TasksPageClient() {
   const { tasks, fetchTasks, getCounts, filters, pagination, activity } = useTasks()
-  const { showToast } = useToast()
+  const { showToast, toasts, removeToast } = useToast()
 
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const [editTask, setEditTask] = useState<Task | null>(null)
@@ -94,7 +94,7 @@ export function TasksPageClient() {
       <TaskFormModal isOpen={isCreateOpen} onClose={()=>{ setIsCreateOpen(false); setEditTask(null) }} task={editTask || undefined} />
       <TaskDetailsDrawer id={viewId} isOpen={!!viewId} onClose={()=>setViewId(null)} onEdit={(id)=>{ const t = tasks.find(x=>x.id===id) || null; setEditTask(t); setIsCreateOpen(true) }} />
 
-      <ToastContainer />
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
     </div>
   )
 }
