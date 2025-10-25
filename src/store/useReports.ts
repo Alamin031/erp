@@ -1,178 +1,179 @@
+"use client";
+
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export interface ReportDetail {
+export interface SalesDataPoint {
+  month: string;
+  sales: number;
+  target: number;
+}
+
+export interface PipelineStage {
   name: string;
-  amount: number;
+  count: number;
+  percentage: number;
 }
 
-export interface Report {
+export interface ForecastDataPoint {
+  month: string;
+  predicted: number;
+  actual: number;
+  variance: number;
+}
+
+export interface AgentPerformance {
   id: string;
-  date: string;
-  type: "Revenue" | "Expense";
-  category: string;
-  amount: number;
-  createdBy: string;
-  branch: string;
-  paymentMethod: string;
-  description?: string;
-  details?: ReportDetail[];
+  name: string;
+  dealsClosedThisMonth: number;
+  revenue: number;
+  avgDealSize: number;
+  conversionRate: number;
+  forecastAccuracy: number;
 }
 
-export interface ReportFilters {
+export interface KPIData {
+  totalSales: number;
+  closedDeals: number;
+  conversionRate: number;
+  forecastAccuracy: number;
+  topAgent: string;
+}
+
+export interface CRMReportFilters {
   dateFrom: string;
   dateTo: string;
-  reportType: "All" | "Revenue" | "Expense";
-  department: string;
-  branch: string;
-  paymentMethod: string;
+  agent: string;
+  region: string;
+  reportType: "sales" | "pipeline" | "forecast" | "all";
 }
 
-interface ReportsStore {
-  reports: Report[];
-  filters: ReportFilters;
-  selectedReport: Report | null;
+interface ReportsState {
+  salesData: SalesDataPoint[];
+  pipelineData: PipelineStage[];
+  forecastData: ForecastDataPoint[];
+  agentData: AgentPerformance[];
+  kpiData: KPIData;
+  filters: CRMReportFilters;
+  isLoading: boolean;
 
-  setReports: (reports: Report[]) => void;
-  setFilters: (filters: ReportFilters) => void;
-  setSelectedReport: (report: Report | null) => void;
-
-  fetchReports: () => Promise<void>;
-  filterReports: () => Report[];
-  exportReport: (type: "csv" | "json" | "pdf") => string;
-  selectReport: (id: string) => void;
-  getReportSummary: () => {
-    totalRevenue: number;
-    totalExpense: number;
-    netProfit: number;
-    outstandingBalance: number;
-  };
+  setFilters: (filters: Partial<CRMReportFilters>) => void;
+  resetFilters: () => void;
+  fetchReportData: () => Promise<void>;
+  calculateKPIs: () => void;
+  exportToCSV: () => string;
+  exportToPDF: () => void;
 }
 
-export const useReports = create<ReportsStore>()(
+const defaultFilters: CRMReportFilters = {
+  dateFrom: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+  dateTo: new Date().toISOString().split("T")[0],
+  agent: "",
+  region: "",
+  reportType: "all",
+};
+
+const defaultKPIData: KPIData = {
+  totalSales: 0,
+  closedDeals: 0,
+  conversionRate: 0,
+  forecastAccuracy: 0,
+  topAgent: "",
+};
+
+export const useReports = create<ReportsState>()(
   persist(
     (set, get) => ({
-      reports: [],
-      filters: {
-        dateFrom: "",
-        dateTo: "",
-        reportType: "All",
-        department: "",
-        branch: "",
-        paymentMethod: "",
+      salesData: [],
+      pipelineData: [],
+      forecastData: [],
+      agentData: [],
+      kpiData: defaultKPIData,
+      filters: defaultFilters,
+      isLoading: false,
+
+      setFilters: (filters: Partial<CRMReportFilters>) => {
+        set((state) => ({
+          filters: { ...state.filters, ...filters },
+        }));
       },
-      selectedReport: null,
 
-      setReports: (reports) => set({ reports }),
-      setFilters: (filters) => set({ filters }),
-      setSelectedReport: (report) => set({ selectedReport: report }),
+      resetFilters: () => {
+        set({ filters: defaultFilters });
+      },
 
-      fetchReports: async () => {
+      fetchReportData: async () => {
+        set({ isLoading: true });
         try {
-          const response = await fetch("/data/mockReports.json");
-          const reports = await response.json();
-          set({ reports });
+          const response = await fetch("/data/crmReports.json");
+          const data = await response.json();
+          set({
+            salesData: data.salesData || [],
+            pipelineData: data.pipelineData || [],
+            forecastData: data.forecastData || [],
+            agentData: data.agentData || [],
+            isLoading: false,
+          });
+          get().calculateKPIs();
         } catch (error) {
           console.error("Failed to fetch reports:", error);
+          set({ isLoading: false });
         }
       },
 
-      filterReports: () => {
-        const { reports, filters } = get();
-        let filtered = reports;
+      calculateKPIs: () => {
+        const { salesData, pipelineData, agentData, forecastData } = get();
 
-        if (filters.reportType !== "All") {
-          filtered = filtered.filter((r) => r.type === filters.reportType);
-        }
+        const totalSales = salesData.reduce((sum, d) => sum + d.sales, 0);
+        const closedDeals = pipelineData[pipelineData.length - 1]?.count || 0;
 
-        if (filters.dateFrom) {
-          filtered = filtered.filter((r) => r.date >= filters.dateFrom);
-        }
+        const totalLeads = pipelineData.reduce((sum, s) => sum + s.count, 0);
+        const conversionRate = totalLeads > 0 ? (closedDeals / totalLeads) * 100 : 0;
 
-        if (filters.dateTo) {
-          filtered = filtered.filter((r) => r.date <= filters.dateTo);
-        }
+        const forecastAccuracy = forecastData.length > 0
+          ? 100 - (forecastData.reduce((sum, d) => sum + Math.abs(d.variance), 0) / forecastData.length)
+          : 0;
 
-        if (filters.branch) {
-          filtered = filtered.filter((r) => r.branch === filters.branch);
-        }
+        const topAgent = agentData.length > 0
+          ? agentData.reduce((top, agent) =>
+              agent.revenue > top.revenue ? agent : top
+            ).name
+          : "";
 
-        if (filters.paymentMethod) {
-          filtered = filtered.filter((r) => r.paymentMethod === filters.paymentMethod);
-        }
-
-        return filtered;
+        set({
+          kpiData: {
+            totalSales: Math.round(totalSales),
+            closedDeals,
+            conversionRate: Math.round(conversionRate * 10) / 10,
+            forecastAccuracy: Math.max(0, Math.round(forecastAccuracy)),
+            topAgent,
+          },
+        });
       },
 
-      getReportSummary: () => {
-        const filtered = get().filterReports();
+      exportToCSV: () => {
+        const { agentData } = get();
+        const headers = ["Agent", "Deals Closed", "Revenue", "Conversion Rate %", "Forecast Accuracy %"];
+        const rows = agentData.map((agent) => [
+          agent.name,
+          agent.dealsClosedThisMonth.toString(),
+          `$${agent.revenue.toLocaleString()}`,
+          `${agent.conversionRate}%`,
+          `${agent.forecastAccuracy}%`,
+        ]);
 
-        const totalRevenue = filtered
-          .filter((r) => r.type === "Revenue")
-          .reduce((sum, r) => sum + r.amount, 0);
-
-        const totalExpense = filtered
-          .filter((r) => r.type === "Expense")
-          .reduce((sum, r) => sum + r.amount, 0);
-
-        const netProfit = totalRevenue - totalExpense;
-        const outstandingBalance = totalRevenue - totalExpense;
-
-        return {
-          totalRevenue,
-          totalExpense,
-          netProfit,
-          outstandingBalance,
-        };
+        return [
+          headers.join(","),
+          ...rows.map((row) => row.map((cell) => `"${cell}"`).join(",")),
+        ].join("\n");
       },
 
-      exportReport: (type) => {
-        const filtered = get().filterReports();
-
-        if (type === "json") {
-          return JSON.stringify(filtered, null, 2);
-        }
-
-        if (type === "csv") {
-          const headers = [
-            "Report ID",
-            "Date",
-            "Type",
-            "Category",
-            "Amount",
-            "Created By",
-            "Branch",
-            "Payment Method",
-          ];
-
-          const rows = filtered.map((r) => [
-            r.id,
-            r.date,
-            r.type,
-            r.category,
-            r.amount.toString(),
-            r.createdBy,
-            r.branch,
-            r.paymentMethod,
-          ]);
-
-          return [
-            headers.join(","),
-            ...rows.map((row) => row.map((cell) => `"${cell}"`).join(",")),
-          ].join("\n");
-        }
-
-        return "";
-      },
-
-      selectReport: (id) => {
-        const { reports } = get();
-        const report = reports.find((r) => r.id === id);
-        set({ selectedReport: report || null });
+      exportToPDF: () => {
+        alert("PDF export would be implemented with a library like jsPDF or pdfkit");
       },
     }),
     {
-      name: "reports-store",
+      name: "crm-reports-store",
     }
   )
 );
