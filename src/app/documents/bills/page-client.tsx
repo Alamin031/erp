@@ -109,20 +109,20 @@ export function BillsPageClient() {
       {/* Filters */}
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', padding: 12, border: '1px solid var(--border)', borderRadius: 12, marginBottom: 16 }}>
         <Filter size={16} />
-        <input value={filters.dateFrom} onChange={(e) => setFilters({ dateFrom: e.target.value })} type="date" className="input" />
-        <input value={filters.dateTo} onChange={(e) => setFilters({ dateTo: e.target.value })} type="date" className="input" />
-        <select value={filters.vendor} onChange={(e) => setFilters({ vendor: e.target.value })} className="input">
+        <input value={filters.dateFrom} onChange={(e) => setFilters({ dateFrom: e.target.value })} type="date" className="form-input" />
+        <input value={filters.dateTo} onChange={(e) => setFilters({ dateTo: e.target.value })} type="date" className="form-input" />
+        <select value={filters.vendor} onChange={(e) => setFilters({ vendor: e.target.value })} className="form-input">
           <option value="">All Vendors</option>
           {vendors.map((v) => <option key={v} value={v}>{v}</option>)}
         </select>
-        <select value={filters.status} onChange={(e) => setFilters({ status: e.target.value as any })} className="input">
+        <select value={filters.status} onChange={(e) => setFilters({ status: e.target.value as any })} className="form-input">
           <option value="">All Status</option>
           <option>Pending</option>
           <option>Paid</option>
           <option>Overdue</option>
           <option>Partial</option>
         </select>
-        <input value={filters.search} onChange={(e) => setFilters({ search: e.target.value })} placeholder="Search vendor, bill, notes" className="input" />
+        <input value={filters.search} onChange={(e) => setFilters({ search: e.target.value })} placeholder="Search vendor, bill, notes" className="form-input" />
         <button className="btn btn-secondary" onClick={() => setFilters({ vendor: "", status: "", dateFrom: "", dateTo: "", search: "" })}>Reset</button>
       </div>
 
