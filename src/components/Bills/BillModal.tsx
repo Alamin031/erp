@@ -93,22 +93,22 @@ export function BillModal({ open, initial, onClose, onSave }: Props) {
         <form onSubmit={handleSubmit(onSubmit)} className="modal-body" style={{ display: 'grid', gap: 12 }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <Field label="Bill Number" error={errors.billNumber?.message}>
-              <input {...register("billNumber")} type="text" className="input" />
+              <input {...register("billNumber")} type="text" className="form-input" />
             </Field>
             <Field label="Vendor Name" error={errors.vendorName?.message}>
-              <input {...register("vendorName")} type="text" className="input" />
+              <input {...register("vendorName")} type="text" className="form-input" />
             </Field>
             <Field label="Bill Date" error={errors.billDate?.message}>
-              <input {...register("billDate")} type="date" className="input" />
+              <input {...register("billDate")} type="date" className="form-input" />
             </Field>
             <Field label="Due Date" error={errors.dueDate?.message}>
-              <input {...register("dueDate")} type="date" className="input" />
+              <input {...register("dueDate")} type="date" className="form-input" />
             </Field>
             <Field label="Amount" error={errors.amount?.message}>
-              <input {...register("amount", { valueAsNumber: true })} type="number" step="0.01" min="0" className="input" />
+              <input {...register("amount", { valueAsNumber: true })} type="number" step="0.01" min="0" className="form-input" />
             </Field>
             <Field label="Status" error={errors.status?.message}>
-              <select {...register("status")} className="input">
+              <select {...register("status")} className="form-input">
                 <option value="Pending">Pending</option>
                 <option value="Paid">Paid</option>
                 <option value="Overdue">Overdue</option>
@@ -125,7 +125,7 @@ export function BillModal({ open, initial, onClose, onSave }: Props) {
           </Field>
 
           <Field label="Notes">
-            <textarea {...register("notes")} className="input" rows={3} />
+            <textarea {...register("notes")} className="form-input" rows={3} />
           </Field>
 
           <div className="modal-footer">
