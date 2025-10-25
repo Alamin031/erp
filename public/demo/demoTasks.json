@@ -1,0 +1,162 @@
+[
+  {
+    "id": "T-1001",
+    "subject": "Follow up: Proposal for Acme Corp",
+    "description": "Call client to review proposal and discuss pricing tiers.",
+    "contact": { "id": "C-101", "name": "Nina Roy", "company": "Acme Corp", "email": "nina@acme.com" },
+    "assignee": { "id": "U-1", "name": "Md Al Amin" },
+    "priority": "high",
+    "status": "open",
+    "tags": ["proposal","important"],
+    "dueAt": "2025-10-24T15:00:00+06:00",
+    "createdAt": "2025-10-20T10:00:00+06:00",
+    "followUps": [
+      { "id": "F-1", "note": "Send pricing breakdown", "dueAt": "2025-10-24T12:00:00+06:00", "createdBy": { "id": "U-1", "name": "Md Al Amin" }, "completed": false }
+    ],
+    "notes": []
+  },
+  {
+    "id": "T-1002",
+    "subject": "Schedule demo: BetaSoft",
+    "description": "Book a 30-min Zoom to showcase CRM workflows.",
+    "contact": { "id": "C-102", "name": "Leo Chen", "company": "BetaSoft" },
+    "assignee": { "id": "U-ME", "name": "You" },
+    "priority": "medium",
+    "status": "in_progress",
+    "tags": ["demo"],
+    "dueAt": "2025-10-25T11:00:00Z",
+    "createdAt": "2025-10-21T09:00:00Z",
+    "followUps": [],
+    "notes": [
+      { "id": "N-1", "author": "You", "text": "They use HubSpot currently.", "createdAt": "2025-10-21T10:00:00Z" }
+    ]
+  },
+  {
+    "id": "T-1003",
+    "subject": "Renewal reminder: GlobalEx Q4",
+    "contact": { "id": "C-103", "name": "Aisha Khan", "company": "GlobalEx" },
+    "assignee": { "id": "U-2", "name": "Alex Morgan" },
+    "priority": "urgent",
+    "status": "open",
+    "tags": ["renewal"],
+    "dueAt": "2025-10-22T17:00:00Z",
+    "createdAt": "2025-10-18T12:30:00Z",
+    "followUps": [
+      { "id": "F-2", "note": "Confirm seats", "dueAt": "2025-10-22T09:00:00Z", "createdBy": { "id": "U-2", "name": "Alex Morgan" }, "completed": false, "reminder": true }
+    ],
+    "notes": []
+  },
+  {
+    "id": "T-1004",
+    "subject": "Onboard: New contact at DeltaFit",
+    "description": "Send welcome email and setup access.",
+    "contact": { "id": "C-104", "name": "Ravi Patel", "company": "DeltaFit" },
+    "assignee": { "id": "U-ME", "name": "You" },
+    "priority": "low",
+    "status": "waiting",
+    "tags": ["onboarding"],
+    "dueAt": null,
+    "createdAt": "2025-10-19T08:00:00Z",
+    "followUps": [],
+    "notes": []
+  },
+  {
+    "id": "T-1005",
+    "subject": "Check reference: NorthPeak",
+    "contact": { "id": "C-105", "name": "Elena Park", "company": "NorthPeak" },
+    "assignee": { "id": "U-3", "name": "Jordan Lee" },
+    "priority": "medium",
+    "status": "open",
+    "tags": ["reference"],
+    "dueAt": "2025-10-21T15:30:00Z",
+    "createdAt": "2025-10-17T10:00:00Z",
+    "followUps": [],
+    "notes": []
+  },
+  {
+    "id": "T-1006",
+    "subject": "Close won: VentureIQ addendum",
+    "contact": { "id": "C-106", "name": "Maria Garcia", "company": "VentureIQ" },
+    "assignee": { "id": "U-4", "name": "Sam Carter" },
+    "priority": "high",
+    "status": "in_progress",
+    "tags": ["contract"],
+    "dueAt": "2025-10-26T13:00:00Z",
+    "createdAt": "2025-10-20T13:00:00Z",
+    "followUps": [
+      { "id": "F-3", "note": "Legal review", "dueAt": "2025-10-25T10:00:00Z", "createdBy": { "id": "U-4", "name": "Sam Carter" }, "completed": false }
+    ],
+    "notes": []
+  },
+  {
+    "id": "T-1007",
+    "subject": "Invoice: March services for Orion",
+    "contact": { "id": "C-107", "name": "Priya Singh", "company": "Orion" },
+    "assignee": { "id": "U-2", "name": "Alex Morgan" },
+    "priority": "medium",
+    "status": "done",
+    "tags": ["billing"],
+    "dueAt": "2025-10-15T09:00:00Z",
+    "createdAt": "2025-10-10T11:00:00Z",
+    "followUps": [
+      { "id": "F-4", "note": "Payment confirmation", "dueAt": "2025-10-20T09:00:00Z", "createdBy": { "id": "U-2", "name": "Alex Morgan" }, "completed": true, "completedAt": "2025-10-20T09:30:00Z" }
+    ],
+    "notes": []
+  },
+  {
+    "id": "T-1008",
+    "subject": "Churn risk: SolarEdge",
+    "description": "Escalate to CS lead; usage down 60%.",
+    "contact": { "id": "C-108", "name": "Noah Kim", "company": "SolarEdge" },
+    "assignee": { "id": "U-5", "name": "Taylor Brooks" },
+    "priority": "urgent",
+    "status": "open",
+    "tags": ["risk","important"],
+    "dueAt": "2025-10-21T16:00:00Z",
+    "createdAt": "2025-10-18T14:00:00Z",
+    "followUps": [],
+    "notes": []
+  },
+  {
+    "id": "T-1009",
+    "subject": "NDA: GreenFarm",
+    "contact": { "id": "C-109", "name": "Sara Ahmed", "company": "GreenFarm" },
+    "assignee": { "id": "U-1", "name": "Md Al Amin" },
+    "priority": "low",
+    "status": "waiting",
+    "tags": ["legal"],
+    "dueAt": "2025-10-28T10:00:00Z",
+    "createdAt": "2025-10-22T10:00:00Z",
+    "followUps": [],
+    "notes": []
+  },
+  {
+    "id": "T-1010",
+    "subject": "Follow-up: Webinar leads",
+    "description": "Email top 20 registrants with offer.",
+    "contact": { "id": "C-110", "name": "Multiple", "company": "—" },
+    "assignee": { "id": "U-6", "name": "Jamie Lee" },
+    "priority": "high",
+    "status": "open",
+    "tags": ["marketing","followup"],
+    "dueAt": "2025-10-23T18:00:00Z",
+    "createdAt": "2025-10-19T09:30:00Z",
+    "followUps": [
+      { "id": "F-5", "note": "Prepare template", "dueAt": "2025-10-22T09:00:00Z", "createdBy": { "id": "U-6", "name": "Jamie Lee" }, "completed": false }
+    ],
+    "notes": []
+  },
+  {
+    "id": "T-1011",
+    "subject": "Call: Pricing negotiation with Helix",
+    "contact": { "id": "C-111", "name": "Omar Hassan", "company": "Helix" },
+    "assignee": { "id": "U-7", "name": "Chris Young" },
+    "priority": "medium",
+    "status": "open",
+    "tags": ["call"],
+    "dueAt": "2025-10-24T14:30:00Z",
+    "createdAt": "2025-10-21T12:00:00Z",
+    "followUps": [],
+    "notes": []
+  }
+]
