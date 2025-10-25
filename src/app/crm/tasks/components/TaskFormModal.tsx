@@ -93,10 +93,8 @@ export function TaskFormModal({ isOpen, onClose, task }: { isOpen: boolean; onCl
           status: values.status as TaskStatus,
           tags: tagList,
           dueAt: values.dueAt || null,
-          createdAt: new Date().toISOString(),
-          followUps: [] as FollowUp[],
         }
-        const created = await addTask(draft as any)
+        const created = await addTask(draft)
         if (values.addFollowUp && values.followUpNote) {
           const fu: Omit<FollowUp,'id'|'completed'> = { note: values.followUpNote, dueAt: values.followUpDueAt || null, createdBy: { id: created.assignee?.id || 'system', name: created.assignee?.name || 'System' } }
           await useTasks.getState().addFollowUp(created.id, fu)
