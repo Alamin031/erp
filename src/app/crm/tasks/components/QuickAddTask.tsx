@@ -14,18 +14,19 @@ export function QuickAddTask() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!subject.trim()) return
-    await addTask({
+    const payload = {
       subject: subject.trim(),
       description: '',
       contact: contact ? { id: `C-${Date.now()}`, name: contact } : undefined,
       assignee: undefined,
-      priority: 'medium',
-      status: 'open',
-      tags: [],
-      dueAt: dueAt || null,
+      priority: 'medium' as const,
+      status: 'open' as const,
+      tags: [] as string[],
+      dueAt: (dueAt || null) as string | null,
       createdAt: new Date().toISOString(),
-      followUps: [],
-    } as any)
+      followUps: [] as [],
+    }
+    await addTask(payload)
     setSubject(''); setContact(''); setDueAt('')
     showToast('Task added', 'success')
   }
