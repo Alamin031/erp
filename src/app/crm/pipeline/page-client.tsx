@@ -10,6 +10,7 @@ import { RevenueForecastChart } from "./components/RevenueForecastChart";
 import { FiltersBar } from "./components/FiltersBar";
 import { ActivityFeed } from "./components/ActivityFeed";
 import { OpportunityDetailsDrawer } from "../opportunities/components/OpportunityDetailsDrawer";
+import { EditOpportunityModal } from "../opportunities/components/EditOpportunityModal";
 import { useOpportunities } from "@/store/useOpportunities";
 import { useToast } from "@/components/toast";
 
@@ -97,6 +98,17 @@ export function PipelinePageClient() {
           deleteOpportunity(id);
           showToast('Opportunity deleted', 'success');
           setSelected(null);
+        }}
+      />
+
+      <EditOpportunityModal
+        isOpen={!!editing}
+        opportunity={editing || undefined}
+        onClose={() => setEditing(null)}
+        onSave={(id, payload) => {
+          editOpportunity(id, payload);
+          showToast('Opportunity updated', 'success');
+          setEditing(null);
         }}
       />
     </div>
