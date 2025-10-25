@@ -34,6 +34,7 @@ export interface Group {
 }
 
 export interface ExtendedUser {
+  image: any;
   id: string;
   email: string;
   name: string;

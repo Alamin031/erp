@@ -60,66 +60,88 @@ export function CommunicationModal({ isOpen, onClose, entry }: { isOpen: boolean
     <>
       <div className="modal-overlay" onClick={onClose} />
       <AnimatePresence>
-        <motion.div className="modal" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} transition={{ duration: 0.18 }} role="dialog" aria-modal>
-          <div className="modal-header">
-            <h2>{entry ? 'Edit Communication' : 'Add Communication'}</h2>
-            <button className="modal-close" onClick={onClose}>✕</button>
+        <motion.div 
+          className="modal" 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          exit={{ opacity: 0, y: 20 }} 
+          transition={{ duration: 0.18 }} 
+          role="dialog" 
+          aria-modal
+          style={{ zIndex: 1001 }}
+        >
+          <div className="modal-card" style={{ maxWidth: "750px", maxHeight: "90vh", overflow: "auto" }}>
+            <div className="modal-header">
+              <h2>{entry ? 'Edit Communication' : 'Add Communication'}</h2>
+              <button className="modal-close" onClick={onClose}>✕</button>
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Type</label>
+                  <select className="form-input" {...register('type')}>
+                    <option value="email">📧 Email</option>
+                    <option value="call">📞 Call</option>
+                    <option value="meeting">📅 Meeting</option>
+                    <option value="chat">💬 Chat</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Customer *</label>
+                  <input className="form-input" placeholder="Customer name or ID" {...register('customerId')} />
+                  {errors.customerId && <div className="form-error">{errors.customerId.message}</div>}
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Subject</label>
+                <input className="form-input" placeholder="Brief summary of communication" {...register('subject')} />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Notes / Body</label>
+                <textarea 
+                  className="form-input" 
+                  rows={6} 
+                  placeholder="Detailed notes or body of the communication..."
+                  {...register('body')}
+                  style={{ resize: "vertical", minHeight: "120px" }}
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Date & Time *</label>
+                  <input type="datetime-local" className="form-input" {...register('dateTime')} />
+                  {errors.dateTime && <div className="form-error">{errors.dateTime.message}</div>}
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Status</label>
+                  <select className="form-input" {...register('status')}>
+                    <option value="pending">⏳ Pending</option>
+                    <option value="follow_up">🔄 Follow-up</option>
+                    <option value="resolved">✅ Resolved</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Assigned Agent</label>
+                  <select className="form-input" {...register('agentId')}>
+                    <option value="">— Unassigned —</option>
+                    {users.map(u=> <option key={u.id} value={u.id}>{u.name}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              <div className="modal-actions">
+                <button type="button" className="btn btn-secondary" onClick={onClose} disabled={isSubmitting}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                  {entry ? 'Update' : 'Create'} Communication
+                </button>
+              </div>
+            </form>
           </div>
-          <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">Type</label>
-                <select className="form-input" {...register('type')}>
-                  <option value="email">Email</option>
-                  <option value="call">Call</option>
-                  <option value="meeting">Meeting</option>
-                  <option value="chat">Chat</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label className="form-label">Customer</label>
-                <input className="form-input" placeholder="Customer id/name" {...register('customerId')} />
-                {errors.customerId && <div className="form-error">{errors.customerId.message}</div>}
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Subject</label>
-              <input className="form-input" {...register('subject')} />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Notes / Body</label>
-              <textarea className="form-input" rows={6} {...register('body')} />
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">Date & Time</label>
-                <input type="datetime-local" className="form-input" {...register('dateTime')} />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Status</label>
-                <select className="form-input" {...register('status')}>
-                  <option value="pending">Pending</option>
-                  <option value="follow_up">Follow-up</option>
-                  <option value="resolved">Resolved</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label className="form-label">Assigned Agent</label>
-                <select className="form-input" {...register('agentId')}>
-                  <option value="">Unassigned</option>
-                  {users.map(u=> <option key={u.id} value={u.id}>{u.name}</option>)}
-                </select>
-              </div>
-            </div>
-
-            <div className="modal-actions">
-              <button type="button" className="btn btn-secondary" onClick={onClose}>Cancel</button>
-              <button className="btn btn-primary">Save</button>
-            </div>
-          </form>
         </motion.div>
       </AnimatePresence>
     </>

@@ -37,23 +37,25 @@ export function CommunicationsPageClient() {
         <CommunicationStatsCards items={communications} />
       </div>
 
-      <div className="flex items-center gap-3 mb-4">
-        <FilterBar />
-        <SearchBar />
+      <div className="mb-4">
+        <FilterBar>
+          <SearchBar />
+        </FilterBar>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2">
-          <CommunicationTable items={communications} onView={(id)=>setViewId(id)} onEdit={(id)=>{ setEditId(id); setIsModalOpen(true) }} />
+      {/* Communication Table - Full Width */}
+      <div className="mb-4">
+        <CommunicationTable items={communications} onView={(id)=>setViewId(id)} onEdit={(id)=>{ setEditId(id); setIsModalOpen(true) }} />
+      </div>
+
+      {/* Bottom Section - Chart and Activity Feed */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 12, padding: 16 }}>
+          <CommunicationTypeChart items={communications} />
         </div>
-        <div className="lg:col-span-1">
-          <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 12, padding: 12, marginBottom: 12 }}>
-            <CommunicationTypeChart items={communications} />
-          </div>
-          <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 12, padding: 12 }}>
-            <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Activity Feed</h3>
-            <CommunicationActivityFeed />
-          </div>
+        <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 12, padding: 16 }}>
+          <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--foreground)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Activity Feed</h3>
+          <CommunicationActivityFeed />
         </div>
       </div>
 

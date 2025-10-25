@@ -127,109 +127,168 @@ export function TaskFormModal({ isOpen, onClose, task }: { isOpen: boolean; onCl
           role="dialog"
           aria-modal
           aria-labelledby="task-form-title"
-          style={{ maxWidth: 720 }}
+          style={{ zIndex: 1001 }}
         >
-          <div className="modal-header">
-            <h2 id="task-form-title">{task ? 'Edit Task' : 'Create Task'}</h2>
-            <button className="modal-close" onClick={onClose}>✕</button>
-          </div>
-          <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">Subject *</label>
-                <input className="form-input" placeholder="Task subject" {...register('subject')} />
-                {errors.subject && <div className="form-error">{errors.subject.message}</div>}
-              </div>
-              <div className="form-group">
-                <label className="form-label">Assignee</label>
-                <select className="form-input" {...register('assigneeId')}>
-                  <option value="">Unassigned</option>
-                  {users.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
-                </select>
-              </div>
+          <div className="modal-card" style={{ maxWidth: "850px", maxHeight: "90vh", overflow: "auto" }}>
+            <div className="modal-header">
+              <h2 id="task-form-title">{task ? 'Edit Task' : 'Create Task'}</h2>
+              <button className="modal-close" onClick={onClose}>✕</button>
             </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
+              {/* Subject & Assignee */}
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Subject *</label>
+                  <input className="form-input" placeholder="Task subject" {...register('subject')} />
+                  {errors.subject && <div className="form-error">{errors.subject.message}</div>}
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Assignee</label>
+                  <select className="form-input" {...register('assigneeId')}>
+                    <option value="">Unassigned</option>
+                    {users.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
+                  </select>
+                </div>
+              </div>
 
-            <div className="form-group">
-              <label className="form-label">Description</label>
-              <textarea className="form-input" rows={4} placeholder="Details" {...register('description')} />
-            </div>
+              {/* Description */}
+              <div className="form-group">
+                <label className="form-label">Description</label>
+                <textarea 
+                  className="form-input" 
+                  rows={4} 
+                  placeholder="Details" 
+                  {...register('description')}
+                  style={{ resize: "vertical", minHeight: "100px" }}
+                />
+              </div>
 
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">Contact</label>
-                <input className="form-input" placeholder="Name" {...register('contactName')} />
+              {/* Contact & Company */}
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Contact</label>
+                  <input className="form-input" placeholder="Priya Singh" {...register('contactName')} />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Company</label>
+                  <input className="form-input" placeholder="Orion" {...register('contactCompany')} />
+                </div>
               </div>
-              <div className="form-group">
-                <label className="form-label">Company</label>
-                <input className="form-input" placeholder="Company" {...register('contactCompany')} />
-              </div>
-            </div>
 
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">Priority</label>
-                <select className="form-input" {...register('priority')}>
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
-                  <option value="urgent">Urgent</option>
-                </select>
+              {/* Priority, Status & Due Date */}
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Priority</label>
+                  <select className="form-input" {...register('priority')}>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="urgent">Urgent</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Status</label>
+                  <select className="form-input" {...register('status')}>
+                    <option value="open">Open</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="waiting">Waiting</option>
+                    <option value="done">Done</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Due Date & Time</label>
+                  <input type="datetime-local" className="form-input" {...register('dueAt')} />
+                </div>
               </div>
-              <div className="form-group">
-                <label className="form-label">Status</label>
-                <select className="form-input" {...register('status')}>
-                  <option value="open">Open</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="waiting">Waiting</option>
-                  <option value="done">Done</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label className="form-label">Due Date & Time</label>
-                <input type="datetime-local" className="form-input" {...register('dueAt')} />
-              </div>
-            </div>
 
-            <div className="form-row">
+              {/* Tags */}
               <div className="form-group">
                 <label className="form-label">Tags</label>
-                <input className="form-input" placeholder="Comma separated" {...register('tags')} />
+                <input className="form-input" placeholder="billing, urgent, follow-up (comma separated)" {...register('tags')} />
+                <p style={{ fontSize: "12px", color: "var(--secondary)", marginTop: "4px" }}>
+                  Separate multiple tags with commas
+                </p>
               </div>
-              <div className="form-group">
-                <label className="form-label">Reminder</label>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" {...register('reminder')} />
-                  <input type="datetime-local" className="form-input" {...register('reminderAt')} />
-                </div>
-              </div>
-            </div>
 
-            <div className="form-group" style={{ borderTop: '1px dashed var(--border)', paddingTop: 12 }}>
-              <div className="flex items-center gap-2">
-                <input type="checkbox" {...register('addFollowUp')} />
-                <span className="text-sm" style={{ color: 'var(--foreground)' }}>Add follow-up</span>
-              </div>
-              <div className="form-row" style={{ marginTop: 8 }}>
-                <div className="form-group">
-                  <label className="form-label">Note</label>
-                  <input className="form-input" placeholder="Follow-up note" {...register('followUpNote')} />
+              {/* Reminder Section */}
+              <div className="form-group" style={{
+                background: "var(--background)",
+                border: "1px solid var(--border)",
+                borderRadius: "8px",
+                padding: "12px"
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                  <input 
+                    type="checkbox" 
+                    {...register('reminder')}
+                    style={{ width: "16px", height: "16px", cursor: "pointer" }}
+                  />
+                  <label className="form-label" style={{ marginBottom: 0, cursor: "pointer" }}>Set Reminder</label>
                 </div>
-                <div className="form-group">
-                  <label className="form-label">Due</label>
-                  <input type="datetime-local" className="form-input" {...register('followUpDueAt')} />
-                </div>
+                <input 
+                  type="datetime-local" 
+                  className="form-input" 
+                  {...register('reminderAt')}
+                  placeholder="Select reminder date & time"
+                />
               </div>
-            </div>
 
-            <div className="modal-actions">
-              <button type="button" className="btn btn-secondary" onClick={onClose} disabled={isSubmitting}>Cancel</button>
-              <div className="flex gap-2">
-                <button name="save_add" value="1" className="btn btn-secondary" disabled={isSubmitting}>Save & Add Another</button>
-                <button className="btn btn-primary" disabled={isSubmitting}>Save & Close</button>
+              {/* Follow-up Section */}
+              <div className="form-group" style={{
+                background: "var(--background)",
+                border: "1px solid var(--border)",
+                borderRadius: "8px",
+                padding: "12px"
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                  <input 
+                    type="checkbox" 
+                    {...register('addFollowUp')}
+                    style={{ width: "16px", height: "16px", cursor: "pointer" }}
+                  />
+                  <span style={{ fontSize: "14px", fontWeight: "500", color: "var(--foreground)", cursor: "pointer" }}>
+                    Add follow-up
+                  </span>
+                </div>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">Follow-up Note</label>
+                    <input className="form-input" placeholder="Follow-up note" {...register('followUpNote')} />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Follow-up Due</label>
+                    <input type="datetime-local" className="form-input" {...register('followUpDueAt')} />
+                  </div>
+                </div>
               </div>
-            </div>
-          </form>
+
+              {/* Modal Actions */}
+              <div className="modal-actions">
+                <button type="button" className="btn btn-secondary" onClick={onClose} disabled={isSubmitting}>
+                  Cancel
+                </button>
+                <div style={{ display: "flex", gap: "8px" }}>
+                  <button 
+                    type="submit"
+                    name="save_add" 
+                    value="1" 
+                    className="btn btn-secondary" 
+                    disabled={isSubmitting}
+                  >
+                    Save & Add Another
+                  </button>
+                  <button 
+                    type="submit"
+                    className="btn btn-primary" 
+                    disabled={isSubmitting}
+                  >
+                    {task ? 'Update Task' : 'Create Task'}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </motion.div>
       </AnimatePresence>
     </>
