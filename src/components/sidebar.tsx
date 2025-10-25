@@ -147,10 +147,10 @@ export function Sidebar({ role, userName }: SidebarProps) {
                     // parent with dropdown
                     return (
                       <li key={item.href} className="nav-parent">
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div className="nav-parent-container">
                           <Link
                             href={item.href}
-                            className={`nav-link ${
+                            className={`nav-link nav-parent-link ${
                               isActive(item.href) ? "nav-link-active" : ""
                             }`}
                             title={item.label}
@@ -163,15 +163,14 @@ export function Sidebar({ role, userName }: SidebarProps) {
                           </Link>
                           {isOpen && (
                             <button
-                              className="parent-toggle"
+                              className={`parent-toggle ${open ? 'open' : ''}`}
                               aria-label={open ? `Collapse ${item.label}` : `Expand ${item.label}`}
-                              style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: 4, color: 'inherit', fontSize: 'inherit' }}
                               onClick={(e) => {
                                 e.preventDefault();
                                 toggleParent(item.href);
                               }}
                             >
-                              {open ? "▾" : "▸"}
+                              <span className="toggle-icon">{open ? "▾" : "▸"}</span>
                             </button>
                           )}
                         </div>

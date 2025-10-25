@@ -243,6 +243,7 @@ body {
   flex-direction: column;
   transition: width 0.3s ease;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sidebar-container.sidebar-closed {
@@ -262,31 +263,40 @@ body {
   align-items: center;
   gap: 10px;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   color: var(--primary);
   flex: 1;
 }
 
 .brand-icon {
-  font-size: 24px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .brand-text {
   color: var(--foreground);
+  letter-spacing: 0.3px;
 }
 
 .toggle-btn {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   color: var(--secondary);
-  padding: 4px;
-  transition: color 0.2s;
+  padding: 6px 8px;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .toggle-btn:hover {
   color: var(--primary);
+  background-color: var(--sidebar-hover);
 }
 
 .sidebar-user {
@@ -315,74 +325,182 @@ body {
 }
 
 .user-name {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--foreground);
   margin: 0;
+  line-height: 1.3;
 }
 
 .user-role {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--secondary);
-  margin: 0;
+  margin: 2px 0 0 0;
+  opacity: 0.8;
 }
 
 .sidebar-nav {
   flex: 1;
-  padding: 16px 0;
+  padding: 12px 0;
   overflow-y: auto;
 }
 
 .nav-section {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .nav-section-title {
-  padding: 0 16px;
-  font-size: 12px;
+  padding: 12px 16px 8px 16px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
   color: var(--secondary);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  opacity: 0.7;
 }
 
 .nav-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
+  padding: 0 8px;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 16px;
+  padding: 9px 12px;
   color: var(--sidebar-text);
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   border-left: 3px solid transparent;
+  border-radius: 6px;
+  margin: 0 2px;
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .nav-link:hover {
   background-color: var(--sidebar-hover);
+  color: var(--foreground);
 }
 
 .nav-link-active {
   background-color: var(--sidebar-active-bg);
   color: var(--sidebar-active);
   border-left-color: var(--sidebar-active);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .nav-icon {
-  font-size: 18px;
+  font-size: 16px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-label {
-  font-size: 14px;
+  font-size: 13px;
+}
+
+/* Navigation Parent & Dropdown Styles */
+.nav-parent {
+  list-style: none;
+}
+
+.nav-parent-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+
+.nav-parent-link {
+  flex: 1;
+  padding: 10px 16px;
+  margin: 0;
+}
+
+.parent-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--sidebar-text);
+  font-size: 12px;
+  margin-right: 8px;
+  margin-left: 4px;
+  transition: all 0.2s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.parent-toggle:hover {
+  color: var(--primary);
+  background-color: rgba(74, 158, 255, 0.1);
+}
+
+.parent-toggle.open .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.toggle-icon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 11px;
+}
+
+.nav-sublist {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0 0;
+  max-height: 500px;
+  overflow-y: auto;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+  }
+}
+
+.nav-subitem {
+  list-style: none;
+}
+
+.nav-subitem .nav-link {
+  padding: 8px 16px 8px 44px;
+  font-size: 12px;
+  border-left: 2px solid transparent;
+}
+
+.nav-subitem .nav-link:hover {
+  background-color: var(--sidebar-hover);
+  border-left-color: var(--primary);
+}
+
+.nav-subitem .nav-link.nav-link-active {
+  background-color: var(--sidebar-active-bg);
+  color: var(--sidebar-active);
+  border-left-color: var(--sidebar-active);
+  font-weight: 500;
 }
 
 /* Dashboard Content */
