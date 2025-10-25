@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { motion } from "framer-motion";
 import { Task, HousekeepingStaff } from "@/types/task";
 import { useToast } from "./toast";
 
@@ -89,14 +90,22 @@ export function TaskModal({
     <>
       <div className="modal-overlay" onClick={onClose} />
       <div className="modal">
-        <div className="modal-header">
-          <h2>{task ? "Edit Task" : "Create New Task"}</h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
+        <motion.div
+          className="modal-card"
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          style={{ maxWidth: "700px" }}
+        >
+          <div className="modal-header">
+            <h2>{task ? "Edit Task" : "Create New Task"}</h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
+          </div>
 
-        <form onSubmit={handleSubmit(onSubmitForm)} className="modal-form">
+          <form onSubmit={handleSubmit(onSubmitForm)} className="modal-form">
           <div className="form-row">
             <div className="form-group">
               <label className="form-label">Room Number *</label>
@@ -216,6 +225,7 @@ export function TaskModal({
               className="btn btn-secondary"
               onClick={onClose}
               disabled={isSubmitting}
+              style={{ minWidth: "100px" }}
             >
               Cancel
             </button>
@@ -223,11 +233,13 @@ export function TaskModal({
               type="submit"
               className="btn btn-primary"
               disabled={isSubmitting}
+              style={{ minWidth: "120px" }}
             >
               {isSubmitting ? "Saving..." : "Save Task"}
             </button>
           </div>
         </form>
+        </motion.div>
       </div>
     </>
   );

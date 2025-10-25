@@ -83,21 +83,23 @@ export function TaskDetailsModal({
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <motion.div
-        className="modal"
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-      >
-        <div className="modal-header">
-          <h2>Task Details</h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
+      <div className="modal">
+        <motion.div
+          className="modal-card"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          style={{ maxWidth: "800px" }}
+        >
+          <div className="modal-header">
+            <h2>Task Details</h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
+          </div>
 
-        <div className="modal-form">
-          <motion.div variants={itemVariants} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+          <div className="modal-form">
+          <motion.div variants={itemVariants} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
             <div className="details-section">
               <p className="details-title">Task ID</p>
               <p style={{ fontSize: "14px", color: "var(--primary)", fontWeight: "600" }}>
@@ -122,12 +124,12 @@ export function TaskDetailsModal({
 
           <motion.div variants={itemVariants} className="details-section">
             <p className="details-title">Description</p>
-            <p style={{ fontSize: "14px", color: "var(--foreground)", lineHeight: "1.6" }}>
+            <p style={{ fontSize: "14px", color: "var(--foreground)", lineHeight: "1.4" }}>
               {task.description}
             </p>
           </motion.div>
 
-          <motion.div variants={itemVariants} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
+          <motion.div variants={itemVariants} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px" }}>
             <div className="details-section">
               <p className="details-title">Priority</p>
               <span
@@ -168,7 +170,7 @@ export function TaskDetailsModal({
             </div>
           </motion.div>
 
-          <motion.div variants={itemVariants} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+          <motion.div variants={itemVariants} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
             <div className="details-section">
               <p className="details-title">Due Date & Time</p>
               <p style={{ fontSize: "14px", color: "var(--foreground)" }}>
@@ -184,16 +186,16 @@ export function TaskDetailsModal({
             </div>
           </motion.div>
 
-          <motion.div variants={itemVariants} style={{ marginTop: "24px" }}>
-            <p className="details-title" style={{ marginBottom: "16px" }}>
+          <motion.div variants={itemVariants} style={{ marginTop: "16px" }}>
+            <p className="details-title" style={{ marginBottom: "12px" }}>
               Task Timeline
             </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <div
                   style={{
-                    width: "8px",
-                    height: "8px",
+                    width: "6px",
+                    height: "6px",
                     borderRadius: "50%",
                     backgroundColor: "var(--primary)",
                   }}
@@ -204,11 +206,11 @@ export function TaskDetailsModal({
               </div>
 
               {task.assignedAt && (
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                   <div
                     style={{
-                      width: "8px",
-                      height: "8px",
+                      width: "6px",
+                      height: "6px",
                       borderRadius: "50%",
                       backgroundColor: "var(--primary)",
                     }}
@@ -220,11 +222,11 @@ export function TaskDetailsModal({
               )}
 
               {task.completedAt && (
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                   <div
                     style={{
-                      width: "8px",
-                      height: "8px",
+                      width: "6px",
+                      height: "6px",
                       borderRadius: "50%",
                       backgroundColor: "var(--success)",
                     }}
@@ -237,7 +239,7 @@ export function TaskDetailsModal({
             </div>
           </motion.div>
 
-          <div className="modal-actions" style={{ marginTop: "32px" }}>
+          <div className="modal-actions" style={{ marginTop: "20px" }}>
             <button
               type="button"
               className="btn btn-secondary"
@@ -264,7 +266,8 @@ export function TaskDetailsModal({
             )}
           </div>
         </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </>
   );
 }

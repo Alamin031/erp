@@ -7,6 +7,7 @@ import { TaskStatsCards } from "@/components/task-stats-cards";
 import { TaskQueue } from "@/components/task-queue";
 import { TaskModal } from "@/components/task-modal";
 import { TaskDetailsModal } from "@/components/task-details-modal";
+import { StaffPerformanceModal } from "@/components/staff-performance-modal";
 import { FilterBar, FilterOptions } from "@/components/task-filter-bar";
 import { TaskTable } from "@/components/task-table";
 import { RoomStatusGrid } from "@/components/room-status-grid";
@@ -22,7 +23,9 @@ export function HousekeepingPageClient() {
   const [activityLogs, setActivityLogs] = useState<ActivityLog[]>(mockActivityLogs);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isPerformanceModalOpen, setIsPerformanceModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [selectedStaff, setSelectedStaff] = useState<HousekeepingStaff | null>(null);
   const [prefilledRoom, setPrefilledRoom] = useState<string>("");
   const [filters, setFilters] = useState<FilterOptions>({
     status: "",
@@ -138,6 +141,14 @@ export function HousekeepingPageClient() {
     setIsTaskModalOpen(true);
   };
 
+  const handleViewPerformance = (staffId: string) => {
+    const staff = mockStaff.find(s => s.id === staffId);
+    if (staff) {
+      setSelectedStaff(staff);
+      setIsPerformanceModalOpen(true);
+    }
+  };
+
   return (
     <>
       <div className="dashboard-container">
@@ -241,7 +252,7 @@ export function HousekeepingPageClient() {
             </div>
 
             <div className="dashboard-section">
-              <StaffList staff={mockStaff} onViewPerformance={id => setActiveTab("performance")} />
+              <StaffList staff={mockStaff} onViewPerformance={handleViewPerformance} />
             </div>
           </div>
         </div>
@@ -263,6 +274,12 @@ export function HousekeepingPageClient() {
         staff={mockStaff}
         onMarkComplete={handleMarkComplete}
         onReopen={handleReopen}
+      />
+
+      <StaffPerformanceModal
+        isOpen={isPerformanceModalOpen}
+        onClose={() => setIsPerformanceModalOpen(false)}
+        staff={selectedStaff}
       />
 
       <ToastContainer toasts={toasts} removeToast={removeToast} />
