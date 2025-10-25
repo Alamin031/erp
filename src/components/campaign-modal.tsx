@@ -117,132 +117,141 @@ export function CampaignModal({
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
       >
-        <div className="modal-header">
-          <h2>{campaign ? "Edit Campaign" : "Create New Campaign"}</h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
+        <div className="modal-card" style={{ maxWidth: "700px" }}>
+          <div className="modal-header">
+            <h2>{campaign ? "Edit Campaign" : "Create New Campaign"}</h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
+          </div>
 
-        <div className="modal-form">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
-            <div className="form-group">
-              <label className="form-label">Campaign Name *</label>
-              <input
-                type="text"
-                className="form-input"
-                value={formData.name}
-                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                placeholder="e.g., Summer Promotion Campaign"
-              />
-              {errors.name && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.name}</span>}
+          <form className="modal-form" onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
+            {/* Campaign Name and Channel */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Campaign Name *</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={formData.name}
+                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                  placeholder="e.g., Summer Promotion Campaign"
+                />
+                {errors.name && <p className="form-error">{errors.name}</p>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Channel *</label>
+                <select
+                  className="form-input"
+                  value={formData.channel}
+                  onChange={(e) => setFormData(prev => ({ ...prev, channel: e.target.value as CampaignChannel }))}
+                >
+                  <option value="Facebook">Facebook</option>
+                  <option value="Google">Google</option>
+                  <option value="Email">Email</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Channel *</label>
-              <select
-                className="form-input"
-                value={formData.channel}
-                onChange={(e) => setFormData(prev => ({ ...prev, channel: e.target.value as CampaignChannel }))}
-              >
-                <option value="Facebook">Facebook</option>
-                <option value="Google">Google</option>
-                <option value="Email">Email</option>
-                <option value="Others">Others</option>
-              </select>
+            {/* Start Date and End Date */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Start Date *</label>
+                <input
+                  type="date"
+                  className="form-input"
+                  value={formData.startDate}
+                  onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
+                />
+                {errors.startDate && <p className="form-error">{errors.startDate}</p>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">End Date *</label>
+                <input
+                  type="date"
+                  className="form-input"
+                  value={formData.endDate}
+                  onChange={(e) => setFormData(prev => ({ ...prev, endDate: e.target.value }))}
+                />
+                {errors.endDate && <p className="form-error">{errors.endDate}</p>}
+              </div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Start Date *</label>
-              <input
-                type="date"
-                className="form-input"
-                value={formData.startDate}
-                onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
-              />
-              {errors.startDate && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.startDate}</span>}
+            {/* Budget and Goal */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Budget ($) *</label>
+                <input
+                  type="number"
+                  className="form-input"
+                  value={formData.budget}
+                  onChange={(e) => setFormData(prev => ({ ...prev, budget: parseFloat(e.target.value) || 0 }))}
+                  placeholder="0"
+                  min="0"
+                  step="0.01"
+                />
+                {errors.budget && <p className="form-error">{errors.budget}</p>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Goal *</label>
+                <select
+                  className="form-input"
+                  value={formData.goal}
+                  onChange={(e) => setFormData(prev => ({ ...prev, goal: e.target.value as CampaignGoal }))}
+                >
+                  <option value="Brand Awareness">Brand Awareness</option>
+                  <option value="Conversions">Conversions</option>
+                  <option value="Engagement">Engagement</option>
+                </select>
+              </div>
             </div>
 
+            {/* Description */}
             <div className="form-group">
-              <label className="form-label">End Date *</label>
-              <input
-                type="date"
-                className="form-input"
-                value={formData.endDate}
-                onChange={(e) => setFormData(prev => ({ ...prev, endDate: e.target.value }))}
-              />
-              {errors.endDate && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.endDate}</span>}
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Budget ($) *</label>
-              <input
-                type="number"
-                className="form-input"
-                value={formData.budget}
-                onChange={(e) => setFormData(prev => ({ ...prev, budget: parseFloat(e.target.value) || 0 }))}
-                placeholder="0.00"
-                min="0"
-                step="0.01"
-              />
-              {errors.budget && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.budget}</span>}
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Goal *</label>
-              <select
-                className="form-input"
-                value={formData.goal}
-                onChange={(e) => setFormData(prev => ({ ...prev, goal: e.target.value as CampaignGoal }))}
-              >
-                <option value="Brand Awareness">Brand Awareness</option>
-                <option value="Conversions">Conversions</option>
-                <option value="Engagement">Engagement</option>
-              </select>
-            </div>
-
-            <div className="form-group" style={{ gridColumn: "1 / -1" }}>
               <label className="form-label">Description</label>
               <textarea
                 className="form-input"
                 value={formData.description}
                 onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                 placeholder="Campaign description and details..."
-                rows={4}
-                style={{ resize: "vertical", fontFamily: "inherit" }}
+                rows={3}
+                style={{ resize: "vertical", minHeight: "80px" }}
               />
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Status</label>
-              <select
-                className="form-input"
-                value={formData.status}
-                onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as CampaignStatus }))}
-              >
-                <option value="Draft">Draft</option>
-                <option value="Active">Active</option>
-                <option value="Completed">Completed</option>
-              </select>
+            {/* Status */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Status</label>
+                <select
+                  className="form-input"
+                  value={formData.status}
+                  onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as CampaignStatus }))}
+                >
+                  <option value="Draft">Draft</option>
+                  <option value="Active">Active</option>
+                  <option value="Completed">Completed</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div className="modal-actions">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleSave}
-            >
-              {campaign ? "Update Campaign" : "Create Campaign"}
-            </button>
-          </div>
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={onClose}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="btn btn-primary"
+              >
+                {campaign ? "Update Campaign" : "Create Campaign"}
+              </button>
+            </div>
+          </form>
         </div>
       </motion.div>
     </>

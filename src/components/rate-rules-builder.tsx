@@ -71,16 +71,17 @@ export function RateRulesBuilder({
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
       >
-        <div className="modal-header">
-          <h2>Create Pricing Rule</h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
+        <div className="modal-card" style={{ maxWidth: "700px", maxHeight: "90vh", overflowY: "auto" }}>
+          <div className="modal-header">
+            <h2>Create Pricing Rule</h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
+          </div>
 
-        <div className="modal-form">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
-            <div className="form-group" style={{ gridColumn: "1 / -1" }}>
+          <form className="modal-form" onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
+            {/* Rule Name (full width) */}
+            <div className="form-group">
               <label className="form-label">Rule Name *</label>
               <input
                 type="text"
@@ -91,7 +92,8 @@ export function RateRulesBuilder({
               />
             </div>
 
-            <div className="form-group" style={{ gridColumn: "1 / -1" }}>
+            {/* Description (full width) */}
+            <div className="form-group">
               <label className="form-label">Description</label>
               <textarea
                 className="form-input"
@@ -99,47 +101,51 @@ export function RateRulesBuilder({
                 onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
                 placeholder="Describe what this rule does..."
                 rows={2}
-                style={{ resize: "vertical", fontFamily: "inherit" }}
+                style={{ resize: "vertical", minHeight: "60px" }}
               />
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Rule Type *</label>
-              <select
-                className="form-input"
-                value={formData.operator}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, operator: e.target.value as RuleOperator }))
-                }
-              >
-                {Object.entries(operatorLabels).map(([key, label]) => (
-                  <option key={key} value={key}>
-                    {label}
-                  </option>
-                ))}
-              </select>
+            {/* Rule Type and Value */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Rule Type *</label>
+                <select
+                  className="form-input"
+                  value={formData.operator}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, operator: e.target.value as RuleOperator }))
+                  }
+                >
+                  {Object.entries(operatorLabels).map(([key, label]) => (
+                    <option key={key} value={key}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Value *</label>
+                <input
+                  type="number"
+                  className="form-input"
+                  value={formData.value}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, value: parseFloat(e.target.value) || 0 }))}
+                  placeholder="0"
+                  min="0"
+                  step={["percentage_increase", "percentage_decrease"].includes(formData.operator) ? "0.1" : "0.01"}
+                />
+                <p style={{ fontSize: "11px", color: "var(--secondary)", marginTop: "4px" }}>
+                  {["percentage_increase", "percentage_decrease"].includes(formData.operator)
+                    ? "Enter percentage (e.g., 20 for 20%)"
+                    : ["fixed_surcharge", "fixed_discount"].includes(formData.operator)
+                      ? "Enter amount in currency"
+                      : "Enter multiplier (e.g., 1.1 for 10% increase)"}
+                </p>
+              </div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Value *</label>
-              <input
-                type="number"
-                className="form-input"
-                value={formData.value}
-                onChange={(e) => setFormData((prev) => ({ ...prev, value: parseFloat(e.target.value) || 0 }))}
-                placeholder="0"
-                min="0"
-                step={["percentage_increase", "percentage_decrease"].includes(formData.operator) ? "0.1" : "0.01"}
-              />
-              <small style={{ fontSize: "11px", color: "var(--secondary)", marginTop: "4px", display: "block" }}>
-                {["percentage_increase", "percentage_decrease"].includes(formData.operator)
-                  ? "Enter percentage (e.g., 20 for 20%)"
-                  : ["fixed_surcharge", "fixed_discount"].includes(formData.operator)
-                    ? "Enter amount in currency"
-                    : "Enter multiplier (e.g., 1.1 for 10% increase)"}
-              </small>
-            </div>
-
+            {/* Priority */}
             <div className="form-group">
               <label className="form-label">Priority</label>
               <input
@@ -148,66 +154,69 @@ export function RateRulesBuilder({
                 value={formData.priority}
                 onChange={(e) => setFormData((prev) => ({ ...prev, priority: parseInt(e.target.value) || 1 }))}
                 min="1"
+                style={{ maxWidth: "200px" }}
               />
-              <small style={{ fontSize: "11px", color: "var(--secondary)", marginTop: "4px", display: "block" }}>
+              <p style={{ fontSize: "11px", color: "var(--secondary)", marginTop: "4px" }}>
                 Lower number = higher priority
-              </small>
+              </p>
             </div>
-          </div>
 
-          <div style={{ marginBottom: "24px", padding: "16px", background: "var(--background)", borderRadius: "6px" }}>
-            <h4 style={{ margin: "0 0 12px 0", fontSize: "13px", fontWeight: "600", color: "var(--foreground)" }}>
-              Rule Preview
-            </h4>
-            <p style={{ margin: 0, fontSize: "12px", color: "var(--secondary)", lineHeight: "1.6" }}>
-              {formData.name || "Unnamed rule"} -{" "}
-              {["percentage_increase", "percentage_decrease"].includes(formData.operator)
-                ? `${formData.operator === "percentage_increase" ? "+" : "-"}${formData.value}% adjustment`
-                : ["fixed_surcharge", "fixed_discount"].includes(formData.operator)
-                  ? `${formData.operator === "fixed_surcharge" ? "+" : "-"}$${formData.value.toFixed(2)}`
-                  : `${formData.value}x multiplier`}
-            </p>
-          </div>
+            {/* Rule Preview */}
+            <div style={{ marginBottom: "20px", padding: "14px", background: "var(--background)", border: "1px solid var(--border)", borderRadius: "6px" }}>
+              <h4 style={{ margin: "0 0 8px 0", fontSize: "13px", fontWeight: "600", color: "var(--foreground)" }}>
+                Rule Preview
+              </h4>
+              <p style={{ margin: 0, fontSize: "12px", color: "var(--secondary)", lineHeight: "1.6" }}>
+                {formData.name || "Unnamed rule"} -{" "}
+                {["percentage_increase", "percentage_decrease"].includes(formData.operator)
+                  ? `${formData.operator === "percentage_increase" ? "+" : "-"}${formData.value}% adjustment`
+                  : ["fixed_surcharge", "fixed_discount"].includes(formData.operator)
+                    ? `${formData.operator === "fixed_surcharge" ? "+" : "-"}$${formData.value.toFixed(2)}`
+                    : `${formData.value}x multiplier`}
+              </p>
+            </div>
 
-          <div style={{ marginBottom: "24px", paddingTop: "16px", borderTop: "1px solid var(--border)" }}>
-            <h4 style={{ margin: "0 0 12px 0", fontSize: "13px", fontWeight: "600", color: "var(--foreground)" }}>
-              Existing Rules
-            </h4>
-            {rules.length === 0 ? (
-              <p style={{ margin: 0, fontSize: "12px", color: "var(--secondary)" }}>No rules created yet</p>
-            ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px", maxHeight: "200px", overflowY: "auto" }}>
-                {rules.map((rule) => (
-                  <div
-                    key={rule.id}
-                    style={{
-                      padding: "8px",
-                      background: "var(--card-bg)",
-                      border: "1px solid var(--border)",
-                      borderRadius: "4px",
-                      fontSize: "12px",
-                    }}
-                  >
-                    <div style={{ fontWeight: "600", color: "var(--foreground)", marginBottom: "2px" }}>
-                      {rule.name}
+            {/* Existing Rules */}
+            <div style={{ marginBottom: "20px", paddingTop: "16px", borderTop: "1px solid var(--border)" }}>
+              <h4 style={{ margin: "0 0 12px 0", fontSize: "13px", fontWeight: "600", color: "var(--foreground)" }}>
+                Existing Rules
+              </h4>
+              {rules.length === 0 ? (
+                <p style={{ margin: 0, fontSize: "12px", color: "var(--secondary)" }}>No rules created yet</p>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", maxHeight: "180px", overflowY: "auto" }}>
+                  {rules.map((rule) => (
+                    <div
+                      key={rule.id}
+                      style={{
+                        padding: "10px",
+                        background: "var(--card-bg)",
+                        border: "1px solid var(--border)",
+                        borderRadius: "6px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      <div style={{ fontWeight: "600", color: "var(--foreground)", marginBottom: "4px" }}>
+                        {rule.name}
+                      </div>
+                      <div style={{ color: "var(--secondary)", fontSize: "11px" }}>
+                        Priority: {rule.priority}
+                      </div>
                     </div>
-                    <div style={{ color: "var(--secondary)", fontSize: "11px" }}>
-                      Priority: {rule.priority}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
-          <div className="modal-actions">
-            <button type="button" className="btn btn-secondary" onClick={onClose}>
-              Cancel
-            </button>
-            <button type="button" className="btn btn-primary" onClick={handleSave}>
-              Create Rule
-            </button>
-          </div>
+            <div className="modal-actions">
+              <button type="button" className="btn btn-secondary" onClick={onClose}>
+                Cancel
+              </button>
+              <button type="submit" className="btn btn-primary">
+                Create Rule
+              </button>
+            </div>
+          </form>
         </div>
       </motion.div>
     </>

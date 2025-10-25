@@ -49,24 +49,25 @@ export function NewEquityAwardModal({ isOpen, onClose }: { isOpen: boolean; onCl
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <div className="modal" style={{ maxWidth: 600 }}>
-        <div className="modal-header">
-          <h2>Grant Equity Award</h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
-          <div className="form-row">
-            <div>
-              <label className="form-label">Employee Name *</label>
-              <input className="form-input" {...register("employeeName")} placeholder="Full name" />
-              {errors.employeeName && <p className="form-error">{errors.employeeName.message}</p>}
-            </div>
+      <div className="modal">
+        <div className="modal-card" style={{ maxWidth: "650px" }}>
+          <div className="modal-header">
+            <h2>Grant Equity Award</h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
+          {/* Employee Name */}
+          <div className="form-group">
+            <label className="form-label">Employee Name *</label>
+            <input className="form-input" {...register("employeeName")} placeholder="Full name" />
+            {errors.employeeName && <p className="form-error">{errors.employeeName.message}</p>}
           </div>
 
+          {/* Award Type and Quantity */}
           <div className="form-row">
-            <div>
+            <div className="form-group">
               <label className="form-label">Award Type *</label>
               <select className="form-input" {...register("awardType")}>
                 <option value="RSU">Restricted Stock Units (RSU)</option>
@@ -75,23 +76,21 @@ export function NewEquityAwardModal({ isOpen, onClose }: { isOpen: boolean; onCl
               </select>
               {errors.awardType && <p className="form-error">{errors.awardType.message}</p>}
             </div>
-          </div>
-
-          <div className="form-row">
-            <div>
+            <div className="form-group">
               <label className="form-label">Quantity *</label>
               <input className="form-input" type="number" {...register("quantity")} placeholder="0" />
               {errors.quantity && <p className="form-error">{errors.quantity.message}</p>}
             </div>
-            <div>
+          </div>
+
+          {/* Vesting Date and Status */}
+          <div className="form-row">
+            <div className="form-group">
               <label className="form-label">Vesting Date *</label>
               <input className="form-input" type="date" {...register("vestingDate")} />
               {errors.vestingDate && <p className="form-error">{errors.vestingDate.message}</p>}
             </div>
-          </div>
-
-          <div className="form-row">
-            <div>
+            <div className="form-group">
               <label className="form-label">Status</label>
               <select className="form-input" {...register("status")}>
                 <option value="Pending">Pending</option>
@@ -110,7 +109,8 @@ export function NewEquityAwardModal({ isOpen, onClose }: { isOpen: boolean; onCl
               {isSubmitting ? "Granting..." : "Grant Award"}
             </button>
           </div>
-        </form>
+          </form>
+        </div>
       </div>
     </>
   );

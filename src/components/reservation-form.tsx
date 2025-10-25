@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ReservationFormInput } from "@/types/reservation";
+import { ReservationFormInput, Reservation } from "@/types/reservation";
 import { useToast } from "./toast";
 
 const reservationSchema = z
@@ -15,13 +15,8 @@ const reservationSchema = z
     roomType: z.enum(["Single", "Double", "Suite", "Deluxe"] as const, {
       message: "Please select a room type",
     }),
-    checkInDate: z.string().refine((date) => {
-      const selectedDate = new Date(date);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      return selectedDate >= today;
-    }, "Check-in date must be today or later"),
-    checkOutDate: z.string(),
+    checkInDate: z.string().min(1, "Check-in date is required"),
+    checkOutDate: z.string().min(1, "Check-out date is required"),
     numberOfGuests: z
       .number()
       .min(1, "At least 1 guest required")
@@ -36,16 +31,19 @@ const reservationSchema = z
 interface ReservationFormProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit?: (data: ReservationFormInput) => void;
+  onSubmit?: (data: ReservationFormInput, id?: string) => void;
+  reservation?: Reservation | null;
 }
 
 export function ReservationForm({
   isOpen,
   onClose,
   onSubmit,
+  reservation,
 }: ReservationFormProps) {
   const { showToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isEditing = !!reservation;
 
   const {
     register,
@@ -60,20 +58,49 @@ export function ReservationForm({
     },
   });
 
+  useEffect(() => {
+    if (isOpen && reservation) {
+      reset({
+        guestName: reservation.guestName,
+        email: reservation.email,
+        phone: reservation.phone,
+        roomType: reservation.roomType,
+        checkInDate: reservation.checkInDate,
+        checkOutDate: reservation.checkOutDate,
+        numberOfGuests: reservation.numberOfGuests,
+        notes: reservation.notes || "",
+      });
+    } else if (isOpen && !reservation) {
+      reset({
+        numberOfGuests: 1,
+        roomType: "Double",
+        guestName: "",
+        email: "",
+        phone: "",
+        checkInDate: "",
+        checkOutDate: "",
+        notes: "",
+      });
+    }
+  }, [isOpen, reservation, reset]);
+
   const onSubmitForm = async (data: ReservationFormInput) => {
     setIsSubmitting(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       if (onSubmit) {
-        onSubmit(data);
+        onSubmit(data, reservation?.id);
       }
 
-      showToast("Reservation Added Successfully", "success");
+      showToast(
+        isEditing ? "Reservation Updated Successfully" : "Reservation Added Successfully",
+        "success"
+      );
       reset();
       onClose();
     } catch (error) {
-      showToast("Failed to add reservation", "error");
+      showToast("Failed to save reservation", "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -85,151 +112,156 @@ export function ReservationForm({
     <>
       <div className="modal-overlay" onClick={onClose} />
       <div className="modal">
-        <div className="modal-header">
-          <h2>Add New Reservation</h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
-
-        <form onSubmit={handleSubmit(onSubmitForm)} className="modal-form">
-          <div className="form-group">
-            <label className="form-label">Guest Name *</label>
-            <input
-              type="text"
-              {...register("guestName")}
-              className="form-input"
-              placeholder="Enter guest name"
-              disabled={isSubmitting}
-            />
-            {errors.guestName && (
-              <span className="form-error">{errors.guestName.message}</span>
-            )}
+        <div className="modal-card" style={{ maxWidth: "700px" }}>
+          <div className="modal-header">
+            <h2>{isEditing ? "Edit Reservation" : "Add New Reservation"}</h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
           </div>
 
-          <div className="form-row">
+          <form onSubmit={handleSubmit(onSubmitForm)} className="modal-form">
             <div className="form-group">
-              <label className="form-label">Email *</label>
+              <label className="form-label">Guest Name *</label>
               <input
-                type="email"
-                {...register("email")}
+                type="text"
+                {...register("guestName")}
                 className="form-input"
-                placeholder="guest@example.com"
+                placeholder="Enter guest name"
                 disabled={isSubmitting}
               />
-              {errors.email && (
-                <span className="form-error">{errors.email.message}</span>
+              {errors.guestName && (
+                <span className="form-error">{errors.guestName.message}</span>
               )}
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Phone *</label>
-              <input
-                type="tel"
-                {...register("phone")}
-                className="form-input"
-                placeholder="+1-555-0000"
-                disabled={isSubmitting}
-              />
-              {errors.phone && (
-                <span className="form-error">{errors.phone.message}</span>
-              )}
-            </div>
-          </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Email *</label>
+                <input
+                  type="email"
+                  {...register("email")}
+                  className="form-input"
+                  placeholder="guest@example.com"
+                  disabled={isSubmitting}
+                />
+                {errors.email && (
+                  <span className="form-error">{errors.email.message}</span>
+                )}
+              </div>
 
-          <div className="form-group">
-            <label className="form-label">Room Type *</label>
-            <select
-              {...register("roomType")}
-              className="form-input"
-              disabled={isSubmitting}
-            >
-              <option value="Single">Single</option>
-              <option value="Double">Double</option>
-              <option value="Suite">Suite</option>
-              <option value="Deluxe">Deluxe</option>
-            </select>
-            {errors.roomType && (
-              <span className="form-error">{errors.roomType.message}</span>
-            )}
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label className="form-label">Check-in Date *</label>
-              <input
-                type="date"
-                {...register("checkInDate")}
-                className="form-input"
-                disabled={isSubmitting}
-              />
-              {errors.checkInDate && (
-                <span className="form-error">{errors.checkInDate.message}</span>
-              )}
+              <div className="form-group">
+                <label className="form-label">Phone *</label>
+                <input
+                  type="tel"
+                  {...register("phone")}
+                  className="form-input"
+                  placeholder="+1-555-0000"
+                  disabled={isSubmitting}
+                />
+                {errors.phone && (
+                  <span className="form-error">{errors.phone.message}</span>
+                )}
+              </div>
             </div>
 
             <div className="form-group">
-              <label className="form-label">Check-out Date *</label>
-              <input
-                type="date"
-                {...register("checkOutDate")}
+              <label className="form-label">Room Type *</label>
+              <select
+                {...register("roomType")}
                 className="form-input"
                 disabled={isSubmitting}
+              >
+                <option value="Single">Single</option>
+                <option value="Double">Double</option>
+                <option value="Suite">Suite</option>
+                <option value="Deluxe">Deluxe</option>
+              </select>
+              {errors.roomType && (
+                <span className="form-error">{errors.roomType.message}</span>
+              )}
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Check-in Date *</label>
+                <input
+                  type="date"
+                  {...register("checkInDate")}
+                  className="form-input"
+                  disabled={isSubmitting}
+                />
+                {errors.checkInDate && (
+                  <span className="form-error">{errors.checkInDate.message}</span>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Check-out Date *</label>
+                <input
+                  type="date"
+                  {...register("checkOutDate")}
+                  className="form-input"
+                  disabled={isSubmitting}
+                />
+                {errors.checkOutDate && (
+                  <span className="form-error">
+                    {errors.checkOutDate.message}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Number of Guests *</label>
+              <input
+                type="number"
+                {...register("numberOfGuests", { valueAsNumber: true })}
+                className="form-input"
+                min="1"
+                max="6"
+                disabled={isSubmitting}
               />
-              {errors.checkOutDate && (
+              {errors.numberOfGuests && (
                 <span className="form-error">
-                  {errors.checkOutDate.message}
+                  {errors.numberOfGuests.message}
                 </span>
               )}
             </div>
-          </div>
 
-          <div className="form-group">
-            <label className="form-label">Number of Guests *</label>
-            <input
-              type="number"
-              {...register("numberOfGuests", { valueAsNumber: true })}
-              className="form-input"
-              min="1"
-              max="6"
-              disabled={isSubmitting}
-            />
-            {errors.numberOfGuests && (
-              <span className="form-error">
-                {errors.numberOfGuests.message}
-              </span>
-            )}
-          </div>
+            <div className="form-group">
+              <label className="form-label">Notes / Special Requests</label>
+              <textarea
+                {...register("notes")}
+                className="form-input form-textarea"
+                placeholder="Any special requests or notes..."
+                rows={3}
+                disabled={isSubmitting}
+              />
+            </div>
 
-          <div className="form-group">
-            <label className="form-label">Notes / Special Requests</label>
-            <textarea
-              {...register("notes")}
-              className="form-input form-textarea"
-              placeholder="Any special requests or notes..."
-              rows={4}
-              disabled={isSubmitting}
-            />
-          </div>
-
-          <div className="modal-actions">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={onClose}
-              disabled={isSubmitting}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Adding..." : "Add Reservation"}
-            </button>
-          </div>
-        </form>
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={onClose}
+                disabled={isSubmitting}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isSubmitting}
+              >
+                {isSubmitting 
+                  ? (isEditing ? "Updating..." : "Adding...") 
+                  : (isEditing ? "Update Reservation" : "Add Reservation")
+                }
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

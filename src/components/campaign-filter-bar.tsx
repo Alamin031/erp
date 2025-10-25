@@ -78,7 +78,12 @@ export function CampaignFilterBar({ onFilterChange }: CampaignFilterBarProps) {
         />
       </div>
 
-      <div className="filters-row">
+      <div style={{ 
+        display: "grid", 
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
+        gap: "16px",
+        alignItems: "end"
+      }}>
         <div className="filter-group">
           <label className="form-label">Status</label>
           <select
@@ -134,21 +139,21 @@ export function CampaignFilterBar({ onFilterChange }: CampaignFilterBarProps) {
             <input
               type="number"
               className="form-input"
-              placeholder="Min"
+              placeholder="0"
               value={filters.roiFrom}
               onChange={(e) => handleFilterChange("roiFrom", parseFloat(e.target.value) || 0)}
               min="0"
-              style={{ flex: 1 }}
+              style={{ width: "70px" }}
             />
-            <span style={{ color: "var(--secondary)" }}>to</span>
+            <span style={{ color: "var(--secondary)", fontSize: "12px", flexShrink: 0 }}>to</span>
             <input
               type="number"
               className="form-input"
-              placeholder="Max"
+              placeholder="500"
               value={filters.roiTo}
               onChange={(e) => handleFilterChange("roiTo", parseFloat(e.target.value) || 500)}
               min="0"
-              style={{ flex: 1 }}
+              style={{ width: "70px" }}
             />
           </div>
         </div>

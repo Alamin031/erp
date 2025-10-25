@@ -139,285 +139,305 @@ export function RateFormModal({
       <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1000 }} />
       <motion.div
         className="modal"
-        style={{ zIndex: 1001, maxHeight: "90vh", overflowY: "auto" }}
+        style={{ zIndex: 1001 }}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
       >
-        <div className="modal-header">
-          <h2>
-            {mode === "add" ? "Create New Rate" : mode === "clone" ? "Clone Rate" : "Edit Rate"}
-          </h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
-
-        <div className="modal-form">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
-            <div className="form-group">
-              <label className="form-label">Rate Code *</label>
-              <input
-                type="text"
-                className="form-input"
-                value={formData.code}
-                onChange={(e) => setFormData((prev) => ({ ...prev, code: e.target.value }))}
-                placeholder="e.g., STD-BASE"
-              />
-              {errors.code && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.code}</span>}
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Rate Name *</label>
-              <input
-                type="text"
-                className="form-input"
-                value={formData.name}
-                onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
-                placeholder="e.g., Standard Room Base Rate"
-              />
-              {errors.name && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.name}</span>}
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Room Type *</label>
-              <select
-                className="form-input"
-                value={formData.roomType}
-                onChange={(e) => setFormData((prev) => ({ ...prev, roomType: e.target.value }))}
-              >
-                <option value="">Select room type</option>
-                {roomTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-              {errors.roomType && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.roomType}</span>}
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Rate Type *</label>
-              <select
-                className="form-input"
-                value={formData.rateType}
-                onChange={(e) => setFormData((prev) => ({ ...prev, rateType: e.target.value as RateType }))}
-              >
-                {rateTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Base Price ($) *</label>
-              <input
-                type="number"
-                className="form-input"
-                value={formData.basePrice}
-                onChange={(e) => setFormData((prev) => ({ ...prev, basePrice: parseFloat(e.target.value) || 0 }))}
-                placeholder="0.00"
-                min="0"
-                step="0.01"
-              />
-              {errors.basePrice && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.basePrice}</span>}
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Currency</label>
-              <select
-                className="form-input"
-                value={formData.currency}
-                onChange={(e) => setFormData((prev) => ({ ...prev, currency: e.target.value }))}
-              >
-                <option value="USD">USD ($)</option>
-                <option value="EUR">EUR (€)</option>
-                <option value="GBP">GBP (£)</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Effective From *</label>
-              <input
-                type="date"
-                className="form-input"
-                value={formData.effectiveFrom}
-                onChange={(e) => setFormData((prev) => ({ ...prev, effectiveFrom: e.target.value }))}
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Effective To *</label>
-              <input
-                type="date"
-                className="form-input"
-                value={formData.effectiveTo}
-                onChange={(e) => setFormData((prev) => ({ ...prev, effectiveTo: e.target.value }))}
-              />
-              {errors.effectiveTo && <span style={{ color: "#dc3545", fontSize: "12px" }}>{errors.effectiveTo}</span>}
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Min Stay (nights)</label>
-              <input
-                type="number"
-                className="form-input"
-                value={formData.minStay}
-                onChange={(e) => setFormData((prev) => ({ ...prev, minStay: parseInt(e.target.value) || 1 }))}
-                min="1"
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Max Stay (nights)</label>
-              <input
-                type="number"
-                className="form-input"
-                value={formData.maxStay || ""}
-                onChange={(e) => setFormData((prev) => ({ ...prev, maxStay: e.target.value ? parseInt(e.target.value) : undefined }))}
-                min="1"
-                placeholder="Unlimited"
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Priority</label>
-              <input
-                type="number"
-                className="form-input"
-                value={formData.priority}
-                onChange={(e) => setFormData((prev) => ({ ...prev, priority: parseInt(e.target.value) || 1 }))}
-                min="1"
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Status</label>
-              <select
-                className="form-input"
-                value={formData.status}
-                onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value as RateStatus }))}
-              >
-                <option value="Draft">Draft</option>
-                <option value="Scheduled">Scheduled</option>
-                <option value="Active">Active</option>
-                <option value="Expired">Expired</option>
-              </select>
-            </div>
+        <div className="modal-card" style={{ maxWidth: "750px", maxHeight: "90vh", overflowY: "auto" }}>
+          <div className="modal-header">
+            <h2>
+              {mode === "add" ? "Create New Rate" : mode === "clone" ? "Clone Rate" : "Edit Rate"}
+            </h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
           </div>
 
-          <div style={{ marginBottom: "24px", paddingBottom: "24px", borderBottom: "1px solid var(--border)" }}>
-            <h4 style={{ margin: "0 0 12px 0", fontSize: "14px", fontWeight: "600", color: "var(--foreground)" }}>
-              Distribution Channels
-            </h4>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))", gap: "12px" }}>
-              {availableChannels.map((channel) => (
-                <label key={channel} style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
-                  <input
-                    type="checkbox"
-                    checked={formData.channels.includes(channel)}
-                    onChange={() => handleChannelToggle(channel)}
-                    style={{ cursor: "pointer" }}
-                  />
-                  <span style={{ fontSize: "13px", color: "var(--foreground)" }}>{channel}</span>
-                </label>
-              ))}
+          <form className="modal-form" onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
+            {/* Rate Code and Rate Name */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Rate Code *</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={formData.code}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, code: e.target.value }))}
+                  placeholder="e.g., STD-BASE"
+                />
+                {errors.code && <p className="form-error">{errors.code}</p>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Rate Name *</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={formData.name}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                  placeholder="e.g., Standard Room Base Rate"
+                />
+                {errors.name && <p className="form-error">{errors.name}</p>}
+              </div>
             </div>
-          </div>
 
-          <div style={{ marginBottom: "24px", paddingBottom: "24px", borderBottom: "1px solid var(--border)" }}>
-            <h4 style={{ margin: "0 0 12px 0", fontSize: "14px", fontWeight: "600", color: "var(--foreground)" }}>
-              Blackout Dates
-            </h4>
-            {blackoutDates.length > 0 && (
-              <div style={{ marginBottom: "12px" }}>
-                {blackoutDates.map((date) => (
-                  <div
-                    key={date}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      padding: "8px",
-                      background: "var(--background)",
-                      borderRadius: "4px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    <span style={{ fontSize: "13px", color: "var(--foreground)" }}>
-                      {new Date(date).toLocaleDateString()}
-                    </span>
-                    <button
-                      onClick={() => handleRemoveBlackoutDate(date)}
-                      style={{
-                        padding: "2px 6px",
-                        fontSize: "12px",
-                        color: "#dc3545",
-                        background: "transparent",
-                        border: "none",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Remove
-                    </button>
-                  </div>
+            {/* Room Type and Rate Type */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Room Type *</label>
+                <select
+                  className="form-input"
+                  value={formData.roomType}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, roomType: e.target.value }))}
+                >
+                  <option value="">Select room type</option>
+                  {roomTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+                {errors.roomType && <p className="form-error">{errors.roomType}</p>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Rate Type *</label>
+                <select
+                  className="form-input"
+                  value={formData.rateType}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, rateType: e.target.value as RateType }))}
+                >
+                  {rateTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Base Price and Currency */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Base Price ($) *</label>
+                <input
+                  type="number"
+                  className="form-input"
+                  value={formData.basePrice}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, basePrice: parseFloat(e.target.value) || 0 }))}
+                  placeholder="99"
+                  min="0"
+                  step="0.01"
+                />
+                {errors.basePrice && <p className="form-error">{errors.basePrice}</p>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Currency</label>
+                <select
+                  className="form-input"
+                  value={formData.currency}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, currency: e.target.value }))}
+                >
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Effective From and Effective To */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Effective From *</label>
+                <input
+                  type="date"
+                  className="form-input"
+                  value={formData.effectiveFrom}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, effectiveFrom: e.target.value }))}
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Effective To *</label>
+                <input
+                  type="date"
+                  className="form-input"
+                  value={formData.effectiveTo}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, effectiveTo: e.target.value }))}
+                />
+                {errors.effectiveTo && <p className="form-error">{errors.effectiveTo}</p>}
+              </div>
+            </div>
+
+            {/* Min Stay and Max Stay */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Min Stay (nights)</label>
+                <input
+                  type="number"
+                  className="form-input"
+                  value={formData.minStay}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, minStay: parseInt(e.target.value) || 1 }))}
+                  min="1"
+                  placeholder="1"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Max Stay (nights)</label>
+                <input
+                  type="number"
+                  className="form-input"
+                  value={formData.maxStay || ""}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, maxStay: e.target.value ? parseInt(e.target.value) : undefined }))}
+                  min="1"
+                  placeholder="Unlimited"
+                />
+              </div>
+            </div>
+
+            {/* Priority and Status */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Priority</label>
+                <input
+                  type="number"
+                  className="form-input"
+                  value={formData.priority}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, priority: parseInt(e.target.value) || 1 }))}
+                  min="1"
+                  placeholder="1"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Status</label>
+                <select
+                  className="form-input"
+                  value={formData.status}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value as RateStatus }))}
+                >
+                  <option value="Draft">Draft</option>
+                  <option value="Scheduled">Scheduled</option>
+                  <option value="Active">Active</option>
+                  <option value="Expired">Expired</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Distribution Channels */}
+            <div style={{ marginBottom: "20px", paddingBottom: "20px", borderBottom: "1px solid var(--border)" }}>
+              <h4 style={{ margin: "0 0 12px 0", fontSize: "14px", fontWeight: "600", color: "var(--foreground)" }}>
+                Distribution Channels
+              </h4>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
+                {availableChannels.map((channel) => (
+                  <label key={channel} style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+                    <input
+                      type="checkbox"
+                      checked={formData.channels.includes(channel)}
+                      onChange={() => handleChannelToggle(channel)}
+                      style={{ cursor: "pointer" }}
+                    />
+                    <span style={{ fontSize: "13px", color: "var(--foreground)" }}>{channel}</span>
+                  </label>
                 ))}
               </div>
-            )}
-            <div style={{ display: "flex", gap: "8px" }}>
-              <input
-                type="date"
+            </div>
+
+            {/* Blackout Dates */}
+            <div style={{ marginBottom: "20px", paddingBottom: "20px", borderBottom: "1px solid var(--border)" }}>
+              <h4 style={{ margin: "0 0 12px 0", fontSize: "14px", fontWeight: "600", color: "var(--foreground)" }}>
+                Blackout Dates
+              </h4>
+              {blackoutDates.length > 0 && (
+                <div style={{ marginBottom: "12px", maxHeight: "150px", overflowY: "auto" }}>
+                  {blackoutDates.map((date) => (
+                    <div
+                      key={date}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        padding: "8px",
+                        background: "var(--background)",
+                        borderRadius: "4px",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      <span style={{ fontSize: "13px", color: "var(--foreground)" }}>
+                        {new Date(date).toLocaleDateString()}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveBlackoutDate(date)}
+                        style={{
+                          padding: "2px 6px",
+                          fontSize: "12px",
+                          color: "#dc3545",
+                          background: "transparent",
+                          border: "none",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div style={{ display: "flex", gap: "8px" }}>
+                <input
+                  type="date"
+                  className="form-input"
+                  id="blackoutDateInput"
+                  placeholder="Select date"
+                  style={{ flex: 1 }}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const input = document.getElementById("blackoutDateInput") as HTMLInputElement;
+                    if (input.value) {
+                      handleAddBlackoutDate(input.value);
+                      input.value = "";
+                    }
+                  }}
+                  style={{
+                    padding: "8px 16px",
+                    fontSize: "12px",
+                    fontWeight: "600",
+                    color: "white",
+                    background: "var(--primary)",
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap"
+                  }}
+                >
+                  Add Date
+                </button>
+              </div>
+            </div>
+
+            {/* Notes */}
+            <div className="form-group">
+              <label className="form-label">Notes / Internal Memo</label>
+              <textarea
                 className="form-input"
-                id="blackoutDateInput"
-                placeholder="Select date"
-                style={{ flex: 1 }}
+                value={formData.notes}
+                onChange={(e) => setFormData((prev) => ({ ...prev, notes: e.target.value }))}
+                placeholder="Internal notes..."
+                rows={3}
+                style={{ resize: "vertical", minHeight: "80px" }}
               />
-              <button
-                onClick={() => {
-                  const input = document.getElementById("blackoutDateInput") as HTMLInputElement;
-                  if (input.value) {
-                    handleAddBlackoutDate(input.value);
-                    input.value = "";
-                  }
-                }}
-                style={{
-                  padding: "8px 12px",
-                  fontSize: "12px",
-                  fontWeight: "600",
-                  color: "white",
-                  background: "var(--primary)",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                }}
-              >
-                Add Date
+            </div>
+
+            <div className="modal-actions">
+              <button type="button" className="btn btn-secondary" onClick={onClose}>
+                Cancel
+              </button>
+              <button type="submit" className="btn btn-primary">
+                {mode === "add" ? "Create Rate" : mode === "clone" ? "Clone Rate" : "Update Rate"}
               </button>
             </div>
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Notes / Internal Memo</label>
-            <textarea
-              className="form-input"
-              value={formData.notes}
-              onChange={(e) => setFormData((prev) => ({ ...prev, notes: e.target.value }))}
-              placeholder="Internal notes..."
-              rows={3}
-              style={{ resize: "vertical", fontFamily: "inherit" }}
-            />
-          </div>
-
-          <div className="modal-actions">
-            <button type="button" className="btn btn-secondary" onClick={onClose}>
-              Cancel
-            </button>
-            <button type="button" className="btn btn-primary" onClick={handleSave}>
-              {mode === "add" ? "Create Rate" : mode === "clone" ? "Clone Rate" : "Update Rate"}
-            </button>
-          </div>
+          </form>
         </div>
       </motion.div>
     </>

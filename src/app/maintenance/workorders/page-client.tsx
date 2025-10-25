@@ -19,7 +19,7 @@ export function WorkOrdersPageClient() {
   const [isNewOpen, setIsNewOpen] = useState(false);
   const [assignFor, setAssignFor] = useState<string | null>(null);
   const [viewId, setViewId] = useState<string | null>(null);
-  const { toasts, removeToast } = useToast();
+  const { toasts, removeToast, showToast } = useToast();
 
   useEffect(()=>{ if (workOrders.length===0) loadDemoData(); }, [workOrders.length, loadDemoData]);
 
@@ -30,6 +30,10 @@ export function WorkOrdersPageClient() {
     return list.filter(w => w.id.toLowerCase().includes(q) || w.title.toLowerCase().includes(q) || (w.assetName||'').toLowerCase().includes(q));
   }, [filterWorkOrders, query]);
 
+  const handleExport = () => {
+    showToast(`Exporting ${visible.length} work orders to CSV`, "success");
+  };
+
   return (
     <>
       <div className="dashboard-container">
@@ -38,24 +42,41 @@ export function WorkOrdersPageClient() {
           <p className="dashboard-subtitle">Manage maintenance work orders</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {/* Stats Cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "24px" }}>
           <WorkOrderStatsCards />
         </div>
 
-        <div className="dashboard-section flex flex-col gap-4">
-          <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center">
-            <SearchBar onSearch={setQuery} />
-            <button className="btn btn-primary" onClick={()=>setIsNewOpen(true)}>+ New Work Order</button>
+        {/* Search and Actions */}
+        <div className="dashboard-section" style={{ marginBottom: "24px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center" }}>
+              <div style={{ flex: "1 1 300px" }}>
+                <SearchBar onSearch={setQuery} />
+              </div>
+              <button className="btn btn-primary" onClick={()=>setIsNewOpen(true)}>
+                + New Work Order
+              </button>
+              <button className="btn btn-secondary" onClick={handleExport}>
+                📥 Export CSV
+              </button>
+            </div>
+            <FiltersBar />
           </div>
-          <FiltersBar />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main Content Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "24px", marginBottom: "24px" }}>
+          {/* Work Orders Table - Full Width */}
           <div className="dashboard-section">
-            <h3 className="section-title">Work Order Queue</h3>
-            <WorkOrderQueue onAssign={(id)=>setAssignFor(id)} onStart={(id)=>setViewId(id)} onComplete={(id)=>setViewId(id)} />
-          </div>
-          <div className="lg:col-span-2">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+              <h3 style={{ fontSize: "14px", fontWeight: "600", color: "var(--foreground)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                All Work Orders
+              </h3>
+              <span style={{ fontSize: "12px", color: "var(--secondary)" }}>
+                {visible.length} work order{visible.length !== 1 ? 's' : ''}
+              </span>
+            </div>
             <WorkOrdersTable
               items={visible}
               pagination={pagination}
@@ -66,9 +87,18 @@ export function WorkOrdersPageClient() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
-          <div className="lg:col-span-2" />
-          <div className="flex flex-col gap-6">
+        {/* Bottom Grid: Queue and Calendar */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+          {/* Work Order Queue */}
+          <div className="dashboard-section">
+            <h3 style={{ fontSize: "14px", fontWeight: "600", color: "var(--foreground)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "16px" }}>
+              Work Order Queue
+            </h3>
+            <WorkOrderQueue onAssign={(id)=>setAssignFor(id)} onStart={(id)=>setViewId(id)} onComplete={(id)=>setViewId(id)} />
+          </div>
+
+          {/* Maintenance Calendar */}
+          <div className="dashboard-section">
             <MaintenanceCalendar />
           </div>
         </div>
@@ -76,7 +106,13 @@ export function WorkOrdersPageClient() {
 
       <NewWorkOrderModal isOpen={isNewOpen} onClose={()=>setIsNewOpen(false)} />
       <AssignTechModal isOpen={!!assignFor} onClose={()=>setAssignFor(null)} workOrderId={assignFor || ''} />
-      <WorkOrderDetailsDrawer id={viewId} isOpen={!!viewId} onClose={()=>setViewId(null)} onAssign={()=>{ if(viewId){ setAssignFor(viewId);} }} />
+      <WorkOrderDetailsDrawer 
+        id={viewId} 
+        isOpen={!!viewId} 
+        onClose={()=>setViewId(null)} 
+        onAssign={()=>{ if(viewId){ setAssignFor(viewId);} }}
+        onShowToast={showToast}
+      />
 
       <ToastContainer toasts={toasts} removeToast={removeToast} />
     </>

@@ -17,9 +17,13 @@ import { CashflowStatement } from "@/components/cashflow-statement";
 import { ProfitLoss } from "@/components/profit-loss";
 import { BalanceSheet } from "@/components/balance-sheet";
 import { PaymentModal, PaymentData } from "@/components/accounting-payment-modal";
+import { ARInvoiceDetailsModal } from "@/components/ar-invoice-details-modal";
+import { BillDetailsModal } from "@/components/bill-details-modal";
+import { JournalEntryDetailsModal } from "@/components/journal-entry-details-modal";
 import { JournalEntryForm } from "@/components/journal-entry-form";
 import { QuickActions } from "@/components/accounting-quick-actions";
 import { AccountingFilters } from "@/types/accounting";
+import { ARInvoice, APBill, JournalEntry } from "@/types/accounting";
 
 export default function AccountingPage() {
   const [session, setSession] = useState<any>(null);
@@ -44,7 +48,13 @@ export default function AccountingPage() {
   } = useAccounting();
 
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isInvoiceDetailsOpen, setIsInvoiceDetailsOpen] = useState(false);
+  const [isBillDetailsOpen, setIsBillDetailsOpen] = useState(false);
+  const [isJournalDetailsOpen, setIsJournalDetailsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [selectedInvoice, setSelectedInvoice] = useState<ARInvoice | null>(null);
+  const [selectedBill, setSelectedBill] = useState<APBill | null>(null);
+  const [selectedJournalEntry, setSelectedJournalEntry] = useState<JournalEntry | null>(null);
   const [isJournalFormOpen, setIsJournalFormOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -129,6 +139,29 @@ export default function AccountingPage() {
       setSelectedItem(item);
       setIsPaymentModalOpen(true);
     }
+  };
+
+  const handleRecordBillPayment = (billId: string) => {
+    const item = ap.find((bill) => bill.id === billId);
+    if (item) {
+      setSelectedItem(item);
+      setIsPaymentModalOpen(true);
+    }
+  };
+
+  const handleViewInvoice = (invoice: ARInvoice) => {
+    setSelectedInvoice(invoice);
+    setIsInvoiceDetailsOpen(true);
+  };
+
+  const handleViewBill = (bill: APBill) => {
+    setSelectedBill(bill);
+    setIsBillDetailsOpen(true);
+  };
+
+  const handleViewJournalEntry = (entry: JournalEntry) => {
+    setSelectedJournalEntry(entry);
+    setIsJournalDetailsOpen(true);
   };
 
   const handlePaymentSubmit = (data: PaymentData) => {
@@ -316,7 +349,7 @@ export default function AccountingPage() {
             <ARTable
               invoices={filteredAR}
               onRecordPayment={handleRecordPayment}
-              onViewInvoice={(inv) => showToast(`View invoice: ${inv.invoiceNumber}`, "info")}
+              onViewInvoice={handleViewInvoice}
             />
           </div>
         )}
@@ -342,7 +375,8 @@ export default function AccountingPage() {
             </div>
             <APTable
               bills={filteredAP}
-              onRecordPayment={(billId) => showToast(`Record payment for ${billId}`, "info")}
+              onRecordPayment={handleRecordBillPayment}
+              onViewBill={handleViewBill}
             />
           </div>
         )}
@@ -384,7 +418,7 @@ export default function AccountingPage() {
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "24px" }}>
               <div>
-                <LedgerTable entries={ledger} />
+                <LedgerTable entries={ledger} onViewDetails={handleViewJournalEntry} />
               </div>
               <div>
                 <TrialBalance entries={ledger} chartOfAccounts={chartOfAccounts} />
@@ -423,6 +457,35 @@ export default function AccountingPage() {
           item={selectedItem}
           onSubmit={handlePaymentSubmit}
           banks={banks}
+        />
+
+        <ARInvoiceDetailsModal
+          isOpen={isInvoiceDetailsOpen}
+          onClose={() => {
+            setIsInvoiceDetailsOpen(false);
+            setSelectedInvoice(null);
+          }}
+          invoice={selectedInvoice}
+          onRecordPayment={handleRecordPayment}
+        />
+
+        <BillDetailsModal
+          isOpen={isBillDetailsOpen}
+          onClose={() => {
+            setIsBillDetailsOpen(false);
+            setSelectedBill(null);
+          }}
+          bill={selectedBill}
+          onRecordPayment={handleRecordBillPayment}
+        />
+
+        <JournalEntryDetailsModal
+          isOpen={isJournalDetailsOpen}
+          onClose={() => {
+            setIsJournalDetailsOpen(false);
+            setSelectedJournalEntry(null);
+          }}
+          entry={selectedJournalEntry}
         />
 
         {isJournalFormOpen && (

@@ -48,69 +48,76 @@ export function NewWorkOrderModal({ isOpen, onClose }: { isOpen: boolean; onClos
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <div className="modal" style={{ maxWidth: 700 }}>
-        <div className="modal-header">
-          <h2>New Work Order</h2>
-          <button className="modal-close" onClick={onClose}>✕</button>
+      <div className="modal" style={{ zIndex: 1001 }}>
+        <div className="modal-card" style={{ maxWidth: "750px", maxHeight: "90vh", overflow: "auto" }}>
+          <div className="modal-header">
+            <h2>New Work Order</h2>
+            <button className="modal-close" onClick={onClose}>✕</button>
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Title *</label>
+                <input className="form-input" {...register("title")} />
+                {errors.title && <p className="form-error">{errors.title.message}</p>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Requested By *</label>
+                <input className="form-input" placeholder="Staff/Guest" {...register("requestedBy")} />
+                {errors.requestedBy && <p className="form-error">{errors.requestedBy.message}</p>}
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Detailed Description *</label>
+              <textarea 
+                className="form-input" 
+                rows={3} 
+                {...register("description")}
+                style={{ resize: "vertical", minHeight: "80px" }}
+              />
+              {errors.description && <p className="form-error">{errors.description.message}</p>}
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Asset / Room</label>
+                <select className="form-input" {...register("assetId")}>
+                  <option value="">-- None --</option>
+                  {assets.map(a => (<option key={a.id} value={a.id}>{a.name}{a.roomNumber?` (Room ${a.roomNumber})`:''}</option>))}
+                </select>
+              </div>
+              <div className="form-group">
+                <label className="form-label">Priority *</label>
+                <select className="form-input" {...register("priority")}>
+                  <option>Low</option>
+                  <option>Medium</option>
+                  <option>High</option>
+                  <option>Critical</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">SLA / Due Date & Time</label>
+                <input type="datetime-local" className="form-input" {...register("dueAt")} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Assign Technician (optional)</label>
+                <select className="form-input" {...register("assignedTechId")}>
+                  <option value="">-- Unassigned --</option>
+                  {technicians.map(t => (<option key={t.id} value={t.id}>{t.name}</option>))}
+                </select>
+              </div>
+            </div>
+
+            <div className="modal-actions">
+              <button type="button" className="btn btn-secondary" onClick={onClose} disabled={isSubmitting}>Cancel</button>
+              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting?"Creating...":"Create"}</button>
+            </div>
+          </form>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
-          <div className="form-row">
-            <div>
-              <label className="form-label">Title *</label>
-              <input className="form-input" {...register("title")} />
-              {errors.title && <p className="form-error">{errors.title.message}</p>}
-            </div>
-            <div>
-              <label className="form-label">Requested By *</label>
-              <input className="form-input" placeholder="Staff/Guest" {...register("requestedBy")} />
-              {errors.requestedBy && <p className="form-error">{errors.requestedBy.message}</p>}
-            </div>
-          </div>
-
-          <div>
-            <label className="form-label">Detailed Description *</label>
-            <textarea className="form-textarea" rows={3} {...register("description")} />
-            {errors.description && <p className="form-error">{errors.description.message}</p>}
-          </div>
-
-          <div className="form-row">
-            <div>
-              <label className="form-label">Asset / Room</label>
-              <select className="form-input" {...register("assetId")}>
-                <option value="">-- None --</option>
-                {assets.map(a => (<option key={a.id} value={a.id}>{a.name}{a.roomNumber?` (Room ${a.roomNumber})`:''}</option>))}
-              </select>
-            </div>
-            <div>
-              <label className="form-label">Priority *</label>
-              <select className="form-input" {...register("priority")}>
-                <option>Low</option>
-                <option>Medium</option>
-                <option>High</option>
-                <option>Critical</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div>
-              <label className="form-label">SLA / Due Date & Time</label>
-              <input type="datetime-local" className="form-input" {...register("dueAt")} />
-            </div>
-            <div>
-              <label className="form-label">Assign Technician (optional)</label>
-              <select className="form-input" {...register("assignedTechId")}>
-                <option value="">-- Unassigned --</option>
-                {technicians.map(t => (<option key={t.id} value={t.id}>{t.name}</option>))}
-              </select>
-            </div>
-          </div>
-
-          <div className="modal-actions">
-            <button type="button" className="btn btn-secondary" onClick={onClose} disabled={isSubmitting}>Cancel</button>
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting?"Creating...":"Create"}</button>
-          </div>
-        </form>
       </div>
     </>
   );

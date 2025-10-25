@@ -23,29 +23,40 @@ export function AssignTechModal({ isOpen, onClose, workOrderId }: { isOpen: bool
 
   return (
     <>
-      <div className="modal-overlay" onClick={onClose} />
-      <div className="modal" style={{ maxWidth: 520 }}>
-        <div className="modal-header">
-          <h2>Assign Technician</h2>
-          <button className="modal-close" onClick={onClose}>✕</button>
-        </div>
-        <div className="modal-form">
-          <label className="form-label">Select Technician</label>
-          <select className="form-input" value={selected} onChange={(e)=>setSelected(e.target.value)}>
-            <option value="">-- Choose --</option>
-            {technicians.map(t => (
-              <option key={t.id} value={t.id}>{t.name} ({t.skills.join(", ")})</option>
-            ))}
-          </select>
+      <div className="modal-overlay" onClick={onClose} style={{ zIndex: 1002 }} />
+      <div className="modal" style={{ zIndex: 1003 }}>
+        <div className="modal-card" style={{ maxWidth: "600px", maxHeight: "90vh", overflow: "auto" }}>
+          <div className="modal-header">
+            <h2>Assign Technician</h2>
+            <button className="modal-close" onClick={onClose}>✕</button>
+          </div>
+          <div className="modal-form">
+            <div className="form-group">
+              <label className="form-label">Select Technician</label>
+              <select className="form-input" value={selected} onChange={(e)=>setSelected(e.target.value)}>
+                <option value="">-- Choose --</option>
+                {technicians.map(t => (
+                  <option key={t.id} value={t.id}>{t.name} ({t.skills.join(", ")})</option>
+                ))}
+              </select>
+            </div>
 
-          <label className="form-label">ETA (optional)</label>
-          <input className="form-input" type="datetime-local" value={eta} onChange={(e)=>setEta(e.target.value)} />
+            <div className="form-group">
+              <label className="form-label">ETA (optional)</label>
+              <input className="form-input" type="datetime-local" value={eta} onChange={(e)=>setEta(e.target.value)} />
+            </div>
 
-          <label className="inline-flex items-center gap-2 mt-2 text-sm"><input type="checkbox" checked={notify} onChange={(e)=>setNotify(e.target.checked)} /> Notify technician</label>
+            <div className="form-group">
+              <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", cursor: "pointer" }}>
+                <input type="checkbox" checked={notify} onChange={(e)=>setNotify(e.target.checked)} style={{ cursor: "pointer" }} />
+                <span>Notify technician</span>
+              </label>
+            </div>
 
-          <div className="modal-actions">
-            <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
-            <button className="btn btn-primary" onClick={handleSave} disabled={!selected}>Assign</button>
+            <div className="modal-actions">
+              <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
+              <button className="btn btn-primary" onClick={handleSave} disabled={!selected}>Assign</button>
+            </div>
           </div>
         </div>
       </div>

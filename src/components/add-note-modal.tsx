@@ -53,46 +53,49 @@ export function AddNoteModal({ isOpen, onClose, requestId, staffName = "Staff" }
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <div className="modal">
-        <div className="modal-header">
-          <h2>Add Note to Request</h2>
-          <button className="modal-close" onClick={onClose} title="Close modal">
-            ✕
-          </button>
+      <div className="modal" style={{ zIndex: 1001 }}>
+        <div className="modal-card" style={{ maxWidth: "600px" }}>
+          <div className="modal-header">
+            <h2>Add Note to Request</h2>
+            <button className="modal-close" onClick={onClose} title="Close modal">
+              ✕
+            </button>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmitForm)} className="modal-form">
+            <div className="form-group">
+              <label className="form-label">Note *</label>
+              <textarea
+                placeholder="Add any notes or updates about this request..."
+                {...register("note")}
+                className="form-input"
+                rows={5}
+                style={{ resize: "vertical", minHeight: "120px" }}
+              />
+              {errors.note && (
+                <p className="form-error">{errors.note.message}</p>
+              )}
+            </div>
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                onClick={onClose}
+                className="btn btn-secondary"
+                disabled={isSubmitting}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Adding..." : "Add Note"}
+              </button>
+            </div>
+          </form>
         </div>
-
-        <form onSubmit={handleSubmit(onSubmitForm)} className="modal-form">
-          <div>
-            <label className="form-label">Note *</label>
-            <textarea
-              placeholder="Add any notes or updates about this request..."
-              {...register("note")}
-              className="form-textarea w-full"
-              rows={5}
-            />
-            {errors.note && (
-              <p className="form-error">{errors.note.message}</p>
-            )}
-          </div>
-
-          <div className="modal-actions">
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-secondary"
-              disabled={isSubmitting}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Adding..." : "Add Note"}
-            </button>
-          </div>
-        </form>
       </div>
     </>
   );

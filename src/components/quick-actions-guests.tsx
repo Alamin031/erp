@@ -1,15 +1,22 @@
 "use client";
 
 import { useGuests } from "@/store/useGuests";
-import { useToast } from "./toast";
 
 interface QuickActionsGuestsProps {
   onAddGuest: () => void;
+  onShowToast?: (message: string, type: "success" | "error" | "info") => void;
 }
 
-export function QuickActionsGuests({ onAddGuest }: QuickActionsGuestsProps) {
+export function QuickActionsGuests({ onAddGuest, onShowToast }: QuickActionsGuestsProps) {
   const { guests, bulkExport } = useGuests();
-  const { showToast } = useToast();
+
+  const showToast = (message: string, type: "success" | "error" | "info" = "info") => {
+    if (onShowToast) {
+      onShowToast(message, type);
+    } else {
+      console.log(`[${type}] ${message}`);
+    }
+  };
 
   const handleExportCSV = () => {
     if (guests.length === 0) {
@@ -17,15 +24,23 @@ export function QuickActionsGuests({ onAddGuest }: QuickActionsGuestsProps) {
       return;
     }
     bulkExport(guests.map((g) => g.id));
+    showToast(`Exporting ${guests.length} guests to CSV`, "success");
   };
 
   const handleMessageAllCheckedIn = () => {
     const checkedInCount = guests.filter((g) => g.status === "Checked-in").length;
-    showToast(`Message ready to send to ${checkedInCount} guests`, "success");
+    if (checkedInCount === 0) {
+      showToast("No checked-in guests to message", "info");
+      return;
+    }
+    showToast(`Preparing message for ${checkedInCount} checked-in guest${checkedInCount > 1 ? 's' : ''}`, "success");
   };
 
   const handleSyncPMS = () => {
-    showToast("PMS sync completed", "success");
+    showToast("Syncing with Property Management System...", "info");
+    setTimeout(() => {
+      showToast("PMS sync completed successfully", "success");
+    }, 1500);
   };
 
   return (

@@ -57,100 +57,107 @@ export function EditEquipmentModal({ isOpen, onClose, equipment }: { isOpen: boo
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <div className="modal" style={{ maxWidth: 800 }}>
-        <div className="modal-header">
-          <h2>Edit Equipment</h2>
-          <button className="modal-close" onClick={onClose}>✕</button>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
-          <div className="form-row">
-            <div>
-              <label className="form-label">Name *</label>
-              <input className="form-input" {...register("name")} />
-              {errors.name && <p className="form-error">{errors.name.message}</p>}
-            </div>
-            <div>
-              <label className="form-label">Category *</label>
-              <input className="form-input" {...register("category")} />
-              {errors.category && <p className="form-error">{errors.category.message}</p>}
-            </div>
+      <div className="modal" style={{ zIndex: 1001 }}>
+        <div className="modal-card" style={{ maxWidth: "850px", maxHeight: "90vh", overflow: "auto" }}>
+          <div className="modal-header">
+            <h2>Edit Equipment</h2>
+            <button className="modal-close" onClick={onClose}>✕</button>
           </div>
-          <div className="form-row">
-            <div>
-              <label className="form-label">SKU</label>
-              <input className="form-input" {...register("sku")} />
+          <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Name *</label>
+                <input className="form-input" {...register("name")} />
+                {errors.name && <p className="form-error">{errors.name.message}</p>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Category *</label>
+                <input className="form-input" {...register("category")} />
+                {errors.category && <p className="form-error">{errors.category.message}</p>}
+              </div>
             </div>
-            <div>
-              <label className="form-label">Serial No</label>
-              <input className="form-input" {...register("serialNumber")} />
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">SKU</label>
+                <input className="form-input" {...register("sku")} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Serial No</label>
+                <input className="form-input" {...register("serialNumber")} />
+              </div>
             </div>
-          </div>
-          <div className="form-row">
-            <div>
-              <label className="form-label">Purchase Date</label>
-              <input type="date" className="form-input" {...register("purchaseDate")} />
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Purchase Date</label>
+                <input type="date" className="form-input" {...register("purchaseDate")} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Supplier</label>
+                <input className="form-input" {...register("supplierId")} />
+              </div>
             </div>
-            <div>
-              <label className="form-label">Supplier</label>
-              <input className="form-input" {...register("supplierId")} />
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Purchase Price</label>
+                <input type="number" step="0.01" className="form-input" {...register("purchasePrice")} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Warranty Expiry</label>
+                <input type="date" className="form-input" {...register("warrantyExpiry")} />
+              </div>
             </div>
-          </div>
-          <div className="form-row">
-            <div>
-              <label className="form-label">Purchase Price</label>
-              <input type="number" step="0.01" className="form-input" {...register("purchasePrice")} />
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Location</label>
+                <input className="form-input" {...register("location")} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Quantity *</label>
+                <input type="number" className="form-input" {...register("quantity")} />
+                {errors.quantity && <p className="form-error">{errors.quantity.message}</p>}
+              </div>
             </div>
-            <div>
-              <label className="form-label">Warranty Expiry</label>
-              <input type="date" className="form-input" {...register("warrantyExpiry")} />
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Min Stock Threshold *</label>
+                <input type="number" className="form-input" {...register("minStock")} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Depreciation Method</label>
+                <select className="form-input" {...register("depreciationMethod")}>
+                  <option>None</option>
+                  <option>Straight-line</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div className="form-row">
-            <div>
-              <label className="form-label">Location</label>
-              <input className="form-input" {...register("location")} />
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Depreciation Rate (%)</label>
+                <input type="number" className="form-input" {...register("depreciationRate")} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Status</label>
+                <select className="form-input" {...register("status")}>
+                  {['Active','In Use','Under Maintenance','Retired'].map(s=> <option key={s} value={s}>{s}</option>)}
+                </select>
+              </div>
             </div>
-            <div>
-              <label className="form-label">Quantity *</label>
-              <input type="number" className="form-input" {...register("quantity")} />
-              {errors.quantity && <p className="form-error">{errors.quantity.message}</p>}
+            <div className="form-group">
+              <label className="form-label">Notes</label>
+              <textarea 
+                className="form-input" 
+                rows={2} 
+                {...register("notes")}
+                style={{ resize: "vertical", minHeight: "60px" }}
+              />
             </div>
-          </div>
-          <div className="form-row">
-            <div>
-              <label className="form-label">Min Stock Threshold *</label>
-              <input type="number" className="form-input" {...register("minStock")} />
-            </div>
-            <div>
-              <label className="form-label">Depreciation Method</label>
-              <select className="form-input" {...register("depreciationMethod")}>
-                <option>None</option>
-                <option>Straight-line</option>
-              </select>
-            </div>
-          </div>
-          <div className="form-row">
-            <div>
-              <label className="form-label">Depreciation Rate (%)</label>
-              <input type="number" className="form-input" {...register("depreciationRate")} />
-            </div>
-            <div>
-              <label className="form-label">Status</label>
-              <select className="form-input" {...register("status")}>
-                {['Active','In Use','Under Maintenance','Retired'].map(s=> <option key={s} value={s}>{s}</option>)}
-              </select>
-            </div>
-          </div>
-          <div>
-            <label className="form-label">Notes</label>
-            <textarea className="form-textarea" rows={2} {...register("notes")} />
-          </div>
 
-          <div className="modal-actions">
-            <button type="button" className="btn btn-secondary" onClick={onClose} disabled={isSubmitting}>Cancel</button>
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting?"Saving...":"Save Changes"}</button>
-          </div>
-        </form>
+            <div className="modal-actions">
+              <button type="button" className="btn btn-secondary" onClick={onClose} disabled={isSubmitting}>Cancel</button>
+              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting?"Saving...":"Save Changes"}</button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

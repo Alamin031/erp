@@ -9,7 +9,7 @@ import { Trash2, File } from "lucide-react";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  securityId: string;
+  securityId?: string;
   onDocumentsUpdated?: (documents: Document[]) => void;
 }
 
@@ -19,10 +19,11 @@ export function UploadDocumentsModal({ isOpen, onClose, securityId, onDocumentsU
   const [documents, setDocuments] = useState<Document[]>([]);
   const [fileName, setFileName] = useState("");
   const [isAdding, setIsAdding] = useState(false);
+  const [selectedSecurityId, setSelectedSecurityId] = useState<string>("");
 
-  const security = securities.find((s) => s.id === securityId);
+  const security = securityId ? securities.find((s) => s.id === securityId) : null;
 
-  if (!isOpen || !security) return null;
+  if (!isOpen) return null;
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.currentTarget.files;
@@ -50,11 +51,27 @@ export function UploadDocumentsModal({ isOpen, onClose, securityId, onDocumentsU
   const saveDocuments = () => {
     setIsAdding(true);
     try {
-      const allDocuments = [...(security.documents || []), ...documents];
-      updateSecurity(securityId, { documents: allDocuments });
+      const targetSecurityId = securityId || selectedSecurityId;
+      
+      if (!targetSecurityId) {
+        showToast("Please select a security first", "error");
+        setIsAdding(false);
+        return;
+      }
+      
+      const targetSecurity = securities.find((s) => s.id === targetSecurityId);
+      if (!targetSecurity) {
+        showToast("Security not found", "error");
+        setIsAdding(false);
+        return;
+      }
+      
+      const allDocuments = [...(targetSecurity.documents || []), ...documents];
+      updateSecurity(targetSecurityId, { documents: allDocuments });
       showToast("Documents uploaded successfully", "success");
       onDocumentsUpdated?.(allDocuments);
       setDocuments([]);
+      setSelectedSecurityId("");
       onClose();
     } catch (e) {
       showToast((e as Error).message || "Failed to upload documents", "error");
@@ -66,15 +83,35 @@ export function UploadDocumentsModal({ isOpen, onClose, securityId, onDocumentsU
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <div className="modal" style={{ maxWidth: 600 }}>
-        <div className="modal-header">
-          <h2>Upload Documents</h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
+      <div className="modal">
+        <div className="modal-card" style={{ maxWidth: "650px" }}>
+          <div className="modal-header">
+            <h2>Upload Documents</h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
+          </div>
 
         <div className="modal-form">
+          {/* Security Selector - only show if no securityId passed */}
+          {!securityId && (
+            <div className="form-group mb-4">
+              <label className="form-label">Select Security *</label>
+              <select 
+                className="form-input" 
+                value={selectedSecurityId}
+                onChange={(e) => setSelectedSecurityId(e.target.value)}
+              >
+                <option value="">-- Select a Security --</option>
+                {securities.map((sec) => (
+                  <option key={sec.id} value={sec.id}>
+                    {sec.holderName} - {sec.type} ({sec.shares} shares)
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Upload Files (PDF, Images, etc.)
@@ -127,7 +164,7 @@ export function UploadDocumentsModal({ isOpen, onClose, securityId, onDocumentsU
             </div>
           )}
 
-          {security.documents && security.documents.length > 0 && (
+          {security?.documents && security.documents.length > 0 && (
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
                 Existing Documents ({security.documents.length})
@@ -172,6 +209,7 @@ export function UploadDocumentsModal({ isOpen, onClose, securityId, onDocumentsU
               {isAdding ? "Uploading..." : "Upload Documents"}
             </button>
           </div>
+        </div>
         </div>
       </div>
     </>

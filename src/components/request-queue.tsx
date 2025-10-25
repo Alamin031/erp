@@ -33,12 +33,12 @@ export function RequestQueue({ onRequestClick }: RequestQueueProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-base font-semibold text-foreground">Request Queue</h2>
+      <h2 style={{ fontSize: "16px", fontWeight: "600", color: "var(--foreground)" }}>Request Queue</h2>
       
-      <div className="flex flex-col gap-2 max-h-[600px] overflow-y-auto">
+      <div className="flex flex-col gap-3 max-h-[600px] overflow-y-auto" style={{ padding: "2px" }}>
         {queue.length === 0 ? (
-          <div className="p-6 text-center bg-background border border-dashed border-border rounded-lg">
-            <p className="text-secondary text-sm">No pending requests</p>
+          <div style={{ padding: "24px", textAlign: "center", background: "var(--background)", border: "2px dashed var(--border)", borderRadius: "8px" }}>
+            <p style={{ color: "var(--secondary)", fontSize: "14px" }}>No pending requests</p>
           </div>
         ) : (
           queue.map((request) => {
@@ -49,25 +49,37 @@ export function RequestQueue({ onRequestClick }: RequestQueueProps) {
               <button
                 key={request.id}
                 onClick={() => handleClick(request.id)}
-                className={`p-3 rounded-lg border border-border cursor-pointer transition-all hover:border-primary hover:shadow-md ${colors.bg}`}
+                style={{
+                  padding: "12px",
+                  borderRadius: "8px",
+                  border: "1px solid var(--border)",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  background: "var(--card-bg)",
+                  textAlign: "left",
+                  width: "100%"
+                }}
+                className="hover:border-primary hover:shadow-md"
                 title={request.notes}
               >
-                <div className="flex items-start gap-2">
-                  <div className="text-lg">{icon}</div>
-                  <div className="text-left flex-1 min-w-0">
+                <div className="flex items-start gap-3">
+                  <div style={{ fontSize: "20px" }}>{icon}</div>
+                  <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="font-semibold text-sm text-foreground">{request.id}</span>
-                      <span className="text-xs px-2 py-1 bg-white rounded font-medium">{colors.icon} {request.priority}</span>
+                      <span style={{ fontWeight: "600", fontSize: "13px", color: "var(--foreground)" }}>{request.id}</span>
+                      <span style={{ fontSize: "11px", padding: "3px 8px", background: "var(--background)", borderRadius: "4px", fontWeight: "600", color: "var(--foreground)" }}>
+                        {colors.icon} {request.priority}
+                      </span>
                     </div>
-                    <p className="text-xs text-secondary">
+                    <p style={{ fontSize: "12px", color: "var(--secondary)", marginTop: "4px" }}>
                       {request.guestName} - Room {request.roomNumber}
                     </p>
-                    <p className="text-xs text-secondary mt-1">{request.serviceType}</p>
+                    <p style={{ fontSize: "12px", color: "var(--foreground)", marginTop: "4px", fontWeight: "500" }}>{request.serviceType}</p>
                   </div>
                 </div>
                 {request.assignedStaffIds.length > 0 && (
-                  <div className="mt-2 pt-2 border-t border-white/50">
-                    <span className="text-xs bg-white px-2 py-1 rounded">
+                  <div style={{ marginTop: "8px", paddingTop: "8px", borderTop: "1px solid var(--border)" }}>
+                    <span style={{ fontSize: "11px", background: "var(--background)", padding: "3px 8px", borderRadius: "4px", color: "var(--foreground)", fontWeight: "500" }}>
                       ✓ Assigned
                     </span>
                   </div>

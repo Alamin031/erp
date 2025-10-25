@@ -68,146 +68,155 @@ export function NewRequestModal({ isOpen, onClose }: NewRequestModalProps) {
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <div className="modal">
-        <div className="modal-header">
-          <h2>Create New Service Request</h2>
-          <button className="modal-close" onClick={onClose} title="Close modal">
-            ✕
-          </button>
+      <div className="modal" style={{ zIndex: 1001 }}>
+        <div className="modal-card" style={{ maxWidth: "750px", maxHeight: "90vh", overflowY: "auto" }}>
+          <div className="modal-header">
+            <h2>Create New Service Request</h2>
+            <button className="modal-close" onClick={onClose} title="Close modal">
+              ✕
+            </button>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmitForm)} className="modal-form">
+            {/* Guest Name and Room Number */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Guest Name *</label>
+                <input
+                  type="text"
+                  placeholder="Enter guest name"
+                  {...register("guestName")}
+                  className="form-input"
+                />
+                {errors.guestName && (
+                  <p className="form-error">{errors.guestName.message}</p>
+                )}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Room Number *</label>
+                <input
+                  type="text"
+                  placeholder="e.g., 205"
+                  {...register("roomNumber")}
+                  className="form-input"
+                />
+                {errors.roomNumber && (
+                  <p className="form-error">{errors.roomNumber.message}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Service Type and Priority */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Service Type *</label>
+                <select
+                  {...register("serviceType")}
+                  className="form-input"
+                >
+                  <option value="Room Service">Room Service</option>
+                  <option value="Housekeeping Request">Housekeeping Request</option>
+                  <option value="Maintenance">Maintenance</option>
+                  <option value="Wake-up Call">Wake-up Call</option>
+                  <option value="Laundry">Laundry</option>
+                  <option value="Other">Other</option>
+                </select>
+                {errors.serviceType && (
+                  <p className="form-error">{errors.serviceType.message}</p>
+                )}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Priority *</label>
+                <select
+                  {...register("priority")}
+                  className="form-input"
+                >
+                  <option value="Low">Low</option>
+                  <option value="Normal">Normal</option>
+                  <option value="High">High</option>
+                  <option value="Urgent">Urgent</option>
+                </select>
+                {errors.priority && (
+                  <p className="form-error">{errors.priority.message}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Expected Time and Assign Staff */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Expected Time (Optional)</label>
+                <input
+                  type="datetime-local"
+                  {...register("eta")}
+                  className="form-input"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Assign Staff (Optional)</label>
+                <select
+                  multiple
+                  {...register("assignedStaffIds")}
+                  className="form-input"
+                  style={{ minHeight: "80px" }}
+                >
+                  {staff.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.name} {!s.isAvailable ? "(Busy)" : ""}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Notes & Details */}
+            <div className="form-group">
+              <label className="form-label">Notes & Details *</label>
+              <textarea
+                placeholder="Describe the service request in detail..."
+                {...register("notes")}
+                className="form-input"
+                rows={3}
+                style={{ resize: "vertical", minHeight: "80px" }}
+              />
+              {errors.notes && (
+                <p className="form-error">{errors.notes.message}</p>
+              )}
+            </div>
+
+            {/* Attachment URL */}
+            <div className="form-group">
+              <label className="form-label">Attachment URL (Optional)</label>
+              <input
+                type="url"
+                placeholder="https://example.com/image.jpg"
+                {...register("attachmentUrl")}
+                className="form-input"
+              />
+              {errors.attachmentUrl && (
+                <p className="form-error">{errors.attachmentUrl.message}</p>
+              )}
+            </div>
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                onClick={onClose}
+                className="btn btn-secondary"
+                disabled={isSubmitting}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Creating..." : "Create Request"}
+              </button>
+            </div>
+          </form>
         </div>
-
-        <form onSubmit={handleSubmit(onSubmitForm)} className="modal-form">
-          <div className="form-row">
-            <div>
-              <label className="form-label">Guest Name *</label>
-              <input
-                type="text"
-                placeholder="Enter guest name"
-                {...register("guestName")}
-                className="form-input w-full"
-              />
-              {errors.guestName && (
-                <p className="form-error">{errors.guestName.message}</p>
-              )}
-            </div>
-            <div>
-              <label className="form-label">Room Number *</label>
-              <input
-                type="text"
-                placeholder="e.g., 205"
-                {...register("roomNumber")}
-                className="form-input w-full"
-              />
-              {errors.roomNumber && (
-                <p className="form-error">{errors.roomNumber.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div>
-              <label className="form-label">Service Type *</label>
-              <select
-                {...register("serviceType")}
-                className="form-input w-full"
-              >
-                <option value="Room Service">Room Service</option>
-                <option value="Housekeeping Request">Housekeeping Request</option>
-                <option value="Maintenance">Maintenance</option>
-                <option value="Wake-up Call">Wake-up Call</option>
-                <option value="Laundry">Laundry</option>
-                <option value="Other">Other</option>
-              </select>
-              {errors.serviceType && (
-                <p className="form-error">{errors.serviceType.message}</p>
-              )}
-            </div>
-            <div>
-              <label className="form-label">Priority *</label>
-              <select
-                {...register("priority")}
-                className="form-input w-full"
-              >
-                <option value="Low">Low</option>
-                <option value="Normal">Normal</option>
-                <option value="High">High</option>
-                <option value="Urgent">Urgent</option>
-              </select>
-              {errors.priority && (
-                <p className="form-error">{errors.priority.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div>
-              <label className="form-label">Expected Time (Optional)</label>
-              <input
-                type="datetime-local"
-                {...register("eta")}
-                className="form-input w-full"
-              />
-            </div>
-            <div>
-              <label className="form-label">Assign Staff (Optional)</label>
-              <select
-                multiple
-                {...register("assignedStaffIds")}
-                className="form-input w-full"
-                size={3}
-              >
-                {staff.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.name} {!s.isAvailable ? "(Busy)" : ""}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label className="form-label">Notes & Details *</label>
-            <textarea
-              placeholder="Describe the service request in detail..."
-              {...register("notes")}
-              className="form-textarea w-full"
-            />
-            {errors.notes && (
-              <p className="form-error">{errors.notes.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label className="form-label">Attachment URL (Optional)</label>
-            <input
-              type="url"
-              placeholder="https://example.com/image.jpg"
-              {...register("attachmentUrl")}
-              className="form-input w-full"
-            />
-            {errors.attachmentUrl && (
-              <p className="form-error">{errors.attachmentUrl.message}</p>
-            )}
-          </div>
-
-          <div className="modal-actions">
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-secondary"
-              disabled={isSubmitting}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Creating..." : "Create Request"}
-            </button>
-          </div>
-        </form>
       </div>
     </>
   );

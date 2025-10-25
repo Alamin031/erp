@@ -15,6 +15,7 @@ import { QuickActions } from "@/components/quick-actions";
 import { RoomLegend } from "@/components/room-legend";
 import { PaginationControls } from "@/components/pagination-controls";
 import { RoomDetailsModal } from "@/components/room-details-modal";
+import { MaintenanceTaskModal } from "@/components/maintenance-task-modal";
 import { useToast } from "@/components/toast";
 
 export function HousekeepingRoomsPageClient() {
@@ -31,6 +32,7 @@ export function HousekeepingRoomsPageClient() {
 
   const [activeFloor, setActiveFloor] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMaintenanceModalOpen, setIsMaintenanceModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const { showToast } = useToast();
@@ -98,7 +100,28 @@ export function HousekeepingRoomsPageClient() {
   };
 
   const handleAddTask = () => {
-    showToast("Add maintenance task feature coming soon", "info");
+    setIsMaintenanceModalOpen(true);
+  };
+
+  const handleMaintenanceSubmit = (data: any) => {
+    const room = rooms.find(r => r.roomNumber === data.roomNumber);
+    if (room) {
+      const updatedRooms = rooms.map(r =>
+        r.id === room.id
+          ? {
+              ...r,
+              status: "Under Maintenance" as const,
+              maintenanceStatus: {
+                issue: data.issue,
+                assignedTo: data.assignedTo || "Unassigned",
+                eta: data.eta ? new Date(data.eta).toLocaleString() : undefined,
+                status: "Pending" as const,
+              },
+            }
+          : r
+      );
+      setRooms(updatedRooms);
+    }
   };
 
   return (
@@ -184,6 +207,13 @@ export function HousekeepingRoomsPageClient() {
         }}
         room={selectedRoom}
         onRefresh={handleRefresh}
+      />
+
+      <MaintenanceTaskModal
+        isOpen={isMaintenanceModalOpen}
+        onClose={() => setIsMaintenanceModalOpen(false)}
+        rooms={rooms}
+        onSubmit={handleMaintenanceSubmit}
       />
     </>
   );

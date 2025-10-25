@@ -65,55 +65,58 @@ export function NewStockOptionModal({ isOpen, onClose }: { isOpen: boolean; onCl
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      <div className="modal" style={{ maxWidth: 600 }}>
-        <div className="modal-header">
-          <h2>Grant Stock Options</h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
-          </button>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
-          <div className="form-row">
-            <div>
-              <label className="form-label">Employee Name *</label>
-              <input className="form-input" {...register("employeeName")} placeholder="Full name" />
-              {errors.employeeName && <p className="form-error">{errors.employeeName.message}</p>}
-            </div>
+      <div className="modal">
+        <div className="modal-card" style={{ maxWidth: "650px" }}>
+          <div className="modal-header">
+            <h2>Grant Stock Options</h2>
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
+          {/* Employee Name */}
+          <div className="form-group">
+            <label className="form-label">Employee Name *</label>
+            <input className="form-input" {...register("employeeName")} placeholder="Full name" />
+            {errors.employeeName && <p className="form-error">{errors.employeeName.message}</p>}
           </div>
 
+          {/* Quantity and Strike Price */}
           <div className="form-row">
-            <div>
+            <div className="form-group">
               <label className="form-label">Quantity *</label>
               <input className="form-input" type="number" {...register("quantity")} placeholder="0" />
               {errors.quantity && <p className="form-error">{errors.quantity.message}</p>}
             </div>
-            <div>
+            <div className="form-group">
               <label className="form-label">Strike Price *</label>
               <input className="form-input" type="number" step="0.01" {...register("strikePrice")} placeholder="0.00" />
               {errors.strikePrice && <p className="form-error">{errors.strikePrice.message}</p>}
             </div>
           </div>
 
+          {/* Grant Date and Vesting Period */}
           <div className="form-row">
-            <div>
+            <div className="form-group">
               <label className="form-label">Grant Date *</label>
               <input className="form-input" type="date" {...register("grantDate")} />
               {errors.grantDate && <p className="form-error">{errors.grantDate.message}</p>}
             </div>
-            <div>
+            <div className="form-group">
               <label className="form-label">Vesting Period (months) *</label>
               <input className="form-input" type="number" {...register("vestingPeriod")} placeholder="48" />
               {errors.vestingPeriod && <p className="form-error">{errors.vestingPeriod.message}</p>}
             </div>
           </div>
 
+          {/* Expiry Date and Status */}
           <div className="form-row">
-            <div>
+            <div className="form-group">
               <label className="form-label">Expiry Date *</label>
               <input className="form-input" type="date" {...register("expiryDate")} />
               {errors.expiryDate && <p className="form-error">{errors.expiryDate.message}</p>}
             </div>
-            <div>
+            <div className="form-group">
               <label className="form-label">Status</label>
               <select className="form-input" {...register("status")}>
                 <option value="Active">Active</option>
@@ -132,7 +135,8 @@ export function NewStockOptionModal({ isOpen, onClose }: { isOpen: boolean; onCl
               {isSubmitting ? "Granting..." : "Grant Options"}
             </button>
           </div>
-        </form>
+          </form>
+        </div>
       </div>
     </>
   );

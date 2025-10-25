@@ -21,6 +21,7 @@ export default function ReservationsPage() {
   const [roomTypeFilter, setRoomTypeFilter] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedReservation, setSelectedReservation] = useState<Reservation | null>(null);
+  const [editingReservation, setEditingReservation] = useState<Reservation | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { toasts, showToast, removeToast } = useToast();
 
@@ -78,17 +79,33 @@ export default function ReservationsPage() {
     return filtered;
   }, [reservations, activeTab, searchQuery, dateFrom, dateTo, statusFilter, roomTypeFilter]);
 
-  const handleAddReservation = (data: ReservationFormInput) => {
-    const newReservation: Reservation = {
-      id: String(reservations.length + 1),
-      bookingId: `BK-${String(reservations.length + 1).padStart(3, "0")}`,
-      ...data,
-      status: "Pending" as const,
-      paymentStatus: "Pending" as const,
-      createdAt: new Date().toISOString().split("T")[0],
-    };
+  const handleAddReservation = (data: ReservationFormInput, id?: string) => {
+    if (id) {
+      // Update existing reservation
+      setReservations(
+        reservations.map(res =>
+          res.id === id ? { ...res, ...data } : res
+        )
+      );
+      showToast("Reservation updated successfully", "success");
+    } else {
+      // Add new reservation
+      const newReservation: Reservation = {
+        id: String(reservations.length + 1),
+        bookingId: `BK-${String(reservations.length + 1).padStart(3, "0")}`,
+        ...data,
+        status: "Pending" as const,
+        paymentStatus: "Pending" as const,
+        createdAt: new Date().toISOString().split("T")[0],
+      };
+      setReservations([...reservations, newReservation]);
+      showToast("Reservation added successfully", "success");
+    }
+  };
 
-    setReservations([...reservations, newReservation]);
+  const handleEditReservation = (reservation: Reservation) => {
+    setEditingReservation(reservation);
+    setIsFormOpen(true);
   };
 
   const handleDeleteReservation = (id: string) => {
@@ -142,7 +159,10 @@ export default function ReservationsPage() {
               <p className="dashboard-subtitle">Manage room reservations and bookings</p>
             </div>
             <button
-              onClick={() => setIsFormOpen(true)}
+              onClick={() => {
+                setEditingReservation(null);
+                setIsFormOpen(true);
+              }}
               className="btn btn-primary"
             >
               + Add New Reservation
@@ -312,10 +332,7 @@ export default function ReservationsPage() {
                             {reservation.status !== "Cancelled" && (
                               <>
                                 <button
-                                  onClick={() => {
-                                    setSelectedReservation(reservation);
-                                    setIsDetailsOpen(true);
-                              }}
+                                  onClick={() => handleEditReservation(reservation)}
                                   className="action-btn"
                                   title="Edit"
                                 >
@@ -349,8 +366,12 @@ export default function ReservationsPage() {
 
       <ReservationForm
         isOpen={isFormOpen}
-        onClose={() => setIsFormOpen(false)}
+        onClose={() => {
+          setIsFormOpen(false);
+          setEditingReservation(null);
+        }}
         onSubmit={handleAddReservation}
+        reservation={editingReservation}
       />
 
       <ReservationDetails

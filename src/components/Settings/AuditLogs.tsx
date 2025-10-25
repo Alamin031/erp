@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { useSettings } from "@/store/useSettings";
 import { motion } from "framer-motion";
-import { Search, Download, Filter } from "lucide-react";
+import { Search, Download, Filter, Calendar, User, Activity } from "lucide-react";
+
 
 export function AuditLogs() {
   const { auditLogs, fetchAuditLogs } = useSettings();

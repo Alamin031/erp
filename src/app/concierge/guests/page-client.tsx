@@ -31,7 +31,7 @@ export function GuestsPageClient() {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editingGuest, setEditingGuest] = useState<Guest | null>(null);
   const [pagination, setPagination] = useState({ page: 1, pageSize: 10 });
-  const { toasts, removeToast } = useToast();
+  const { toasts, removeToast, showToast } = useToast();
 
   useEffect(() => {
     if (guests.length === 0) {
@@ -113,33 +113,39 @@ export function GuestsPageClient() {
             </div>
           </div>
           <FiltersBarGuests />
-          <QuickActionsGuests onAddGuest={() => setIsAddOpen(true)} />
+          <QuickActionsGuests 
+            onAddGuest={() => setIsAddOpen(true)}
+            onShowToast={showToast}
+          />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            {viewMode === "table" ? (
-              <GuestsTable
-                guests={filteredGuests}
-                onViewClick={handleView}
-                onEditClick={handleEdit}
-                pagination={pagination}
-                onPaginationChange={(page, pageSize) => setPagination({ page, pageSize })}
-              />
+        {viewMode === "table" ? (
+          <div className="dashboard-section">
+            <GuestsTable
+              guests={filteredGuests}
+              onViewClick={handleView}
+              onEditClick={handleEdit}
+              pagination={pagination}
+              onPaginationChange={(page, pageSize) => setPagination({ page, pageSize })}
+            />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            {gridGuestsForPage.length === 0 ? (
+              <div className="text-center text-secondary py-8">No guests found</div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {gridGuestsForPage.length === 0 ? (
-                  <div className="text-center text-secondary py-8">No guests found</div>
-                ) : (
-                  gridGuestsForPage.map((g) => (
-                    <GuestCard key={g.id} guest={g} onClick={() => handleView(g.id)} />
-                  ))
-                )}
-              </div>
+              gridGuestsForPage.map((g) => (
+                <GuestCard key={g.id} guest={g} onClick={() => handleView(g.id)} />
+              ))
             )}
           </div>
-          <div className="dashboard-section flex flex-col gap-6">
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="dashboard-section">
             <GuestStatsCards />
+          </div>
+          <div className="dashboard-section">
             <ActivityLogGuests />
           </div>
         </div>
@@ -147,7 +153,12 @@ export function GuestsPageClient() {
 
       <AddGuestModal isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} />
       <EditGuestModal isOpen={!!editingGuest} onClose={() => setEditingGuest(null)} guest={editingGuest} />
-      <GuestProfileDrawer guest={selectedGuest} isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
+      <GuestProfileDrawer 
+        guest={selectedGuest} 
+        isOpen={isProfileOpen} 
+        onClose={() => setIsProfileOpen(false)}
+        onShowToast={showToast}
+      />
 
       <ToastContainer toasts={toasts} removeToast={removeToast} />
     </>

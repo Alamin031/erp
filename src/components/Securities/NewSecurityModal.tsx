@@ -85,7 +85,7 @@ export function NewSecurityModal({ isOpen, onClose, security }: { isOpen: boolea
     <>
       <div className="modal-overlay" onClick={onClose} />
       <div className="modal">
-        <div className="modal-card" style={{ maxWidth: 600 }}>
+        <div className="modal-card" style={{ maxWidth: "650px" }}>
           <div className="modal-header">
             <h2>{security ? "Edit Security" : "Issue New Security"}</h2>
             <button className="modal-close" onClick={onClose}>
@@ -93,66 +93,85 @@ export function NewSecurityModal({ isOpen, onClose, security }: { isOpen: boolea
             </button>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
-          <div className="form-row">
-            <div>
+            {/* Shareholder Name */}
+            <div className="form-group">
               <label className="form-label">Shareholder Name *</label>
-              <input className="form-input" {...register("holderName")} placeholder="e.g., John Smith (Founder)" />
+              <input 
+                className="form-input" 
+                {...register("holderName")} 
+                placeholder="Employee Stock Plan - Vesting" 
+              />
               {errors.holderName && <p className="form-error">{errors.holderName.message}</p>}
             </div>
-          </div>
 
-          <div className="form-row">
-            <div>
-              <label className="form-label">Type *</label>
-              <select className="form-input" {...register("type")}>
-                <option value="Common">Common</option>
-                <option value="Preferred">Preferred</option>
-                <option value="Convertible Note">Convertible Note</option>
-              </select>
-              {errors.type && <p className="form-error">{errors.type.message}</p>}
+            {/* Type and Shares Quantity */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Type *</label>
+                <select className="form-input" {...register("type")}>
+                  <option value="Common">Common</option>
+                  <option value="Preferred">Preferred</option>
+                  <option value="Convertible Note">Convertible Note</option>
+                </select>
+                {errors.type && <p className="form-error">{errors.type.message}</p>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Shares Quantity *</label>
+                <input 
+                  className="form-input" 
+                  type="number" 
+                  {...register("shares", { valueAsNumber: true })} 
+                  placeholder="200000" 
+                />
+                {errors.shares && <p className="form-error">{errors.shares.message}</p>}
+              </div>
             </div>
-          </div>
 
-          <div className="form-row">
-            <div>
-              <label className="form-label">Shares Quantity *</label>
-              <input className="form-input" type="number" {...register("shares")} placeholder="0" />
-              {errors.shares && <p className="form-error">{errors.shares.message}</p>}
+            {/* Valuation and Issue Date */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Valuation (per share) *</label>
+                <input 
+                  className="form-input" 
+                  type="number" 
+                  step="0.01" 
+                  {...register("value", { valueAsNumber: true })} 
+                  placeholder="1.5" 
+                />
+                {errors.value && <p className="form-error">{errors.value.message}</p>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Issue Date *</label>
+                <input 
+                  className="form-input" 
+                  type="date" 
+                  {...register("issueDate")} 
+                />
+                {errors.issueDate && <p className="form-error">{errors.issueDate.message}</p>}
+              </div>
             </div>
-            <div>
-              <label className="form-label">Valuation (per share) *</label>
-              <input className="form-input" type="number" step="0.01" {...register("value")} placeholder="0.00" />
-              {errors.value && <p className="form-error">{errors.value.message}</p>}
-            </div>
-          </div>
 
-          <div className="form-row">
-            <div>
-              <label className="form-label">Issue Date *</label>
-              <input className="form-input" type="date" {...register("issueDate")} />
-              {errors.issueDate && <p className="form-error">{errors.issueDate.message}</p>}
-            </div>
-            <div>
+            {/* Status */}
+            <div className="form-group">
               <label className="form-label">Status</label>
               <select className="form-input" {...register("status")}>
+                <option value="Vested">Vested</option>
                 <option value="Issued">Issued</option>
                 <option value="Active">Active</option>
-                <option value="Vested">Vested</option>
                 <option value="Transferred">Transferred</option>
                 <option value="Cancelled">Cancelled</option>
               </select>
             </div>
-          </div>
 
-          <div className="modal-actions">
-            <button type="button" onClick={onClose} className="btn btn-secondary">
-              Cancel
-            </button>
-            <button type="submit" disabled={isSubmitting} className="btn btn-primary">
-              {isSubmitting ? (security ? "Updating..." : "Adding...") : security ? "Update Security" : "Add Security"}
-            </button>
-          </div>
-        </form>
+            <div className="modal-actions">
+              <button type="button" onClick={onClose} className="btn btn-secondary" disabled={isSubmitting}>
+                Cancel
+              </button>
+              <button type="submit" disabled={isSubmitting} className="btn btn-primary">
+                {isSubmitting ? (security ? "Updating..." : "Adding...") : security ? "Update Security" : "Add Security"}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </>

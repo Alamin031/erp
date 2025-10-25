@@ -162,8 +162,16 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
   return (
     <div className="flex flex-col gap-4">
       {selected.size > 0 && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center justify-between">
-          <span className="text-blue-900 font-medium">{selected.size} selected</span>
+        <div style={{ 
+          background: 'rgba(74, 158, 255, 0.1)', 
+          border: '1px solid rgba(74, 158, 255, 0.3)', 
+          borderRadius: '8px', 
+          padding: '16px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <span style={{ color: 'var(--primary)', fontWeight: '600' }}>{selected.size} selected</span>
           <div className="flex gap-2">
             <button
               onClick={exportCSV}
@@ -180,10 +188,10 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
           </div>
         </div>
       )}
-      <div className="table-container border rounded-lg overflow-x-auto">
+      <div className="table-container" style={{ border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
         <table className="reservations-table w-full">
           <thead>
-            <tr className="border-b bg-gray-50">
+            <tr style={{ borderBottom: '1px solid var(--border)', background: 'var(--card-bg)' }}>
               <th style={{ width: 30 }} className="px-4 py-3">
                 <input
                   type="checkbox"
@@ -193,13 +201,16 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                   className="cursor-pointer"
                 />
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-700">ID</th>
+              <th scope="col" className="px-4 py-3 text-left text-sm font-semibold" style={{ color: 'var(--secondary)' }}>ID</th>
               <th
                 scope="col"
                 role="button"
                 tabIndex={0}
                 aria-sort={ariaSort("date")}
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
+                className="px-4 py-3 text-left text-sm font-semibold cursor-pointer"
+                style={{ color: 'var(--secondary)' }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'var(--sidebar-hover)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 onClick={() =>
                   setSort({
                     field: "date",
@@ -225,7 +236,10 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                 role="button"
                 tabIndex={0}
                 aria-sort={ariaSort("type")}
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
+                className="px-4 py-3 text-left text-sm font-semibold cursor-pointer"
+                style={{ color: 'var(--secondary)' }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'var(--sidebar-hover)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 onClick={() =>
                   setSort({
                     field: "type",
@@ -251,7 +265,10 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                 role="button"
                 tabIndex={0}
                 aria-sort={ariaSort("entity")}
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
+                className="px-4 py-3 text-left text-sm font-semibold cursor-pointer"
+                style={{ color: 'var(--secondary)' }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'var(--sidebar-hover)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 onClick={() =>
                   setSort({
                     field: "entity",
@@ -277,7 +294,10 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                 role="button"
                 tabIndex={0}
                 aria-sort={ariaSort("quantity")}
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
+                className="px-4 py-3 text-left text-sm font-semibold cursor-pointer"
+                style={{ color: 'var(--secondary)' }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'var(--sidebar-hover)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 onClick={() =>
                   setSort({
                     field: "quantity",
@@ -303,7 +323,10 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                 role="button"
                 tabIndex={0}
                 aria-sort={ariaSort("totalAmount")}
-                className="px-4 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
+                className="px-4 py-3 text-left text-sm font-semibold cursor-pointer"
+                style={{ color: 'var(--secondary)' }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'var(--sidebar-hover)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 onClick={() =>
                   setSort({
                     field: "totalAmount",
@@ -324,20 +347,23 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                   Total Amount {sort.field === "totalAmount" && <ChevronDown size={16} />}
                 </div>
               </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Actions</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold" style={{ color: 'var(--secondary)' }}>Status</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold" style={{ color: 'var(--secondary)' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {sorted.length === 0 ? (
               <tr>
-                <td colSpan={9} className="px-4 py-8 text-center text-gray-500">
+                <td colSpan={9} className="px-4 py-8 text-center" style={{ color: 'var(--secondary)' }}>
                   No transactions found
                 </td>
               </tr>
             ) : (
               sorted.map((txn) => (
-                <tr key={txn.id} className="border-b hover:bg-gray-50">
+                <tr key={txn.id} style={{ borderBottom: '1px solid var(--border)' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = 'var(--sidebar-hover)'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
                   <td className="px-4 py-3">
                     <input
                       type="checkbox"
@@ -347,8 +373,8 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                       className="cursor-pointer"
                     />
                   </td>
-                  <td className="px-4 py-3 text-sm font-medium text-gray-900">{txn.id}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{txn.date}</td>
+                  <td className="px-4 py-3 text-sm font-medium" style={{ color: 'var(--foreground)' }}>{txn.id}</td>
+                  <td className="px-4 py-3 text-sm" style={{ color: 'var(--secondary)' }}>{txn.date}</td>
                   <td className="px-4 py-3 text-sm">
                     <span
                       className={`inline-flex items-center justify-center h-6 min-w-[84px] px-3 rounded-full text-xs font-medium ${
@@ -358,9 +384,9 @@ export function TransactionsTable({ items, onView, onEdit, onDelete }: Props) {
                       {txn.type}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{txn.entity}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{txn.quantity.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700 font-medium">
+                  <td className="px-4 py-3 text-sm" style={{ color: 'var(--secondary)' }}>{txn.entity}</td>
+                  <td className="px-4 py-3 text-sm" style={{ color: 'var(--secondary)' }}>{txn.quantity.toLocaleString()}</td>
+                  <td className="px-4 py-3 text-sm font-medium" style={{ color: 'var(--foreground)' }}>
                     ${txn.totalAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
                   </td>
                   <td className="px-4 py-3 text-sm">

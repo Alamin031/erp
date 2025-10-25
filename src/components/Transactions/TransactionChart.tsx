@@ -44,9 +44,19 @@ export function TransactionChart() {
 
   return (
     <div
-      style={{ padding: 16, height: "100%", boxSizing: "border-box", background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 8 }}
+      style={{ 
+        padding: 16, 
+        height: "360px", 
+        maxHeight: "360px",
+        boxSizing: "border-box", 
+        background: "var(--card-bg)", 
+        border: "1px solid var(--border)", 
+        borderRadius: 8,
+        display: "flex",
+        flexDirection: "column"
+      }}
     >
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-4" style={{ flexShrink: 0 }}>
         <h3 style={{ color: "var(--foreground)" }} className="text-lg font-semibold">
           Transaction Analysis
         </h3>
@@ -79,11 +89,11 @@ export function TransactionChart() {
       {activeChart === "byType" && (
         <>
           {transactionsByType.length === 0 ? (
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center" style={{ flex: 1 }}>
               <p style={{ color: "var(--secondary)" }}>No transaction data available</p>
             </div>
           ) : (
-            <div style={{ height: "calc(100% - 48px)", width: "100%" }}>
+            <div style={{ flex: 1, width: "100%", minHeight: 0 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={transactionsByType} margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
@@ -101,11 +111,11 @@ export function TransactionChart() {
       {activeChart === "monthly" && (
         <>
           {monthlyData.length === 0 ? (
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center" style={{ flex: 1 }}>
               <p style={{ color: "var(--secondary)" }}>No monthly data available</p>
             </div>
           ) : (
-            <div style={{ height: "calc(100% - 48px)", width: "100%" }}>
+            <div style={{ flex: 1, width: "100%", minHeight: 0 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={monthlyData} margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />

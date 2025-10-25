@@ -155,21 +155,18 @@ export function GuestServices({ initialRequests = [], initialStaff = [] }: Guest
         <FiltersBarServices />
       </div>
 
-      {/* Main 3-Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left: Request Queue */}
-        <div className="dashboard-section">
-          <RequestQueue onRequestClick={handleQueueClick} />
-        </div>
+      {/* Service Request Table - Full Width */}
+      <div className="dashboard-section">
+        <ServiceRequestTable
+          requests={visibleRequests}
+          onViewClick={handleViewRequest}
+          onAssignClick={handleAssignClick}
+        />
+      </div>
 
-        {/* Center: Service Request Table */}
-        <div className="lg:col-span-2">
-          <ServiceRequestTable
-            requests={visibleRequests}
-            onViewClick={handleViewRequest}
-            onAssignClick={handleAssignClick}
-          />
-        </div>
+      {/* Request Queue Below Table */}
+      <div className="dashboard-section">
+        <RequestQueue onRequestClick={handleQueueClick} />
       </div>
 
       {/* Right Panel: Staff + Stats + Activity */}
@@ -177,7 +174,7 @@ export function GuestServices({ initialRequests = [], initialStaff = [] }: Guest
         <div className="lg:col-span-2" />
         <div className="dashboard-section flex flex-col gap-6">
           <div>
-            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">Staff Panel</h3>
+            <h3 style={{ fontSize: "14px", fontWeight: "600", color: "var(--foreground)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "16px" }}>Staff Panel</h3>
             <RequestStatsCards />
           </div>
           <div>
@@ -207,12 +204,14 @@ export function GuestServices({ initialRequests = [], initialStaff = [] }: Guest
         onAssignClick={() => {
           if (selectedRequestId) {
             setSelectedRequestIdForModal(selectedRequestId);
+            setSelectedRequestId(null); // Close drawer
             setIsAssignStaffModalOpen(true);
           }
         }}
         onAddNoteClick={() => {
           if (selectedRequestId) {
             setSelectedRequestIdForModal(selectedRequestId);
+            setSelectedRequestId(null); // Close drawer
             setIsAddNoteModalOpen(true);
           }
         }}

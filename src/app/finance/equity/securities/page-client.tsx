@@ -14,6 +14,7 @@ import { NewSecurityModal } from "@/components/Securities/NewSecurityModal";
 import { NewStockOptionModal } from "@/components/Securities/NewStockOptionModal";
 import { NewEquityAwardModal } from "@/components/Securities/NewEquityAwardModal";
 import { UploadDocumentsModal } from "@/components/Securities/UploadDocumentsModal";
+import { useToast } from "@/components/toast";
 import { Security } from "@/types/securities";
 import { Plus, Download, Upload } from "lucide-react";
 
@@ -29,6 +30,8 @@ export function SecuritiesPageClient() {
     setSelectedSecurityId,
     selectedSecurityId,
   } = useSecurities();
+  
+  const { showToast } = useToast();
 
   const [activeTab, setActiveTab] = useState<TabType>("securities");
   const [isNewSecurityModalOpen, setIsNewSecurityModalOpen] = useState(false);
@@ -86,6 +89,71 @@ export function SecuritiesPageClient() {
   const handleUploadDocuments = (id: string) => {
     setSelectedSecurityId(id);
     setIsUploadModalOpen(true);
+  };
+
+  const handleExport = () => {
+    try {
+      // Get current active tab data
+      let dataToExport: any[] = [];
+      let filename = "";
+      
+      if (activeTab === "securities") {
+        dataToExport = filteredSecurities.map(s => ({
+          "Holder Name": s.holderName,
+          "Type": s.type,
+          "Shares": s.shares,
+          "Value per Share": s.value,
+          "Total Value": s.shares * s.value,
+          "Issue Date": s.issueDate,
+          "Status": s.status
+        }));
+        filename = "securities";
+      } else if (activeTab === "options") {
+        dataToExport = stockOptions.map(o => ({
+          "Employee Name": o.employeeName,
+          "Quantity": o.quantity,
+          "Strike Price": o.strikePrice,
+          "Grant Date": o.grantDate,
+          "Vesting Period": o.vestingPeriod,
+          "Expiry Date": o.expiryDate,
+          "Status": o.status
+        }));
+        filename = "stock-options";
+      } else if (activeTab === "awards") {
+        dataToExport = equityAwards.map(a => ({
+          "Employee Name": a.employeeName,
+          "Award Type": a.awardType,
+          "Quantity": a.quantity,
+          "Vesting Date": a.vestingDate,
+          "Status": a.status
+        }));
+        filename = "equity-awards";
+      }
+
+      // Convert to CSV
+      const headers = Object.keys(dataToExport[0] || {}).join(",");
+      const rows = dataToExport.map(row => 
+        Object.values(row).map(val => 
+          typeof val === "string" && val.includes(",") ? `"${val}"` : val
+        ).join(",")
+      );
+      const csv = [headers, ...rows].join("\n");
+
+      // Download CSV
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${filename}-${new Date().toISOString().split("T")[0]}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+      showToast("Data exported successfully", "success");
+    } catch (error) {
+      showToast("Failed to export data", "error");
+    }
   };
 
   return (
@@ -229,6 +297,7 @@ export function SecuritiesPageClient() {
             Upload Docs
           </button>
           <button
+            onClick={handleExport}
             style={{
               display: "flex",
               alignItems: "center",
@@ -379,8 +448,11 @@ export function SecuritiesPageClient() {
       />
       <UploadDocumentsModal
         isOpen={isUploadModalOpen}
-        onClose={() => setIsUploadModalOpen(false)}
-        securityId={selectedSecurityId || ""}
+        onClose={() => {
+          setIsUploadModalOpen(false);
+          setSelectedSecurityId(undefined);
+        }}
+        securityId={selectedSecurityId}
       />
     </div>
   );

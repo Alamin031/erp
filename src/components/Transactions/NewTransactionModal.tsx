@@ -115,41 +115,50 @@ export function NewTransactionModal({
   return (
     <>
       <div className="modal-overlay" onClick={onClose} />
-      {/* fixed centered wrapper; inner .modal-card holds the visual content */}
       <div className="modal">
-        <div className="modal-card" style={{ maxWidth: 700 }}>
+        <div className="modal-card" style={{ maxWidth: "700px" }}>
           <div className="modal-header">
-            <h2>Record New Transaction</h2>
+            <h2>{transaction ? "Edit Transaction" : "Record New Transaction"}</h2>
             <button className="modal-close" onClick={onClose}>
               ✕
             </button>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
-          <div className="form-row">
-            <div>
-              <label className="form-label">Transaction Type *</label>
-              <select className="form-input" {...register("type")}>
-                <option value="Issuance">Issuance</option>
-                <option value="Exercise">Exercise</option>
-                <option value="Transfer">Transfer</option>
-                <option value="Cancellation">Cancellation</option>
-                <option value="Conversion">Conversion</option>
-              </select>
-              {errors.type && (
-                <p className="form-error">{errors.type.message}</p>
-              )}
+            {/* Transaction Type and Entity */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Transaction Type *</label>
+                <select className="form-input" {...register("type")}>
+                  <option value="Issuance">Issuance</option>
+                  <option value="Exercise">Exercise</option>
+                  <option value="Transfer">Transfer</option>
+                  <option value="Cancellation">Cancellation</option>
+                  <option value="Conversion">Conversion</option>
+                </select>
+                {errors.type && (
+                  <p className="form-error">{errors.type.message}</p>
+                )}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Security Type *</label>
+                <select className="form-input" {...register("securityType")}>
+                  <option value="Common">Common</option>
+                  <option value="Preferred">Preferred</option>
+                  <option value="Option">Option</option>
+                </select>
+                {errors.securityType && (
+                  <p className="form-error">{errors.securityType.message}</p>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className="form-row">
-            <div>
-              <label className="form-label">
-                Entity (Shareholder/Employee) *
-              </label>
+            {/* Entity */}
+            <div className="form-group">
+              <label className="form-label">Entity (Shareholder/Employee) *</label>
               <input
                 className="form-input"
                 {...register("entity")}
-                placeholder="e.g., John Smith, TechVentures Fund"
+                placeholder="Departed Employee"
                 list="shareholders"
               />
               <datalist id="shareholders">
@@ -161,109 +170,120 @@ export function NewTransactionModal({
                 <p className="form-error">{errors.entity.message}</p>
               )}
             </div>
-          </div>
 
-          <div className="form-row">
-            <div>
-              <label className="form-label">Security Type *</label>
-              <select className="form-input" {...register("securityType")}>
-                <option value="Common">Common</option>
-                <option value="Preferred">Preferred</option>
-                <option value="Option">Option</option>
-              </select>
-              {errors.securityType && (
-                <p className="form-error">{errors.securityType.message}</p>
-              )}
+            {/* Quantity and Unit Price */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Quantity *</label>
+                <input
+                  className="form-input"
+                  type="number"
+                  {...register("quantity")}
+                  placeholder="2000"
+                />
+                {errors.quantity && (
+                  <p className="form-error">{errors.quantity.message}</p>
+                )}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Unit Price / Value *</label>
+                <input
+                  className="form-input"
+                  type="number"
+                  step="0.01"
+                  {...register("unitPrice")}
+                  placeholder="1.5"
+                />
+                {errors.unitPrice && (
+                  <p className="form-error">{errors.unitPrice.message}</p>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className="form-row">
-            <div>
-              <label className="form-label">Quantity *</label>
-              <input
-                className="form-input"
-                type="number"
-                {...register("quantity")}
-                placeholder="0"
-              />
-              {errors.quantity && (
-                <p className="form-error">{errors.quantity.message}</p>
-              )}
+            {/* Total Amount Display */}
+            <div className="form-group">
+              <div style={{ 
+                background: 'rgba(74, 158, 255, 0.1)', 
+                border: '1px solid rgba(74, 158, 255, 0.3)', 
+                borderRadius: '8px', 
+                padding: '16px',
+                textAlign: 'center'
+              }}>
+                <p style={{ 
+                  fontSize: '12px', 
+                  color: 'var(--secondary)', 
+                  fontWeight: '600', 
+                  margin: 0,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>
+                  Total Amount (Auto-Calculated)
+                </p>
+                <p style={{ 
+                  fontSize: '28px', 
+                  fontWeight: '700', 
+                  color: 'var(--primary)', 
+                  margin: '8px 0 0 0',
+                  fontFamily: 'monospace'
+                }}>
+                  ${totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </p>
+              </div>
             </div>
-            <div>
-              <label className="form-label">Unit Price / Value *</label>
-              <input
-                className="form-input"
-                type="number"
-                step="0.01"
-                {...register("unitPrice")}
-                placeholder="0.00"
-              />
-              {errors.unitPrice && (
-                <p className="form-error">{errors.unitPrice.message}</p>
-              )}
-            </div>
-          </div>
 
-          <div className="form-row">
-            <div style={{ background: 'var(--background)', border: '1px solid var(--border)', borderRadius: 6, padding: 12 }}>
-              <p style={{ fontSize: '12px', color: 'var(--secondary)', fontWeight: 600, margin: 0 }}>
-                Total Amount (Auto-Calculated)
-              </p>
-              <p style={{ fontSize: '20px', fontWeight: 700, color: 'var(--primary)', margin: '8px 0 0 0' }}>
-                ${totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-              </p>
+            {/* Transaction Date and Status */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Transaction Date *</label>
+                <input className="form-input" type="date" {...register("date")} />
+                {errors.date && (
+                  <p className="form-error">{errors.date.message}</p>
+                )}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Status</label>
+                <select className="form-input" {...register("status")}>
+                  <option value="Draft">Draft</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Rejected">Rejected</option>
+                  <option value="Executed">Executed</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div className="form-row">
-            <div>
-              <label className="form-label">Transaction Date *</label>
-              <input className="form-input" type="date" {...register("date")} />
-              {errors.date && (
-                <p className="form-error">{errors.date.message}</p>
-              )}
-            </div>
-            <div>
-              <label className="form-label">Status</label>
-              <select className="form-input" {...register("status")}>
-                <option value="Draft">Draft</option>
-                <option value="Pending">Pending</option>
-                <option value="Approved">Approved</option>
-                <option value="Rejected">Rejected</option>
-                <option value="Executed">Executed</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div>
+            {/* Notes / Description */}
+            <div className="form-group">
               <label className="form-label">Notes / Description</label>
               <textarea
                 className="form-input"
                 {...register("notes")}
-                placeholder="Add any relevant notes about this transaction"
+                placeholder="Unvested options cancelled upon termination"
                 rows={3}
+                style={{ resize: 'vertical', minHeight: '80px' }}
               />
             </div>
-          </div>
 
-          <div className="modal-actions">
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-secondary"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="btn btn-primary"
-            >
-              {isSubmitting ? "Creating..." : "Create Transaction"}
-            </button>
-          </div>
+            <div className="modal-actions">
+              <button
+                type="button"
+                onClick={onClose}
+                className="btn btn-secondary"
+                disabled={isSubmitting}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn btn-primary"
+              >
+                {isSubmitting 
+                  ? (transaction ? "Updating..." : "Creating...") 
+                  : (transaction ? "Update Transaction" : "Create Transaction")
+                }
+              </button>
+            </div>
           </form>
         </div>
       </div>

@@ -3,23 +3,45 @@
 import { useEffect, useMemo, useState } from "react";
 import { useWorkOrders } from "@/store/useWorkOrders";
 
-export function WorkOrderDetailsDrawer({ id, isOpen, onClose, onAssign }: { id: string | null; isOpen: boolean; onClose: ()=>void; onAssign: ()=>void }) {
+export function WorkOrderDetailsDrawer({ id, isOpen, onClose, onAssign, onShowToast }: { id: string | null; isOpen: boolean; onClose: ()=>void; onAssign: ()=>void; onShowToast?: (message: string, type: "success" | "error" | "info") => void }) {
   const { workOrders, addComment, startWorkOrder, completeWorkOrder } = useWorkOrders();
   const [comment, setComment] = useState("");
   const item = useMemo(()=> workOrders.find(w=>w.id===id) || null, [workOrders, id]);
 
-  useEffect(()=>{ if (!isOpen) setComment(""); }, [isOpen]);
-  if (!isOpen || !item) return null;
-
   const dueInfo = useMemo(() => {
-    if (!item.dueAt) return { text: "No SLA", color: "var(--secondary)" };
+    if (!item?.dueAt) return { text: "No SLA", color: "var(--secondary)" };
     const now = Date.now();
     const due = new Date(item.dueAt).getTime();
     const diff = due - now;
     if (diff < 0) return { text: `Overdue by ${Math.ceil(Math.abs(diff)/60000)}m`, color: "var(--danger)" };
     if (diff < 60*60*1000) return { text: `${Math.ceil(diff/60000)}m remaining`, color: "var(--warning)" };
     return { text: `${Math.ceil(diff/3600000)}h remaining`, color: "var(--success)" };
-  }, [item.dueAt]);
+  }, [item?.dueAt]);
+
+  useEffect(()=>{ if (!isOpen) setComment(""); }, [isOpen]);
+
+  const showToast = (message: string, type: "success" | "error" | "info" = "info") => {
+    if (onShowToast) {
+      onShowToast(message, type);
+    }
+  };
+
+  const handleStart = () => {
+    if (item) {
+      startWorkOrder(item.id);
+      showToast("Work order started", "success");
+    }
+  };
+
+  const handleComplete = () => {
+    if (item) {
+      completeWorkOrder(item.id);
+      showToast("Work order completed", "success");
+      onClose();
+    }
+  };
+
+  if (!isOpen || !item) return null;
 
   const submitComment = () => {
     if (!comment.trim()) return;
@@ -94,10 +116,10 @@ export function WorkOrderDetailsDrawer({ id, isOpen, onClose, onAssign }: { id: 
             <div className="flex gap-2">
               <button className="btn btn-secondary" onClick={onAssign}>Assign</button>
               {item.status !== "In Progress" && item.status !== "Completed" && (
-                <button className="btn btn-secondary" onClick={()=>startWorkOrder(item.id)}>Start</button>
+                <button className="btn btn-secondary" onClick={handleStart}>Start</button>
               )}
               {item.status !== "Completed" && (
-                <button className="btn btn-primary" onClick={()=>completeWorkOrder(item.id)}>Complete</button>
+                <button className="btn btn-primary" onClick={handleComplete}>Complete</button>
               )}
             </div>
           </div>

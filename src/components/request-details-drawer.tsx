@@ -12,11 +12,11 @@ interface RequestDetailsDrawerProps {
   onAddNoteClick: () => void;
 }
 
-const statusColors: Record<string, string> = {
-  Open: "bg-yellow-100 text-yellow-800",
-  "In Progress": "bg-blue-100 text-blue-800",
-  Resolved: "bg-green-100 text-green-800",
-  Cancelled: "bg-gray-100 text-gray-800",
+const statusColors: Record<string, { bg: string; text: string; border: string }> = {
+  Open: { bg: "rgba(245, 158, 11, 0.1)", text: "#f59e0b", border: "rgba(245, 158, 11, 0.3)" },
+  "In Progress": { bg: "rgba(59, 130, 246, 0.1)", text: "#3b82f6", border: "rgba(59, 130, 246, 0.3)" },
+  Resolved: { bg: "rgba(34, 197, 94, 0.1)", text: "#22c55e", border: "rgba(34, 197, 94, 0.3)" },
+  Cancelled: { bg: "rgba(156, 163, 175, 0.1)", text: "#9ca3af", border: "rgba(156, 163, 175, 0.3)" },
 };
 
 const priorityColors: Record<string, string> = {
@@ -75,120 +75,138 @@ export function RequestDetailsDrawer({
         <div className="slide-over-overlay" onClick={onClose} />
       )}
       <div className="slide-over">
-        <div className="slide-over-header">
+        <div className="slide-over-header" style={{ background: "var(--card-bg)", borderBottom: "2px solid var(--border)" }}>
           <div>
-            <h2>{request.id}</h2>
-            <p className="text-sm text-secondary mt-1">{request.serviceType}</p>
+            <h2 style={{ fontSize: "20px", fontWeight: "700", color: "var(--foreground)", marginBottom: "4px" }}>{request.id}</h2>
+            <p style={{ fontSize: "13px", color: "var(--secondary)" }}>{request.serviceType}</p>
           </div>
           <button className="slide-over-close" onClick={onClose} title="Close drawer">
             ✕
           </button>
         </div>
 
-        <div className="slide-over-content">
+        <div className="slide-over-content" style={{ padding: "24px" }}>
           {/* Status Section */}
-          <div className="details-section">
-            <h3 className="details-title">Status</h3>
-            <div className="flex gap-2 items-center">
-              <span className={`px-3 py-1 rounded-full text-sm font-semibold ${statusColors[request.status]}`}>
+          <div style={{ marginBottom: "24px", padding: "16px", background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+            <h3 style={{ fontSize: "13px", fontWeight: "600", color: "var(--foreground)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "12px" }}>Status</h3>
+            <div className="flex gap-3 items-center">
+              <span style={{ 
+                padding: "6px 14px", 
+                borderRadius: "6px", 
+                fontSize: "13px", 
+                fontWeight: "600",
+                background: statusColors[request.status].bg,
+                color: statusColors[request.status].text,
+                border: `1px solid ${statusColors[request.status].border}`
+              }}>
                 {request.status}
               </span>
-              <span className="text-xl">{priorityColors[request.priority]}</span>
+              <span style={{ fontSize: "24px" }}>{priorityColors[request.priority]}</span>
+              <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--foreground)" }}>{request.priority}</span>
             </div>
           </div>
 
           {/* Guest Information */}
-          <div className="details-section">
-            <h3 className="details-title">Guest Information</h3>
-            <div className="details-grid">
-              <div className="detail-item">
-                <span className="detail-label">Guest Name</span>
-                <span className="detail-value">{request.guestName}</span>
+          <div style={{ marginBottom: "24px", padding: "16px", background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+            <h3 style={{ fontSize: "13px", fontWeight: "600", color: "var(--foreground)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "12px" }}>Guest Information</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
+              <div>
+                <span style={{ display: "block", fontSize: "11px", color: "var(--secondary)", marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Guest Name</span>
+                <span style={{ display: "block", fontSize: "14px", fontWeight: "600", color: "var(--foreground)" }}>{request.guestName}</span>
               </div>
-              <div className="detail-item">
-                <span className="detail-label">Room Number</span>
-                <span className="detail-value">{request.roomNumber}</span>
+              <div>
+                <span style={{ display: "block", fontSize: "11px", color: "var(--secondary)", marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Room Number</span>
+                <span style={{ display: "block", fontSize: "14px", fontWeight: "600", color: "var(--foreground)" }}>{request.roomNumber}</span>
               </div>
             </div>
           </div>
 
           {/* Request Details */}
-          <div className="details-section">
-            <h3 className="details-title">Request Details</h3>
-            <div className="details-grid">
-              <div className="detail-item">
-                <span className="detail-label">Service Type</span>
-                <span className="detail-value">{request.serviceType}</span>
+          <div style={{ marginBottom: "24px", padding: "16px", background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+            <h3 style={{ fontSize: "13px", fontWeight: "600", color: "var(--foreground)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "12px" }}>Request Details</h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+              <div>
+                <span style={{ display: "block", fontSize: "11px", color: "var(--secondary)", marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Service Type</span>
+                <span style={{ display: "block", fontSize: "13px", fontWeight: "500", color: "var(--foreground)" }}>{request.serviceType}</span>
               </div>
-              <div className="detail-item">
-                <span className="detail-label">Priority</span>
+              <div>
+                <span style={{ display: "block", fontSize: "11px", color: "var(--secondary)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Priority</span>
                 <div className="flex gap-2">
                   {(["Low", "Normal", "High", "Urgent"] as Priority[]).map((p) => (
                     <button
                       key={p}
                       onClick={() => handlePriorityChange(p)}
-                      className={`px-2 py-1 text-xs rounded cursor-pointer transition ${
-                        request.priority === p
-                          ? "bg-primary text-white"
-                          : "bg-background border border-border hover:border-primary"
-                      }`}
+                      style={{
+                        padding: "6px 12px",
+                        fontSize: "12px",
+                        fontWeight: "600",
+                        borderRadius: "6px",
+                        cursor: "pointer",
+                        transition: "all 0.2s",
+                        background: request.priority === p ? "var(--primary)" : "var(--card-bg)",
+                        color: request.priority === p ? "white" : "var(--foreground)",
+                        border: request.priority === p ? "none" : "1px solid var(--border)"
+                      }}
+                      className={request.priority === p ? "" : "hover:border-primary"}
                     >
                       {p}
                     </button>
                   ))}
                 </div>
               </div>
-              <div className="detail-item">
-                <span className="detail-label">Requested At</span>
-                <span className="detail-value text-xs">{formatDate(request.requestedAt)}</span>
+              <div>
+                <span style={{ display: "block", fontSize: "11px", color: "var(--secondary)", marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Requested At</span>
+                <span style={{ display: "block", fontSize: "12px", color: "var(--foreground)" }}>{formatDate(request.requestedAt)}</span>
               </div>
               {request.eta && (
-                <div className="detail-item">
-                  <span className="detail-label">Expected Time</span>
-                  <span className="detail-value text-xs">{formatDate(request.eta)}</span>
+                <div>
+                  <span style={{ display: "block", fontSize: "11px", color: "var(--secondary)", marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Expected Time</span>
+                  <span style={{ display: "block", fontSize: "12px", color: "var(--foreground)" }}>{formatDate(request.eta)}</span>
                 </div>
               )}
               {request.completedAt && (
-                <div className="detail-item">
-                  <span className="detail-label">Completed At</span>
-                  <span className="detail-value text-xs">{formatDate(request.completedAt)}</span>
+                <div>
+                  <span style={{ display: "block", fontSize: "11px", color: "var(--secondary)", marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Completed At</span>
+                  <span style={{ display: "block", fontSize: "12px", color: "var(--foreground)" }}>{formatDate(request.completedAt)}</span>
                 </div>
               )}
             </div>
           </div>
 
           {/* Assignment */}
-          <div className="details-section">
-            <h3 className="details-title">Assignment</h3>
-            <div className="bg-background p-3 rounded-lg">
+          <div style={{ marginBottom: "24px", padding: "16px", background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+            <h3 style={{ fontSize: "13px", fontWeight: "600", color: "var(--foreground)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "12px" }}>Assignment</h3>
+            <div style={{ padding: "12px", background: "var(--card-bg)", borderRadius: "6px", border: "1px solid var(--border)" }}>
               {assignedStaffNames ? (
-                <p className="text-sm text-foreground">{assignedStaffNames}</p>
+                <p style={{ fontSize: "13px", color: "var(--foreground)", fontWeight: "500" }}>👤 {assignedStaffNames}</p>
               ) : (
-                <p className="text-sm text-secondary italic">Not assigned</p>
+                <p style={{ fontSize: "13px", color: "var(--secondary)", fontStyle: "italic" }}>Not assigned</p>
               )}
             </div>
           </div>
 
           {/* Notes */}
-          <div className="details-section">
-            <h3 className="details-title">Notes</h3>
-            <div className="details-notes">{request.notes}</div>
+          <div style={{ marginBottom: "24px", padding: "16px", background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+            <h3 style={{ fontSize: "13px", fontWeight: "600", color: "var(--foreground)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "12px" }}>Notes</h3>
+            <div style={{ padding: "12px", background: "var(--card-bg)", borderRadius: "6px", border: "1px solid var(--border)", fontSize: "13px", color: "var(--foreground)", lineHeight: "1.6" }}>
+              {request.notes}
+            </div>
           </div>
 
           {/* Activity Timeline */}
-          <div className="details-section">
-            <h3 className="details-title">Activity Timeline</h3>
-            <div className="flex flex-col gap-2">
+          <div style={{ marginBottom: "24px", padding: "16px", background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+            <h3 style={{ fontSize: "13px", fontWeight: "600", color: "var(--foreground)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "12px" }}>Activity Timeline</h3>
+            <div className="flex flex-col gap-3">
               {request.activityLog.map((log) => (
-                <div key={log.id} className="flex gap-3 p-2 bg-background rounded-lg">
-                  <div className="text-2xl">📝</div>
+                <div key={log.id} className="flex gap-3" style={{ padding: "10px", background: "var(--card-bg)", borderRadius: "6px", border: "1px solid var(--border)" }}>
+                  <div style={{ fontSize: "20px" }}>📝</div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-semibold text-foreground capitalize">
+                    <p style={{ fontSize: "12px", fontWeight: "600", color: "var(--foreground)", textTransform: "capitalize", marginBottom: "2px" }}>
                       {log.action.replace(/_/g, " ")}
                     </p>
-                    <p className="text-xs text-secondary">{new Date(log.timestamp).toLocaleString()}</p>
+                    <p style={{ fontSize: "11px", color: "var(--secondary)" }}>{new Date(log.timestamp).toLocaleString()}</p>
                     {log.details && (
-                      <p className="text-xs text-foreground mt-1">{log.details}</p>
+                      <p style={{ fontSize: "12px", color: "var(--foreground)", marginTop: "6px" }}>{log.details}</p>
                     )}
                   </div>
                 </div>
@@ -197,12 +215,13 @@ export function RequestDetailsDrawer({
           </div>
         </div>
 
-        <div className="slide-over-actions">
+        <div className="slide-over-actions" style={{ padding: "20px", background: "var(--card-bg)", borderTop: "2px solid var(--border)", display: "flex", flexDirection: "column", gap: "10px" }}>
           {request.status === "Open" && (
             <>
               <button
                 onClick={onAssignClick}
                 className="btn btn-primary"
+                style={{ width: "100%" }}
               >
                 👤 Assign Staff
               </button>
@@ -210,6 +229,7 @@ export function RequestDetailsDrawer({
                 <button
                   onClick={handleStartRequest}
                   className="btn btn-primary"
+                  style={{ width: "100%" }}
                 >
                   ▶️ Start Request
                 </button>
@@ -221,22 +241,24 @@ export function RequestDetailsDrawer({
             <button
               onClick={() => setIsResolvingPrompt(true)}
               className="btn btn-primary"
+              style={{ width: "100%" }}
             >
               ✓ Resolve Request
             </button>
           )}
 
           {isResolvingPrompt && (
-            <div className="border-t border-border pt-4">
-              <label className="form-label">Resolution Notes (Optional)</label>
+            <div style={{ borderTop: "1px solid var(--border)", paddingTop: "16px", marginTop: "8px" }}>
+              <label className="form-label" style={{ marginBottom: "8px" }}>Resolution Notes (Optional)</label>
               <textarea
                 value={resolutionNote}
                 onChange={(e) => setResolutionNote(e.target.value)}
                 placeholder="Describe how the request was resolved..."
-                className="form-textarea w-full text-sm"
+                className="form-input"
                 rows={3}
+                style={{ width: "100%", fontSize: "13px", resize: "vertical", minHeight: "80px" }}
               />
-              <div className="flex gap-2 mt-2">
+              <div className="flex gap-2 mt-3">
                 <button
                   onClick={() => setIsResolvingPrompt(false)}
                   className="btn btn-secondary flex-1"
@@ -256,6 +278,7 @@ export function RequestDetailsDrawer({
           <button
             onClick={onAddNoteClick}
             className="btn btn-secondary"
+            style={{ width: "100%" }}
           >
             💬 Add Note
           </button>
@@ -263,6 +286,7 @@ export function RequestDetailsDrawer({
           <button
             onClick={onClose}
             className="btn btn-secondary"
+            style={{ width: "100%" }}
           >
             Close
           </button>

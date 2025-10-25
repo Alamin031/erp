@@ -196,11 +196,11 @@ export function TransactionsPageClient() {
       </div>
 
       {/* Charts and Activity */}
-          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "24px", marginTop: "24px", alignItems: "stretch" }}>
-            <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "16px", boxSizing: "border-box", minHeight: "360px", overflow: "hidden" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "24px", marginTop: "24px", alignItems: "start" }}>
+            <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "0", boxSizing: "border-box", height: "360px", overflow: "hidden" }}>
               <TransactionChart />
             </div>
-            <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "16px", boxSizing: "border-box", minHeight: "360px", overflowY: "auto" }}>
+            <div style={{ background: "var(--background)", borderRadius: "8px", border: "1px solid var(--border)", padding: "16px", boxSizing: "border-box", height: "360px", overflowY: "auto" }}>
               <TransactionActivityLog />
             </div>
           </div>
