@@ -120,5 +120,5 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/login",
   },
-  secret: process.env.NEXTAUTH_SECRET || "demo-secret-key",
+  secret: AUTH_SECRET,
 };
