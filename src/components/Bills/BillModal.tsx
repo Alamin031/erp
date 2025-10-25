@@ -90,7 +90,7 @@ export function BillModal({ open, initial, onClose, onSave }: Props) {
           <button className="modal-close" onClick={onClose}>×</button>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="modal-body" style={{ display: 'grid', gap: 12 }}>
+        <form onSubmit={handleSubmit(onSubmit)} className="modal-form" style={{ display: 'grid', gap: 12 }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <Field label="Bill Number" error={errors.billNumber?.message}>
               <input {...register("billNumber")} type="text" className="form-input" />
@@ -128,7 +128,7 @@ export function BillModal({ open, initial, onClose, onSave }: Props) {
             <textarea {...register("notes")} className="form-input" rows={3} />
           </Field>
 
-          <div className="modal-footer">
+          <div className="modal-actions">
             <button type="button" className="btn btn-secondary" onClick={onClose}>Cancel</button>
             <button type="submit" className="btn btn-primary">Save</button>
           </div>
