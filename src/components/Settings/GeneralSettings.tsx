@@ -53,105 +53,116 @@ export function GeneralSettings() {
         </p>
       </div>
 
-      <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-lg p-6 space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="form-group">
-            <label className="form-label">System Name</label>
-            <input
-              type="text"
-              name="systemName"
-              value={formData.systemName}
-              onChange={handleChange}
-              className="form-input"
-              placeholder="Enter system name"
-            />
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Default Language</label>
-            <select
-              name="defaultLanguage"
-              value={formData.defaultLanguage}
-              onChange={handleChange}
-              className="form-input"
-            >
-              <option value="en">English</option>
-              <option value="es">Spanish</option>
-              <option value="fr">French</option>
-              <option value="de">German</option>
-              <option value="zh">Chinese</option>
-              <option value="ja">Japanese</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Time Zone</label>
-            <select
-              name="timeZone"
-              value={formData.timeZone}
-              onChange={handleChange}
-              className="form-input"
-            >
-              <option value="UTC">UTC</option>
-              <option value="EST">Eastern Time (EST)</option>
-              <option value="CST">Central Time (CST)</option>
-              <option value="MST">Mountain Time (MST)</option>
-              <option value="PST">Pacific Time (PST)</option>
-              <option value="GMT">GMT</option>
-              <option value="IST">India Standard Time (IST)</option>
-              <option value="AEST">Australian Eastern Time (AEST)</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Currency</label>
-            <select
-              name="currency"
-              value={formData.currency}
-              onChange={handleChange}
-              className="form-input"
-            >
-              <option value="USD">USD ($)</option>
-              <option value="EUR">EUR (€)</option>
-              <option value="GBP">GBP (£)</option>
-              <option value="JPY">JPY (¥)</option>
-              <option value="INR">INR (₹)</option>
-              <option value="AUD">AUD ($)</option>
-              <option value="CAD">CAD ($)</option>
-              <option value="CHF">CHF (₣)</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Date Format</label>
-            <select
-              name="dateFormat"
-              value={formData.dateFormat}
-              onChange={handleChange}
-              className="form-input"
-            >
-              <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-              <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-              <option value="YYYY-MM-DD">YYYY-MM-DD</option>
-              <option value="DD-MM-YYYY">DD-MM-YYYY</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label className="form-label flex items-center gap-2">
+      <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-lg p-6 space-y-8">
+        <div>
+          <h4 className="text-lg font-semibold text-[var(--foreground)]">System Identity</h4>
+          <p className="text-sm text-[var(--secondary)] mb-4">Name and primary appearance options for your instance.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="form-group">
+              <label className="form-label">System Name</label>
               <input
-                type="checkbox"
-                name="darkModeEnabled"
-                checked={formData.darkModeEnabled}
+                type="text"
+                name="systemName"
+                value={formData.systemName}
                 onChange={handleChange}
-                className="w-4 h-4"
+                className="form-input"
+                placeholder="Enter system name"
               />
-              Enable Dark Mode
-            </label>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label flex items-center gap-2">Dark Mode</label>
+              <label className="flex items-center gap-3 p-3 rounded-md border border-[var(--border)] cursor-pointer hover:bg-[var(--sidebar-hover)]">
+                <input
+                  type="checkbox"
+                  name="darkModeEnabled"
+                  checked={formData.darkModeEnabled}
+                  onChange={handleChange}
+                  className="w-5 h-5"
+                />
+                <span className="text-sm text-[var(--secondary)]">Enable dark theme by default</span>
+              </label>
+            </div>
           </div>
         </div>
 
-        <div className="flex gap-3 pt-6 border-t border-[var(--border)]">
+        <div>
+          <h4 className="text-lg font-semibold text-[var(--foreground)]">Localization</h4>
+          <p className="text-sm text-[var(--secondary)] mb-4">Language, time and regional formats.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="form-group">
+              <label className="form-label">Default Language</label>
+              <select
+                name="defaultLanguage"
+                value={formData.defaultLanguage}
+                onChange={handleChange}
+                className="form-input"
+              >
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="zh">Chinese</option>
+                <option value="ja">Japanese</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Time Zone</label>
+              <select
+                name="timeZone"
+                value={formData.timeZone}
+                onChange={handleChange}
+                className="form-input"
+              >
+                <option value="UTC">UTC</option>
+                <option value="EST">Eastern Time (EST)</option>
+                <option value="CST">Central Time (CST)</option>
+                <option value="MST">Mountain Time (MST)</option>
+                <option value="PST">Pacific Time (PST)</option>
+                <option value="GMT">GMT</option>
+                <option value="IST">India Standard Time (IST)</option>
+                <option value="AEST">Australian Eastern Time (AEST)</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Currency</label>
+              <select
+                name="currency"
+                value={formData.currency}
+                onChange={handleChange}
+                className="form-input"
+              >
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="JPY">JPY (¥)</option>
+                <option value="INR">INR (₹)</option>
+                <option value="AUD">AUD ($)</option>
+                <option value="CAD">CAD ($)</option>
+                <option value="CHF">CHF (₣)</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Date Format</label>
+              <select
+                name="dateFormat"
+                value={formData.dateFormat}
+                onChange={handleChange}
+                className="form-input"
+              >
+                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                <option value="DD-MM-YYYY">DD-MM-YYYY</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className="sticky bottom-0 -mx-6 px-6 py-4 bg-[var(--card-bg)]/90 backdrop-blur border-t border-[var(--border)]">
           <motion.button
             onClick={handleSave}
             disabled={!isDirty || isSaving}

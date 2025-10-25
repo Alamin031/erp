@@ -1,6 +1,7 @@
 import type { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { User } from "@/types/auth";
+import { AUTH_SECRET } from "./auth-constants";
 
 // Mock user database - in production, query your actual database
 const mockUsers: Record<string, User & { password: string }> = {
@@ -120,5 +121,5 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/login",
   },
-  secret: process.env.NEXTAUTH_SECRET || "demo-secret-key",
+  secret: AUTH_SECRET,
 };
