@@ -1,0 +1,72 @@
+[
+  {
+    "id": "COM-2001",
+    "type": "email",
+    "status": "pending",
+    "subject": "Welcome and onboarding materials",
+    "summary": "Sent onboarding package to Acme",
+    "body": "Hello Nina, please find attached...",
+    "customer": { "id": "C-101", "name": "Nina Roy" },
+    "agent": { "id": "U-1", "name": "Md Al Amin" },
+    "dateTime": "2025-10-20T10:15:00Z",
+    "attachments": [],
+    "notes": [],
+    "createdAt": "2025-10-20T10:15:00Z"
+  },
+  {
+    "id": "COM-2002",
+    "type": "call",
+    "status": "resolved",
+    "subject": "Pricing call",
+    "summary": "Discussed Q4 pricing tiers",
+    "body": "Spoke to Leo about discounts",
+    "customer": { "id": "C-102", "name": "Leo Chen" },
+    "agent": { "id": "U-ME", "name": "You" },
+    "dateTime": "2025-10-21T11:00:00Z",
+    "attachments": [],
+    "notes": [{ "id": "N-1", "author": "You", "text": "Client prefers monthly billing", "createdAt": "2025-10-21T11:05:00Z" }],
+    "createdAt": "2025-10-21T11:00:00Z"
+  },
+  {
+    "id": "COM-2003",
+    "type": "meeting",
+    "status": "follow_up",
+    "subject": "Demo: BetaSoft product walkthrough",
+    "summary": "Schedule next meeting",
+    "body": "Demo covered modules A, B, C",
+    "customer": { "id": "C-103", "name": "Aisha Khan" },
+    "agent": { "id": "U-2", "name": "Alex Morgan" },
+    "dateTime": "2025-10-22T14:00:00Z",
+    "attachments": [],
+    "notes": [],
+    "createdAt": "2025-10-22T14:00:00Z"
+  },
+  {
+    "id": "COM-2004",
+    "type": "chat",
+    "status": "pending",
+    "subject": "Support chat: login issue",
+    "summary": "User couldn't login",
+    "body": "Reset password recommended",
+    "customer": { "id": "C-104", "name": "Ravi Patel" },
+    "agent": { "id": "U-3", "name": "Jordan Lee" },
+    "dateTime": "2025-10-19T09:30:00Z",
+    "attachments": [],
+    "notes": [],
+    "createdAt": "2025-10-19T09:30:00Z"
+  },
+  {
+    "id": "COM-2005",
+    "type": "email",
+    "status": "resolved",
+    "subject": "Invoice sent",
+    "summary": "Sent invoice for March",
+    "body": "Invoice #1234 attached",
+    "customer": { "id": "C-107", "name": "Priya Singh" },
+    "agent": { "id": "U-2", "name": "Alex Morgan" },
+    "dateTime": "2025-10-15T09:00:00Z",
+    "attachments": [],
+    "notes": [],
+    "createdAt": "2025-10-15T09:00:00Z"
+  }
+]
