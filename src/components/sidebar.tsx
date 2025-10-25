@@ -147,29 +147,34 @@ export function Sidebar({ role, userName }: SidebarProps) {
                     // parent with dropdown
                     return (
                       <li key={item.href} className="nav-parent">
-                        <a
-                          href={item.href}
-                          className={`nav-link ${
-                            isActive(item.href) ? "nav-link-active" : ""
-                          }`}
-                          title={item.label}
-                          role="button"
-                          aria-expanded={open}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleParent(item.href);
-                          }}
-                        >
-                          <span className="nav-icon">{Icon ? <Icon /> : null}</span>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <Link
+                            href={item.href}
+                            className={`nav-link ${
+                              isActive(item.href) ? "nav-link-active" : ""
+                            }`}
+                            title={item.label}
+                            aria-expanded={open}
+                          >
+                            <span className="nav-icon">{Icon ? <Icon /> : null}</span>
+                            {isOpen && (
+                              <span className="nav-label">{item.label}</span>
+                            )}
+                          </Link>
                           {isOpen && (
-                            <span className="nav-label">{item.label}</span>
-                          )}
-                          {isOpen && (
-                            <span className="parent-toggle">
+                            <button
+                              className="parent-toggle"
+                              aria-label={open ? `Collapse ${item.label}` : `Expand ${item.label}`}
+                              style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: 4, color: 'inherit', fontSize: 'inherit' }}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                toggleParent(item.href);
+                              }}
+                            >
                               {open ? "▾" : "▸"}
-                            </span>
+                            </button>
                           )}
-                        </a>
+                        </div>
 
                         {open && (
                           <ul className="nav-sublist">
