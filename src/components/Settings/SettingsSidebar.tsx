@@ -31,7 +31,7 @@ export function SettingsSidebar() {
                   <div className={`mt-0.5 ${active ? "text-[var(--primary)]" : "text-[var(--secondary)]"}`}>{item.icon}</div>
                   <div className="flex-1">
                     <p className="font-medium leading-5">{item.label}</p>
-                    <p className="text-xs text-[var(--secondary)] leading-4 line-clamp-1">
+                    <p className="text-xs text-[var(--secondary)] leading-4">
                       {item.description}
                     </p>
                   </div>
