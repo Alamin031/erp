@@ -45,12 +45,8 @@ export function GeneralSettings() {
       className="space-y-6"
     >
       <div>
-        <h3 className="text-xl font-semibold text-[var(--foreground)] mb-4">
-          General Settings
-        </h3>
-        <p className="text-sm text-[var(--secondary)] mb-6">
-          Configure basic system settings and preferences
-        </p>
+        <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2">General Settings</h3>
+        <p className="text-sm text-[var(--secondary)]">Configure basic system settings and preferences</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
