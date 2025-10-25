@@ -45,19 +45,17 @@ export function GeneralSettings() {
       className="space-y-6"
     >
       <div>
-        <h3 className="text-xl font-semibold text-[var(--foreground)] mb-4">
-          General Settings
-        </h3>
-        <p className="text-sm text-[var(--secondary)] mb-6">
-          Configure basic system settings and preferences
-        </p>
+        <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2">General Settings</h3>
+        <p className="text-sm text-[var(--secondary)]">Configure basic system settings and preferences</p>
       </div>
 
-      <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-xl p-8 space-y-10">
-        <div>
-          <h4 className="text-lg font-semibold text-[var(--foreground)]">System Identity</h4>
-          <p className="text-sm text-[var(--secondary)] mb-4">Name and primary appearance options for your instance.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-6">
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-6 md:p-8 shadow-sm">
+          <div className="mb-6">
+            <h4 className="text-lg font-semibold text-[var(--foreground)]">System Identity</h4>
+            <p className="text-sm text-[var(--secondary)]">Name and primary appearance options for your instance.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <div className="form-group">
               <label className="form-label">System Name</label>
               <input
@@ -71,7 +69,7 @@ export function GeneralSettings() {
             </div>
 
             <div className="form-group">
-              <label className="form-label flex items-center gap-2">Dark Mode</label>
+              <label className="form-label">Dark Mode</label>
               <label className="flex items-center gap-3 p-3 rounded-md border border-[var(--border)] cursor-pointer hover:bg-[var(--sidebar-hover)]">
                 <input
                   type="checkbox"
@@ -86,10 +84,12 @@ export function GeneralSettings() {
           </div>
         </div>
 
-        <div>
-          <h4 className="text-lg font-semibold text-[var(--foreground)]">Localization</h4>
-          <p className="text-sm text-[var(--secondary)] mb-4">Language, time and regional formats.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-6 md:p-8 shadow-sm">
+          <div className="mb-6">
+            <h4 className="text-lg font-semibold text-[var(--foreground)]">Localization</h4>
+            <p className="text-sm text-[var(--secondary)]">Language, time and regional formats.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <div className="form-group">
               <label className="form-label">Default Language</label>
               <select
@@ -162,16 +162,18 @@ export function GeneralSettings() {
           </div>
         </div>
 
-        <div className="sticky bottom-0 -mx-8 px-8 py-5 bg-[var(--card-bg)]/90 backdrop-blur border-t border-[var(--border)]">
-          <motion.button
-            onClick={handleSave}
-            disabled={!isDirty || isSaving}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-6 py-2 bg-[var(--primary)] text-white rounded-lg font-medium transition-opacity duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isSaving ? "Saving..." : "Save Changes"}
-          </motion.button>
+        <div className="sticky bottom-0 -mx-1 md:-mx-2 lg:-mx-4 bg-gradient-to-t from-[var(--background)] to-transparent pt-2">
+          <div className="flex justify-end border-t border-[var(--border)] bg-[var(--card-bg)]/80 backdrop-blur rounded-b-xl px-4 md:px-6 py-4">
+            <motion.button
+              onClick={handleSave}
+              disabled={!isDirty || isSaving}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-6 py-2 bg-[var(--primary)] text-white rounded-lg font-medium transition-opacity duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSaving ? "Saving..." : "Save Changes"}
+            </motion.button>
+          </div>
         </div>
       </div>
     </motion.div>
