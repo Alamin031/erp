@@ -35,7 +35,7 @@ export function BillDetailsDrawer({ bill, onClose, onMarkAsPaid, onDownload, onS
             <div style={{ fontSize: 12, color: "var(--secondary)" }}>Bill</div>
             <h3 style={{ margin: 0 }}>{bill.billNumber} • {bill.vendorName}</h3>
           </div>
-          <button className="close-btn" onClick={onClose}>×</button>
+          <button className="slide-over-close" onClick={onClose}>×</button>
         </div>
 
         <div className="slide-over-content" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
