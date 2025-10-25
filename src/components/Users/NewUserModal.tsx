@@ -44,6 +44,7 @@ export function NewUserModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
         lastActive: undefined,
         activeSessions: 0,
         tags: [],
+        image: undefined
       });
 
       showToast(`User ${formData.name} created successfully`, "success");
