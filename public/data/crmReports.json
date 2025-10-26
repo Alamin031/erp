@@ -89,5 +89,11 @@
       "conversionRate": 35,
       "forecastAccuracy": 82
     }
+  ],
+  "activities": [
+    { "type": "Calls", "count": 120 },
+    { "type": "Emails", "count": 200 },
+    { "type": "Meetings", "count": 45 },
+    { "type": "Follow-ups", "count": 80 }
   ]
 }

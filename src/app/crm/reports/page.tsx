@@ -11,7 +11,7 @@ export default async function CRMReportsPage() {
   }
 
   const userRole = (session.user as any).role;
-  const allowedRoles = ["super_admin"];
+  const allowedRoles = ["super_admin", "admin"];
 
   if (!allowedRoles.includes(userRole)) {
     redirect("/unauthorized");

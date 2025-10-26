@@ -48,8 +48,11 @@ export interface ReportFilters {
   department?: string;
   branch?: string;
   paymentMethod?: string;
-  agent?: string;
+  agent?: string; // legacy alias
+  salesperson?: string; // preferred name in UI
   region?: string;
+  dealStage?: string;
+  companyType?: string;
 }
 
 // add alias for compatibility with imports expecting CRMReportFilters
@@ -73,12 +76,18 @@ export interface KPIData {
   topAgent: string;
 }
 
+export interface ActivitySummary {
+  type: string; // Calls, Emails, Meetings, Follow-ups
+  count: number;
+}
+
 interface ReportsState {
   // existing data
   salesData: SalesDataPoint[];
   pipelineData: PipelineStage[];
   forecastData: ForecastDataPoint[];
   agentData: AgentPerformance[];
+  activitySummary: ActivitySummary[];
   kpiData: KPIData;
   filters: ReportFilters;
   isLoading: boolean;
@@ -97,6 +106,9 @@ interface ReportsState {
   calculateKPIs: () => void;
   exportToCSV: () => string;
   exportToPDF: () => void;
+  loadDemoData: () => Promise<void>;
+  generateReport: (type: string) => Report;
+  exportReport: (id: string, format: "csv" | "pdf") => void;
 }
 
 const defaultFilters: ReportFilters = {
@@ -122,6 +134,7 @@ export const useReports = create<ReportsState>()(
       pipelineData: [],
       forecastData: [],
       agentData: [],
+      activitySummary: [],
       kpiData: defaultKPIData,
       filters: defaultFilters,
       isLoading: false,
@@ -146,11 +159,18 @@ export const useReports = create<ReportsState>()(
         try {
           const response = await fetch("/data/crmReports.json");
           const data = await response.json();
+          const defaultActivities = [
+            { type: "Calls", count: 120 },
+            { type: "Emails", count: 200 },
+            { type: "Meetings", count: 45 },
+            { type: "Follow-ups", count: 80 },
+          ];
           set({
             salesData: data.salesData || [],
             pipelineData: data.pipelineData || [],
             forecastData: data.forecastData || [],
             agentData: data.agentData || [],
+            activitySummary: data.activities || defaultActivities,
             isLoading: false,
           });
           get().calculateKPIs();
@@ -230,14 +250,25 @@ export const useReports = create<ReportsState>()(
             if (rt === "sales" && r.type !== "Revenue") return false;
           }
 
-          // agent filter: if specified, require matching agent property on report
-          if (filters.agent && filters.agent.trim() !== "") {
-            if (!r.agent || String(r.agent) !== String(filters.agent)) return false;
+          // salesperson/agent filter
+          const who = filters.salesperson || filters.agent;
+          if (who && who.trim() !== "") {
+            if (!r.agent || String(r.agent) !== String(who)) return false;
           }
 
-          // region filter: if specified, require matching region property on report
+          // region filter
           if (filters.region && filters.region.trim() !== "") {
             if (!r.region || String(r.region) !== String(filters.region)) return false;
+          }
+
+          // deal stage filter (applies to pipeline-type reports)
+          if (filters.dealStage && filters.dealStage.trim() !== "") {
+            if (!(r.name && String(r.name) === String(filters.dealStage))) return false;
+          }
+
+          // company type filter (if report carries it)
+          if (filters.companyType && filters.companyType.trim() !== "") {
+            if (!r.companyType || String(r.companyType) !== String(filters.companyType)) return false;
           }
 
           // date range filter (only applies when report has a parsable date)
@@ -312,6 +343,41 @@ export const useReports = create<ReportsState>()(
 
       exportToPDF: () => {
         alert("PDF export would be implemented with a library like jsPDF or pdfkit");
+      },
+
+      loadDemoData: async () => {
+        await get().fetchReports();
+      },
+
+      generateReport: (type: string) => {
+        const { filters } = get();
+        const id = `rep-${Date.now()}`;
+        const report: Report = {
+          id,
+          type,
+          createdBy: filters.salesperson || filters.agent || "System",
+          date: new Date().toISOString().slice(0, 10),
+          filters: { ...filters },
+        };
+        set((state) => ({ reports: [report, ...state.reports] }));
+        return report;
+      },
+
+      exportReport: (id: string, format: "csv" | "pdf") => {
+        if (format === "csv") {
+          const csv = get().exportToCSV();
+          const blob = new Blob([csv], { type: "text/csv" });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${id}.csv`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        } else {
+          get().exportToPDF();
+        }
       },
     }),
     {
