@@ -159,11 +159,18 @@ export const useReports = create<ReportsState>()(
         try {
           const response = await fetch("/data/crmReports.json");
           const data = await response.json();
+          const defaultActivities = [
+            { type: "Calls", count: 120 },
+            { type: "Emails", count: 200 },
+            { type: "Meetings", count: 45 },
+            { type: "Follow-ups", count: 80 },
+          ];
           set({
             salesData: data.salesData || [],
             pipelineData: data.pipelineData || [],
             forecastData: data.forecastData || [],
             agentData: data.agentData || [],
+            activitySummary: data.activities || defaultActivities,
             isLoading: false,
           });
           get().calculateKPIs();
