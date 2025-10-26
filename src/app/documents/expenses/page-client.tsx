@@ -33,27 +33,46 @@ export function ExpensesPageClient() {
   const analytics = getAnalytics();
 
   return (
-    <div className="p-6 space-y-5">
-      <div>
-        <h1 className="text-2xl font-bold">Expenses</h1>
-        <p className="text-gray-500">Track employee expenses, approvals and reimbursements</p>
+    <div className="p-2 sm:p-4 md:p-6 min-h-screen bg-gray-950 text-gray-100">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-white mb-1">Expenses</h1>
+        <p className="text-gray-400">Track employee expenses, approvals and reimbursements</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        <div className="lg:col-span-3 space-y-4">
-          <ExpenseFiltersBar filters={{ query: "", status: "", dateFrom: "", dateTo: "", category: "", project: "" }} onChange={() => {}} onAdd={() => setShowForm(true)} />
+      <div className="flex flex-col lg:flex-row gap-6 w-full">
+        {/* Main content (filters, table, import/export) */}
+        <div className="flex-1 flex flex-col gap-6 min-w-0">
+          {/* Filters always visible, full width */}
+          <div className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4 mb-2 w-full">
+            <ExpenseFiltersBar filters={{ query: "", status: "", dateFrom: "", dateTo: "", category: "", project: "" }} onChange={() => {}} onAdd={() => setShowForm(true)} />
+          </div>
 
-          <ExpensesTable expenses={filterExpenses()} onView={(e)=>setViewing(e)} onEdit={(e)=>{setEditing(e); setShowForm(true);}} onDelete={(id)=>{ if (confirm('Delete?')) { deleteExpense(id); showToast('Deleted', 'success'); } }} />
+          {/* Table: full width, horizontal scroll on small screens */}
+          <div className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-0 overflow-x-auto w-full">
+            <div className="min-w-[600px] w-full">
+              <ExpensesTable expenses={filterExpenses()} onView={(e)=>setViewing(e)} onEdit={(e)=>{setEditing(e); setShowForm(true);}} onDelete={(id)=>{ if (confirm('Delete?')) { deleteExpense(id); showToast('Deleted', 'success'); } }} />
+            </div>
+          </div>
 
-          <div className="flex justify-between items-center mt-2">
-            <BulkImport onImport={(rows)=>{ showToast('Imported rows: '+rows.length, 'success'); }} />
-            <CSVExportButton items={expenses} />
+          {/* Bulk import and export: stack on mobile, row on md+ */}
+          <div className="flex flex-col md:flex-row justify-between items-stretch gap-4 mt-2 w-full">
+            <div className="flex-1 bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4">
+              <BulkImport onImport={(rows)=>{ showToast('Imported rows: '+rows.length, 'success'); }} />
+            </div>
+            <div className="flex items-end">
+              <CSVExportButton items={expenses} />
+            </div>
           </div>
         </div>
 
-        <div className="space-y-4">
-          <ApprovalsQueue onView={(e)=>setViewing(e)} />
-          <ExpenseAnalyticsChart expenses={expenses} />
+        {/* Sidebar: approvals and analytics */}
+        <div className="flex flex-col gap-6 w-full lg:w-[350px] min-w-[260px] max-w-full">
+          <div className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4">
+            <ApprovalsQueue onView={(e)=>setViewing(e)} />
+          </div>
+          <div className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4">
+            <ExpenseAnalyticsChart expenses={expenses} />
+          </div>
         </div>
       </div>
 

@@ -18,10 +18,10 @@ interface BillsTableProps {
 }
 
 const statusConfig = {
-  Paid: { color: "bg-green-100", textColor: "text-green-800", label: "Paid" },
-  Pending: { color: "bg-yellow-100", textColor: "text-yellow-800", label: "Pending" },
-  Overdue: { color: "bg-red-100", textColor: "text-red-800", label: "Overdue" },
-  Cancelled: { color: "bg-gray-100", textColor: "text-gray-800", label: "Cancelled" },
+  Paid: { color: "bg-green-900/30", textColor: "text-green-300", label: "Paid" },
+  Pending: { color: "bg-yellow-900/30", textColor: "text-yellow-200", label: "Pending" },
+  Overdue: { color: "bg-red-900/30", textColor: "text-red-300", label: "Overdue" },
+  Cancelled: { color: "bg-gray-700/50", textColor: "text-gray-300", label: "Cancelled" },
 };
 
 export function BillsTable({
@@ -72,10 +72,10 @@ export function BillsTable({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden"
+      className="bg-gray-900 rounded-2xl shadow-xl border border-gray-700 overflow-hidden"
     >
-      <div className="p-6 border-b border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">All Bills</h3>
+      <div className="p-6 border-b border-gray-700">
+        <h3 className="text-lg font-bold text-white mb-4">All Bills</h3>
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex-1 relative">
             <Search
@@ -87,13 +87,13 @@ export function BillsTable({
               placeholder="Search bill number or vendor..."
               value={searchInput}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-700 bg-gray-800 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
             />
           </div>
           <select
             value={vendorFilter}
             onChange={(e) => handleVendorChange(e.target.value)}
-            className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-700 bg-gray-800 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">All Vendors</option>
             {vendors.map((vendor) => (
@@ -105,7 +105,7 @@ export function BillsTable({
           <select
             value={statusFilter}
             onChange={(e) => handleStatusChange(e.target.value)}
-            className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-700 bg-gray-800 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">All Status</option>
             <option value="Pending">Pending</option>
@@ -117,82 +117,56 @@ export function BillsTable({
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="bg-gray-50 border-b border-gray-200">
+        <table className="w-full text-sm rounded-2xl overflow-hidden">
+          <thead className="bg-gray-800 border-b border-gray-700 sticky top-0 z-10">
             <tr>
-              <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                Bill ID
-              </th>
-              <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                Vendor
-              </th>
-              <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                Date
-              </th>
-              <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                Due Date
-              </th>
-              <th className="px-6 py-3 text-right font-semibold text-gray-700">
-                Amount
-              </th>
-              <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                Status
-              </th>
-              <th className="px-6 py-3 text-center font-semibold text-gray-700">
-                Actions
-              </th>
+              <th className="px-6 py-3 text-left font-semibold text-gray-300">Bill ID</th>
+              <th className="px-6 py-3 text-left font-semibold text-gray-300">Vendor</th>
+              <th className="px-6 py-3 text-left font-semibold text-gray-300">Date</th>
+              <th className="px-6 py-3 text-left font-semibold text-gray-300">Due Date</th>
+              <th className="px-6 py-3 text-right font-semibold text-gray-300">Amount</th>
+              <th className="px-6 py-3 text-left font-semibold text-gray-300">Status</th>
+              <th className="px-6 py-3 text-center font-semibold text-gray-300">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {paginated.map((bill) => {
+            {paginated.map((bill, idx) => {
               const config = statusConfig[bill.status as keyof typeof statusConfig];
               return (
                 <tr
                   key={bill.id}
-                  className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
+                  className={`border-b border-gray-800 transition-colors ${idx % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800/60'} hover:bg-blue-950/30`}
                 >
-                  <td className="px-6 py-4 text-gray-900 font-medium">
-                    {bill.billNumber}
-                  </td>
-                  <td className="px-6 py-4 text-gray-700">{bill.vendorName}</td>
-                  <td className="px-6 py-4 text-gray-600">
-                    {new Date(bill.billDate).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 text-gray-600">
-                    {new Date(bill.dueDate).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 text-right font-semibold text-gray-900">
-                    ${bill.amount.toLocaleString("en-US", { maximumFractionDigits: 2 })}
-                  </td>
+                  <td className="px-6 py-4 text-gray-100 font-medium">{bill.billNumber}</td>
+                  <td className="px-6 py-4 text-gray-200">{bill.vendorName}</td>
+                  <td className="px-6 py-4 text-gray-400">{new Date(bill.billDate).toLocaleDateString()}</td>
+                  <td className="px-6 py-4 text-gray-400">{new Date(bill.dueDate).toLocaleDateString()}</td>
+                  <td className="px-6 py-4 text-right font-semibold text-gray-100">${bill.amount.toLocaleString("en-US", { maximumFractionDigits: 2 })}</td>
                   <td className="px-6 py-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${config.color} ${config.textColor}`}
-                    >
-                      {config.label}
-                    </span>
+                    <span className={`px-3 py-1 rounded-full text-xs font-semibold shadow-sm ${config.color} ${config.textColor} border border-opacity-30 border-current`}>{config.label}</span>
                   </td>
                   <td className="px-6 py-4 text-center">
                     <div className="flex items-center justify-center gap-2">
                       <button
                         onClick={() => onView(bill)}
                         title="View Details"
-                        className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
+                        className="p-2 hover:bg-blue-900/40 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
-                        <Eye size={16} className="text-blue-600" />
+                        <Eye size={16} className="text-blue-400" />
                       </button>
                       <button
                         onClick={() => onEdit(bill)}
                         title="Edit"
-                        className="p-2 hover:bg-yellow-100 rounded-lg transition-colors"
+                        className="p-2 hover:bg-yellow-900/40 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400"
                       >
-                        <Edit2 size={16} className="text-yellow-600" />
+                        <Edit2 size={16} className="text-yellow-300" />
                       </button>
                       <button
                         onClick={() => onDelete(bill.id)}
                         title="Delete"
-                        className="p-2 hover:bg-red-100 rounded-lg transition-colors"
+                        className="p-2 hover:bg-red-900/40 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500"
                       >
-                        <Trash2 size={16} className="text-red-600" />
+                        <Trash2 size={16} className="text-red-400" />
                       </button>
                     </div>
                   </td>
@@ -204,18 +178,16 @@ export function BillsTable({
       </div>
 
       {filteredBills.length === 0 && (
-        <div className="text-center py-12 text-gray-500">
-          No bills found
-        </div>
+        <div className="text-center py-12 text-gray-500">No bills found</div>
       )}
 
       {filteredBills.length > 0 && (
-        <div className="flex items-center justify-between p-4 border-t border-gray-200">
-          <div className="text-sm text-gray-600">Page {page} of {totalPages}</div>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-gray-700 bg-gray-900/80">
+          <div className="text-sm text-gray-400">Page {page} of {totalPages}</div>
           <div className="flex items-center gap-2">
-            <button className="px-3 py-1 border border-gray-300 rounded" disabled={page === 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>Prev</button>
-            <button className="px-3 py-1 border border-gray-300 rounded" disabled={page === totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Next</button>
-            <select className="ml-2 px-2 py-1 border border-gray-300 rounded" value={pageSize} onChange={(e) => { setPageSize(Number(e.target.value)); setPage(1); }}>
+            <button className="px-3 py-1 border border-gray-600 text-gray-200 rounded bg-gray-800 hover:bg-gray-700 transition-colors" disabled={page === 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>Prev</button>
+            <button className="px-3 py-1 border border-gray-600 text-gray-200 rounded bg-gray-800 hover:bg-gray-700 transition-colors" disabled={page === totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Next</button>
+            <select className="ml-2 px-2 py-1 border border-gray-600 text-gray-200 rounded bg-gray-800" value={pageSize} onChange={(e) => { setPageSize(Number(e.target.value)); setPage(1); }}>
               {[10, 20, 50].map((s) => (<option key={s} value={s}>{s}/page</option>))}
             </select>
           </div>

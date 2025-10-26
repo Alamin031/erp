@@ -27,14 +27,19 @@ export function ExpensesTable({ expenses, onView, onEdit, onDelete }: Props) {
   }, [expenses, sortField, sortDir]);
 
   return (
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
-      <div className="p-4 border-b">
+  <div className="rounded-xl shadow-md border border-gray-700 bg-gray-900 overflow-hidden">
+  <div className="p-4 border-b border-gray-800 bg-gray-900">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Expenses</h3>
           <div className="flex items-center gap-2">
-            <select value={sortField} onChange={(e) => setSortField(e.target.value as any)} className="px-2 py-1 border rounded">
-              <option value="date">Date</option>
-              <option value="amount">Amount</option>
+            <select
+              value={sortField}
+              onChange={(e) => setSortField(e.target.value as any)}
+              className="px-2 py-1 border rounded bg-gray-900 text-gray-100 border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+            >
+              <option value="date" className="bg-gray-900 text-gray-100">Date</option>
+              <option value="amount" className="bg-gray-900 text-gray-100">Amount</option>
             </select>
             <button onClick={() => setSortDir((d) => (d === "asc" ? "desc" : "asc"))} className="px-2 py-1 border rounded">{sortDir}</button>
           </div>
@@ -42,8 +47,8 @@ export function ExpensesTable({ expenses, onView, onEdit, onDelete }: Props) {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="bg-gray-50">
+  <table className="w-full text-sm text-gray-100">
+          <thead className="bg-gray-800 text-gray-300">
             <tr>
               <th className="p-3 text-left">ID</th>
               <th className="p-3 text-left">Employee</th>
@@ -57,7 +62,7 @@ export function ExpensesTable({ expenses, onView, onEdit, onDelete }: Props) {
           </thead>
           <tbody>
             {sorted.map((ex) => (
-              <tr key={ex.id} className="border-b hover:bg-gray-50">
+              <tr key={ex.id} className="border-b border-gray-800 hover:bg-gray-800">
                 <td className="p-3 font-medium">{ex.id}</td>
                 <td className="p-3">{ex.submitterId}</td>
                 <td className="p-3">{ex.category}</td>
@@ -67,9 +72,9 @@ export function ExpensesTable({ expenses, onView, onEdit, onDelete }: Props) {
                 <td className="p-3">{ex.status}</td>
                 <td className="p-3 text-center">
                   <div className="flex items-center justify-center gap-2">
-                    <button onClick={() => onView(ex)} className="p-2 hover:bg-blue-50 rounded"><Eye size={16} /></button>
-                    <button onClick={() => onEdit(ex)} className="p-2 hover:bg-yellow-50 rounded"><Edit2 size={16} /></button>
-                    <button onClick={() => onDelete(ex.id)} className="p-2 hover:bg-red-50 rounded"><Trash2 size={16} /></button>
+                    <button onClick={() => onView(ex)} className="p-2 hover:bg-blue-900 rounded"><Eye size={16} /></button>
+                    <button onClick={() => onEdit(ex)} className="p-2 hover:bg-yellow-900 rounded"><Edit2 size={16} /></button>
+                    <button onClick={() => onDelete(ex.id)} className="p-2 hover:bg-red-900 rounded"><Trash2 size={16} /></button>
                   </div>
                 </td>
               </tr>
@@ -78,7 +83,7 @@ export function ExpensesTable({ expenses, onView, onEdit, onDelete }: Props) {
         </table>
       </div>
 
-      {expenses.length === 0 && <div className="p-6 text-center text-gray-500">No expenses yet. Add one to get started.</div>}
+  {expenses.length === 0 && <div className="p-6 text-center text-gray-400">No expenses yet. Add one to get started.</div>}
     </div>
   );
 }

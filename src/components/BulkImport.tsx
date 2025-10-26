@@ -29,13 +29,13 @@ export function BulkImport({ onImport }: Props) {
   };
 
   return (
-    <div className="bg-white rounded-xl p-4 border">
-      <h4 className="font-semibold">Bulk Import (CSV)</h4>
-      <input type="file" accept=".csv" onChange={handleFile} />
+    <div className="rounded-xl p-4 border border-gray-700 bg-gray-900">
+  <h4 className="font-semibold text-gray-100">Bulk Import (CSV)</h4>
+  <input type="file" accept=".csv" onChange={handleFile} className="bg-gray-900 text-gray-100 border-gray-700 rounded" />
       {preview.length > 0 && (
         <div className="mt-3">
-          <h5 className="font-medium">Preview</h5>
-          <pre className="text-xs max-h-40 overflow-auto bg-gray-50 p-2 rounded">{JSON.stringify(preview, null, 2)}</pre>
+          <h5 className="font-medium text-gray-100">Preview</h5>
+          <pre className="text-xs max-h-40 overflow-auto bg-gray-800 text-gray-100 p-2 rounded">{JSON.stringify(preview, null, 2)}</pre>
           <div className="mt-2 flex gap-2">
             <button className="btn btn-secondary" onClick={() => setPreview([])}>Clear</button>
             <button className="btn btn-primary" onClick={() => { onImport(preview); showToast("Imported", "success"); }}>Import</button>
