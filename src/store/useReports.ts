@@ -134,6 +134,7 @@ export const useReports = create<ReportsState>()(
       pipelineData: [],
       forecastData: [],
       agentData: [],
+      activitySummary: [],
       kpiData: defaultKPIData,
       filters: defaultFilters,
       isLoading: false,
