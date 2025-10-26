@@ -1,0 +1,6 @@
+[
+  {"id":"t1","date":"2025-04-12","type":"Sale","vendorId":null,"invoiceNumber":"INV-1001","amount":1500,"vatAmount":300,"category":"Room","vatCategory":"VATable","matched":false},
+  {"id":"t2","date":"2025-04-13","type":"Sale","vendorId":null,"invoiceNumber":"INV-1002","amount":900,"vatAmount":180,"category":"F&B","vatCategory":"VATable","matched":true},
+  {"id":"t3","date":"2025-04-14","type":"Purchase","vendorId":"v1","invoiceNumber":"BILL-2001","amount":700,"vatAmount":140,"category":"Supplies","vatCategory":"VATable","matched":false},
+  {"id":"t4","date":"2025-04-15","type":"Purchase","vendorId":"v2","invoiceNumber":"BILL-2002","amount":300,"vatAmount":0,"category":"Export","vatCategory":"Zero-rated","matched":false}
+]
