@@ -250,14 +250,25 @@ export const useReports = create<ReportsState>()(
             if (rt === "sales" && r.type !== "Revenue") return false;
           }
 
-          // agent filter: if specified, require matching agent property on report
-          if (filters.agent && filters.agent.trim() !== "") {
-            if (!r.agent || String(r.agent) !== String(filters.agent)) return false;
+          // salesperson/agent filter
+          const who = filters.salesperson || filters.agent;
+          if (who && who.trim() !== "") {
+            if (!r.agent || String(r.agent) !== String(who)) return false;
           }
 
-          // region filter: if specified, require matching region property on report
+          // region filter
           if (filters.region && filters.region.trim() !== "") {
             if (!r.region || String(r.region) !== String(filters.region)) return false;
+          }
+
+          // deal stage filter (applies to pipeline-type reports)
+          if (filters.dealStage && filters.dealStage.trim() !== "") {
+            if (!(r.name && String(r.name) === String(filters.dealStage))) return false;
+          }
+
+          // company type filter (if report carries it)
+          if (filters.companyType && filters.companyType.trim() !== "") {
+            if (!r.companyType || String(r.companyType) !== String(filters.companyType)) return false;
           }
 
           // date range filter (only applies when report has a parsable date)
