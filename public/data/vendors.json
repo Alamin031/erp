@@ -1,0 +1,5 @@
+[
+  { "id": "v-001", "name": "Rahman Suppliers", "email": "accounts@rahmansuppliers.com", "phone": "+8801711000001", "lastTransactionDate": "2024-10-10T00:00:00.000Z", "totalBills": 12, "totalAmount": 210000 },
+  { "id": "v-002", "name": "Dhaka Utilities", "email": "billing@dhakautilities.com", "phone": "+8801711000002", "lastTransactionDate": "2024-10-01T00:00:00.000Z", "totalBills": 10, "totalAmount": 380000 },
+  { "id": "v-003", "name": "Chittagong Foods Co.", "email": "invoices@ctgfoods.co", "phone": "+8801711000003", "lastTransactionDate": "2024-09-05T00:00:00.000Z", "totalBills": 8, "totalAmount": 92000 }
+]
