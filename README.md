@@ -34,3 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+---
+
+## VAT CSV Import Template
+
+Required columns (case-sensitive):
+
+- date (YYYY-MM-DD)
+- type (Sale | Purchase)
+- vendor (free text)
+- invoiceNumber
+- amount (number)
+- vatAmount (number)
+- vatCategory (VATable | Non-VATable | Zero-rated | Exempt)
+- category (free text)
+
+Place a CSV file matching the above headers and use the Import CSV button in the VAT page. Rows with missing required columns will be reported with errors and skipped.

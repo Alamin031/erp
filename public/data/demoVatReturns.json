@@ -1,0 +1,36 @@
+[
+  {
+    "id": "vrn-001",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-03-31",
+    "taxableSales": 120000,
+    "zeroRatedSales": 5000,
+    "exemptSales": 2000,
+    "outputVat": 24000,
+    "inputVat": 18000,
+    "adjustments": 500,
+    "credits": 0,
+    "penalties": 0,
+    "status": "Filed",
+    "attachments": [],
+    "versions": [{"id":"v1","timestamp":"2025-04-05T10:00:00Z","snapshot":{ "periodStart":"2025-01-01","periodEnd":"2025-03-31","taxableSales":120000,"zeroRatedSales":5000,"exemptSales":2000,"outputVat":24000,"inputVat":18000,"adjustments":500,"credits":0,"penalties":0 }}],
+    "activity": [{"id":"a1","at":"2025-04-05T10:00:00Z","type":"create","message":"Return created"},{"id":"a2","at":"2025-04-10T12:00:00Z","type":"filed","message":"Filed REF-001"}]
+  },
+  {
+    "id": "vrn-002",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2025-06-30",
+    "taxableSales": 100000,
+    "zeroRatedSales": 4000,
+    "exemptSales": 1500,
+    "outputVat": 20000,
+    "inputVat": 21000,
+    "adjustments": -200,
+    "credits": 0,
+    "penalties": 0,
+    "status": "Draft",
+    "attachments": [],
+    "versions": [{"id":"v1","timestamp":"2025-07-02T09:00:00Z","snapshot":{ "periodStart":"2025-04-01","periodEnd":"2025-06-30","taxableSales":100000,"zeroRatedSales":4000,"exemptSales":1500,"outputVat":20000,"inputVat":21000,"adjustments":-200,"credits":0,"penalties":0 }}],
+    "activity": [{"id":"a1","at":"2025-07-02T09:00:00Z","type":"create","message":"Return created"}]
+  }
+]
