@@ -39,38 +39,36 @@ export function ExpensesPageClient() {
         <p className="text-gray-400">Track employee expenses, approvals and reimbursements</p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 w-full">
-        {/* Main content (filters, table, import/export) */}
-        <div className="flex-1 flex flex-col gap-6 min-w-0">
-          {/* Filters always visible, full width */}
-          <div className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4 mb-2 w-full">
-            <ExpenseFiltersBar filters={{ query: "", status: "", dateFrom: "", dateTo: "", category: "", project: "" }} onChange={() => {}} onAdd={() => setShowForm(true)} />
-          </div>
 
-          {/* Table: full width, horizontal scroll on small screens */}
-          <div className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-0 overflow-x-auto w-full">
-            <div className="min-w-[600px] w-full">
-              <ExpensesTable expenses={filterExpenses()} onView={(e)=>setViewing(e)} onEdit={(e)=>{setEditing(e); setShowForm(true);}} onDelete={(id)=>{ if (confirm('Delete?')) { deleteExpense(id); showToast('Deleted', 'success'); } }} />
-            </div>
-          </div>
+      {/* Filter bar full width, above main content */}
+      <div className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4 mb-6 w-full">
+        <ExpenseFiltersBar filters={{ query: "", status: "", dateFrom: "", dateTo: "", category: "", project: "" }} onChange={() => {}} onAdd={() => setShowForm(true)} />
+      </div>
 
-          {/* Bulk import and export: stack on mobile, row on md+ */}
-          <div className="flex flex-col md:flex-row justify-between items-stretch gap-4 mt-2 w-full">
-            <div className="flex-1 bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4">
-              <BulkImport onImport={(rows)=>{ showToast('Imported rows: '+rows.length, 'success'); }} />
-            </div>
-            <div className="flex items-end">
-              <CSVExportButton items={expenses} />
-            </div>
-          </div>
+      {/* Table: full width, horizontal scroll on small screens */}
+      <div className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-0 overflow-x-auto w-full mb-6">
+        <div className="min-w-[600px] w-full">
+          <ExpensesTable expenses={filterExpenses()} onView={(e)=>setViewing(e)} onEdit={(e)=>{setEditing(e); setShowForm(true);}} onDelete={(id)=>{ if (confirm('Delete?')) { deleteExpense(id); showToast('Deleted', 'success'); } }} />
         </div>
+      </div>
 
-        {/* Sidebar: approvals and analytics */}
-        <div className="flex flex-col gap-6 w-full lg:w-[350px] min-w-[260px] max-w-full">
-          <div className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4">
+      {/* Bulk import and export: stack on mobile, row on md+ */}
+      <div className="flex flex-col md:flex-row justify-between items-stretch gap-4 mb-6 w-full">
+        <div className="flex-1 bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4">
+          <BulkImport onImport={(rows)=>{ showToast('Imported rows: '+rows.length, 'success'); }} />
+        </div>
+        <div className="flex items-end">
+          <CSVExportButton items={expenses} />
+        </div>
+      </div>
+
+      {/* Sidebar: approvals and analytics, responsive and fills row on large screens */}
+      <div className="flex flex-col lg:flex-row gap-6 w-full">
+        <div className="flex-1 flex flex-col lg:flex-row gap-6 w-full">
+          <div className="flex-1 bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4">
             <ApprovalsQueue onView={(e)=>setViewing(e)} />
           </div>
-          <div className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4">
+          <div className="flex-1 bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4">
             <ExpenseAnalyticsChart expenses={expenses} />
           </div>
         </div>
