@@ -1,0 +1,7 @@
+[
+  { "id": "c-001", "name": "Travel", "limit": 50000 },
+  { "id": "c-002", "name": "Meals", "limit": 20000 },
+  { "id": "c-003", "name": "Office Supplies" },
+  { "id": "c-004", "name": "Maintenance" },
+  { "id": "c-005", "name": "Other" }
+]

@@ -1,13 +1,15 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Bill, BillFilters, BillStatus, BillStats } from "@/types/bills";
+import { Bill, BillFilters, BillStatus, BillStats, Vendor } from "@/types/bills";
 
 interface BillsStore {
   bills: Bill[];
+  vendors: Vendor[];
   filters: BillFilters;
   selectedBill: Bill | null;
 
   setBills: (bills: Bill[]) => void;
+  setVendors: (vendors: Vendor[]) => void;
   setFilters: (filters: BillFilters) => void;
   setSelectedBill: (bill: Bill | null) => void;
 
@@ -15,6 +17,8 @@ interface BillsStore {
   updateBill: (id: string, bill: Partial<Bill>) => void;
   deleteBill: (id: string) => void;
   markAsPaid: (id: string, paymentMode: PaymentMode, referenceNumber: string) => void;
+
+  loadDemoData: () => Promise<void>;
 
   filterBills: () => Bill[];
   getBillStats: () => BillStats;
@@ -28,6 +32,7 @@ export const useBillsStore = create<BillsStore>()(
   persist(
     (set, get) => ({
       bills: [],
+      vendors: [],
       filters: {
         vendor: "",
         status: "",
@@ -38,6 +43,8 @@ export const useBillsStore = create<BillsStore>()(
       selectedBill: null,
 
       setBills: (bills) => set({ bills }),
+
+      setVendors: (vendors) => set({ vendors }),
 
       setFilters: (filters) => set({ filters }),
 
@@ -84,6 +91,20 @@ export const useBillsStore = create<BillsStore>()(
               : bill
           ),
         }));
+      },
+
+      loadDemoData: async () => {
+        try {
+          const [billsRes, vendorsRes] = await Promise.all([
+            fetch("/data/bills.json"),
+            fetch("/data/vendors.json"),
+          ]);
+          const billsData = (await billsRes.json()) as Bill[];
+          const vendorsData = (await vendorsRes.json()) as Vendor[];
+          set({ bills: billsData, vendors: vendorsData });
+        } catch (e) {
+          console.error("Failed to load demo bills/vendors", e);
+        }
       },
 
       filterBills: () => {

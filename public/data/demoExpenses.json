@@ -1,0 +1,40 @@
+[
+  {
+    "id": "exp-001",
+    "title": "Client Dinner - Rahman Corp",
+    "category": "Meals",
+    "amount": 12500,
+    "currency": "BDT",
+    "date": "2024-10-10T00:00:00.000Z",
+    "vendor": "Rahman Restaurant",
+    "project": "Proj-Alpha",
+    "billable": false,
+    "notes": "Dinner with client - sales pitch",
+    "receipts": [{ "id": "r-1", "filename": "receipt1.jpg", "size": 234512 }],
+    "submitterId": "user-002",
+    "status": "Reimbursed",
+    "approvals": [],
+    "reimbursements": [{ "method": "Bank", "reference": "TRX-1001", "date": "2024-10-12T00:00:00.000Z", "amount": 12500 }],
+    "createdAt": "2024-10-10T00:00:00.000Z",
+    "updatedAt": "2024-10-12T00:00:00.000Z"
+  },
+  {
+    "id": "exp-002",
+    "title": "Taxi to Airport",
+    "category": "Travel",
+    "amount": 850,
+    "currency": "BDT",
+    "date": "2024-10-11T00:00:00.000Z",
+    "vendor": "City Taxi",
+    "project": "",
+    "billable": true,
+    "notes": "Trip to client site",
+    "receipts": [],
+    "submitterId": "user-003",
+    "status": "Pending",
+    "approvals": [],
+    "reimbursements": [],
+    "createdAt": "2024-10-11T00:00:00.000Z",
+    "updatedAt": "2024-10-11T00:00:00.000Z"
+  }
+]

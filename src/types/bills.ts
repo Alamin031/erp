@@ -24,10 +24,20 @@ export interface Bill {
   paymentDate?: string;
   referenceNumber?: string;
   lineItems: LineItem[];
-  attachments: string[]; // File URLs or paths
+  attachments: string[];
   notes?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Vendor {
+  id: string;
+  name: string;
+  email?: string;
+  phone?: string;
+  lastTransactionDate?: string;
+  totalBills?: number;
+  totalAmount?: number;
 }
 
 export interface BillFilters {
