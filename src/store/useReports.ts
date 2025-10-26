@@ -48,8 +48,11 @@ export interface ReportFilters {
   department?: string;
   branch?: string;
   paymentMethod?: string;
-  agent?: string;
+  agent?: string; // legacy alias
+  salesperson?: string; // preferred name in UI
   region?: string;
+  dealStage?: string;
+  companyType?: string;
 }
 
 // add alias for compatibility with imports expecting CRMReportFilters
