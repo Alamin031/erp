@@ -184,7 +184,7 @@ Payment Method: ${report.paymentMethod}
 Description: ${report.description || "N/A"}
 
 Details:
-${report.details?.map((d) => `- ${d.name}: $${d.amount.toLocaleString()}`).join("\n") || "No details"}
+${report.details?.map((d: { name: string; amount: number }) => `- ${d.name}: $${d.amount.toLocaleString()}`)?.join("\n") || "No details"}
     `;
 
     const element = document.createElement("a");
@@ -279,7 +279,7 @@ ${report.details?.map((d) => `- ${d.name}: $${d.amount.toLocaleString()}`).join(
                   Amount
                 </p>
                 <p style={{ margin: 0, fontSize: "14px", fontWeight: "600", color: "var(--foreground)" }}>
-                  ${report.amount.toLocaleString()}
+                  {report.amount != null ? `$${report.amount.toLocaleString()}` : "N/A"}
                 </p>
               </div>
               <div style={{ padding: "12px", background: "var(--background)", borderRadius: "4px" }}>
@@ -287,7 +287,7 @@ ${report.details?.map((d) => `- ${d.name}: $${d.amount.toLocaleString()}`).join(
                   Date
                 </p>
                 <p style={{ margin: 0, fontSize: "14px", fontWeight: "600", color: "var(--foreground)" }}>
-                  {new Date(report.date).toLocaleDateString()}
+                  {report.date ? new Date(report.date).toLocaleDateString() : "N/A"}
                 </p>
               </div>
               <div style={{ padding: "12px", background: "var(--background)", borderRadius: "4px" }}>
@@ -331,7 +331,7 @@ ${report.details?.map((d) => `- ${d.name}: $${d.amount.toLocaleString()}`).join(
                   Breakdown
                 </p>
                 <div style={{ background: "var(--background)", borderRadius: "4px", overflow: "hidden" }}>
-                  {report.details.map((detail, index) => (
+                  {report.details.map((detail: { name: string; amount: number }, index: number) => (
                     <div
                       key={index}
                       style={{

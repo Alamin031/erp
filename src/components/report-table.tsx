@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Report } from "@/store/useReports";
+import React, { useState } from "react";
+import type { Report } from "@/store/useReports";
 
 interface ReportTableProps {
   reports: Report[];
@@ -9,8 +9,12 @@ interface ReportTableProps {
   onExport?: (report: Report) => void;
 }
 
-export function ReportTable({ reports, onViewDetails, onExport }: ReportTableProps) {
-  const [sortBy, setSortBy] = useState<keyof Report>("date");
+export function ReportTable({
+  reports,
+  onViewDetails,
+  onExport,
+}: ReportTableProps) {
+  const [sortBy, setSortBy] = useState<keyof Report>("date" as keyof Report);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -24,7 +28,13 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
     const bNull = bVal === null || bVal === undefined;
     if (aNull || bNull) {
       if (aNull && bNull) return 0;
-      return aNull ? (sortOrder === "asc" ? 1 : -1) : (sortOrder === "asc" ? -1 : 1);
+      return aNull
+        ? sortOrder === "asc"
+          ? 1
+          : -1
+        : sortOrder === "asc"
+        ? -1
+        : 1;
     }
 
     // If both are strings, compare case-insensitively.
@@ -38,7 +48,7 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
 
     // Try numeric/date comparison when possible.
     const toNumberSafe = (v: unknown) => {
-      if (typeof v === "number") return v;
+      if (typeof v === "number") return v as number;
       if (v instanceof Date) return v.getTime();
       const n = Number(v);
       return Number.isNaN(n) ? NaN : n;
@@ -60,7 +70,10 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
     return 0;
   });
 
-  const totalPages = Math.ceil(sortedReports.length / itemsPerPage);
+  const totalPages = Math.max(
+    1,
+    Math.ceil(sortedReports.length / itemsPerPage)
+  );
   const paginatedReports = sortedReports.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -93,13 +106,19 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
     );
   }
 
-  const getStatusColor = (type: string) => {
+  const getStatusColor = (type?: string) => {
     return type === "Revenue" ? "#28a745" : "#dc3545";
   };
 
-  const SortHeader = ({ label, key }: { label: string; key: keyof Report }) => (
+  const SortHeader = ({
+    label,
+    field,
+  }: {
+    label: string;
+    field: keyof Report;
+  }) => (
     <th
-      onClick={() => handleSort(key)}
+      onClick={() => handleSort(field)}
       style={{
         padding: "12px 16px",
         textAlign: "left",
@@ -119,7 +138,7 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
       }}
     >
       {label}
-      {sortBy === key && (
+      {sortBy === field && (
         <span style={{ marginLeft: "6px" }}>
           {sortOrder === "asc" ? "↑" : "↓"}
         </span>
@@ -140,13 +159,18 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
-              <tr style={{ borderBottom: "1px solid var(--border)", background: "var(--background)" }}>
-                <SortHeader label="Report ID" key="id" />
-                <SortHeader label="Date" key="date" />
-                <SortHeader label="Category" key="category" />
-                <SortHeader label="Amount" key="amount" />
-                <SortHeader label="Type" key="type" />
-                <SortHeader label="Created By" key="createdBy" />
+              <tr
+                style={{
+                  borderBottom: "1px solid var(--border)",
+                  background: "var(--background)",
+                }}
+              >
+                <SortHeader label="Report ID" field="id" />
+                <SortHeader label="Date" field="date" />
+                <SortHeader label="Category" field="name" />
+                <SortHeader label="Amount" field="amount" />
+                <SortHeader label="Type" field="type" />
+                <SortHeader label="Created By" field="agent" />
                 <th
                   style={{
                     padding: "12px 16px",
@@ -170,23 +194,55 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
                     transition: "background 0.2s",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = "var(--background)";
+                    (e.currentTarget as HTMLElement).style.background =
+                      "var(--background)";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = "transparent";
+                    (e.currentTarget as HTMLElement).style.background =
+                      "transparent";
                   }}
                 >
-                  <td style={{ padding: "12px 16px", fontWeight: "600", color: "var(--primary)", fontSize: "13px" }}>
+                  <td
+                    style={{
+                      padding: "12px 16px",
+                      fontWeight: "600",
+                      color: "var(--primary)",
+                      fontSize: "13px",
+                    }}
+                  >
                     {report.id}
                   </td>
-                  <td style={{ padding: "12px 16px", fontSize: "13px", color: "var(--secondary)" }}>
-                    {new Date(report.date).toLocaleDateString()}
+                  <td
+                    style={{
+                      padding: "12px 16px",
+                      fontSize: "13px",
+                      color: "var(--secondary)",
+                    }}
+                  >
+                    {report.date
+                      ? new Date(report.date).toLocaleDateString()
+                      : "-"}
                   </td>
-                  <td style={{ padding: "12px 16px", fontSize: "13px", color: "var(--foreground)" }}>
-                    {report.category}
+                  <td
+                    style={{
+                      padding: "12px 16px",
+                      fontSize: "13px",
+                      color: "var(--foreground)",
+                    }}
+                  >
+                    {report.name ?? report.type ?? "-"}
                   </td>
-                  <td style={{ padding: "12px 16px", fontSize: "13px", fontWeight: "600", color: "var(--foreground)" }}>
-                    ${report.amount.toLocaleString()}
+                  <td
+                    style={{
+                      padding: "12px 16px",
+                      fontSize: "13px",
+                      fontWeight: "600",
+                      color: "var(--foreground)",
+                    }}
+                  >
+                    {report.amount != null
+                      ? `$${Number(report.amount).toLocaleString()}`
+                      : "-"}
                   </td>
                   <td style={{ padding: "12px 16px" }}>
                     <span
@@ -200,14 +256,27 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
                         backgroundColor: `${getStatusColor(report.type)}20`,
                       }}
                     >
-                      {report.type}
+                      {report.type ?? "-"}
                     </span>
                   </td>
-                  <td style={{ padding: "12px 16px", fontSize: "13px", color: "var(--secondary)" }}>
-                    {report.createdBy}
+                  <td
+                    style={{
+                      padding: "12px 16px",
+                      fontSize: "13px",
+                      color: "var(--secondary)",
+                    }}
+                  >
+                    {report.agent ?? report.createdBy ?? "-"}
                   </td>
                   <td style={{ padding: "12px 16px", textAlign: "center" }}>
-                    <div style={{ display: "flex", gap: "6px", justifyContent: "center", flexWrap: "wrap" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "6px",
+                        justifyContent: "center",
+                        flexWrap: "wrap",
+                      }}
+                    >
                       <button
                         onClick={() => onViewDetails?.(report)}
                         style={{
@@ -222,10 +291,12 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
                           transition: "all 0.2s",
                         }}
                         onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = "var(--primary)";
+                          (e.currentTarget as HTMLElement).style.borderColor =
+                            "var(--primary)";
                         }}
                         onMouseLeave={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
+                          (e.currentTarget as HTMLElement).style.borderColor =
+                            "var(--border)";
                         }}
                       >
                         View
@@ -273,7 +344,9 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
               fontWeight: "600",
               color: currentPage === 1 ? "var(--secondary)" : "var(--primary)",
               background: "transparent",
-              border: `1px solid ${currentPage === 1 ? "var(--border)" : "var(--primary)"}`,
+              border: `1px solid ${
+                currentPage === 1 ? "var(--border)" : "var(--primary)"
+              }`,
               borderRadius: "4px",
               cursor: currentPage === 1 ? "not-allowed" : "pointer",
             }}
@@ -286,15 +359,22 @@ export function ReportTable({ reports, onViewDetails, onExport }: ReportTablePro
           </span>
 
           <button
-            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+            onClick={() =>
+              setCurrentPage(Math.min(totalPages, currentPage + 1))
+            }
             disabled={currentPage === totalPages}
             style={{
               padding: "6px 12px",
               fontSize: "12px",
               fontWeight: "600",
-              color: currentPage === totalPages ? "var(--secondary)" : "var(--primary)",
+              color:
+                currentPage === totalPages
+                  ? "var(--secondary)"
+                  : "var(--primary)",
               background: "transparent",
-              border: `1px solid ${currentPage === totalPages ? "var(--border)" : "var(--primary)"}`,
+              border: `1px solid ${
+                currentPage === totalPages ? "var(--border)" : "var(--primary)"
+              }`,
               borderRadius: "4px",
               cursor: currentPage === totalPages ? "not-allowed" : "pointer",
             }}

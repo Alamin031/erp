@@ -1,25 +1,25 @@
-// import { getSession } from "@/lib/auth";
-// import { DashboardLayout } from "@/app/dashboard-layout";
-// import { redirect } from "next/navigation";
-// import { ReportsPageClient } from "./page-client";
+import { getSession } from "@/lib/auth";
+import { DashboardLayout } from "@/app/dashboard-layout";
+import { redirect } from "next/navigation";
+import { ReportsPageClient } from "./page-client";
 
-// export default async function ReportsPage() {
-//   const session = await getSession();
+export default async function ReportsPage() {
+  const session = await getSession();
 
-//   if (!session) {
-//     redirect("/login");
-//   }
+  if (!session) {
+    redirect("/login");
+  }
 
-//   const userRole = (session.user as any).role;
-//   const allowedRoles = ["super_admin", "general_manager", "finance_manager"];
+  const userRole = (session.user as any).role;
+  const allowedRoles = ["super_admin", "general_manager", "finance_manager"];
 
-//   if (!allowedRoles.includes(userRole)) {
-//     redirect("/unauthorized");
-//   }
+  if (!allowedRoles.includes(userRole)) {
+    redirect("/unauthorized");
+  }
 
-//   return (
-//     <DashboardLayout>
-//       <ReportsPageClient />
-//     </DashboardLayout>
-//   );
-// }
+  return (
+    <DashboardLayout>
+      <ReportsPageClient />
+    </DashboardLayout>
+  );
+}

@@ -19,8 +19,11 @@ const chartAreaHeight = 180; // px available for bars (keeps behavior consistent
 
 export function RevenueChart({ reports }: RevenueChartProps) {
   const revenueReports = reports
-    .filter((r) => r.type === "Revenue")
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    .filter(
+      (r) =>
+        r.type === "Revenue" && r.date && !isNaN(new Date(r.date).getTime())
+    )
+    .sort((a, b) => new Date(a.date!).getTime() - new Date(b.date!).getTime());
 
   const values = revenueReports.map((r) => Number(r.amount) || 0);
   const maxRevenue = Math.max(1, ...values); // ensure >=1 to avoid division by zero
@@ -92,7 +95,7 @@ export function RevenueChart({ reports }: RevenueChartProps) {
                     textAlign: "center",
                   }}
                 >
-                  {new Date(report.date).toLocaleDateString("en-US", {
+                  {new Date(report.date!).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                   })}
@@ -122,9 +125,13 @@ export function RevenueChart({ reports }: RevenueChartProps) {
 }
 
 export function ExpenseChart({ reports }: RevenueChartProps) {
+  // only include expense reports that have a valid parsable date to avoid Invalid Date errors
   const expenseReports = reports
-    .filter((r) => r.type === "Expense")
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    .filter(
+      (r) =>
+        r.type === "Expense" && r.date && !isNaN(new Date(r.date).getTime())
+    )
+    .sort((a, b) => new Date(a.date!).getTime() - new Date(b.date!).getTime());
 
   const values = expenseReports.map((r) => Number(r.amount) || 0);
   const maxExpense = Math.max(1, ...values);
@@ -196,7 +203,7 @@ export function ExpenseChart({ reports }: RevenueChartProps) {
                     textAlign: "center",
                   }}
                 >
-                  {new Date(report.date).toLocaleDateString("en-US", {
+                  {new Date(report.date!).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                   })}
@@ -226,22 +233,29 @@ export function ExpenseChart({ reports }: RevenueChartProps) {
 }
 
 export function ProfitLossChart({ reports }: RevenueChartProps) {
+  // group by ISO date (yyyy-mm-dd) and ignore invalid/empty dates
   const dailyData: Record<string, { revenue: number; expense: number }> = {};
 
   reports.forEach((report) => {
-    const date = report.date;
-    if (!dailyData[date]) dailyData[date] = { revenue: 0, expense: 0 };
+    if (!report.date) return;
+    const dt = new Date(report.date);
+    if (isNaN(dt.getTime())) return;
+    // use ISO date to group by day consistently
+    const dateKey = dt.toISOString().split("T")[0];
+    if (!dailyData[dateKey]) dailyData[dateKey] = { revenue: 0, expense: 0 };
     if (report.type === "Revenue")
-      dailyData[date].revenue += Number(report.amount) || 0;
-    else dailyData[date].expense += Number(report.amount) || 0;
+      dailyData[dateKey].revenue += Number(report.amount) || 0;
+    else dailyData[dateKey].expense += Number(report.amount) || 0;
   });
 
   const sortedDates = Object.keys(dailyData).sort(
     (a, b) => new Date(a).getTime() - new Date(b).getTime()
   );
+
   const profits = sortedDates.map(
     (d) => dailyData[d].revenue - dailyData[d].expense
   );
+
   const maxProfit = Math.max(...profits, 0);
   const minProfit = Math.min(...profits, 0);
   const maxAbs = Math.max(Math.abs(maxProfit), Math.abs(minProfit), 1);
