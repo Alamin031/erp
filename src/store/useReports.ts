@@ -76,12 +76,18 @@ export interface KPIData {
   topAgent: string;
 }
 
+export interface ActivitySummary {
+  type: string; // Calls, Emails, Meetings, Follow-ups
+  count: number;
+}
+
 interface ReportsState {
   // existing data
   salesData: SalesDataPoint[];
   pipelineData: PipelineStage[];
   forecastData: ForecastDataPoint[];
   agentData: AgentPerformance[];
+  activitySummary: ActivitySummary[];
   kpiData: KPIData;
   filters: ReportFilters;
   isLoading: boolean;
@@ -100,6 +106,9 @@ interface ReportsState {
   calculateKPIs: () => void;
   exportToCSV: () => string;
   exportToPDF: () => void;
+  loadDemoData: () => Promise<void>;
+  generateReport: (type: string) => Report;
+  exportReport: (id: string, format: "csv" | "pdf") => void;
 }
 
 const defaultFilters: ReportFilters = {
