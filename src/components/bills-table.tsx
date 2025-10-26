@@ -144,7 +144,7 @@ export function BillsTable({
             </tr>
           </thead>
           <tbody>
-            {filteredBills.map((bill) => {
+            {paginated.map((bill) => {
               const config = statusConfig[bill.status as keyof typeof statusConfig];
               return (
                 <tr
@@ -206,6 +206,19 @@ export function BillsTable({
       {filteredBills.length === 0 && (
         <div className="text-center py-12 text-gray-500">
           No bills found
+        </div>
+      )}
+
+      {filteredBills.length > 0 && (
+        <div className="flex items-center justify-between p-4 border-t border-gray-200">
+          <div className="text-sm text-gray-600">Page {page} of {totalPages}</div>
+          <div className="flex items-center gap-2">
+            <button className="px-3 py-1 border border-gray-300 rounded" disabled={page === 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>Prev</button>
+            <button className="px-3 py-1 border border-gray-300 rounded" disabled={page === totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Next</button>
+            <select className="ml-2 px-2 py-1 border border-gray-300 rounded" value={pageSize} onChange={(e) => { setPageSize(Number(e.target.value)); setPage(1); }}>
+              {[10, 20, 50].map((s) => (<option key={s} value={s}>{s}/page</option>))}
+            </select>
+          </div>
         </div>
       )}
     </motion.div>
