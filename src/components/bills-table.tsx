@@ -47,6 +47,12 @@ export function BillsTable({
     return matchesSearch && matchesVendor && matchesStatus;
   });
 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const totalPages = Math.max(1, Math.ceil(filteredBills.length / pageSize));
+  const start = (page - 1) * pageSize;
+  const paginated = filteredBills.slice(start, start + pageSize);
+
   const handleSearch = (query: string) => {
     setSearchInput(query);
     onFilterChange({ ...filters, searchQuery: query });
