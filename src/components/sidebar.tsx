@@ -144,7 +144,6 @@ export function Sidebar({ role, userName }: SidebarProps) {
                   const open = !!openMap[item.href];
 
                   if (hasChildren) {
-                    // parent with dropdown
                     return (
                       <li key={item.href} className="nav-parent">
                         <div className="nav-parent-container">
