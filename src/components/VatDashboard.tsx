@@ -39,11 +39,31 @@ export function VatDashboard({ onCreateReturn, onReconcile, onUpload, onExport }
         <div className="stat-label">Next Filing Deadline</div>
         <div className="stat-value">{kpis.deadline}</div>
       </div>
-      <div className="md:col-span-4 flex flex-wrap gap-2">
-        <button className="btn-primary" onClick={onCreateReturn}>Create Return</button>
-        <button className="btn-secondary" onClick={onReconcile}>Reconcile Transactions</button>
-        <button className="btn-secondary" onClick={onUpload}>Upload Invoices</button>
-        <button className="btn-secondary" onClick={onExport}>Export Return</button>
+      <div className="md:col-span-4 flex flex-wrap gap-3 mt-2">
+        <button
+          className="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          onClick={onCreateReturn}
+        >
+          Create Return
+        </button>
+        <button
+          className="px-5 py-2 rounded-lg border border-gray-500 bg-gray-800 text-gray-200 font-medium hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          onClick={onReconcile}
+        >
+          Reconcile Transactions
+        </button>
+        <button
+          className="px-5 py-2 rounded-lg border border-gray-500 bg-gray-800 text-gray-200 font-medium hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          onClick={onUpload}
+        >
+          Upload Invoices
+        </button>
+        <button
+          className="px-5 py-2 rounded-lg border border-gray-500 bg-gray-800 text-gray-200 font-medium hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          onClick={onExport}
+        >
+          Export Return
+        </button>
       </div>
     </div>
   );

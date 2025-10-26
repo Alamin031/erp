@@ -1,6 +1,13 @@
-"use client";
+import React from "react";
 
-interface Props { disabled?: boolean; onExport: () => void }
-export function ExportPdfButton({ disabled, onExport }: Props) {
-  return <button className="btn-secondary" disabled={disabled} onClick={onExport}>Export PDF</button>;
+export function ExportPdfButton({ onExport }: { onExport?: () => void }) {
+  return (
+    <button
+      type="button"
+      className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+      onClick={onExport}
+    >
+      Export PDF
+    </button>
+  );
 }

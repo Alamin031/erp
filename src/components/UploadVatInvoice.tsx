@@ -1,14 +1,13 @@
-"use client";
+import React from "react";
 
-import { useRef } from "react";
-
-export function UploadVatInvoice() {
-  const inputRef = useRef<HTMLInputElement>(null);
+export function UploadVatInvoice({ onUpload }: { onUpload?: () => void }) {
   return (
-    <div className="inline-flex items-center gap-2">
-      <input ref={inputRef} type="file" accept="application/pdf,image/*" className="hidden" multiple onChange={() => {/* handle preview later */}} />
-      <button className="btn-secondary" onClick={() => inputRef.current?.click()}>Upload Invoices</button>
-      <span className="text-xs text-gray-500">PDF/JPG/PNG up to 10MB</span>
-    </div>
+    <button
+      type="button"
+      className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+      onClick={onUpload}
+    >
+      Upload VAT Invoice
+    </button>
   );
 }

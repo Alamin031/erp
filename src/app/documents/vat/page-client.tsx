@@ -7,12 +7,12 @@ import { VatReturnFormModal } from "@/components/VatReturnFormModal";
 import { VatReturnDetailsDrawer } from "@/components/VatReturnDetailsDrawer";
 import { VatReconciliation } from "@/components/VatReconciliation";
 import { TransactionMatcher } from "@/components/TransactionMatcher";
-import { UploadVatInvoice } from "@/components/UploadVatInvoice";
+import { UploadVatInvoice } from "../../../components/UploadVatInvoice";
 import { InputOutputRegisters } from "@/components/InputOutputRegisters";
 import { VatAnalyticsChart } from "@/components/VatAnalyticsChart";
 import { ComplianceChecklist } from "@/components/ComplianceChecklist";
+import { CsvImportButton } from "../../../components/CsvImportButton";
 import { ExportPdfButton } from "@/components/ExportPdfButton";
-import { CsvImportButton } from "@/components/CsvImportButton";
 import { useVat } from "@/store/useVat";
 
 export function VatPageClient() {
@@ -49,10 +49,18 @@ export function VatPageClient() {
         <p className="text-gray-500">Create, track and file VAT returns with reconciliation and compliance reporting.</p>
       </div>
 
+      {/* Action Buttons */}
+      <div className="flex flex-wrap gap-2 mb-2">
+        <CsvImportButton />
+        <UploadVatInvoice />
+        <ExportPdfButton onExport={() => { if (selectedReturnId) exportReturn(selectedReturnId, "pdf"); }} />
+      </div>
+
       <VatDashboard onCreateReturn={() => { setEditingId(null); setShowForm(true); }} onReconcile={() => setShowMatcher(true)} onUpload={() => {}} onExport={() => { if (selectedReturnId) exportReturn(selectedReturnId, "csv"); }} />
 
       <div className="grid grid-cols-1 xl:grid-cols-4 gap-4">
-        <div className="xl:col-span-3 space-y-4">
+        {/* Table full width */}
+        <div className="col-span-1 xl:col-span-4 space-y-4">
           <VatReturnsTable
             returns={vatReturns}
             onCreate={() => { setEditingId(null); setShowForm(true); }}
@@ -60,18 +68,10 @@ export function VatPageClient() {
             onView={(id) => setSelectedReturn(id)}
             onExport={(id, format) => exportReturn(id, format)}
           />
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <CsvImportButton />
-              <UploadVatInvoice />
-            </div>
-            <ExportPdfButton disabled={!selectedReturnId} onExport={() => { if (selectedReturnId) exportReturn(selectedReturnId, "pdf"); }} />
-          </div>
-
           <VatReconciliation returnId={selectedReturnId || undefined} onAutoMatch={() => { if (selectedReturnId) autoReconcile(selectedReturnId); }} onOpenMatcher={() => setShowMatcher(true)} />
         </div>
-        <div className="space-y-4">
+        {/* Analytics, checklist, and registers below table, full width */}
+        <div className="col-span-1 xl:col-span-4 space-y-4">
           <VatAnalyticsChart returns={vatReturns} transactions={transactions} />
           <ComplianceChecklist returns={vatReturns} transactions={transactions} />
           <InputOutputRegisters transactions={transactions} vendors={vendors} />
