@@ -1,0 +1,53 @@
+[
+  {
+    "id": "bill-001",
+    "billNumber": "BILL-2024-001",
+    "vendorName": "Rahman Suppliers",
+    "vendorEmail": "accounts@rahmansuppliers.com",
+    "vendorPhone": "+8801711000001",
+    "billDate": "2024-09-15T00:00:00.000Z",
+    "dueDate": "2024-10-15T00:00:00.000Z",
+    "amount": 25000,
+    "status": "Paid",
+    "paymentMode": "Bank Transfer",
+    "paymentDate": "2024-10-10T00:00:00.000Z",
+    "referenceNumber": "BTX-908123",
+    "lineItems": [],
+    "attachments": [],
+    "notes": "Monthly linen service",
+    "createdAt": "2024-09-15T00:00:00.000Z",
+    "updatedAt": "2024-10-10T00:00:00.000Z"
+  },
+  {
+    "id": "bill-002",
+    "billNumber": "BILL-2024-002",
+    "vendorName": "Dhaka Utilities",
+    "vendorEmail": "billing@dhakautilities.com",
+    "vendorPhone": "+8801711000002",
+    "billDate": "2024-10-01T00:00:00.000Z",
+    "dueDate": "2024-10-25T00:00:00.000Z",
+    "amount": 42000,
+    "status": "Pending",
+    "lineItems": [],
+    "attachments": [],
+    "notes": "Electricity & water",
+    "createdAt": "2024-10-01T00:00:00.000Z",
+    "updatedAt": "2024-10-01T00:00:00.000Z"
+  },
+  {
+    "id": "bill-003",
+    "billNumber": "BILL-2024-003",
+    "vendorName": "Chittagong Foods Co.",
+    "vendorEmail": "invoices@ctgfoods.co",
+    "vendorPhone": "+8801711000003",
+    "billDate": "2024-09-05T00:00:00.000Z",
+    "dueDate": "2024-09-20T00:00:00.000Z",
+    "amount": 18500,
+    "status": "Overdue",
+    "lineItems": [],
+    "attachments": [],
+    "notes": "Banquet supplies",
+    "createdAt": "2024-09-05T00:00:00.000Z",
+    "updatedAt": "2024-10-05T00:00:00.000Z"
+  }
+]
