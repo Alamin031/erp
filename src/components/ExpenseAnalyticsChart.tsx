@@ -27,27 +27,27 @@ export function ExpenseAnalyticsChart({ expenses }: Props) {
 
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-xl p-4 border">
-        <h4 className="font-semibold mb-2">Spend by Category</h4>
+      <div className="bg-[#181A20] rounded-xl p-4 border border-gray-700">
+        <h4 className="font-semibold mb-2 text-white">Spend by Category</h4>
         <ResponsiveContainer width="100%" height={220}>
           <PieChart>
             <Pie data={byCategory} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
               {byCategory.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
             </Pie>
-            <Tooltip />
-            <Legend />
+            <Tooltip contentStyle={{ background: '#23272f', border: 'none', color: '#fff' }} />
+            <Legend wrapperStyle={{ color: '#fff' }} />
           </PieChart>
         </ResponsiveContainer>
       </div>
 
-      <div className="bg-white rounded-xl p-4 border">
-        <h4 className="font-semibold mb-2">Monthly Spend</h4>
+      <div className="bg-[#181A20] rounded-xl p-4 border border-gray-700">
+        <h4 className="font-semibold mb-2 text-white">Monthly Spend</h4>
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={monthly}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
+            <CartesianGrid strokeDasharray="3 3" stroke="#23272f" />
+            <XAxis dataKey="month" stroke="#aaa" />
+            <YAxis stroke="#aaa" />
+            <Tooltip contentStyle={{ background: '#23272f', border: 'none', color: '#fff' }} />
             <Bar dataKey="amount" fill="#4a9eff" />
           </BarChart>
         </ResponsiveContainer>

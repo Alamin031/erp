@@ -15,7 +15,19 @@ import { VendorList } from "@/components/vendor-list";
 import { BillDetailsModal } from "@/components/BillDetailsModal";
 
 export function BillsPageClient() {
-  const { bills, vendors, filters, setFilters, loadDemoData, addBill, updateBill, deleteBill, markAsPaid, filterBills, getBillStats } = useBillsStore();
+  const {
+    bills,
+    vendors,
+    filters,
+    setFilters,
+    loadDemoData,
+    addBill,
+    updateBill,
+    deleteBill,
+    markAsPaid,
+    filterBills,
+    getBillStats,
+  } = useBillsStore();
   const { toasts, removeToast, showToast } = useToast();
 
   const [showUpload, setShowUpload] = useState(false);
@@ -25,21 +37,28 @@ export function BillsPageClient() {
 
   useEffect(() => {
     if (bills.length === 0) {
-      loadDemoData().catch(() => showToast("Failed to load demo data", "error"));
+      loadDemoData().catch(() =>
+        showToast("Failed to load demo data", "error")
+      );
     }
   }, [bills.length, loadDemoData, showToast]);
 
   const visible = useMemo(() => filterBills(), [filters, bills, filterBills]);
   const stats = useMemo(() => getBillStats(), [bills, getBillStats]);
 
-  const handleSaveQuick = (payload: { vendorName: string; billNumber: string; amount: number; attachments: string[] }) => {
+  const handleSaveQuick = (payload: {
+    vendorName: string;
+    billNumber: string;
+    amount: number;
+    attachments: string[];
+  }) => {
     const now = new Date().toISOString();
     const newBill: Bill = {
       id: `bill-${Date.now()}`,
       billNumber: payload.billNumber || `BILL-${Date.now()}`,
       vendorName: payload.vendorName,
       billDate: now,
-      dueDate: new Date(Date.now() + 14*24*60*60*1000).toISOString(),
+      dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
       amount: payload.amount,
       status: "Pending",
       attachments: payload.attachments,
@@ -70,7 +89,7 @@ export function BillsPageClient() {
   };
 
   const markPaid = (id: string) => {
-    markAsPaid(id, "Bank Transfer", `REF-${Math.floor(Math.random()*1e6)}`);
+    markAsPaid(id, "Bank Transfer", `REF-${Math.floor(Math.random() * 1e6)}`);
     showToast("Marked as paid", "success");
   };
 
@@ -83,39 +102,82 @@ export function BillsPageClient() {
   };
 
   return (
-    <div className="p-6 space-y-5">
+    <div className="p-6 space-y-5  min-h-screen text-gray-100">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Bills</h1>
-        <p className="text-gray-500">Manage and track supplier bills and vendor invoices</p>
+        <h1 className="text-2xl font-bold text-gray-100">Bills</h1>
+        <p className="text-gray-400">
+          Manage and track supplier bills and vendor invoices
+        </p>
       </div>
 
-      <BillSummaryCards totalBills={stats.totalBills} totalPaid={stats.totalPaid} totalPending={stats.totalPending} overdueBills={stats.overdueBills} />
+      <BillsFilterBar
+        bills={bills}
+        filters={filters}
+        onChange={setFilters}
+        onUploadClick={() => setShowUpload(true)}
+      />
 
-      <BillsFilterBar bills={bills} filters={filters} onChange={setFilters} onUploadClick={() => setShowUpload(true)} />
+      {/* Table full width */}
+      <div className="w-full">
+        <BillsTable
+          bills={visible}
+          onView={(b) => setViewing(b)}
+          onEdit={(b) => {
+            setEditing(b);
+            setShowModal(true);
+          }}
+          onDelete={handleDelete}
+          filters={{
+            vendor: filters.vendor,
+            status: filters.status as BillStatus,
+          }}
+          onFilterChange={(f) => setFilters({ ...filters, ...f })}
+        />
+      </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 items-start">
-        <div className="xl:col-span-2">
-          <BillsTable
-            bills={visible}
-            onView={(b) => setViewing(b)}
-            onEdit={(b) => { setEditing(b); setShowModal(true); }}
-            onDelete={handleDelete}
-            filters={{ vendor: filters.vendor, status: filters.status as BillStatus }}
-            onFilterChange={(f) => setFilters({ ...filters, ...f })}
-          />
-        </div>
-        <div className="space-y-5">
+      {/* Summary cards below table */}
+      <div className="mt-4">
+        <BillSummaryCards
+          totalBills={stats.totalBills}
+          totalPaid={stats.totalPaid}
+          totalPending={stats.totalPending}
+          overdueBills={stats.overdueBills}
+        />
+      </div>
+
+      {/* Analytics and vendor list in a new row */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 items-start mt-4">
+        <div className="xl:col-span-2 space-y-5">
           <BillAnalyticsChart bills={bills} />
           <RecentTransactions bills={bills} />
-          <VendorList vendors={vendors} />
         </div>
+        <VendorList vendors={vendors} />
       </div>
 
-      <UploadBillDrawer open={showUpload} onClose={() => setShowUpload(false)} onSave={handleSaveQuick} />
+      <UploadBillDrawer
+        open={showUpload}
+        onClose={() => setShowUpload(false)}
+        onSave={handleSaveQuick}
+      />
 
-      <AddEditBillModal isOpen={showModal} onClose={() => { setShowModal(false); setEditing(null); }} bill={editing} onSave={handleEditSave} />
+      <AddEditBillModal
+        isOpen={showModal}
+        onClose={() => {
+          setShowModal(false);
+          setEditing(null);
+        }}
+        bill={editing}
+        onSave={handleEditSave}
+      />
 
-      <BillDetailsModal open={!!viewing} bill={viewing} onClose={() => setViewing(null)} onMarkPaid={markPaid} onReminder={onReminder} onDownload={onDownload} />
+      <BillDetailsModal
+        open={!!viewing}
+        bill={viewing}
+        onClose={() => setViewing(null)}
+        onMarkPaid={markPaid}
+        onReminder={onReminder}
+        onDownload={onDownload}
+      />
 
       <ToastContainer toasts={toasts} removeToast={removeToast} />
     </div>

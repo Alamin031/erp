@@ -27,18 +27,18 @@ export function BillAnalyticsChart({ bills }: Props) {
 
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-xl shadow-md border border-gray-200 p-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">Bills by Month</h3>
+      <div className="bg-gray-900 rounded-xl shadow-md border border-gray-700 p-4">
+        <h3 className="text-lg font-semibold text-gray-100 mb-2">Bills by Month</h3>
         {monthly.length === 0 ? (
           <div className="h-64 flex items-center justify-center text-gray-500">No data</div>
         ) : (
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={monthly}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-              <XAxis dataKey="month" stroke="#6b7280" style={{ fontSize: 12 }} />
-              <YAxis stroke="#6b7280" style={{ fontSize: 12 }} />
-              <Tooltip contentStyle={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8 }} />
-              <Legend />
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="month" stroke="#d1d5db" style={{ fontSize: 12 }} />
+              <YAxis stroke="#d1d5db" style={{ fontSize: 12 }} />
+              <Tooltip contentStyle={{ background: '#1f2937', color: '#f3f4f6', border: '1px solid #374151', borderRadius: 8 }} labelStyle={{ color: '#f3f4f6' }} itemStyle={{ color: '#f3f4f6' }} />
+              <Legend wrapperStyle={{ color: '#d1d5db' }} />
               <Bar dataKey="count" name="Bill Count" fill="#4a9eff" />
               <Bar dataKey="total" name="Amount" fill="#10b981" />
             </BarChart>
@@ -46,8 +46,8 @@ export function BillAnalyticsChart({ bills }: Props) {
         )}
       </div>
 
-      <div className="bg-white rounded-xl shadow-md border border-gray-200 p-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">Status Ratio</h3>
+      <div className="bg-gray-900 rounded-xl shadow-md border border-gray-700 p-4">
+        <h3 className="text-lg font-semibold text-gray-100 mb-2">Status Ratio</h3>
         {statusCounts.length === 0 ? (
           <div className="h-64 flex items-center justify-center text-gray-500">No data</div>
         ) : (
@@ -58,8 +58,8 @@ export function BillAnalyticsChart({ bills }: Props) {
                   <Cell key={s.name} fill={s.color} />
                 ))}
               </Pie>
-              <Tooltip contentStyle={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8 }} />
-              <Legend />
+              <Tooltip contentStyle={{ background: '#1f2937', color: '#f3f4f6', border: '1px solid #374151', borderRadius: 8 }} labelStyle={{ color: '#f3f4f6' }} itemStyle={{ color: '#f3f4f6' }} />
+              <Legend wrapperStyle={{ color: '#d1d5db' }} />
             </PieChart>
           </ResponsiveContainer>
         )}

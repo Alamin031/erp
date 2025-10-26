@@ -21,7 +21,7 @@ export function BillsFilterBar({ bills, filters, onChange, onUploadClick }: Prop
   const vendors = useMemo(() => Array.from(new Set(bills.map((b) => b.vendorName))).sort(), [bills]);
 
   return (
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-4">
+    <div className="bg-gray-800 rounded-xl shadow-md border border-gray-700 p-4">
       <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-end">
         <div className="flex-1 relative">
           <Search size={18} className="absolute left-3 top-3 text-gray-400" />
@@ -29,13 +29,13 @@ export function BillsFilterBar({ bills, filters, onChange, onUploadClick }: Prop
             value={filters.searchQuery}
             onChange={(e) => onChange({ ...filters, searchQuery: e.target.value })}
             placeholder="Search Bill No or Vendor..."
-            className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-3 py-2 border border-gray-700 bg-gray-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
           />
         </div>
         <select
           value={filters.status}
           onChange={(e) => onChange({ ...filters, status: e.target.value as BillStatus | "" })}
-          className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-3 py-2 border border-gray-700 bg-gray-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">All Status</option>
           <option value="Pending">Pending</option>
@@ -46,7 +46,7 @@ export function BillsFilterBar({ bills, filters, onChange, onUploadClick }: Prop
         <select
           value={filters.vendor}
           onChange={(e) => onChange({ ...filters, vendor: e.target.value })}
-          className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-3 py-2 border border-gray-700 bg-gray-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">All Vendors</option>
           {vendors.map((v) => (
@@ -57,17 +57,17 @@ export function BillsFilterBar({ bills, filters, onChange, onUploadClick }: Prop
           type="date"
           value={filters.dateFrom}
           onChange={(e) => onChange({ ...filters, dateFrom: e.target.value })}
-          className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-3 py-2 border border-gray-700 bg-gray-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="date"
           value={filters.dateTo}
           onChange={(e) => onChange({ ...filters, dateTo: e.target.value })}
-          className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-3 py-2 border border-gray-700 bg-gray-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           onClick={() => onChange({ vendor: "", status: "", dateFrom: "", dateTo: "", searchQuery: "" })}
-          className="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+          className="inline-flex items-center gap-2 px-3 py-2 border border-gray-600 text-gray-200 rounded-lg hover:bg-gray-700"
         >
           <RotateCcw size={16} /> Reset
         </button>
