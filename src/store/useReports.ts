@@ -344,6 +344,41 @@ export const useReports = create<ReportsState>()(
       exportToPDF: () => {
         alert("PDF export would be implemented with a library like jsPDF or pdfkit");
       },
+
+      loadDemoData: async () => {
+        await get().fetchReports();
+      },
+
+      generateReport: (type: string) => {
+        const { filters } = get();
+        const id = `rep-${Date.now()}`;
+        const report: Report = {
+          id,
+          type,
+          createdBy: filters.salesperson || filters.agent || "System",
+          date: new Date().toISOString().slice(0, 10),
+          filters: { ...filters },
+        };
+        set((state) => ({ reports: [report, ...state.reports] }));
+        return report;
+      },
+
+      exportReport: (id: string, format: "csv" | "pdf") => {
+        if (format === "csv") {
+          const csv = get().exportToCSV();
+          const blob = new Blob([csv], { type: "text/csv" });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${id}.csv`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        } else {
+          get().exportToPDF();
+        }
+      },
     }),
     {
       name: "crm-reports-store",
