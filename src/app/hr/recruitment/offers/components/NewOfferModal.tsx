@@ -66,23 +66,23 @@ export function NewOfferModal({ open, onClose, onSaved }: { open: boolean; onClo
       }
       if (values.id) updateOffer(values.id, payload);
       else createOffer(payload);
-      showToast({ title: 'Offer saved', type: 'success' });
+      showToast('Offer saved');
       onSaved?.();
       selectOffer(null);
-    } catch (e) { showToast({ title: 'Failed to save offer', type: 'error' }); }
+    } catch (e) { showToast('Failed to save offer'); }
     setLoading(false);
   }
 
   function preview() {
     const vals = form.getValues();
-    showToast({ title: 'Preview opened', type: 'info' });
+    showToast('Preview opened');
     // open preview modal could be implemented; for now just notify
   }
 
   return (
     <Dialog open={open} onClose={onClose} className="fixed inset-0 z-50">
       <div className="flex items-center justify-center min-h-screen">
-        <Dialog.Overlay className="fixed inset-0 bg-black/60" />
+        <div aria-hidden className="fixed inset-0 bg-black/60" />
         <div className="relative w-full max-w-2xl mx-auto bg-zinc-900 border border-zinc-800 rounded-2xl p-6 z-50">
           <Dialog.Title className="text-lg font-semibold text-zinc-100 mb-2">New Offer</Dialog.Title>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">

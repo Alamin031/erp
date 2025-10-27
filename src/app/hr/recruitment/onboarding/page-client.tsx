@@ -9,7 +9,7 @@ import { ToastContainer, useToast } from '@/components/toast';
 
 export function OnboardingPageClient() {
   const { loadDemoData, onboardings, selectedId, selectOnboarding } = useOnboarding();
-  const { showToast } = useToast();
+  const { showToast, toasts, removeToast } = useToast();
   const [openNew, setOpenNew] = useState(false);
 
   useEffect(() => { if (onboardings.length === 0) loadDemoData(); }, [onboardings.length, loadDemoData]);
@@ -36,9 +36,18 @@ export function OnboardingPageClient() {
         <OnboardingTable onView={(id)=> selectOnboarding(id)} />
       </div>
 
-      <ToastContainer />
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
 
-      {openNew && <NewOnboardingModal open={openNew} onClose={() => setOpenNew(false)} onSaved={() => { setOpenNew(false); showToast({ title: 'Onboarding created', type: 'success' }); }} />}
+      {openNew && (
+        <NewOnboardingModal
+          open={openNew}
+          onClose={() => setOpenNew(false)}
+          onSaved={() => {
+            setOpenNew(false);
+            showToast('Onboarding created');
+          }}
+        />
+      )}
 
       {selectedId && <OnboardingDetailsDrawer onboardingId={selectedId} onClose={() => selectOnboarding(null)} />}
     </div>

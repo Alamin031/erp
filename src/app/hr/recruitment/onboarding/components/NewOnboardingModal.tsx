@@ -37,7 +37,7 @@ export function NewOnboardingModal({ open, onClose, onSaved }: { open: boolean; 
   return (
     <Dialog open={open} onClose={onClose} className="fixed inset-0 z-50">
       <div className="flex items-center justify-center min-h-screen">
-        <Dialog.Overlay className="fixed inset-0 bg-black/60" />
+        <div className="fixed inset-0 bg-black/60" />
         <div className="relative w-full max-w-2xl mx-auto bg-neutral-900 border border-neutral-800 rounded-2xl p-6 z-50">
           <Dialog.Title className="text-lg font-semibold text-neutral-100 mb-2">New Onboarding</Dialog.Title>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">

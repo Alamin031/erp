@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { OffersPageClient } from './page-client';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth';

@@ -18,18 +18,25 @@ export function OnboardingDetailsDrawer({ onboardingId, onClose }: { onboardingI
 
   function handleDownload() {
     // mock summary PDF download
+    if (!ob) {
+      showToast('No onboarding selected');
+      return;
+    }
     const content = `Onboarding Summary for ${ob.employeeName}\nStatus: ${ob.status}`;
     const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = `${ob.employeeName}-onboarding.txt`; a.click(); URL.revokeObjectURL(url);
-    showToast({ title: 'Downloaded summary', type: 'success' });
+    a.href = url;
+    a.download = `${ob.employeeName}-onboarding.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Downloaded summary');
   }
 
   return (
     <Dialog open={true} onClose={onClose} className="fixed inset-0 z-50">
       <div className="flex items-end justify-end min-h-screen">
-        <Dialog.Overlay className="fixed inset-0 bg-black/40" />
+        <div aria-hidden="true" className="fixed inset-0 bg-black/40" />
         <div className="relative w-full max-w-xl bg-neutral-900 border-l border-neutral-800 p-6 z-50">
           <div className="flex items-start justify-between">
             <div>
@@ -61,8 +68,8 @@ export function OnboardingDetailsDrawer({ onboardingId, onClose }: { onboardingI
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-3">
-            {ob.status !== 'completed' && <button onClick={()=> { markCompleted(ob.id); showToast({ title: 'Onboarding marked completed', type: 'success' }); }} className="px-3 py-2 rounded-md bg-emerald-600 text-white">Mark Completed</button>}
-            <button onClick={()=> { updateOnboarding(ob.id, { status: 'not_started' }); showToast({ title: 'Reopened', type: 'success' }); }} className="px-3 py-2 rounded-md border border-neutral-700 text-neutral-200">Reopen</button>
+            {ob.status !== 'completed' && <button onClick={()=> { markCompleted(ob.id); showToast('Onboarding marked completed'); }} className="px-3 py-2 rounded-md bg-emerald-600 text-white">Mark Completed</button>}
+            <button onClick={()=> { updateOnboarding(ob.id, { status: 'not_started' }); showToast('Reopened'); }} className="px-3 py-2 rounded-md border border-neutral-700 text-neutral-200">Reopen</button>
           </div>
 
           {assignOpen && <AssignMentorModal onboardingId={ob.id} open={assignOpen} onClose={()=> setAssignOpen(false)} />}

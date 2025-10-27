@@ -20,16 +20,16 @@ export function OfferDetailsDrawer({ offerId, onClose }: { offerId: string; onCl
   const candidate = applicants.find(a=> a.id === offer.applicantId);
   const job = jobs.find(j=> j.id === offer.jobId);
 
-  function handleSend() { sendOffer(offer.id); showToast({ title: 'Offer sent', type: 'success' }); }
-  function handleAccept() { markAccepted(offer.id); showToast({ title: 'Marked accepted', type: 'success' }); }
-  function handleDecline() { markDeclined(offer.id); showToast({ title: 'Marked declined', type: 'success' }); }
-  function handleWithdraw() { withdrawOffer(offer.id); showToast({ title: 'Offer withdrawn', type: 'success' }); }
-  function handleDownload() { const a = offer.attachments?.[0]; if (a && a.url) { const win = window.open(a.url); if (!win) alert('Unable to open file'); } else { showToast({ title: 'No attachment', type: 'info' }); } }
+  function handleSend() { if (!offer) return; sendOffer(offer.id); showToast('Offer sent'); }
+  function handleAccept() { if (!offer) return; markAccepted(offer.id); showToast('Marked accepted'); }
+  function handleDecline() { if (!offer) return; markDeclined(offer.id); showToast('Marked declined'); }
+  function handleWithdraw() { if (!offer) return; withdrawOffer(offer.id); showToast('Offer withdrawn'); }
+  function handleDownload() { if (!offer) return; const a = offer.attachments?.[0]; if (a && a.url) { const win = window.open(a.url); if (!win) alert('Unable to open file'); } else { showToast('No attachment'); } }
 
   return (
     <Dialog open={true} onClose={onClose} className="fixed inset-0 z-50">
       <div className="flex items-end justify-end min-h-screen">
-        <Dialog.Overlay className="fixed inset-0 bg-black/40" />
+        <div className="fixed inset-0 bg-black/40" aria-hidden />
         <div className="relative w-full max-w-xl bg-zinc-900 border-l border-zinc-800 p-6 z-50">
           <div className="flex items-start justify-between">
             <div>

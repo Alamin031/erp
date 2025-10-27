@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Onboarding, OnboardingFilters, Mentor } from '../types';
 

@@ -1,6 +1,5 @@
 import { persist } from 'zustand/middleware';
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from 'zustand';
 import type { Offer, OfferFilters, OfferTimelineItem } from '../types';
 
 interface OffersState {

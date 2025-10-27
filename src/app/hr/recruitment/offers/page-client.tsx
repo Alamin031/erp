@@ -8,7 +8,7 @@ import { useOffers } from './store/useOffers';
 
 export function OffersPageClient() {
   const { loadDemoData, offers, selectedOfferId, selectOffer, checkExpiry } = useOffers();
-  const { showToast } = useToast();
+  const { showToast, toasts, removeToast } = useToast();
   const [openNew, setOpenNew] = useState(false);
 
   useEffect(() => { if (offers.length === 0) loadDemoData(); }, [offers.length, loadDemoData]);
@@ -39,9 +39,9 @@ export function OffersPageClient() {
         <OffersTable onView={(id)=> selectOffer(id)} onEdit={(id)=> { selectOffer(id); setOpenNew(true); }} />
       </div>
 
-      <ToastContainer />
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
 
-      {openNew && <NewOfferModal open={openNew} onClose={() => setOpenNew(false)} onSaved={() => { setOpenNew(false); showToast({ title: 'Offer saved', type: 'success' }); }} />}
+      {openNew && <NewOfferModal open={openNew} onClose={() => setOpenNew(false)} onSaved={() => { setOpenNew(false); showToast('Offer saved'); }} />}
 
       {selectedOfferId && <OfferDetailsDrawer offerId={selectedOfferId} onClose={() => selectOffer(null)} />}
     </div>
