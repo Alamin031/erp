@@ -36,7 +36,7 @@ export function NewJobModal({ open, onClose, onSaved }: { open: boolean; onClose
     const skills = values.requiredSkills ? values.requiredSkills.split(',').map(s=> s.trim()).filter(Boolean) : [];
     createJob({ title: values.title, department: values.department, employmentType: values.employmentType, location: values.location, salaryRange: values.salaryRange, postingDate: values.postingDate, closingDate: values.closingDate, description: values.description, requiredSkills: skills, recruiterId: values.recruiterId || null, status: values.status || 'draft' });
     onSaved?.();
-    showToast({ title: 'Job created', type: 'success' });
+    showToast('Job created');
   }
 
   if (!open) return null;

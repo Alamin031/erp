@@ -13,8 +13,8 @@ export function OffersTable({ onView, onEdit }: { onView?: (id:string)=>void; on
 
   const rows = useMemo(() => offers.slice(), [offers]);
 
-  function handleSend(id:string) { sendOffer(id); showToast({ title: 'Offer sent', type: 'success' }); }
-  function handleWithdraw(id:string) { withdrawOffer(id); showToast({ title: 'Offer withdrawn', type: 'success' }); }
+  function handleSend(id:string) { sendOffer(id); showToast('Offer sent'); }
+  function handleWithdraw(id:string) { withdrawOffer(id); showToast('Offer withdrawn'); }
 
   return (
     <div className="overflow-auto">
@@ -47,7 +47,7 @@ export function OffersTable({ onView, onEdit }: { onView?: (id:string)=>void; on
                 <button onClick={()=> onView?.(r.id)} className="text-zinc-300 hover:text-zinc-100 mr-3">View</button>
                 <button onClick={()=> onEdit?.(r.id)} className="text-amber-400 hover:text-amber-300 mr-3"><Edit2 className="inline h-4 w-4" /></button>
                 {r.status === 'draft' && <button onClick={()=> handleSend(r.id)} className="text-blue-400 hover:text-blue-300 mr-3"><Mail className="inline h-4 w-4" /></button>}
-                <button onClick={()=> { /* download logic: open attachment if present */ const a = r.attachments?.[0]; if (a && a.url) { const win = window.open(a.url); if (!win) alert('Unable to open file'); } else { showToast({ title: 'No attachment available', type: 'info' }); } }} className="text-zinc-300 hover:text-zinc-100 mr-3"><Download className="inline h-4 w-4" /></button>
+                <button onClick={()=> { const a = r.attachments?.[0]; if (a && a.url) { const win = window.open(a.url); if (!win) alert('Unable to open file'); } else { showToast('No attachment available'); } }} className="text-zinc-300 hover:text-zinc-100 mr-3"><Download className="inline h-4 w-4" /></button>
                 <button onClick={()=> handleWithdraw(r.id)} className="text-rose-400 hover:text-rose-300"><XCircle className="inline h-4 w-4" /></button>
               </td>
             </tr>

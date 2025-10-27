@@ -13,7 +13,7 @@ import { ToastContainer, useToast } from '@/components/toast';
 
 export function ApplicantsPageClient() {
   const { loadDemoData, applicants } = useApplicants();
-  const { showToast } = useToast();
+  const { showToast, toasts, removeToast } = useToast();
   const [openAdd, setOpenAdd] = useState(false);
   const [selectedApplicant, setSelectedApplicant] = useState<string | null>(null);
 
@@ -45,9 +45,9 @@ export function ApplicantsPageClient() {
         <ApplicantsTable onRowClick={(id)=> setSelectedApplicant(id)} />
       </div>
 
-      <ToastContainer />
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
 
-      {openAdd && <AddApplicantModal open={openAdd} onClose={()=> setOpenAdd(false)} onSaved={()=> { setOpenAdd(false); showToast({ title: 'Applicant added', type: 'success' }); }} />}
+      {openAdd && <AddApplicantModal open={openAdd} onClose={()=> setOpenAdd(false)} onSaved={()=> { setOpenAdd(false); showToast('Applicant added'); }} />}
 
       {selectedApplicant && <ApplicantDetailsDrawer applicantId={selectedApplicant} onClose={()=> setSelectedApplicant(null)} />}
     </div>

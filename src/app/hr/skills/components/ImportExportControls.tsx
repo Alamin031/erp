@@ -13,13 +13,13 @@ export function ImportExportControls() {
   async function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
     if (!f) return;
-    if (!f.name.endsWith('.csv')) { showToast({ title: 'Invalid file type', type: 'error' }); return; }
-    if (f.size > 2 * 1024 * 1024) { showToast({ title: 'File too large (max 2MB)', type: 'error' }); return; }
+    if (!f.name.endsWith('.csv')) { showToast('Invalid file type'); return; }
+    if (f.size > 2 * 1024 * 1024) { showToast('File too large (max 2MB)'); return; }
     const res = await importCSV(f);
     if (!res.ok) {
-      showToast({ title: 'Import completed with errors', description: `${res.imported} imported`, type: 'warning' });
+      showToast(`Import completed with errors: ${res.imported} imported`);
     } else {
-      showToast({ title: 'Import successful', description: `${res.imported} records imported`, type: 'success' });
+      showToast(`Import successful: ${res.imported} records imported`);
     }
     if (inputRef.current) inputRef.current.value = '';
   }
@@ -40,7 +40,7 @@ export function ImportExportControls() {
     a.download = 'skills_export.csv';
     a.click();
     URL.revokeObjectURL(url);
-    showToast({ title: 'Exported', type: 'success' });
+    showToast('Exported');
   }
 
   return (

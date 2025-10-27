@@ -15,7 +15,7 @@ export function JobsPageClient() {
   const { loadDemoData, jobs } = useJobs();
   const [openNew, setOpenNew] = useState(false);
   const [selectedJob, setSelectedJob] = useState<string | null>(null);
-  const { showToast } = useToast();
+  const { showToast, toasts, removeToast } = useToast();
 
   useEffect(() => { if (jobs.length === 0) loadDemoData(); }, [jobs.length, loadDemoData]);
 
@@ -42,12 +42,12 @@ export function JobsPageClient() {
           <AnalyticsChart />
         </div>
 
-        <JobOpeningsTable onRowClick={(id)=> setSelectedJob(id)} />
+      <JobOpeningsTable onRowClick={(id)=> setSelectedJob(id)} />
       </div>
 
-      <ToastContainer />
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
 
-      {openNew && <NewJobModal open={openNew} onClose={() => setOpenNew(false)} onSaved={() => { setOpenNew(false); showToast({ title: 'Job created', type: 'success' }); }} />}
+      {openNew && <NewJobModal open={openNew} onClose={() => setOpenNew(false)} onSaved={() => { setOpenNew(false); showToast('Job created'); }} />}
 
       {selectedJob && <JobDetailsDrawer jobId={selectedJob} onClose={() => setSelectedJob(null)} />}
     </div>

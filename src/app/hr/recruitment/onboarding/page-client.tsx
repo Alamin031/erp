@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from 'react';
 import { useOnboarding } from './store/useOnboarding';
 import { OnboardingTable } from './components/OnboardingTable';

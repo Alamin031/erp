@@ -14,7 +14,7 @@ import { ImportExportControls } from "./components/ImportExportControls";
 
 export function SkillsPageClient() {
   const { loadDemoData, skills, assignments, employees, setSearchQuery } = useSkills();
-  const { showToast } = useToast();
+  const { showToast, toasts, removeToast } = useToast();
   const [openNew, setOpenNew] = useState(false);
   const [q, setQ] = useState("");
 
@@ -94,13 +94,13 @@ export function SkillsPageClient() {
             onClose={() => setOpenNew(false)}
             onSaved={() => {
               setOpenNew(false);
-              showToast({ title: "Skill created", type: "success" });
+              showToast("Skill created");
             }}
           />
         )}
       </AnimatePresence>
 
-      <ToastContainer />
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
     </div>
   );
 }

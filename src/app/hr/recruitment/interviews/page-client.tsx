@@ -14,7 +14,7 @@ export function InterviewsPageClient() {
   const { loadDemoData, interviews } = useInterviews();
   const [openNew, setOpenNew] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const { showToast } = useToast();
+  const { showToast, toasts, removeToast } = useToast();
 
   useEffect(()=> { if (interviews.length === 0) loadDemoData(); }, [interviews.length, loadDemoData]);
 
@@ -48,9 +48,9 @@ export function InterviewsPageClient() {
         <InterviewsTable onView={(id)=> setSelectedId(id)} />
       </div>
 
-      <ToastContainer />
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
 
-      {openNew && <NewInterviewModal open={openNew} onClose={()=> setOpenNew(false)} onSaved={()=> { setOpenNew(false); showToast({ title: 'Interview scheduled', type: 'success' }); }} />}
+      {openNew && <NewInterviewModal open={openNew} onClose={()=> setOpenNew(false)} onSaved={()=> { setOpenNew(false); showToast('Interview scheduled'); }} />}
 
       {selectedId && <InterviewDetailsDrawer interviewId={selectedId} onClose={()=> setSelectedId(null)} />}
     </div>

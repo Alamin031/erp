@@ -21,10 +21,10 @@ export function OnboardingTable({ onView }: { onView?: (id:string)=>void }) {
 
   function markAllCompleted() {
     selected.forEach(id => markCompleted(id));
-    showToast({ title: 'Marked selected as completed', type: 'success' });
+    showToast('Marked selected as completed');
   }
 
-  function handleExport() { exportToCsv(rows, 'onboardings.csv'); showToast({ title: 'Export started', type: 'success' }); }
+  function handleExport() { exportToCsv(rows, 'onboardings.csv'); showToast('Export started'); }
 
   return (
     <div>
@@ -63,7 +63,7 @@ export function OnboardingTable({ onView }: { onView?: (id:string)=>void }) {
                 <td className="px-3 py-2 text-right">
                   <button onClick={()=> onView?.(r.id)} className="text-zinc-300 mr-2">View</button>
                   <button onClick={()=> setAssignOpen(r.id)} className="text-emerald-300 mr-2"><UserPlus className="inline h-4 w-4" /></button>
-                  <button onClick={()=> { archiveOnboarding(r.id); showToast({ title: 'Archived', type: 'success' }); }} className="text-rose-400"><Trash2 className="inline h-4 w-4" /></button>
+                  <button onClick={()=> { archiveOnboarding(r.id); showToast('Archived'); }} className="text-rose-400"><Trash2 className="inline h-4 w-4" /></button>
                 </td>
               </tr>
             ))}

@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { z } from "zod";
 import { usePlanning } from "@/store/usePlanning";
-import { usePlanning as usePlanningTypes } from "@/types/planning";
 
 const schema = z.object({
   employeeId: z.string().min(1),

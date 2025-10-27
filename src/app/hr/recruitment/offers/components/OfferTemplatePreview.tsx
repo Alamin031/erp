@@ -15,7 +15,7 @@ export function OfferTemplatePreview({ open, onClose, template }: { open: boolea
   return (
     <Dialog open={open} onClose={onClose} className="fixed inset-0 z-50">
       <div className="flex items-center justify-center min-h-screen">
-        <Dialog.Overlay className="fixed inset-0 bg-black/60" />
+        <div aria-hidden className="fixed inset-0 bg-black/60" />
         <div className="relative w-full max-w-3xl mx-auto bg-zinc-900 border border-zinc-800 rounded-2xl p-6 z-50">
           <h3 className="text-lg font-semibold text-zinc-100 mb-4">Offer Preview</h3>
           <div className="prose prose-invert max-h-[60vh] overflow-auto text-zinc-100 whitespace-pre-wrap">{html}</div>

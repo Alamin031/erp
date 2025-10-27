@@ -8,7 +8,6 @@ import { X } from 'lucide-react';
 import * as z from 'zod';
 import { useApplicants } from '../store/useApplicants';
 import { useJobs } from '../../jobs/store/useJobs';
-import { useJobs as useJobsTypes } from '../../jobs/types';
 import { useJobs as useJobsStore } from '../../jobs/store/useJobs';
 
 const schema = z.object({

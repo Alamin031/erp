@@ -48,7 +48,7 @@ export function ScheduleTable({ onEdit }: { onEdit?: (id: string) => void }) {
               <td className="px-3 py-2 text-zinc-300">{s.status}</td>
               <td className="px-3 py-2 text-right">
                 <button onClick={() => onEdit?.(s.id)} className="text-slate-300 hover:text-slate-100 mr-3"><Edit2 className="h-4 w-4" /></button>
-                <button onClick={() => { if (confirm('Delete shift?')) { deleteShift(s.id); showToast({ title: 'Deleted', type: 'success' }); }}} className="text-rose-400 hover:text-rose-300"><Trash2 className="h-4 w-4" /></button>
+                <button onClick={() => { if (confirm('Delete shift?')) { deleteShift(s.id); showToast('Deleted'); }}} className="text-rose-400 hover:text-rose-300"><Trash2 className="h-4 w-4" /></button>
               </td>
             </tr>
           ))}

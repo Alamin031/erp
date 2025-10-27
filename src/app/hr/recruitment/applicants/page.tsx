@@ -1,6 +1,7 @@
 import { DashboardLayout } from '@/app/dashboard-layout';
 import { redirect } from 'next/navigation';
 import { ApplicantsPageClient } from './page-client';
+import { getSession } from '@/lib/auth';
 
 export default async function ApplicantsPage() {
   const session = await getSession();

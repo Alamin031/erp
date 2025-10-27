@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useApplicants } from '../store/useApplicants';
 import { useJobs } from '../../jobs/store/useJobs';
-import { useJobs as useJobsTypes } from '../../jobs/types';
 
 export function ApplicantDetailsDrawer({ applicantId, onClose }: { applicantId: string; onClose: () => void }) {
   const { applicants, updateApplicant, deleteApplicant } = useApplicants();

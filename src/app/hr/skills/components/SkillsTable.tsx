@@ -69,7 +69,7 @@ export function SkillsTable({ onAdd }: { onAdd?: () => void }) {
                     className="text-rose-400 hover:text-rose-300"
                     onClick={() => {
                       deleteSkill(skill.id);
-                      showToast({ title: "Skill deleted", type: "success", description: `${skill.name} removed` });
+                      showToast(`${skill.name} removed`);
                     }}
                   >
                     <Trash2 className="inline h-4 w-4" />

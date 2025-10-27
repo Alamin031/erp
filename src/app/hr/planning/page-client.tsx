@@ -15,7 +15,7 @@ import { ExportScheduleMenu } from "./components/ExportScheduleMenu";
 
 export function PlanningPageClient() {
   const { loadDemoData, shifts, employees, getUtilizationStats } = usePlanning();
-  const { showToast } = useToast();
+  const { showToast, toasts, removeToast } = useToast();
   const [openAssign, setOpenAssign] = useState(false);
   const [editShiftId, setEditShiftId] = useState<string | null>(null);
   const [q, setQ] = useState("");
@@ -71,14 +71,14 @@ export function PlanningPageClient() {
         </aside>
       </div>
 
-      <ToastContainer />
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
 
       {openAssign && (
-        <ShiftAssignmentModal open={openAssign} onClose={() => setOpenAssign(false)} onSaved={() => { setOpenAssign(false); showToast({ title: 'Shift assigned', type: 'success' }); }} />
+        <ShiftAssignmentModal open={openAssign} onClose={() => setOpenAssign(false)} onSaved={() => { setOpenAssign(false); showToast('Shift assigned'); }} />
       )}
 
       {editShiftId && (
-        <ShiftAssignmentModal open={!!editShiftId} editId={editShiftId!} onClose={() => setEditShiftId(null)} onSaved={() => { setEditShiftId(null); showToast({ title: 'Shift updated', type: 'success' }); }} />
+        <ShiftAssignmentModal open={!!editShiftId} editId={editShiftId!} onClose={() => setEditShiftId(null)} onSaved={() => { setEditShiftId(null); showToast('Shift updated'); }} />
       )}
     </div>
   );

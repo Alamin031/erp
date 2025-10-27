@@ -44,8 +44,8 @@ export function ApplicantsTable({ onRowClick }: { onRowClick?: (id: string) => v
               <td className="px-3 py-2 text-zinc-300">{r.appliedDate || '-'}</td>
               <td className="px-3 py-2 text-zinc-300">{r.status}</td>
               <td className="px-3 py-2 text-right">
-                <button onClick={(e)=> { e.stopPropagation(); updateApplicant(r.id, { stage: 'shortlisted' }); showToast({ title: 'Shortlisted', type: 'success' }); }} className="text-amber-400 hover:text-amber-300 mr-3">Shortlist</button>
-                <button onClick={(e)=> { e.stopPropagation(); deleteApplicant(r.id); showToast({ title: 'Applicant deleted', type: 'success' }); }} className="text-rose-400 hover:text-rose-300"><Trash2 className="inline h-4 w-4" /></button>
+                <button onClick={(e)=> { e.stopPropagation(); updateApplicant(r.id, { stage: 'shortlisted' }); showToast('Shortlisted'); }} className="text-amber-400 hover:text-amber-300 mr-3">Shortlist</button>
+                <button onClick={(e)=> { e.stopPropagation(); deleteApplicant(r.id); showToast('Applicant deleted'); }} className="text-rose-400 hover:text-rose-300"><Trash2 className="inline h-4 w-4" /></button>
               </td>
             </tr>
           ))}

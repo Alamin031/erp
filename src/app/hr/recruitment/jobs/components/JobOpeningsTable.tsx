@@ -48,8 +48,8 @@ export function JobOpeningsTable({ onRowClick }: { onRowClick?: (id: string) => 
               <td className="px-3 py-2 text-zinc-300">{job.status}</td>
               <td className="px-3 py-2 text-right text-zinc-200">{job.applicants || 0}</td>
               <td className="px-3 py-2 text-right">
-                <button onClick={(e)=> { e.stopPropagation(); updateJob(job.id, { status: 'closed' }); showToast({ title: 'Job closed', type: 'success' }); }} className="text-amber-400 hover:text-amber-300 mr-3">Close</button>
-                <button onClick={(e)=> { e.stopPropagation(); deleteJob(job.id); showToast({ title: 'Job deleted', type: 'success' }); }} className="text-rose-400 hover:text-rose-300"><Trash2 className="inline h-4 w-4" /></button>
+                <button onClick={(e)=> { e.stopPropagation(); updateJob(job.id, { status: 'closed' }); showToast('Job closed'); }} className="text-amber-400 hover:text-amber-300 mr-3">Close</button>
+                <button onClick={(e)=> { e.stopPropagation(); deleteJob(job.id); showToast('Job deleted'); }} className="text-rose-400 hover:text-rose-300"><Trash2 className="inline h-4 w-4" /></button>
               </td>
             </tr>
           ))}

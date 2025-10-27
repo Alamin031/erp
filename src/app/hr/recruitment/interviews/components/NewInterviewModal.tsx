@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -31,11 +31,11 @@ export function NewInterviewModal({ open, editId, onClose, onSaved }: { open: bo
   const { jobs } = useJobs();
   const editing = interviews.find(i=> i.id === editId);
 
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { durationMins: 30, type: 'video' } as any });
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), defaultValues: { durationMins: 30, type: 'video' } as any });
 
   useEffect(()=> { if (editing) reset({ applicantId: editing.applicantId, jobId: editing.jobId, type: editing.type, interviewers: editing.interviewers, date: editing.date, startTime: editing.startTime, durationMins: editing.durationMins, location: editing.location, round: editing.round, notes: editing.notes }); }, [editId]);
 
-  function onSubmit(values: FormValues) {
+  const onSubmit: SubmitHandler<FormValues> = (values) => {
     if (editing) { updateInterview(editing.id, values as any); onSaved?.(); return; }
     scheduleInterview({ applicantId: values.applicantId, jobId: values.jobId, type: values.type as any, interviewers: values.interviewers || [], date: values.date, startTime: values.startTime, durationMins: values.durationMins || 30, location: values.location, round: values.round, notes: values.notes, status: 'scheduled' });
     onSaved?.();

@@ -1,6 +1,7 @@
 import { DashboardLayout } from '@/app/dashboard-layout';
 import { redirect } from 'next/navigation';
 import { InterviewsPageClient } from './page-client';
+import { getSession } from '@/lib/auth';
 
 export default async function InterviewsPage() {
   const session = await getSession();
