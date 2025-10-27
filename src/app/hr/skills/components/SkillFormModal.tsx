@@ -73,18 +73,13 @@ export function SkillFormModal({ open, editId, onClose, onSaved }: Props) {
             </div>
             <div>
               <label className="block text-slate-300 text-sm mb-1" htmlFor="tags">Tags (comma separated)</label>
-              <input id="tags" placeholder="frontend, web" onChange={(e)=> {
-                const parts = e.target.value.split(',').map(s=> s.trim()).filter(Boolean);
-                // update RHF manually
-              }} className="hidden" />
-              <input aria-label="Tags" defaultValue={(editing?.tags||[]).join(', ')} onBlur={(e)=> {
-                const parts = e.target.value.split(',').map(s=> s.trim()).filter(Boolean);
-                // @ts-ignore
-                const input = document.getElementById('tags-hidden') as HTMLInputElement | null;
-                
-              }} className="w-full rounded-xl bg-slate-800/70 border border-slate-700 px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-400/60" />
-              {/* Bridge tags string to array */}
-              <input id="tags-hidden" type="hidden" {...register("tags")} />
+              <input
+                id="tags"
+                value={tagsInput}
+                onChange={(e)=> setTagsInput(e.target.value)}
+                placeholder="frontend, web"
+                className="w-full rounded-xl bg-slate-800/70 border border-slate-700 px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-400/60"
+              />
             </div>
             <div>
               <label className="block text-slate-300 text-sm mb-1" htmlFor="description">Description</label>
