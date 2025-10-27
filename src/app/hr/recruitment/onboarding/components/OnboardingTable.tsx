@@ -3,7 +3,6 @@ import { useMemo, useState } from 'react';
 import { useOnboarding } from '../store/useOnboarding';
 import { useApplicants } from '../../applicants/store/useApplicants';
 import { AssignMentorModal } from './AssignMentorModal';
-import { TaskChecklist } from './TaskChecklist';
 import { Download, UserPlus, Trash2 } from 'lucide-react';
 import { exportToCsv } from '@/lib/export';
 import { useToast } from '@/components/toast';
