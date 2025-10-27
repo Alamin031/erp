@@ -1,0 +1,4 @@
+[
+  { "employeeId": "emp-1", "skillId": "skill-react", "by": "manager-1", "note": "Leads complex React features", "at": "2024-02-01T09:00:00Z" },
+  { "employeeId": "emp-3", "skillId": "skill-ml", "by": "peer-chen", "note": "Great model tuning", "at": "2024-02-10T12:30:00Z" }
+]

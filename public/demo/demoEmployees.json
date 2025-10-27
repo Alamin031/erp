@@ -1,0 +1,10 @@
+[
+  { "id": "emp-1", "name": "Alex Johnson", "department": "Engineering", "role": "Frontend Engineer" },
+  { "id": "emp-2", "name": "Priya Singh", "department": "Engineering", "role": "Backend Engineer" },
+  { "id": "emp-3", "name": "Chen Wei", "department": "Data", "role": "Data Scientist" },
+  { "id": "emp-4", "name": "Maria Garcia", "department": "Design", "role": "Product Designer" },
+  { "id": "emp-5", "name": "James Miller", "department": "Engineering", "role": "Full-stack Engineer" },
+  { "id": "emp-6", "name": "Aisha Khan", "department": "DevOps", "role": "DevOps Engineer" },
+  { "id": "emp-7", "name": "Liam O\u2019Brien", "department": "Engineering", "role": "Mobile Engineer" },
+  { "id": "emp-8", "name": "Sofia Rossi", "department": "Engineering", "role": "QA Engineer" }
+]

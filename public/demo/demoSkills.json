@@ -1,0 +1,12 @@
+[
+  { "id": "skill-js", "name": "JavaScript", "category": "Engineering", "tags": ["frontend","web"], "createdAt": "2024-01-02T10:00:00Z" },
+  { "id": "skill-ts", "name": "TypeScript", "category": "Engineering", "tags": ["frontend","web"], "createdAt": "2024-01-03T10:00:00Z" },
+  { "id": "skill-react", "name": "React", "category": "Engineering", "tags": ["frontend","web"], "createdAt": "2024-01-04T10:00:00Z" },
+  { "id": "skill-node", "name": "Node.js", "category": "Engineering", "tags": ["backend"], "createdAt": "2024-01-05T10:00:00Z" },
+  { "id": "skill-sql", "name": "SQL", "category": "Data", "tags": ["database"], "createdAt": "2024-01-06T10:00:00Z" },
+  { "id": "skill-uiux", "name": "UI/UX", "category": "Design", "tags": ["design"], "createdAt": "2024-01-07T10:00:00Z" },
+  { "id": "skill-ml", "name": "Machine Learning", "category": "Data", "tags": ["ai"], "createdAt": "2024-01-08T10:00:00Z" },
+  { "id": "skill-aws", "name": "AWS", "category": "DevOps", "tags": ["cloud"], "createdAt": "2024-01-09T10:00:00Z" },
+  { "id": "skill-python", "name": "Python", "category": "Engineering", "tags": ["backend","data"], "createdAt": "2024-01-10T10:00:00Z" },
+  { "id": "skill-comms", "name": "Communication", "category": "Soft Skills", "tags": ["soft"], "createdAt": "2024-01-11T10:00:00Z" }
+]
