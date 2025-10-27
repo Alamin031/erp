@@ -21,12 +21,7 @@ export function OnboardingTable({ onView }: { onView?: (id:string)=>void }) {
   function toggle(id:string) { setSelected(s => s.includes(id) ? s.filter(x=> x!==id) : [...s, id]); }
 
   function markAllCompleted() {
-    selected.forEach(id => {
-      // @ts-ignore
-      (window as any).__onboardingMarkCompleted?.(id);
-    });
-    // fallback: try to call store if available
-    try { const s = (require('../../store/useOnboarding') as any).useOnboarding; if (s && s.getState) { const store = s.getState(); if (store.markCompleted) selected.forEach((id:any) => store.markCompleted(id)); } } catch (e) {}
+    selected.forEach(id => markCompleted(id));
     showToast({ title: 'Marked selected as completed', type: 'success' });
   }
 
