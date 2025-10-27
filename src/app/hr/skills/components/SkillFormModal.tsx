@@ -21,6 +21,7 @@ export function SkillFormModal({ open, editId, onClose, onSaved }: Props) {
   const { showToast } = useToast();
 
   const editing = skills.find(s => s.id === editId);
+  const [tagsInput, setTagsInput] = useState<string>(editing ? (editing.tags || []).join(", ") : "");
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<SkillFormInput>({
     resolver: zodResolver(skillFormSchema),
@@ -28,17 +29,21 @@ export function SkillFormModal({ open, editId, onClose, onSaved }: Props) {
   });
 
   useEffect(() => {
-    if (editing) reset({ name: editing.name, category: editing.category || "", tags: editing.tags || [], description: editing.description || "" });
+    if (editing) {
+      reset({ name: editing.name, category: editing.category || "", tags: editing.tags || [], description: editing.description || "" });
+      setTagsInput((editing.tags || []).join(", "));
+    }
   }, [editId]);
 
   async function onSubmit(values: SkillFormInput) {
+    const tags = tagsInput.split(',').map(s=> s.trim()).filter(Boolean);
     if (editing) {
-      updateSkill(editId!, { ...values, tags: values.tags?.filter(Boolean) });
+      updateSkill(editId!, { ...values, tags });
       showToast({ title: "Skill updated", type: "success" });
       onSaved?.();
       return;
     }
-    const res = addSkill({ ...values, tags: values.tags?.filter(Boolean) });
+    const res = addSkill({ ...values, tags });
     if (!res.ok) {
       showToast({ title: res.message || "Failed", type: "error" });
       return;
