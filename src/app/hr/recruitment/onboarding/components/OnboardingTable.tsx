@@ -9,7 +9,7 @@ import { exportToCsv } from '@/lib/export';
 import { useToast } from '@/components/toast';
 
 export function OnboardingTable({ onView }: { onView?: (id:string)=>void }) {
-  const { onboardings, selectOnboarding, archiveOnboarding, filterOnboardings } = useOnboarding();
+  const { onboardings, selectOnboarding, archiveOnboarding, filterOnboardings, markCompleted } = useOnboarding();
   const { applicants } = useApplicants();
   const { showToast } = useToast();
   const [selected, setSelected] = useState<string[]>([]);
