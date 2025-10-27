@@ -1,0 +1,7 @@
+[
+  {
+    "id": "tpl-1",
+    "name": "Standard Offer",
+    "body": "Dear {candidate_name},\n\nWe are pleased to offer you the position of {job_title} at a base salary of {salary} per year. Your joining date will be {joining_date}.\n\nSincerely,\nHR Team"
+  }
+]
