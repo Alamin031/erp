@@ -1,0 +1,5 @@
+[
+  { "id": "iv-1", "name": "Grace Hopper", "role": "Tech Lead", "avatarUrl": "" },
+  { "id": "iv-2", "name": "Alan Turing", "role": "Senior Engineer", "avatarUrl": "" },
+  { "id": "iv-3", "name": "Ada Lovelace", "role": "HR Manager", "avatarUrl": "" }
+]
