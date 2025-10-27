@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { DashboardLayout } from "@/app/dashboard-layout";
 import { redirect } from "next/navigation";
+import { PlanningPageClient } from "./page-client";
 
 export default async function PlanningPage() {
   const session = await getSession();
@@ -10,7 +11,7 @@ export default async function PlanningPage() {
   }
 
   const userRole = (session.user as any).role;
-  const allowedRoles = ["super_admin", "general_manager"];
+  const allowedRoles = ["super_admin", "general_manager", "hr_manager"];
 
   if (!allowedRoles.includes(userRole)) {
     redirect("/unauthorized");
@@ -18,13 +19,7 @@ export default async function PlanningPage() {
 
   return (
     <DashboardLayout>
-      <div style={{ padding: "24px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: "700", marginBottom: "16px" }}>Planning</h1>
-        <div style={{ background: "#fff", borderRadius: "8px", padding: "24px", border: "1px solid #eef2f6" }}>
-          <p style={{ color: "#6b7280", fontSize: "16px" }}>Planning management is under development.</p>
-          <p style={{ color: "#6b7280", fontSize: "14px", marginTop: "12px" }}>Manage your employees' schedule and resource planning.</p>
-        </div>
-      </div>
+      <PlanningPageClient />
     </DashboardLayout>
   );
 }

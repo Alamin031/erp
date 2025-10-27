@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ob-1",
+    "employeeName": "Alice Johnson",
+    "employeeId": "app-2",
+    "department": "Engineering",
+    "startDate": "2025-11-01",
+    "mentorId": "m-1",
+    "tasks": [
+      { "id": "t-1", "title": "Welcome Email", "done": true },
+      { "id": "t-2", "title": "Equipment Setup", "done": false },
+      { "id": "t-3", "title": "Policy Briefing", "done": false }
+    ],
+    "notes": "Needs laptop provisioning",
+    "status": "in_progress",
+    "createdAt": "2025-10-01T10:00:00.000Z",
+    "updatedAt": "2025-10-02T10:00:00.000Z",
+    "timeline": [{ "id": "tl-1", "text": "Created onboarding", "at": "2025-10-01T10:00:00.000Z" }]
+  }
+]

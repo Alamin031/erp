@@ -1,0 +1,5 @@
+[
+  { "id": "app-1", "name": "Samantha Lee", "email": "samantha.lee@example.com", "phone": "555-0123", "jobId": "job-1", "source": "LinkedIn", "appliedDate": "2024-09-15", "recruiterId": "r-1", "stage": "applied", "status": "active", "notes": ["Resume looks good"], "attachments": [] },
+  { "id": "app-2", "name": "Mark Thompson", "email": "mark.t@example.com", "phone": "555-0456", "jobId": "job-2", "source": "Website", "appliedDate": "2024-09-10", "recruiterId": "r-2", "stage": "shortlisted", "status": "active", "notes": ["Strong SQL"], "attachments": [] },
+  { "id": "app-3", "name": "Aisha Khan", "email": "aisha.k@example.com", "phone": "555-0789", "jobId": "job-1", "source": "Referral", "appliedDate": "2024-09-12", "recruiterId": null, "stage": "interview", "status": "active", "notes": [], "attachments": [] }
+]

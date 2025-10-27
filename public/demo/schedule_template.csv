@@ -1,0 +1,3 @@
+employeeId,employeeName,department,role,date,startTime,endTime,notes
+emp-1,Alex Johnson,Engineering,Frontend Engineer,2024-10-01,09:00,17:00,Feature work
+emp-2,Priya Singh,Engineering,Backend Engineer,2024-10-01,10:00,18:00,API maintenance

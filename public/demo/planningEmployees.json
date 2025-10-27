@@ -1,0 +1,7 @@
+[
+  { "id": "emp-1", "name": "Alex Johnson", "department": "Engineering", "role": "Frontend Engineer" },
+  { "id": "emp-2", "name": "Priya Singh", "department": "Engineering", "role": "Backend Engineer" },
+  { "id": "emp-3", "name": "Chen Wei", "department": "Data", "role": "Data Scientist" },
+  { "id": "emp-4", "name": "Maria Garcia", "department": "Design", "role": "Product Designer" },
+  { "id": "emp-5", "name": "James Miller", "department": "Engineering", "role": "Full-stack Engineer" }
+]

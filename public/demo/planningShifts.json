@@ -1,0 +1,5 @@
+[
+  { "id": "shift-1", "employeeId": "emp-1", "department": "Engineering", "role": "Frontend Engineer", "date": "2024-10-01", "startTime": "09:00", "endTime": "17:00", "notes": "Feature work", "status": "scheduled" },
+  { "id": "shift-2", "employeeId": "emp-2", "department": "Engineering", "role": "Backend Engineer", "date": "2024-10-01", "startTime": "10:00", "endTime": "18:00", "notes": "API maintenance", "status": "scheduled" },
+  { "id": "shift-3", "employeeId": "emp-3", "department": "Data", "role": "Data Scientist", "date": "2024-10-02", "startTime": "08:30", "endTime": "16:30", "notes": "Model training", "status": "scheduled" }
+]

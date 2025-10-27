@@ -1,0 +1,16 @@
+[
+  {
+    "id": "of-1",
+    "applicantId": "app-1",
+    "jobId": "job-1",
+    "templateId": "tpl-1",
+    "baseSalary": 70000,
+    "joiningDate": "2025-11-01",
+    "expiryDate": "2025-11-15",
+    "notes": "Welcome aboard!",
+    "status": "draft",
+    "createdAt": "2025-10-01T12:00:00.000Z",
+    "updatedAt": "2025-10-01T12:00:00.000Z",
+    "timeline": [{ "id": "t1", "status": "draft", "text": "Created draft", "at": "2025-10-01T12:00:00.000Z" }]
+  }
+]

@@ -1,0 +1,5 @@
+[
+  { "id": "job-1", "title": "Frontend Engineer", "department": "Engineering", "employmentType": "Full-time", "location": "Remote", "salaryRange": "$70k-$100k", "postingDate": "2024-09-01", "closingDate": "2024-10-01", "description": "Work on our web app.", "requiredSkills": ["React","TypeScript"], "recruiterId": "r-1", "status": "open", "applicants": 14 },
+  { "id": "job-2", "title": "Data Engineer", "department": "Data", "employmentType": "Full-time", "location": "NYC", "salaryRange": "$80k-$120k", "postingDate": "2024-08-15", "closingDate": "2024-09-30", "description": "Build data pipelines.", "requiredSkills": ["SQL","Python"], "recruiterId": "r-2", "status": "draft", "applicants": 3 },
+  { "id": "job-3", "title": "Product Designer", "department": "Design", "employmentType": "Contract", "location": "Remote", "salaryRange": "$40/h-$60/h", "postingDate": "2024-06-01", "closingDate": "2024-07-01", "description": "Design product experiences.", "requiredSkills": ["Figma","UX"], "recruiterId": "r-1", "status": "filled", "applicants": 21 }
+]
