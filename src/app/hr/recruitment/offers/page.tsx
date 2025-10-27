@@ -1,5 +1,8 @@
 import { redirect } from 'next/navigation';
 import { OffersPageClient } from './page-client';
+import { redirect } from 'next/navigation';
+import { getSession } from '@/lib/auth';
+import { DashboardLayout } from '@/app/dashboard-layout';
 
 export default async function OffersPage() {
   const session = await getSession();
